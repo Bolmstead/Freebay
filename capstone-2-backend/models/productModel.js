@@ -1,7 +1,12 @@
 "use strict";
 
+const products1 = require("../products_1");
+const products2 = require("../products_2");
+const products3 = require("../products_3");
+
 const db = require("../db");
 const { BadRequestError, NotFoundError } = require("../expressError");
+
 
 /** Related functions for companies. */
 
@@ -53,52 +58,56 @@ class Product {
    * Returns [{ handle, name, description, numEmployees, logoUrl }, ...]
    * */
 
-  static async findAll(searchFilters = {}) {
+  static async getProducts(searchFilters = {}) {
     let query = `SELECT id,
                         name,
-                        categories,
+                        category,
+                        sub_category AS "subCategory",
                         description,
                         condition,
                         rating,
-                        num_of_ratings AS numOfRatings,
-                        image_url AS imageUrl,
-                        market_price AS marketPrice,
-                        highest_bid_price AS highestBidPrice,
-                        highest_bidder AS "highestBidder",
+                        num_of_ratings AS "numOfRatings",
+                        image_url AS "imageUrl",
+                        market_price AS "marketPrice",
                         auction_end_dt AS "auctionEndDt",
+                        bid_count AS "bidCount",
                         is_sold AS "isSold"
                  FROM products`;
     let whereExpressions = [];
     let queryValues = [];
 
-    const { name, categories, description, condition, rating, numOfRatings, auctionEndDt, minBid, maxBid } = searchFilters;
+    const name = 'tv'
+
+    // const { name, categories, description, condition, rating, numOfRatings, auctionEndDt, minBid, maxBid } = searchFilters;
+
+    let category, subCategory, description, condition, rating, numOfRatings, auctionEndDt, minBid, highestBidPrice
 
     // For each possible search term, add to whereExpressions and queryValues so
     // we can generate the right SQL
 
-    if (name) {
+    if (name !== undefined) {
       queryValues.push(`%${name}%`);
       whereExpressions.push(`name ILIKE $${queryValues.length}`);
     }
 
-    if (description) {
-      queryValues.push(`%${description}%`);
-      whereExpressions.push(`description ILIKE $${queryValues.length}`);
+    if (category !== undefined) {
+      queryValues.push(`%${category}%`);
+      whereExpressions.push(`category ILIKE $${queryValues.length}`);
     }
 
-    if (categories) {
-      queryValues.push(`%${categories}%`);
-      whereExpressions.push(`categories ILIKE $${queryValues.length}`);
-    }
-
-    if (condition !== undefined) {
-      queryValues.push(condition);
-      whereExpressions.push(`condition = $${queryValues.length}`);
+    if (subCategory !== undefined) {
+      queryValues.push(`%${subCategory}%`);
+      whereExpressions.push(`sub_category ILIKE $${queryValues.length}`);
     }
 
     if (description !== undefined) {
       queryValues.push(description);
       whereExpressions.push(`description ILIKE $${queryValues.length}`);
+    }
+
+    if (condition !== undefined) {
+      queryValues.push(condition);
+      whereExpressions.push(`condition = $${queryValues.length}`);
     }
 
     if (rating !== undefined) {
@@ -108,23 +117,23 @@ class Product {
 
     if (numOfRatings !== undefined) {
       queryValues.push(numOfRatings);
-      whereExpressions.push(`numOfRatings >= $${queryValues.length}`);
+      whereExpressions.push(`num_of_ratings >= $${queryValues.length}`);
     }
 
-    if (highestBidPrice !== undefined) {
-      queryValues.push(highestBidPrice);
-      whereExpressions.push(`highestBidPrice BETWEEN $${queryValues.length} AND $${queryValues.length+1}`);
+    if (auctionEndDt !== undefined) {
+      queryValues.push(auctionEndDt);
+      whereExpressions.push(`auction_end_dt >= $${queryValues.length}`);
     }
 
-    whereExpressions.push(`isSold = false`);
+
+    whereExpressions.push(`is_sold = false`);
 
     query += " WHERE " + whereExpressions.join(" AND ");
 
-
     // Finalize query and return results
 
-    query += " ORDER BY name";
     const findAllRes = await db.query(query, queryValues);
+    console.log(findAllRes.rows)
     return findAllRes.rows;
   }
 
@@ -137,32 +146,33 @@ class Product {
    **/
 
   static async get(id) {
-    const productRes = await db.query(
-      `SELECT id,
-              name,
-              categories,
-              description,
-              condition,
-              rating,
-              num_of_ratings AS numOfRatings,
-              image_url AS imageUrl,
-              market_price AS marketPrice,
-              highest_bid_price AS highestBidPrice,
-              highest_bidder AS "highestBidder",
-              auction_end_dt AS "auctionEndDt",
-              is_sold AS "isSold"
-      FROM products
-           WHERE id = $1`,
+    const productRes = await db.query( 
+    `SELECT id,
+            name,
+            category,
+            sub_category AS "subCategory",
+            description,
+            condition,
+            rating,
+            num_of_ratings AS "numOfRatings",
+            image_url AS "imageUrl",
+            market_price AS "marketPrice",
+            auction_end_dt AS "auctionEndDt",
+            bid_count AS "bidCount",
+            is_sold AS "isSold"
+    FROM products
+    WHERE id = $1`,
         [id]);
 
-    const product = productRes.rows[0];
+    console.log("productRes",productRes.rows)
+    if (!productRes) throw new NotFoundError(`No product: ${id}`);
+      console.log("product from get(id): ",product)
 
-    if (!product) throw new NotFoundError(`No product: ${id}`);
-
-    return product;
+    // const product = productRes.rows[0];
+    return productRes;
   }
 
-    /** Add all products
+        /** Add all products to database
    *
    * This is a "partial update" --- it's fine if data doesn't contain all the
    * fields; this only changes provided ones.
@@ -174,17 +184,34 @@ class Product {
    * Throws NotFoundError if not found.
    */
 
-  static async seedProductsToDatabase() {
-    const querySql = `
-      INSERT INTO products (name, category, sub_category, description, condition, 
-                          rating, num_of_ratings, image_url, market_price, auction_end_dt)
-      VALUES `;
-    const result = await db.query(querySql);
-    const added = result.rows[0];
+  static async seedProducts() {
+    for (let i = 0; i < products1.length; i++) {
+      console.log(i)
+      const valuesArray =
+        [products1[i]["item"], products1[i]["category"], products1[i]["sub_category"], products1[i]["description"], products1[i]["condition"], products1[i]["rating"], products1[i]["num_of_ratings"], products1[i]["image_1"], products1[i]["market_price"], products1[i]["auction_end_dt"]]
 
-    if (!added) throw new NotFoundError(`Bid not added to count: ${productId}`);
+      await db.query(`INSERT INTO products (name, category, sub_category, description, condition, rating, num_of_ratings, image_url, market_price, auction_end_dt) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`, valuesArray)
+      }
+    
+    for (let i = 0; i < products2.length; i++) {
+      console.log(i)
+      const valuesArray =
+        [products2[i]["item"], products2[i]["category"], products2[i]["sub_category"], products2[i]["description"], products2[i]["condition"], products2[i]["rating"], products2[i]["num_of_ratings"], products2[i]["image_1"], products2[i]["market_price"], products2[i]["auction_end_dt"]]
 
-    return added;
+      await db.query(`INSERT INTO products (name, category, sub_category, description, condition, rating, num_of_ratings, image_url, market_price, auction_end_dt) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`, valuesArray)
+      }
+
+    for (let i = 0; i < products3.length; i++) {
+      console.log(i)
+      const valuesArray =
+        [products3[i]["item"], products3[i]["category"], products3[i]["sub_category"], products3[i]["description"], products3[i]["condition"], products3[i]["rating"], products3[i]["num_of_ratings"], products3[i]["image_1"], products3[i]["market_price"], products3[i]["auction_end_dt"]]
+
+      await db.query(`INSERT INTO products (name, category, sub_category, description, condition, rating, num_of_ratings, image_url, market_price, auction_end_dt) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`, valuesArray)
+      }
+    }
 
     /** Update product as sold.
    *
@@ -199,15 +226,13 @@ class Product {
    */
 
   static async addToBidCount(productId) {
-    const querySql = `UPDATE products 
-                      SET bid_count = bid_count + 1,
-                      WHERE id = ${productId}`;
-    const result = await db.query(querySql);
-    const added = result.rows[0];
-
-    if (!added) throw new NotFoundError(`Bid not added to count: ${productId}`);
-
-    return added;
+    const result = await db.query(`UPDATE products 
+                      SET bid_count = bid_count + 1
+                      WHERE id = $1`,[productId]);
+    if (!result) throw new NotFoundError(
+          `Bid not added to count: ${productId}`);
+    console.log("result", result)
+    return result;
   }
 
 
@@ -223,35 +248,41 @@ class Product {
    * Throws NotFoundError if not found.
    */
 
-  static async updateProductSold(productId) {
-    const querySql = `UPDATE products 
-                      SET is_sold = false,
-                      WHERE id = ${productId}`;
-    const result = await db.query(querySql);
-    const product = result.rows[0];
-
-    if (!product) throw new NotFoundError(`No product: ${productId}`);
-
-    return product;
+  static async productSold(productId) {
+    const result = await db.query(`UPDATE products 
+                      SET is_sold = true
+                      WHERE id = $1`,[productId]);
+    if (!result) throw new NotFoundError(`No product: ${productId}`);
+    console.log("productSold result", result)
+    return result;
   }
 
-  /** Delete given product from database; returns undefined.
-   *
-   * Throws NotFoundError if product not found.
-   **/
+// Update rating of product
 
-  // static async remove(handle) {
-  //   const result = await db.query(
-  //         `DELETE
-  //          FROM companies
-  //          WHERE handle = $1
-  //          RETURNING handle`,
-  //       [handle]);
-  //   const product = result.rows[0];
+  static async addRating(productId, newRating) {
+    // Grab product's rating and number of ratings from database
+    const product = await Product.get(productId)
+    const rating = parseFloat(product["rating"])
+    const numOfRatings = product["numOfRatings"]
+    // Calculate the new total rating with the provided user's rating
+    const newTotalRating = ((newRating + (rating * numOfRatings))/(numOfRatings+1));
 
-  //   if (!product) throw new NotFoundError(`No product: ${handle}`);
-  // }
+    // Make SQL query to update rating
+    const result = await db.query(
+      `UPDATE products 
+       SET num_of_ratings = num_of_ratings + 1, rating = ${newTotalRating}
+       WHERE id = $1`,[productId]);
+    if (!result) throw new NotFoundError(`No product: ${productId}`);
+    console.log("New Product Rating", result)
+    return result;
+  }
 }
+
+// Product.addRating(785, 5)
+// Product.get(785)
+
+// Product.seedProducts(785)
+
 
 
 module.exports = Product;

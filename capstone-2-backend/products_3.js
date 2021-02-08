@@ -1,4 +1,4 @@
-[
+const products3 = [
         {
          "item":"1984 (Signet Classics)",
          "category":"Sports, Hobbies, & Misc",
@@ -2254,5 +2254,115 @@
          "image_1":"https://images-na.ssl-images-amazon.com/images/I/71xVE%2BVijKL._AC_UY445_.jpg",
          "market_price":2.99,
          "auction_end_dt":"2021-02-12 16:51:19"
+      },
+      {
+         "item":"The Hill We Climb: An Inaugural Poem for the Country",
+         "category":"Sports, Hobbies, & Misc",
+         "sub_category":"Books",
+         "description":"This is a really cool product",
+         "condition":"New",
+         "rating":1.5,
+         "num_of_ratings":3784,
+         "image_1":"https://secure.touchnet.com/C20243_ustores/web/images/product-default-image.png",
+         "market_price":12.25,
+         "auction_end_dt":"2021-02-20 01:51:19"
+      },
+      {
+         "item":"Flashlight Night: An Adventure in Trusting God",
+         "category":"Sports, Hobbies, & Misc",
+         "sub_category":"Books",
+         "description":"This is a really cool product",
+         "condition":"New",
+         "rating":3.5,
+         "num_of_ratings":2557,
+         "image_1":"https://secure.touchnet.com/C20243_ustores/web/images/product-default-image.png",
+         "market_price":13.49,
+         "auction_end_dt":"2021-02-06 07:51:19"
+      },
+      {
+         "item":"How Toddlers Thrive: What Parents Can Do Today for Children Ages 2-5 to Plant the Seeds of Lifelong Success",
+         "category":"Sports, Hobbies, & Misc",
+         "sub_category":"Books",
+         "description":"This is a really cool product",
+         "condition":"New",
+         "rating":0.8,
+         "num_of_ratings":541,
+         "image_1":"https://secure.touchnet.com/C20243_ustores/web/images/product-default-image.png",
+         "market_price":10.99,
+         "auction_end_dt":"2021-02-06 08:53:19"
+      },
+      {
+         "item":"Unmasked: Inside Antifa's Radical Plan to Destroy Democracy",
+         "category":"Sports, Hobbies, & Misc",
+         "sub_category":"Books",
+         "description":"This is a really cool product",
+         "condition":"New",
+         "rating":2.6,
+         "num_of_ratings":1921,
+         "image_1":"https://secure.touchnet.com/C20243_ustores/web/images/product-default-image.png",
+         "market_price":23.07,
+         "auction_end_dt":"2021-02-13 05:50:19"
+      },
+      {
+         "item":"The Four Agreements: A Practical Guide to Personal Freedom (A Toltec Wisdom Book)",
+         "category":"Sports, Hobbies, & Misc",
+         "sub_category":"Books",
+         "description":"This is a really cool product",
+         "condition":"Used",
+         "rating":3.6,
+         "num_of_ratings":3597,
+         "image_1":"https://secure.touchnet.com/C20243_ustores/web/images/product-default-image.png",
+         "market_price":5.94,
+         "auction_end_dt":"2021-02-06 15:53:19"
+      },
+      {
+         "item":"A Promised Land",
+         "category":"Sports, Hobbies, & Misc",
+         "sub_category":"Books",
+         "description":"This is a really cool product",
+         "condition":"New - Open Box",
+         "rating":2.0,
+         "num_of_ratings":4446,
+         "image_1":"https://secure.touchnet.com/C20243_ustores/web/images/product-default-image.png",
+         "market_price":23.96,
+         "auction_end_dt":"2021-02-11 14:54:19"
+      },
+      {
+         "item":"I Love You to the Moon and Back",
+         "category":"Sports, Hobbies, & Misc",
+         "sub_category":"Books",
+         "description":"This is a really cool product",
+         "condition":"New - Open Box",
+         "rating":4.2,
+         "num_of_ratings":1949,
+         "image_1":"https://secure.touchnet.com/C20243_ustores/web/images/product-default-image.png",
+         "market_price":5.0,
+         "auction_end_dt":"2021-02-06 08:52:19"
+      },
+      {
+         "item":"Knock Knock What I Love about You Fill in the Love Book Fill-in-the-Blank Gift Journal, 4.5 x 3.25-Inches",
+         "category":"Sports, Hobbies, & Misc",
+         "sub_category":"Books",
+         "description":"This fits your.Make sure this fits by entering your model number. This little book contains fill-in-the-blank lines describing some aspect of your affection for a loved oneHardcover with removable clear plastic jacket .  . inches  pagesSimple prompts make it easy to express yourselfJust complete each line and voila you have a uniquely personal gift your loved one will read again and againMake it as mushy racy or witty as you cho",
+         "condition":"New - Open Box",
+         "rating":1.8,
+         "num_of_ratings":160,
+         "image_1":"https://images-na.ssl-images-amazon.com/images/I/81kbmVHUxpL._AC_SX355_.jpg",
+         "market_price":8.22,
+         "auction_end_dt":"2021-02-11 21:50:19"
+      },
+      {
+         "item":"The Purpose Driven Life: What on Earth Am I Here For?",
+         "category":"Sports, Hobbies, & Misc",
+         "sub_category":"Books",
+         "description":"This is a really cool product",
+         "condition":"Used",
+         "rating":2.3,
+         "num_of_ratings":1306,
+         "image_1":"https://secure.touchnet.com/C20243_ustores/web/images/product-default-image.png",
+         "market_price":8.2,
+         "auction_end_dt":"2021-02-20 18:55:19"
       }
    ]
+
+   module.exports = products3;

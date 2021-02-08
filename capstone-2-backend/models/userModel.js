@@ -2,7 +2,6 @@
 
 const db = require("../db");
 const bcrypt = require("bcrypt");
-const { sqlForPartialUpdate } = require("../helpers/sql");
 const {
   NotFoundError,
   BadRequestError,
@@ -21,26 +20,24 @@ class User {
    * Throws UnauthorizedError is user not found or wrong password.
    **/
 
-  static async authenticate(username, email, password) {
+   // ISSUE WITH INVALID PASSWORD/USERNAME. I BELEIVE IT IS FROM ASYNC/AWAIT ISSUES. BOTH RESULT AND USER ARE UNDEFINED, BUT COULD BE DEFINED IF WAIT FOR RESULT
+  static async authenticate(email, password) {
     // try to find the user first
-    const query = `SELECT username,
-                          email,
-                          password
-                  FROM users`;
-    let whereExpressions = [];
+    const result = await db.query(
+      `SELECT email,
+              username,
+              first_name AS "firstName",
+              last_name AS "lastName",
+              balance,
+              notifications
+       FROM users
+       WHERE password = $1`,
+    [password],
+    );
+    console.log("result from User.authenticate", result)
 
-    if (username){
-      whereExpressions.push(`username = $${username}`);
-    }
-
-    if (email){
-      whereExpressions.push(`email = $${email}`);
-    }
-
-   query += " WHERE " + whereExpressions;
-
-   const userRes = await db.query(query);
-   const user = userRes[0]
+    const user = result.rows[0];
+    console.log("user from User.authenticate", user)
 
     if (user) {
       // compare hashed password to a new hash from password
@@ -51,7 +48,7 @@ class User {
       }
     }
 
-    throw new UnauthorizedError("Invalid username/password");
+    throw new UnauthorizedError("Invalid email/password");
   }
 
   /** Register user with data.
@@ -63,6 +60,7 @@ class User {
 
   static async register(
       { email, username, password, firstName, lastName }) {
+    console.log("User model register method")
     const duplicateCheck = await db.query(
           `SELECT email
            FROM users
@@ -74,39 +72,28 @@ class User {
       throw new BadRequestError(`Duplicate email: ${username}`);
     }
 
-    const duplicateCheck = await db.query(
-          `SELECT username
-          FROM users
-          WHERE username = $1`,
-        [username],
-    );
-
-if (duplicateCheck.rows[0]) {
-  throw new BadRequestError(`Duplicate username: ${username}`);
-}
+    // Let user start off with $100
+    let balance = 100
 
     const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
 
     const result = await db.query(
           `INSERT INTO users
-           (username,
-            password,
-            first_name,
-            last_name,
-            email)
-           VALUES ($1, $2, $3, $4, $5,)
-           RETURNING username, first_name AS "firstName", last_name AS "lastName", email,  AS ""`,
+           (email, username, password, first_name, last_name, balance)
+           VALUES ($1, $2, $3, $4, $5, $6)
+           RETURNING email, username, password, first_name AS firstName, last_name AS lastName, balance`,
         [
+          email,
           username,
           hashedPassword,
           firstName,
           lastName,
-          email,
+          balance
         ],
     );
 
     const user = result.rows[0];
-
+    console.log("user from register method", user)
     return user;
   }
 
@@ -118,25 +105,23 @@ if (duplicateCheck.rows[0]) {
    * Throws NotFoundError if user not found.
    **/
 
-  static async get(email) {
+  static async get(username) {
     const userRes = await db.query(
           `SELECT email,
                   username,
                   first_name AS "firstName",
                   last_name AS "lastName",
                   balance,
-                  current_highest_bids AS "currentHighestBids",
-                  products_won AS "productsWon",
                   notifications
            FROM users
-           WHERE email = $1`,
-        [email],
+           WHERE username = $1`,
+        [username],
     );
 
     const user = userRes.rows[0];
 
     if (!user) throw new NotFoundError(`No user: ${username}`);
-
+      console.log("get method from user class", user)
     return user;
   }
 
@@ -206,5 +191,14 @@ if (duplicateCheck.rows[0]) {
 
 }
 
+const user = {
+  email: "asdfasdf@test.com",
+  username: "useddr123",
+  password: "blah",
+  firstName: "John2",
+  lastName: "Johnson2"
+}
+// User.get("asdfasdf@test.com")
+// User.register(user)
 
 module.exports = User;

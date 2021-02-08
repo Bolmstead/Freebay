@@ -1,4 +1,4 @@
-[
+const products1 = [
     {
        "item":"Wyze Cam 1080p HD Indoor WiFi Smart Home Camera with Night Vision, 2-Way Audio, Works with Alexa & the Google Assistant, White, 1-Pack",
        "category":"Electronics",
@@ -4966,29 +4966,7 @@
            "image_1":"https://images-na.ssl-images-amazon.com/images/I/714kU%2BPsSbL._AC_SY450_.jpg",
            "market_price":101.99,
            "auction_end_dt":"2021-02-14 09:52:19"
-        },
-        {
-           "item":"SUPER DEAL Portable Compact Mini Twin Tub Washing Machine w/Wash and Spin Cycle, Built-in Gravity Drain, 13lbs Capacity For Camping, Apartments, Dorms, College Rooms, RV\u00c6s, Delicates and more",
-           "category":"Electronics",
-           "sub_category":"Appliances",
-           "description":"This is a really cool product",
-           "condition":"New - Open Box",
-           "rating":4.0,
-           "num_of_ratings":4049,
-           "image_1":"https://images-na.ssl-images-amazon.com/images/I/61HA7Fsh%2BdL._AC_SX522_.jpg",
-           "market_price":115.99,
-           "auction_end_dt":"2021-02-13 16:51:19"
-        },
-        {
-           "item":"Essential Values Ice Machine Cleaner 16 fl oz, Nickel Safe Descaler | Ice Maker Cleaner Compatible with ALL Major Brands - Made in USA",
-           "category":"Electronics",
-           "sub_category":"Appliances",
-           "description":"This fits your.Make sure this fits by entering your model number. BEST VALUES Ice Maker Cleaner On Amazon! Made In USA Four oz Uses In  oz BottleNICKEL SAFE  NON-TOXIC Concentrated Formula For Safe Removal Of Calcium  Mineral Scale Build Up To Continue Producing Great Cube Nugget Crescent Flake  Gourmet Ice With Regular Cleanings Every - Months!UNIVERSAL APPLICATIONS For All Residential  Commercial Types Of Icemakers Including Countertop Freestanding Undercounter  Built-InCOMPATIBLE with ALL MAJOR Ice Machines BrandsPROUDLY MADE IN USA! Our Descaling Solution is Made from Natural  Safe Citric Acid That Is Odorless  Safe for The Environment. Bottle Is Made from  PET and Proudly Made In The USA!",
-           "condition":"Used",
-           "rating":3.7,
-           "num_of_ratings":2935,
-           "image_1":"https://images-na.ssl-images-amazon.com/images/I/71DZfosRz7L._AC_SY879_.jpg",
-           "market_price":10.97,
-           "auction_end_dt":"2021-02-18 01:53:19"
         }
     ]
+
+    

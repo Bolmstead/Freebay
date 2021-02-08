@@ -2,14 +2,14 @@
 
 /** Routes for authentication. */
 
-const jsonschema = require("jsonschema");
+// const jsonschema = require("jsonschema");
 
 const User = require("../models/userModel");
 const express = require("express");
 const router = new express.Router();
 const { createToken } = require("../helpers/tokens");
-const userAuthSchema = require("../schemas/userAuth.json");
-const userRegisterSchema = require("../schemas/userRegister.json");
+// const userAuthSchema = require("../schemas/userAuth.json");
+// const userRegisterSchema = require("../schemas/userRegister.json");
 const { BadRequestError } = require("../expressError");
 
 /** POST /auth/token:  { username, password } => { token }
@@ -21,14 +21,14 @@ const { BadRequestError } = require("../expressError");
 
 router.post("/token", async function (req, res, next) {
   try {
-    const validator = jsonschema.validate(req.body, userAuthSchema);
-    if (!validator.valid) {
-      const errs = validator.errors.map(e => e.stack);
-      throw new BadRequestError(errs);
-    }
+    // const validator = jsonschema.validate(req.body, userAuthSchema);
+    // if (!validator.valid) {
+    //   const errs = validator.errors.map(e => e.stack);
+    //   throw new BadRequestError(errs);
+    // }
 
-    const { username, password } = req.body;
-    const user = await User.authenticate(username, password);
+    const { email, password } = req.body;
+    const user = await User.authenticate(email, password);
     const token = createToken(user);
     return res.json({ token });
   } catch (err) {
@@ -46,18 +46,21 @@ router.post("/token", async function (req, res, next) {
  * Authorization required: none
  */
 
+ // WORKS!!!!!!!!!
 router.post("/register", async function (req, res, next) {
   try {
-    const validator = jsonschema.validate(req.body, userRegisterSchema);
-    if (!validator.valid) {
-      const errs = validator.errors.map(e => e.stack);
-      throw new BadRequestError(errs);
-    }
-
-    const newUser = await User.register({ ...req.body, isAdmin: false });
+//     const validator = jsonschema.validate(req.body, userRegisterSchema);
+//     if (!validator.valid) {
+//       const errs = validator.errors.map(e => e.stack);
+//       throw new BadRequestError(errs);
+//     }
+    console.log("req.body", req.body)
+    const newUser = await User.register({ ...req.body, });
+    console.log("newUser in /register", newUser)
     const token = createToken(newUser);
     return res.status(201).json({ token });
   } catch (err) {
+      console.log("caughterror in /register")
     return next(err);
   }
 });

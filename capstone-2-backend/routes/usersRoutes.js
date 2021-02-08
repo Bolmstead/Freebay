@@ -2,15 +2,15 @@
 
 /** Routes for users. */
 
-const jsonschema = require("jsonschema");
+// const jsonschema = require("jsonschema");
 
 const express = require("express");
 const { ensureCorrectUserOrAdmin, ensureAdmin } = require("../middleware/auth");
 const { BadRequestError } = require("../expressError");
 const User = require("../models/userModel");
 const { createToken } = require("../helpers/tokens");
-const userNewSchema = require("../schemas/userNew.json");
-const userUpdateSchema = require("../schemas/userUpdate.json");
+// const userNewSchema = require("../schemas/userNew.json");
+// const userUpdateSchema = require("../schemas/userUpdate.json");
 
 const router = express.Router();
 
@@ -23,9 +23,11 @@ const router = express.Router();
  * Authorization required: admin or same user-as-:email
  **/
 
-router.get("/:email", ensureCorrectUserOrAdmin, async function (req, res, next) {
+ // WORKS!!!!
+router.get("/:username", async function (req, res, next) {
+  console.log("/users/:username")
   try {
-    const user = await User.get(req.params.email);
+    const user = await User.get(req.params.username);
     return res.json({ user });
   } catch (err) {
     return next(err);

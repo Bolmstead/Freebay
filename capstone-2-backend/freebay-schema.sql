@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS products, users, products_won, highest_bids;
 
 CREATE TABLE products (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
+  name VARCHAR(1000) NOT NULL,
   category VARCHAR(100) NOT NULL,
   sub_category VARCHAR(100) NOT NULL,
   description TEXT NOT NULL,
@@ -17,8 +17,7 @@ CREATE TABLE products (
 );
 
 CREATE TABLE users (
-  email varchar(100) PRIMARY KEY NOT NULL
-    CHECK (position('@' IN email) > 1),
+  email varchar(100) PRIMARY KEY NOT NULL,
   username VARCHAR(100) UNIQUE NOT NULL,
   password TEXT NOT NULL,
   first_name VARCHAR(100) NOT NULL,
@@ -42,3 +41,4 @@ CREATE TABLE highest_bids (
     REFERENCES users(email) ON DELETE CASCADE,
   bid_price DECIMAL NOT NULL
 )
+
