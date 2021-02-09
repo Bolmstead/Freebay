@@ -10,6 +10,7 @@ const { BadRequestError } = require("../expressError");
 const Product = require("../models/productModel");
 const BridgedTables = require("../models/productModel");
 const User = require("../models/userModel");
+const { ensureLoggedInAndCorrectUser, ensureLoggedIn, authenticateJWT } = require("../middleware/auth");
 
 
 
@@ -33,6 +34,7 @@ const router = new express.Router();
  // WORKS!!!! (MINIMUM DOES)
 router.get("/", async function (req, res, next) {
   const q = req.query;
+  console.log("req.query", req.query)
   // arrive as strings from querystring, but we want as ints
   // if (q.rating !== undefined) q.rating = +q.rating;
   // if (q.numOfRatings !== undefined) q.numOfRatings = +q.numOfRatings;
@@ -45,7 +47,7 @@ router.get("/", async function (req, res, next) {
 //       throw new BadRequestError(errs);
 //     }
 
-    const products = await Product.getProducts();
+    const products = await Product.getProducts(q);
     return res.json({ products });
 
 })
@@ -62,9 +64,10 @@ router.get("/", async function (req, res, next) {
  * Authorization required: none
  */
 
-//  FIX!!!!!
+//  WORKS!!!!
 router.get("/:id", async function (req, res, next) {
   try {
+    console.log(req.params.id)
     const product = await Product.get(req.params.id);
     return res.json({ product });
   } catch (err) {
@@ -83,6 +86,8 @@ router.get("/:id", async function (req, res, next) {
 
 router.post("/:productId/bid/:amount", async function (req, res, next) {
   try {
+    const user = res.locals.user;
+    console.log("user", user)
     const productId = req.params.productId;
     const bidAmount = req.params.amount;
     const product = await Product.get(productId);
@@ -90,8 +95,6 @@ router.post("/:productId/bid/:amount", async function (req, res, next) {
     if (product.bidPrice > bidAmount) {
       throw new BadRequestError(errs);
     }
-
-    const user = res.locals.user;
 
     const highestBid = await BridgedTables.highestBid(productId, user.email, amount)
     const addToBidCount = await Product.addToBidCount(productId)
@@ -162,8 +165,6 @@ router.post("/:productId/winner", async function (req, res, next) {
 //     return next(err);
 //   }
 // });
-
-
 
 
 module.exports = router;

@@ -76,11 +76,12 @@ class Product {
     let whereExpressions = [];
     let queryValues = [];
 
-    const name = 'tv'
 
-    // const { name, categories, description, condition, rating, numOfRatings, auctionEndDt, minBid, maxBid } = searchFilters;
+    const { name, category, subCategory, description, condition, rating, numOfRatings, auctionEndDt} = searchFilters;
 
-    let category, subCategory, description, condition, rating, numOfRatings, auctionEndDt, minBid, highestBidPrice
+
+    console.log("search categories to be used in SQL command","name", name, 'category', category, 'subCategory', subCategory, 'description', description, 'condition', condition,'rating', rating, 'numOfRatings', numOfRatings, 'auctionEndDt', auctionEndDt)
+
 
     // For each possible search term, add to whereExpressions and queryValues so
     // we can generate the right SQL
@@ -164,12 +165,11 @@ class Product {
     WHERE id = $1`,
         [id]);
 
-    console.log("productRes",productRes.rows)
+    console.log("productRes from get() method", productRes.rows[0])
     if (!productRes) throw new NotFoundError(`No product: ${id}`);
-      console.log("product from get(id): ",product)
 
     // const product = productRes.rows[0];
-    return productRes;
+    return productRes.rows[0];
   }
 
         /** Add all products to database

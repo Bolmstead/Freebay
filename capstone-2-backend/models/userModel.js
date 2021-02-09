@@ -20,24 +20,26 @@ class User {
    * Throws UnauthorizedError is user not found or wrong password.
    **/
 
-   // ISSUE WITH INVALID PASSWORD/USERNAME. I BELEIVE IT IS FROM ASYNC/AWAIT ISSUES. BOTH RESULT AND USER ARE UNDEFINED, BUT COULD BE DEFINED IF WAIT FOR RESULT
+   // works!!!!!!!!!!1
   static async authenticate(email, password) {
     // try to find the user first
     const result = await db.query(
       `SELECT email,
               username,
+              password,
               first_name AS "firstName",
               last_name AS "lastName",
               balance,
               notifications
        FROM users
-       WHERE password = $1`,
-    [password],
+       WHERE email = $1`,
+    [email],
     );
-    console.log("result from User.authenticate", result)
-
     const user = result.rows[0];
     console.log("user from User.authenticate", user)
+    console.log("password", password)
+    console.log("user[password]", user[password])
+
 
     if (user) {
       // compare hashed password to a new hash from password
@@ -57,7 +59,7 @@ class User {
    *
    * Throws BadRequestError on duplicates.
    **/
-
+  // WORKS!!!
   static async register(
       { email, username, password, firstName, lastName }) {
     console.log("User model register method")

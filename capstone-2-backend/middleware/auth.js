@@ -17,6 +17,9 @@ const { UnauthorizedError } = require("../expressError");
 
 function authenticateJWT(req, res, next) {
   try {
+    console.log("authenticatingJWT middleware")
+    console.log("res.locals.user", res.locals.user)
+
     const authHeader = req.headers && req.headers.authorization;
     if (authHeader) {
       const token = authHeader.replace(/^[Bb]earer /, "").trim();
@@ -35,6 +38,8 @@ function authenticateJWT(req, res, next) {
 
 function ensureLoggedIn(req, res, next) {
   try {
+    console.log("res.locals.user", res.locals.user)
+    console.log("ensureLoggedIn middleware")
     if (!res.locals.user) throw new UnauthorizedError();
     return next();
   } catch (err) {
@@ -48,8 +53,10 @@ function ensureLoggedIn(req, res, next) {
  *  If not, raises Unauthorized.
  */
 
-function ensureCorrectUser(req, res, next) {
+function ensureLoggedInAndCorrectUser(req, res, next) {
   try {
+    console.log("res.locals.user", res.locals.user)
+    console.log("ensureLoggedInAndCorrectUser middleware")
     const user = res.locals.user;
     if (!(user && (user.email === req.params.username))) {
       throw new UnauthorizedError();
@@ -64,5 +71,5 @@ function ensureCorrectUser(req, res, next) {
 module.exports = {
   authenticateJWT,
   ensureLoggedIn,
-  ensureCorrectUser,
+  ensureLoggedInAndCorrectUser,
 };
