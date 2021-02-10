@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import './ProductSlider.css'
 import Button from '@material-ui/core/Button';
 
 

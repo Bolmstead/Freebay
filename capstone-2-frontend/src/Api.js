@@ -44,8 +44,8 @@ class FreebayAPI {
 
   /** Get details on all products. */
 
-  static async getProducts(subCategory) {
-        let url = `products/?subCategory=` + subCategory
+  static async getProducts(searchTerm) {
+        let url = `products/?name=` + searchTerm
         console.log("url", url)
         let res = await this.request(url);
         console.log("res from getProducts,", res)
@@ -57,7 +57,7 @@ class FreebayAPI {
 
   static async getProductsInCategory(subCategory) {
     // console.log('subCategory', subCategory)
-    let url = `products/?subCategory=` + subCategory["subCategory"]
+    let url = `products/?subCategory=` + subCategory
     console.log("url", url)
     let res = await this.request(url);
     console.log("res from getProducts,", res)

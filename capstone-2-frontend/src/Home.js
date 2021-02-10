@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import ProductSlider from './Components/Products/ProductSlider.js'
 import ProductCard from './Components/Products/ProductCard.js'
 import ProductList from './Components/Products/ProductList.js'
-// import FreebayAPI from './Api'
+import FreebayAPI from './Api'
 
 
 

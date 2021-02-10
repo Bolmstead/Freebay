@@ -4,6 +4,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Link from '@material-ui/core/Link';
 import { ListItemIcon } from '@material-ui/core';
+import { v4 as uuid } from 'uuid';
 
 
 export default function Category({category, subCategories}) {
@@ -30,7 +31,7 @@ export default function Category({category, subCategories}) {
         onClose={handleClose}
       >
           {subCategories.map((item)=>{
-            return <Link href={"/products/?subCategory=" + item}><MenuItem onClick={handleClose}>{item}</MenuItem></Link>
+            return <Link id={uuid()} href={"/products/category/" + item}><MenuItem id={uuid()} onClick={handleClose}>{item}</MenuItem></Link>
           })}
       </Menu>
     </div>

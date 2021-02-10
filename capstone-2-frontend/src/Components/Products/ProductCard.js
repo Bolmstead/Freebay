@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button';
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import Link from '@material-ui/core/Link';
+
 
 
 
@@ -28,7 +30,7 @@ const useStyles = makeStyles({
 
 
 
-function ProductCard({name, bidPrice, imageUrl, rating, numOfRatings, auctionEndDt}) {
+function ProductCard({id, name, bidPrice, imageUrl, rating, numOfRatings, auctionEndDt}) {
   const classes = useStyles();
 
   function truncate(str, n){
@@ -63,6 +65,7 @@ function ProductCard({name, bidPrice, imageUrl, rating, numOfRatings, auctionEnd
   console.log("countdownDisplay", countdownDisplay)
 
   return (
+    <Link href={"/product/" + id} color="inherit">
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
@@ -75,19 +78,20 @@ function ProductCard({name, bidPrice, imageUrl, rating, numOfRatings, auctionEnd
           <Typography gutterBottom variant="body2" component="p">
             {shortName}
           </Typography>
-        <Rating name="read-only" value={rating} size="small" readOnly display="inline"/>      <Typography variant="caption" display="inline" className="ratingNumber">
+        <Rating name="read-only" value={rating} size="small" readOnly display="inline"/>      <Typography variant="caption" display="inline" className="ratingNumber" color="textSecondary">
         {numOfRatings}
       </Typography>
       </div>
           <Typography variant="body2" color="textSecondary" component="p">
             {priceTitle}
           </Typography>
-          <Typography variant="body2" color="textPrimary" component="p" fontWeight="fontWeightBold">
+          {/* <Typography variant="body2" color="textPrimary" component="p" fontWeight="fontWeightBold">
             {countdownDisplay}
-          </Typography>
+          </Typography> */}
         </CardContent>
       </CardActionArea>
     </Card>
+  </Link>
   );
 }
 

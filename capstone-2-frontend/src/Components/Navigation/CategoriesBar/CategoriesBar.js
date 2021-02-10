@@ -158,7 +158,7 @@ function ProductCategoriesBar() {
               alignItems="center"
             >
           
-          <Category category={"Electronics"} className= {classes.menuButton}
+          <Category category={"Electronics"} className= "flexItem"
           subCategories = {["Cellphones & Accessories", "Computers & Accessories", "Photo", "Smart Home"]}/>
           
           <Category category={"Fashion"} className= "flexItem"

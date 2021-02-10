@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from "react";
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -16,6 +16,11 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
+import SearchForm from "../Common/SearchForm"
+import FreebayAPI from '../../Api.js'
+import ProductsContext from "../Common/ProductsContext";
+
+
 
 
 
@@ -51,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
     pointerEvents: 'none',
     alignItems: 'center',
     justifyContent: 'center',
+    color: 'black',
   },
   inputRoot: {
     color: 'black',
@@ -67,11 +73,38 @@ const useStyles = makeStyles((theme) => ({
   flex: {
       display: 'flex',
     },
+  searchButton: {
+    background: 'none',
+    padding: '0px',
+    border: 'none',
+  }
 
 }));
 
+
+
 function PrimarySearchAppBar() {
   const classes = useStyles();
+
+  const { products, getProducts } = useContext(ProductsContext);
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  /** Tell parent to filter */
+  function handleSubmit(evt) {
+    // take care of accidentally trying to search for just spaces
+    console.log("searchTerm", searchTerm)
+    evt.preventDefault();
+    let newUrl = `/products/?name=` + searchTerm
+    console.log(newUrl)
+    getProducts(searchTerm.trim() || undefined);
+    setSearchTerm(searchTerm.trim());
+  }
+
+  function handleChange(evt) {
+    setSearchTerm(evt.target.value);
+    console.log("searchTerm", searchTerm)
+  }
 
   return (
     <div className={classes.grow}>
@@ -81,8 +114,11 @@ function PrimarySearchAppBar() {
             <img src="/images/logo.png" alt="logo" id="logo"></img>
           </Link>
           <div className={classes.search}>
+          <form onSubmit={handleSubmit} action={`/products/?name=` + searchTerm}>
             <div className={classes.searchIcon}>
-              <SearchIcon />
+              <button type="submit" className={classes.searchButton} href={"/products/?name=" + searchTerm}>
+                <SearchIcon />
+              </button>
             </div>
             <InputBase
               placeholder="Search for anything"
@@ -91,11 +127,16 @@ function PrimarySearchAppBar() {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
+              onChange={handleChange}
+              value={searchTerm}
             />
+          </form>
           </div>
+
           <div>
             <span className={classes.balance}>$69.00</span>
-            <IconButton aria-label="show 17 new notifications" color="black">
+
+            <IconButton aria-label="show 17 new notifications">
               <Badge badgeContent={17} color="secondary">
                 <NotificationsIcon />
               </Badge>
@@ -104,7 +145,6 @@ function PrimarySearchAppBar() {
               edge="end"
               aria-label="account of current user"
               aria-haspopup="true"
-              color="black"
             >
               <AccountCircle />
             </IconButton>
