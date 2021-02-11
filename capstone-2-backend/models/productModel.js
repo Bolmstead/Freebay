@@ -166,7 +166,40 @@ class Product {
         [id]);
 
     console.log("productRes from get() method", productRes.rows[0])
-    if (!productRes) throw new NotFoundError(`No product: ${id}`);
+    if (!productRes) throw new NotFoundError(`No product found: ${id}`);
+
+    // const product = productRes.rows[0];
+    return productRes.rows[0];
+  }
+
+
+  static async getProductsAndHighestBidder(id) {
+    const productRes = await db.query( 
+    `SELECT products.id,
+          products.name,
+          products.category,
+          products.sub_category AS "subCategory",
+          products.description,
+          products.condition,
+          products.rating,
+          products.num_of_ratings AS "numOfRatings",
+          products.image_url AS "imageUrl",
+          products.market_price AS "marketPrice",
+          products.auction_end_dt AS "auctionEndDt",
+          products.bid_count AS "bidCount",
+          products.is_sold AS "isSold",
+          users.email AS "bidderEmail",
+          users.first_name AS "bidderFirstName",
+          users.last_name AS "bidderLastName",
+          users.username AS "bidderUsername"
+      FROM products
+      JOIN highest_bids ON products.id = highest_bids.product_id
+      JOIN users ON highest_bids.user_email = users.email
+      WHERE products.id = $1`,
+        [id]);
+
+    console.log("productRes from get() method", productRes.rows[0])
+    if (!productRes) throw new NotFoundError(`No product found: ${id}`);
 
     // const product = productRes.rows[0];
     return productRes.rows[0];
@@ -231,7 +264,17 @@ class Product {
                       WHERE id = $1`,[productId]);
     if (!result) throw new NotFoundError(
           `Bid not added to count: ${productId}`);
-    console.log("result", result)
+    console.log("result from addtobidcount", result)
+    return result;
+  }
+
+  static async addAuctionTime(productId, newDateTime) {
+    const result = await db.query(`UPDATE products 
+                      SET auction_end_dt = $1
+                      WHERE id = $2`,[newDateTime, productId]);
+    if (!result) throw new NotFoundError(
+          `30 seconds not added to auction time: ${productId}`);
+    console.log("result from addAuctionTime", result)
     return result;
   }
 
@@ -281,7 +324,7 @@ class Product {
 // Product.addRating(785, 5)
 // Product.get(785)
 
-// Product.seedProducts(785)
+Product.addAuctionTime(24)
 
 
 

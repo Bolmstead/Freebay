@@ -128,6 +128,102 @@ class User {
   }
 
 
+
+
+  static async getUserAndProductsWon(id) {
+    const productRes = await db.query( 
+    `SELECT users.email,
+          users.username,
+          users.first_name AS "firstName",
+          users.last_name AS "lastName",
+          users.balance,
+          users.notifications,
+          products.id,
+          products.name,
+          products.category,
+          products.sub_category AS "subCategory",
+          products.description,
+          products.condition,
+          products.rating,
+          products.num_of_ratings AS "numOfRatings",
+          products.image_url AS "imageUrl",
+          products.market_price AS "marketPrice",
+          products.auction_end_dt AS "auctionEndDt",
+          products.bid_count AS "bidCount",
+          products.is_sold AS "isSold",
+      FROM users
+      JOIN products_won ON products.id = products_won.product_id
+      JOIN users ON products_won.user_email = users.email
+      WHERE products.id = $1`,
+        [id]);
+
+    console.log("productRes from get() method", productRes.rows[0])
+    if (!productRes) throw new NotFoundError(`No product found: ${id}`);
+
+    // const product = productRes.rows[0];
+    return productRes.rows[0];
+
+  }
+
+  //WORK ON THIS!!!!!!!!!
+  static async getUserAndHighestBids(userId) {
+  const productRes = await db.query( 
+    `SELECT users.email,
+          users.username,
+          users.first_name AS "firstName",
+          users.last_name AS "lastName",
+          users.balance,
+          users.notifications,
+          products.id,
+          products.name,
+          products.category,
+          products.sub_category AS "subCategory",
+          products.description,
+          products.condition,
+          products.rating,
+          products.num_of_ratings AS "numOfRatings",
+          products.image_url AS "imageUrl",
+          products.market_price AS "marketPrice",
+          products.auction_end_dt AS "auctionEndDt",
+          products.bid_count AS "bidCount",
+          products.is_sold AS "isSold",
+      FROM users
+      JOIN products_won ON products.id = products_won.product_id
+      JOIN users ON products_won.user_email = users.email
+      WHERE products.id = $1`,
+        [userId]);
+
+    console.log("productRes from get() method", productRes.rows[0])
+    if (!productRes) throw new NotFoundError(`No product found: ${userId}`);
+
+    // const product = productRes.rows[0];
+    return productRes.rows[0];
+
+  }
+
+
+
+
+  static async lowerUserBalance(amount, email) {
+    const result = await db.query(`UPDATE users 
+                      SET balance = balance - $1
+                      WHERE email = $2`,[amount, email]);
+    if (!result) throw new NotFoundError(`Balance not lowered by ${amount} for user:  ${email}`);
+    console.log("lowerUserBalance result", result)
+    return result;
+  }
+
+
+  static async increaseUserBalance(amount, email) {
+    const result = await db.query(`UPDATE users 
+                      SET balance = balance + $1
+                      WHERE email = $2`,[amount, email]);
+    if (!result) throw new NotFoundError(`Balance not increaseed by ${amount} for user:  ${email}`);
+    console.log("increaseUserBalance result", result)
+    return result;
+  }
+
+
   /** Update user data with `data`.
    *
    * This is a "partial update" --- it's fine if data doesn't contain

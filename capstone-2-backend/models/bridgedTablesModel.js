@@ -83,38 +83,59 @@ class BridgedTables {
    // WORKS!!!
   static async updateBid(productId, username, bidPrice) {
     // Grab new highest bidder user information and product information
-    const highest_bidder = await User.get(username)
-    console.log("highest_bidder",highest_bidder)
-    const userEmail = highest_bidder["email"]
+    const newBidder = await User.get(username)
+    console.log("newBidder",newBidder)
+    const newBidderEmail = newBidder["email"]
 
     const product = await Product.get(productId)
     console.log("product",product)
 
 
+
+
     // Grab previous bid information and return error if not found
     const prevBidResult = await db.query(
       `SELECT product_id AS "productId",
-              user_email AS "userEmail",
-              bid_price AS "bidPrice"
+              user_email AS "oldBidderEmail",
+              bid_price AS "oldBidPrice"
        FROM highest_bids
-       WHERE product_id = $1 AND user_email = $2`,
-                    [product['id'], userEmail]);
+       WHERE product_id = $1`,
+                    [product['id']]);
 
     const previousBid = prevBidResult.rows[0];
 
 
 
     if (prevBidResult.rows.length >= 1) {
-      // If there is a previous bid, delete the previous bid and return error if not found
-      const previousBidPrice = parseInt(previousBid["bidPrice"])
+      // If there is a previous bid, delete the previous bid and
+      // increase the previous bidder's balance
+      const previousBidPrice = parseInt(previousBid["oldBidPrice"])
 
       if (previousBidPrice < bidPrice) {
         console.log("bid price is higher than the previous")
+        // remove bid
         await db.query(
           `DELETE FROM highest_bids
           WHERE product_id = $1`,
           [productId]);
           console.log("previous bid deleted")
+
+          const auctionEndObj = new Date(product["auctionEndDt"]);
+          console.log("auctionEndObj",auctionEndObj)
+      
+          const timeLeft = Date.parse(auctionEndObj) - Date.parse(new Date());
+          console.log("timeLeft",timeLeft)
+      
+          if( timeLeft < 60000) {
+            console.log("timeleft is less than one min")
+            auctionEndObj.setSeconds(auctionEndObj.getSeconds()+ 30)
+            console.log("auctionEndObj after 30 seconds",auctionEndObj)
+            let auctionEndString = strftime('%Y-%m-%d %H:%M:%S')
+            console.log("auctionEndString",auctionEndString)
+            Product.addAuctionTime(auctionEndString)
+          }
+        // increase balance
+        await User.increaseUserBalance(previousBidPrice, previousBid["oldBidderEmail"])
       }
       else {
         console.log("bid price is NOT higher than the previous")
@@ -126,15 +147,17 @@ class BridgedTables {
     const addHighestBidder = await db.query(
        `INSERT INTO highest_bids (product_id, user_email, bid_price)
        VALUES ($1, $2, $3)
-       RETURNING product_id AS "productId", user_email AS "userEmail", bid_price AS "bidPrice"`, [productId, userEmail, bidPrice]);
+       RETURNING product_id AS "productId", user_email AS "newBidderEmail", bid_price AS "bidPrice"`, [productId, newBidderEmail, bidPrice]);
     const theHighestBid = addHighestBidder.rows;
 
     console.log("theHighestBid", theHighestBid)
 
-    if (!theHighestBid) throw new BadRequestError(`Unable to update the bid: ${productId}, ${userEmail}, ${bidPrice}`);
+    if (!theHighestBid) throw new BadRequestError(`Unable to update the bid: ${productId}, ${newBidderEmail}, ${bidPrice}`);
+    else{ Product.addToBidCount(productId);
+          User.lowerUserBalance(bidPrice, newBidderEmail)}
 
     // Add notification of outbid to previous highest bidder
-    // const notification = `You have been outbid by ${highest_bidder["username"]} for the item ${product["name"]}. The current bid is ${bidPrice}. If you would like, please bid again.`
+    // const notification = `You have been outbid by ${newBidder["username"]} for the item ${product["name"]}. The current bid is ${bidPrice}. If you would like, please bid again.`
 
     // const addNotificationResult = await db.query(
     //   `UPDATE users
@@ -147,6 +170,8 @@ class BridgedTables {
 
 // BridgedTables.wonProduct(6,"username", 45)
 // BridgedTables.wonProduct(16,"username", 69609)
+BridgedTables.updateBid(24,"username", 72)
+
 
 
 module.exports = BridgedTables;

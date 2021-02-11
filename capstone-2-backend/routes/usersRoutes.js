@@ -27,7 +27,7 @@ const router = express.Router();
 router.get("/:username", async function (req, res, next) {
   console.log("/users/:username")
   try {
-    const user = await User.get(req.params.username);
+    const user = await User.getUserAndProductsWon(req.params.username);
     return res.json({ user });
   } catch (err) {
     return next(err);
