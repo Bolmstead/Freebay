@@ -13,7 +13,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import FreebayAPI from '../../Api.js'
-import ProductsContext from "../Common/ProductsContext";
+import Context from "../Common/Context";
 import { v4 as uuid } from 'uuid';
 
 
@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 
 
 const ProductList = () => {
-  const { products, getProductsInCategory } = useContext(ProductsContext);
+  const { products, getProductsInCategory } = useContext(Context);
 
 
   return (

@@ -13,7 +13,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import FreebayAPI from '../../Api.js'
-import ProductsContext from "../Common/ProductsContext";
+import ProductsContext from "../Common/Context";
 import { v4 as uuid } from 'uuid';
 import {useParams} from 'react-router-dom';
 

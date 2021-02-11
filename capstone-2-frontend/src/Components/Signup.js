@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useContext } from "react";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,19 +12,12 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useHistory } from "react-router-dom";
+import Alert from "./Common/Alert";
+import Context from "./Common/Context";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -48,6 +41,47 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Signup() {
   const classes = useStyles();
+  const history = useHistory();
+  const { signup } = useContext(Context);
+
+
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
+  const [formErrors, setFormErrors] = useState([]);
+
+  console.debug(
+      "Signup",
+      "signup=", typeof signup,
+      "formData=", formData,
+      "formErrors=", formErrors,
+  );
+
+  /** Handle form submit:
+   *
+   * Calls login func prop and, if successful, redirect to /companies.
+   */
+
+  async function handleSubmit(evt) {
+    evt.preventDefault();
+    let result = await signup(formData);
+    if (result.success) {
+      history.push("/home");
+    } else {
+      setFormErrors(result.errors);
+    }
+  }
+
+  /** Update form data field */
+  function handleChange(evt) {
+    const { name, value } = evt.target;
+    setFormData(data => ({ ...data, [name]: value }));
+  }
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -59,7 +93,7 @@ export default function Signup() {
         <span style={{display: 'inline-block'}}>
           Create a freeBay account
         </span>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -71,6 +105,7 @@ export default function Signup() {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -82,6 +117,7 @@ export default function Signup() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -93,6 +129,7 @@ export default function Signup() {
                 label="Username"
                 name="username"
                 autoComplete="username"
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -104,6 +141,7 @@ export default function Signup() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -116,15 +154,21 @@ export default function Signup() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={handleChange}
               />
             </Grid>
           </Grid>
+          {formErrors.length
+                    ? <Alert type="danger" messages={formErrors} />
+                    : null
+                }
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            onSubmit={handleSubmit}
           >
             Sign Up
           </Button>

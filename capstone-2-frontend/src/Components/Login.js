@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useContext } from "react";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useHistory } from "react-router-dom";
+import Alert from "./Common/Alert";
+import Context from "./Common/Context";
+
 
 function Copyright() {
   return (
@@ -46,8 +50,44 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login() {
+export default function Login( ) {
   const classes = useStyles();
+  const history = useHistory();
+  const { login } = useContext(Context);
+
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
+  const [formErrors, setFormErrors] = useState([]);
+
+  console.debug(
+      "LoginForm",
+      "login=", typeof login,
+      "formData=", formData,
+      "formErrors", formErrors,
+  );
+
+  /** Handle form submit:
+   *
+   * Calls login func prop and, if successful, redirect to /companies.
+   */
+
+  async function handleSubmit(evt) {
+    evt.preventDefault();
+    let result = await login(formData);
+    if (result.success) {
+      history.push("/home");
+    } else {
+      setFormErrors(result.errors);
+    }
+  }
+
+  /** Update form data field */
+  function handleChange(evt) {
+    const { name, value } = evt.target;
+    setFormData(l => ({ ...l, [name]: value }));
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -57,9 +97,9 @@ export default function Login() {
           Hello
         </Typography><br></br>
         <span style={{display: 'inline-block'}}>
-          Sign in to freeBay
+          Log in to freeBay
         </span>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -70,6 +110,7 @@ export default function Login() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -82,6 +123,7 @@ export default function Login() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={handleChange}
               />
             </Grid>
           </Grid>
@@ -91,8 +133,9 @@ export default function Login() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onSubmit={handleSubmit}
           >
-            Sign Up
+            Login
           </Button>
           <Grid container justify="flex-end">
             <Grid item>

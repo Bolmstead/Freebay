@@ -18,10 +18,7 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import SearchForm from "../Common/SearchForm"
 import FreebayAPI from '../../Api.js'
-import ProductsContext from "../Common/ProductsContext";
-
-
-
+import ProductsContext from "../Common/Context";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -77,20 +74,40 @@ const useStyles = makeStyles((theme) => ({
     background: 'none',
     padding: '0px',
     border: 'none',
-  }
+  },
 
+  title: {
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
+  },
+
+  sectionDesktop: {
+    display: 'none',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+    },
+  },
+  sectionMobile: {
+    display: 'flex',
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
 }));
 
-
-
-function PrimarySearchAppBar() {
+function PrimarySearchAppBar({logout}) {
   const classes = useStyles();
-
-  const { products, getProducts } = useContext(ProductsContext);
-
   const [searchTerm, setSearchTerm] = useState("");
+  const [accountAnchorEl, setaccountAnchorEl] = React.useState(null);
+  const [notificationsAnchorEl, setNotificationsAnchorEl] = React.useState(null);
 
-  /** Tell parent to filter */
+
+  const { products, getProducts, currentUser, getCurrentUser} = useContext(ProductsContext);
+
+
+  // Handle the Input in the Search Bar
   function handleSubmit(evt) {
     // take care of accidentally trying to search for just spaces
     console.log("searchTerm", searchTerm)
@@ -105,6 +122,64 @@ function PrimarySearchAppBar() {
     setSearchTerm(evt.target.value);
     console.log("searchTerm", searchTerm)
   }
+
+  // Handle functionality of the app bar
+  const isAccountMenuOpen = Boolean(accountAnchorEl);
+  const isNotificationsMenuOpen = Boolean(notificationsAnchorEl);
+
+
+  const handleProfileMenuOpen = (event) => {
+    setaccountAnchorEl(event.currentTarget);
+  };
+
+  const handleProfileMenuClose = () => {
+    setaccountAnchorEl(null);
+  };
+
+  const handleNotificationsMenuOpen = (event) => {
+    setNotificationsAnchorEl(event.currentTarget);
+  };
+
+  const handleNotificationsMenuClose = () => {
+    setNotificationsAnchorEl(null);
+  };
+
+
+  const menuId = 'primary-search-account-menu';
+  const renderAccountMenu = (
+    <Menu
+      anchorEl={accountAnchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isAccountMenuOpen}
+      onClose={handleProfileMenuClose}
+    >
+      { currentUser 
+      ? <Link href={"/Profile/" + currentUser["username"]}><MenuItem onClick={handleProfileMenuClose}>Profile</MenuItem></Link>
+      : <MenuItem onClick={handleProfileMenuClose}>Profile</MenuItem>
+      } 
+      <Link href={"/"} className="m-2" onClick={logout}><MenuItem onClick={handleProfileMenuClose}>Logout</MenuItem></Link>
+    </Menu>
+  );
+  const renderNotificationsMenu = (
+    <Menu
+      anchorEl={notificationsAnchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isNotificationsMenuOpen}
+      onClose={handleNotificationsMenuClose}
+    >
+      <MenuItem onClick={handleNotificationsMenuClose}>"example notification"</MenuItem>
+      <MenuItem onClick={handleNotificationsMenuClose}>View all notifications</MenuItem>
+    </Menu>
+  );
+
+
+
 
   return (
     <div className={classes.grow}>
@@ -132,32 +207,44 @@ function PrimarySearchAppBar() {
             />
           </form>
           </div>
+          {currentUser 
+          ?  <div>
+                <div className={classes.grow} />
 
-          <div>
-            <span className={classes.balance}>$69.00</span>
-
-            <IconButton aria-label="show 17 new notifications">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-haspopup="true"
-            >
-              <AccountCircle />
-            </IconButton>
-          </div> 
-          {/* <div >
-          <Button color="black">Login</Button>
-          <Button color="black">Signup</Button>
-          </div> */}
-
+                <div className={classes.sectionDesktop}>
+                <span className={classes.balance}>{"$" + currentUser["balance"]}</span>
+                <IconButton aria-label="show 17 new notifications">
+                  <Badge badgeContent={17} color="secondary">
+                    <NotificationsIcon 
+                      edge="end"
+                      aria-label="account of current user"
+                      aria-controls={menuId}
+                      onClick={handleNotificationsMenuOpen}
+                      aria-haspopup="true"/>
+                  </Badge>
+                </IconButton>
+                <IconButton
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-controls={menuId}
+                  onClick={handleProfileMenuOpen}
+                  aria-haspopup="true"
+                >
+                  <AccountCircle />
+                </IconButton>
+              </div>
+            </div>
+          :  <div>
+                <Button color="default" href="/login">Login</Button>
+                <Button color="default" href="/signup">Signup</Button>
+             </div>
+          }
         </Toolbar>
       </AppBar>
+      {renderNotificationsMenu}
+      {renderAccountMenu}
     </div>
-  );
+  )
 }
 
 export default PrimarySearchAppBar;

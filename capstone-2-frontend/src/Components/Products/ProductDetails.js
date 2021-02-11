@@ -8,7 +8,7 @@ import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import {useParams} from 'react-router-dom';
 import FreebayAPI from '../../Api.js'
-import ProductsContext from "../Common/ProductsContext";
+import ProductsContext from "../Common/Context";
 import IconButton from '@material-ui/core/IconButton';
 import Container from '@material-ui/core/Container';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
@@ -50,13 +50,7 @@ const useStyles = makeStyles({
 function ProductDetails() {
   const classes = useStyles();
   const { products, getProduct } = useContext(ProductsContext);
-
-  const auctionEndObj = new Date(products["auctionEndDt"])
-  const totalTimeLeft = Date.parse(auctionEndObj) - Date.parse(new Date());
-
-
-  const [countdown, setCountdown] = useState([totalTimeLeft]);
-
+  const [countdown, setCountdown] = useState([]);
   const {id} = useParams();
 
   useState(() => {
@@ -64,9 +58,9 @@ function ProductDetails() {
     console.log(products)
   }, []);
 
-
   // Create countdown timer
-
+  const auctionEndObj = new Date(products["auctionEndDt"])
+  
   useEffect(() => {
     async function getTimeLeft(auctionEndObj){
     const totalTimeLeft = Date.parse(auctionEndObj) - Date.parse(new Date());
@@ -74,7 +68,7 @@ function ProductDetails() {
     }
     getTimeLeft(auctionEndObj)
     console.log("countdown",countdown)
-  }, []);
+  }, [products]);
 
 
   return (
@@ -95,20 +89,20 @@ function ProductDetails() {
               <CardContent className={classes.content}>
                 <Typography component="h7" variant="h7">
                   {products["name"]}
-                </Typography>
-                <Typography variant="subtitle1" color="textSecondary">
-                  Mac Miller
-                </Typography>
+                </Typography><br/>
                 <Rating name="read-only" value={products["rating"]} size="medium" readOnly display="inline"/>      
                 <Typography variant="caption" display="inline" className="ratingNumber" color="textSecondary">
                   {products["numOfRatings"]}
                 </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {products["marketPrice"]}
+                <Typography variant="subtitle1" color="textSecondary">
+                Current bid: ${products["marketPrice"]}
                 </Typography>
                 <form className={classes.root} noValidate autoComplete="off">
 
-                  <TextField id="outlined-basic" label="Place Bid" variant="outlined" />
+                  <TextField id="outlined-basic" label="Bid" variant="outlined" size="small"/>        
+                  <Button size="medium" type="submit" variant="contained" color="Primary" className={classes.margin}>
+                    Place Bid
+                  </Button>
                 </form>
 
                 <Countdown date={Date.now() + countdown} renderer={props => <Typography variant="body2" color="textPrimary" component="p" fontWeight="fontWeightBold">{"Time left: " + props.days + "d " + props.hours + "h " + props.minutes + "m " + props.seconds + "s"}</Typography>} />

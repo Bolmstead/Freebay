@@ -6,6 +6,8 @@ import Home from "./Home";
 import Login from "./Components/Login";
 import ProductCard from "./Components/Products/ProductCard";
 import Signup from "./Components/Signup";
+import Profile from "./Components/Profile";
+
 import ProductList from "./Components/Products/ProductList";
 import ProductCategoryList from "./Components/Products/ProductCategoryList";
 import ProductDetails from "./Components/Products/ProductDetails";
@@ -13,7 +15,7 @@ import ProductDetails from "./Components/Products/ProductDetails";
 
 /** All routes of website along with a catch all route to display a not found route */
 
-function Routes({ login, signup }) {
+function Routes() {
   return (
     <div>
         <Switch>
@@ -31,6 +33,15 @@ function Routes({ login, signup }) {
             </Route>
             <Route exact path="/product/:id">
                 <ProductDetails />
+            </Route>
+            <Route exact path="/Login">
+                <Login />
+            </Route>
+            <Route exact path="/Signup">
+                <Signup/>
+            </Route>
+            <Route exact path="/Profile/:username">
+                <Profile />
             </Route>
 
 

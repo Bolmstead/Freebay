@@ -20,7 +20,7 @@ export default function Category({category, subCategories}) {
 
   return (
     <div>
-      <Button aria-controls="simple-menu" aria-haspopup="true"  onClick={handleClick}>
+      <Button id="button" aria-controls="simple-menu" aria-haspopup="true"  onClick={handleClick}>
         {category}
       </Button>
       <Menu
