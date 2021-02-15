@@ -18,18 +18,24 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import SearchForm from "../Common/SearchForm"
 import FreebayAPI from '../../Api.js'
-import ProductsContext from "../Common/Context";
+import Context from "../Common/Context";
+import {Redirect, useHistory} from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
   balance: {
-    color: "black"
+    color: "#282828",
+    justifyContent: "center",
+    flexDirection: "column",
+    display: "flex"
+
   },
   grow: {
     flexGrow: 1,
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
+  button: {
+    textTransform: 'none',
+    color: '#282828'	
   },
   search: {
     position: 'relative',
@@ -84,38 +90,35 @@ const useStyles = makeStyles((theme) => ({
   },
 
   sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-    },
-  },
-  sectionMobile: {
     display: 'flex',
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
   },
+
 }));
 
-function PrimarySearchAppBar({logout}) {
+function PrimarySearchAppBar() {
   const classes = useStyles();
   const [searchTerm, setSearchTerm] = useState("");
   const [accountAnchorEl, setaccountAnchorEl] = React.useState(null);
   const [notificationsAnchorEl, setNotificationsAnchorEl] = React.useState(null);
 
 
-  const { products, getProducts, currentUser, getCurrentUser} = useContext(ProductsContext);
+  const { products, getProducts, currentUser, getCurrentUser, logout} = useContext(Context);
+  const history = useHistory()
+  let numOfNotifications;
 
+  if (currentUser) {
+    const numOfNotifications = currentUser["notifications"]
+  }
+  console.log("numOfNotifications",numOfNotifications)
 
   // Handle the Input in the Search Bar
   function handleSubmit(evt) {
     // take care of accidentally trying to search for just spaces
+    // evt.preventDefault()
     console.log("searchTerm", searchTerm)
-    evt.preventDefault();
-    let newUrl = `/products/?name=` + searchTerm
-    console.log(newUrl)
-    getProducts(searchTerm.trim() || undefined);
-    setSearchTerm(searchTerm.trim());
+    let newUrl = `/products?name=` + searchTerm
+    console.log("newUrl from the handlesubmit in searchbar",newUrl)
+    return <Redirect to={newUrl}/>
   }
 
   function handleChange(evt) {
@@ -179,19 +182,22 @@ function PrimarySearchAppBar({logout}) {
   );
 
 
-
-
+  console.debug(
+    "PrimarySearchAppBar",
+    "currentUser=", currentUser,
+  );
+    
   return (
     <div className={classes.grow}>
-      <AppBar position="static" style= {{background: "#FFFFFF"}}>
+      <AppBar position="static" style= {{background: "#FFFFFF"}} elevation={0}>
         <Toolbar className= "flex">  
           <Link href="/">
             <img src="/images/logo.png" alt="logo" id="logo"></img>
           </Link>
           <div className={classes.search}>
-          <form onSubmit={handleSubmit} action={`/products/?name=` + searchTerm}>
+          <form onSubmit={handleSubmit} >
             <div className={classes.searchIcon}>
-              <button type="submit" className={classes.searchButton} href={"/products/?name=" + searchTerm}>
+              <button type="submit" className={classes.searchButton} >
                 <SearchIcon />
               </button>
             </div>
@@ -202,26 +208,33 @@ function PrimarySearchAppBar({logout}) {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
-              onChange={handleChange}
               value={searchTerm}
+              onChange={handleChange}
             />
           </form>
           </div>
           {currentUser 
           ?  <div>
-                <div className={classes.grow} />
 
                 <div className={classes.sectionDesktop}>
-                <span className={classes.balance}>{"$" + currentUser["balance"]}</span>
-                <IconButton aria-label="show 17 new notifications">
-                  <Badge badgeContent={17} color="secondary">
-                    <NotificationsIcon 
+                <Typography className={classes.balance}>{"$" + currentUser["balance"]}</Typography>
+                <IconButton aria-label="show notifications">
+                  {numOfNotifications 
+                  ? <Badge badgeContent={numOfNotifications.length()} color="secondary" >      
+                      <NotificationsIcon 
                       edge="end"
                       aria-label="account of current user"
                       aria-controls={menuId}
                       onClick={handleNotificationsMenuOpen}
                       aria-haspopup="true"/>
-                  </Badge>
+                    </Badge>
+                  : <NotificationsIcon 
+                    edge="end"
+                    aria-label="account of current user"
+                    aria-controls={menuId}
+                    onClick={handleNotificationsMenuOpen}
+                    aria-haspopup="true"/>}
+
                 </IconButton>
                 <IconButton
                   edge="end"
@@ -235,8 +248,8 @@ function PrimarySearchAppBar({logout}) {
               </div>
             </div>
           :  <div>
-                <Button color="default" href="/login">Login</Button>
-                <Button color="default" href="/signup">Signup</Button>
+                <Button color="default" href="/login" className={classes.button} onClick={logout}>Login</Button>
+                <Button color="default" href="/signup" className={classes.button}>Signup</Button>
              </div>
           }
         </Toolbar>

@@ -1,39 +1,99 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import Link from '@material-ui/core/Link';
 import { ListItemIcon } from '@material-ui/core';
 import { v4 as uuid } from 'uuid';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Popover from '@material-ui/core/Popover';
 
 
-export default function Category({category, subCategories}) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+  },
+  paper: {
+    marginRight: theme.spacing(0),
+  },
+}));
+
+export default function MenuListComposition({category, subCategories}) {
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef(null);
+
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
+    setOpen(false);
   };
+
+  function handleListKeyDown(event) {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      setOpen(false);
+    }
+  }
+
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = React.useRef(open);
+  React.useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current.focus();
+    }
+
+    prevOpen.current = open;
+  }, [open]);
 
   return (
-    <div>
-      <Button id="button" aria-controls="simple-menu" aria-haspopup="true"  onClick={handleClick}>
-        {category}
-      </Button>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-          {subCategories.map((item)=>{
-            return <Link id={uuid()} href={"/products/category/" + item}><MenuItem id={uuid()} onClick={handleClose}>{item}</MenuItem></Link>
-          })}
-      </Menu>
+    <div className={classes.root}>
+      <Container>
+        <Button
+          ref={anchorRef}
+          aria-controls={open ? 'menu-list-grow' : undefined}
+          aria-haspopup="true"
+          onClick={handleToggle}
+          style={{textTransform: "none", color: "#282828"}}
+          
+        >
+          {category}
+        </Button>
+        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition >
+          {({ TransitionProps, placement }) => (
+            <Grow
+              {...TransitionProps}
+              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+            >
+              <Paper>
+                <ClickAwayListener onClickAway={handleClose}>
+                  <MenuList style={{ minWidth: "200px" }}autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                  {subCategories.map((item)=>{
+                      return <Link id={uuid()} href={"/products?subCategory=" + item} style={{ textDecoration: 'none' }}>
+                                <MenuItem style={{color: "#282828"}} id={uuid()} onClick={handleClose} >{item}</MenuItem>
+                             </Link>
+                    })}
+                  </MenuList>
+                </ClickAwayListener>
+              </Paper>
+            </Grow>
+          )}
+        </Popper>
+      </Container>
     </div>
   );
 }

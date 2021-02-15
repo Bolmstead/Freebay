@@ -70,6 +70,11 @@ function ProductDetails() {
     console.log("countdown",countdown)
   }, [products]);
 
+  async function handleSubmit(evt) {
+    evt.preventDefault();
+    
+  }
+
 
   return (
     <Container>
@@ -97,7 +102,7 @@ function ProductDetails() {
                 <Typography variant="subtitle1" color="textSecondary">
                 Current bid: ${products["marketPrice"]}
                 </Typography>
-                <form className={classes.root} noValidate autoComplete="off">
+                <form className={classes.root} onSubmit={handleSubmit} noValidate autoComplete="off">
 
                   <TextField id="outlined-basic" label="Bid" variant="outlined" size="small"/>        
                   <Button size="medium" type="submit" variant="contained" color="Primary" className={classes.margin}>

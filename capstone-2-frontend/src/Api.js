@@ -44,49 +44,25 @@ class FreebayAPI {
 
   /** Get details on all products. */
 
-  static async getProducts(searchTerm) {
-        let url = `products/?name=` + searchTerm
-        console.log("url", url)
-        let res = await this.request(url);
-        console.log("res from getProducts,", res)
+  static async getProducts(searchObject) {
+    console.log("searchObject from Api.js getProducts", searchObject)
+    const queryString = Object.keys(searchObject).map(key => key + '=' + searchObject[key]).join('&');
 
-    return res.products;
-  }
+    console.log("queryString from Api.js getProducts", queryString)
 
-    /** Get details on all products. */
-
-  static async getProductsInCategory(subCategory) {
-    // console.log('subCategory', subCategory)
-    let url = `products/?subCategory=` + subCategory
+    let url = `products/?` + queryString
     console.log("url", url)
     let res = await this.request(url);
     console.log("res from getProducts,", res)
+
     return res.products;
-  }
-
-  /** Get details on a job by id. */
-
-  static async getJob(id) {
-    let res = await this.request(`jobs/${id}`);
-    console.log("res",res)
-
-    return res.job;
-  }
-
-  /** Get details on all jobs. */
-
-  static async getJobs(title) {
-    let res = await this.request(`jobs`,{ title });
-    console.log("res",res)
-
-    return res.jobs;
   }
 
   /** Login for site. */
 
   static async login(data) {
     let res = await this.request(`auth/token`, data, "post");
-    console.log("res",res)
+    console.log("res from api.js login method", res)
 
     return res.token;
   }
@@ -95,39 +71,25 @@ class FreebayAPI {
 
   static async signup(data) {
     let res = await this.request(`auth/register`, data, "post");
-    console.log("res",res)
+    console.log("res from api.js signup method", res)
 
     return res.token;
   }
 
-  /** Edit user profile for site. */
-
-  static async editProfile(username, data) {
-    let res = await this.request(`users/${username}`, data, "patch");
-    console.log("res",res)
-
-    return res.user;
-  }
-
   /** Get current user information. */
   
-  static async getCurrentUser(username) {
+  static async getUser(username) {
+    console.log("madeit to getUser API method")
     let res = await this.request(`users/${username}`);
-    console.log("res",res)
+    console.log("madeit to getUser API method after this.request",res)
 
     return res.user;
   }
 
-  /** Apply the user to the job*/
-
-  static async applyToJob(username, jobId) {
-    await this.request(`users/${username}/jobs/${jobId}`, {}, "post");
-
-  }
-  
+ 
 }
 
 // for now, put token ("testuser" / "password" on class)
-FreebayAPI.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lNCIsImlhdCI6MTYxMjc0NjQxOH0.roUF3Z3m5ZMbKexFP0rXC_y9BlZDo-31UOIxUpEYDpc";
+
 
 export default FreebayAPI;

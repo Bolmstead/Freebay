@@ -29,8 +29,7 @@ class User {
               password,
               first_name AS "firstName",
               last_name AS "lastName",
-              balance,
-              notifications
+              balance
        FROM users
        WHERE email = $1`,
     [email],
@@ -38,13 +37,13 @@ class User {
     const user = result.rows[0];
     console.log("user from User.authenticate", user)
     console.log("password", password)
-    console.log("user[password]", user[password])
 
 
     if (user) {
       // compare hashed password to a new hash from password
       const isValid = await bcrypt.compare(password, user.password);
       if (isValid === true) {
+        console.log("password was valid from authenticate method in user model")
         delete user.password;
         return user;
       }
@@ -113,8 +112,7 @@ class User {
                   username,
                   first_name AS "firstName",
                   last_name AS "lastName",
-                  balance,
-                  notifications
+                  balance
            FROM users
            WHERE username = $1`,
         [username],
@@ -127,37 +125,57 @@ class User {
     return user;
   }
 
-
-
-
-  static async getUserAndProductsWon(id) {
+  static async getUserAndNotifications(username) {
     const productRes = await db.query( 
     `SELECT users.email,
-          users.username,
-          users.first_name AS "firstName",
-          users.last_name AS "lastName",
-          users.balance,
-          users.notifications,
-          products.id,
-          products.name,
-          products.category,
-          products.sub_category AS "subCategory",
-          products.description,
-          products.condition,
-          products.rating,
-          products.num_of_ratings AS "numOfRatings",
-          products.image_url AS "imageUrl",
-          products.market_price AS "marketPrice",
-          products.auction_end_dt AS "auctionEndDt",
-          products.bid_count AS "bidCount",
-          products.is_sold AS "isSold",
-      FROM users
-      JOIN products_won ON products.id = products_won.product_id
-      JOIN users ON products_won.user_email = users.email
-      WHERE products.id = $1`,
-        [id]);
+        users.username,
+        users.first_name AS "firstName",
+        users.last_name AS "lastName",
+        users.balance,
+        notifications.id,
+        notifications.notification,
+        notifications.was_viewed
+    FROM users
+    FULL OUTER JOIN notifications ON users.email = notifications.user_email
+    WHERE users.username = $1`,
+        [username]);
 
-    console.log("productRes from get() method", productRes.rows[0])
+    console.log("productRes from getUserAndNotifications() method", productRes.rows[0])
+    if (!productRes) throw new NotFoundError(`No user found: ${id}`);
+
+    // const product = productRes.rows[0];
+    return productRes.rows[0];
+
+  }
+
+
+  static async getUserAndProductsWon(username) {
+    const productRes = await db.query( 
+    `SELECT users.email,
+        users.username,
+        users.first_name AS "firstName",
+        users.last_name AS "lastName",
+        users.balance,
+        products.id,
+        products.name,
+        products.category,
+        products.sub_category AS "subCategory",
+        products.description,
+        products.condition,
+        products.rating,
+        products.num_of_ratings AS "numOfRatings",
+        products.image_url AS "imageUrl",
+        products.market_price AS "marketPrice",
+        products.auction_end_dt AS "auctionEndDt",
+        products.bid_count AS "bidCount",
+        products.is_sold AS "isSold"
+    FROM users
+    FULL OUTER JOIN products_won ON users.email = products_won.user_email
+    FULL OUTER JOIN products ON products_won.product_id = products.id
+    WHERE users.username = $1`,
+        [username]);
+
+    console.log("productRes from getUserAndProductsWon() method", productRes.rows[0])
     if (!productRes) throw new NotFoundError(`No product found: ${id}`);
 
     // const product = productRes.rows[0];
@@ -173,7 +191,6 @@ class User {
           users.first_name AS "firstName",
           users.last_name AS "lastName",
           users.balance,
-          users.notifications,
           products.id,
           products.name,
           products.category,
@@ -193,7 +210,7 @@ class User {
       WHERE products.id = $1`,
         [userId]);
 
-    console.log("productRes from get() method", productRes.rows[0])
+    console.log("productRes from getUserAndHighestBids() method", productRes.rows[0])
     if (!productRes) throw new NotFoundError(`No product found: ${userId}`);
 
     // const product = productRes.rows[0];
@@ -218,7 +235,7 @@ class User {
     const result = await db.query(`UPDATE users 
                       SET balance = balance + $1
                       WHERE email = $2`,[amount, email]);
-    if (!result) throw new NotFoundError(`Balance not increaseed by ${amount} for user:  ${email}`);
+    if (!result) throw new NotFoundError(`Balance not increased by ${amount} for user:  ${email}`);
     console.log("increaseUserBalance result", result)
     return result;
   }

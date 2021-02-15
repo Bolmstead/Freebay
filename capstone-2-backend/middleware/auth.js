@@ -18,12 +18,15 @@ const { UnauthorizedError } = require("../expressError");
 function authenticateJWT(req, res, next) {
   try {
     console.log("authenticatingJWT middleware")
-    console.log("res.locals.user", res.locals.user)
+
 
     const authHeader = req.headers && req.headers.authorization;
     if (authHeader) {
       const token = authHeader.replace(/^[Bb]earer /, "").trim();
+      console.log("token from the authenticateJWT middleware function", token)
+
       res.locals.user = jwt.verify(token, SECRET_KEY);
+      console.log("res.locals.user after the jwt.verify", res.locals.user)
     }
     return next();
   } catch (err) {

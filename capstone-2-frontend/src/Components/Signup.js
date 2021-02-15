@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -42,8 +42,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Signup() {
   const classes = useStyles();
   const history = useHistory();
-  const { signup } = useContext(Context);
-
+  const { signup, logout } = useContext(Context);
 
   const [formData, setFormData] = useState({
     username: "",

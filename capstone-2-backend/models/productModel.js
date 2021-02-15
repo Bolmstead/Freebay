@@ -58,29 +58,51 @@ class Product {
    * Returns [{ handle, name, description, numEmployees, logoUrl }, ...]
    * */
 
-  static async getProducts(searchFilters = {}) {
-    let query = `SELECT id,
-                        name,
-                        category,
-                        sub_category AS "subCategory",
-                        description,
-                        condition,
-                        rating,
-                        num_of_ratings AS "numOfRatings",
-                        image_url AS "imageUrl",
-                        market_price AS "marketPrice",
-                        auction_end_dt AS "auctionEndDt",
-                        bid_count AS "bidCount",
-                        is_sold AS "isSold"
-                 FROM products`;
+  static async getProducts(q) {
+    let query = `SELECT products.id,
+                        products.name,
+                        products.category,
+                        products.sub_category AS "subCategory",
+                        products.description,
+                        products.condition,
+                        products.rating,
+                        products.num_of_ratings AS "numOfRatings",
+                        products.image_url AS "imageUrl",
+                        products.market_price AS "marketPrice",
+                        products.auction_end_dt AS "auctionEndDt",
+                        products.bid_count AS "bidCount",
+                        products.is_sold AS "isSold",
+                        users.email AS "bidderEmail",
+                        users.first_name AS "bidderFirstName",
+                        users.last_name AS "bidderLastName",
+                        users.username AS "bidderUsername"
+                FROM products
+                FULL OUTER JOIN highest_bids ON products.id = highest_bids.product_id
+                FULL OUTER JOIN users ON highest_bids.user_email = users.email`;
     let whereExpressions = [];
-    let queryValues = [];
+    let queryValues = []; 
+    let paginationQuery = " limit 24 OFFSET ";
+
+    let { page, name, category, subCategory, description, condition, rating, numOfRatings, auctionEndDt} = q;
+
+    // Pagination
+    let limit = 24
+    let offset
+    console.log("page from getProducts product model",page, "typeofpage", typeof(page))
+
+    if (!page) {
+      console.log("PAGE IS UNDEFINED")
+      offset = 0
+    }
+    else {
+      let pageNum = parseInt(page)
+      offset = (pageNum - 1) * limit
+    }
+
+    paginationQuery += offset
 
 
-    const { name, category, subCategory, description, condition, rating, numOfRatings, auctionEndDt} = searchFilters;
-
-
-    console.log("search categories to be used in SQL command","name", name, 'category', category, 'subCategory', subCategory, 'description', description, 'condition', condition,'rating', rating, 'numOfRatings', numOfRatings, 'auctionEndDt', auctionEndDt)
+    console.log("search categories to be used in SQL command","page", page,"name", name, 'category', category, 'subCategory', subCategory, 'description', description, 'condition', condition,'rating', rating, 'numOfRatings', numOfRatings, 'auctionEndDt', auctionEndDt)
 
 
     // For each possible search term, add to whereExpressions and queryValues so
@@ -131,10 +153,18 @@ class Product {
 
     query += " WHERE " + whereExpressions.join(" AND ");
 
+    console.log("query", query)
+
+    query += paginationQuery
+
+    console.log("query", query)
+    console.log("queryValues", queryValues)
+
+
     // Finalize query and return results
 
     const findAllRes = await db.query(query, queryValues);
-    console.log(findAllRes.rows)
+    console.log("result from get products request", findAllRes.rows)
     return findAllRes.rows;
   }
 
@@ -146,22 +176,27 @@ class Product {
    * Throws NotFoundError if not found.
    **/
 
-  static async get(id) {
+  static async getProductAndBid(id) {
     const productRes = await db.query( 
-    `SELECT id,
-            name,
-            category,
-            sub_category AS "subCategory",
-            description,
-            condition,
-            rating,
-            num_of_ratings AS "numOfRatings",
-            image_url AS "imageUrl",
-            market_price AS "marketPrice",
-            auction_end_dt AS "auctionEndDt",
-            bid_count AS "bidCount",
-            is_sold AS "isSold"
+    `SELECT products.id,
+            products.name,
+            products.category,
+            products.sub_category AS "subCategory",
+            products.description,
+            products.condition,
+            products.rating,
+            products.num_of_ratings AS "numOfRatings",
+            products.image_url AS "imageUrl",
+            products.market_price AS "marketPrice",
+            products.auction_end_dt AS "auctionEndDt",
+            products.bid_count AS "bidCount",
+            products.is_sold AS "isSold",
+            highest_bids.user_email AS "currentBidderEmail",
+            highest_bids.bid_price AS "currentBid",
+            users.username AS "currentBidderUsername"
     FROM products
+    FULL OUTER JOIN highest_bids ON products.id = highest_bids.product_id
+    FULL OUTER JOIN users ON highest_bids.user_email = users.email
     WHERE id = $1`,
         [id]);
 
@@ -172,38 +207,6 @@ class Product {
     return productRes.rows[0];
   }
 
-
-  static async getProductsAndHighestBidder(id) {
-    const productRes = await db.query( 
-    `SELECT products.id,
-          products.name,
-          products.category,
-          products.sub_category AS "subCategory",
-          products.description,
-          products.condition,
-          products.rating,
-          products.num_of_ratings AS "numOfRatings",
-          products.image_url AS "imageUrl",
-          products.market_price AS "marketPrice",
-          products.auction_end_dt AS "auctionEndDt",
-          products.bid_count AS "bidCount",
-          products.is_sold AS "isSold",
-          users.email AS "bidderEmail",
-          users.first_name AS "bidderFirstName",
-          users.last_name AS "bidderLastName",
-          users.username AS "bidderUsername"
-      FROM products
-      JOIN highest_bids ON products.id = highest_bids.product_id
-      JOIN users ON highest_bids.user_email = users.email
-      WHERE products.id = $1`,
-        [id]);
-
-    console.log("productRes from get() method", productRes.rows[0])
-    if (!productRes) throw new NotFoundError(`No product found: ${id}`);
-
-    // const product = productRes.rows[0];
-    return productRes.rows[0];
-  }
 
         /** Add all products to database
    *

@@ -17,11 +17,13 @@
     "react-bootstrap": "^1.4.3",
     "react-countdown": "^2.3.1",
     "react-dom": "^17.0.1",
+    "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "react-star-rating": "^1.4.2",
     "react-strap": "0.0.1",
     "reactstrap": "^8.9.0",
+    "redux": "^4.0.5",
     "uuid": "^8.3.2",
     "web-vitals": "^0.2.4"
   },

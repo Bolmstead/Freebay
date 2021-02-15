@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS products, users, products_won, highest_bids;
+DROP TABLE IF EXISTS products, users, products_won, highest_bids, notifications;
 
 CREATE TABLE products (
   id SERIAL PRIMARY KEY,
@@ -22,9 +22,8 @@ CREATE TABLE users (
   password TEXT NOT NULL,
   first_name VARCHAR(100) NOT NULL,
   last_name VARCHAR(100) NOT NULL,
-  balance DECIMAL NOT NULL,
-  notifications VARCHAR(500)
-);
+  balance DECIMAL NOT NULL
+  );
 
 CREATE TABLE products_won (
   product_id INTEGER
@@ -40,5 +39,13 @@ CREATE TABLE highest_bids (
   user_email VARCHAR(100)
     REFERENCES users(email) ON DELETE CASCADE,
   bid_price DECIMAL NOT NULL
-)
+);
 
+CREATE TABLE notifications (
+  id INTEGER,
+  user_email varchar(100)
+    REFERENCES users(email) ON DELETE CASCADE,
+  text TEXT,
+  related_product_id INTEGER,
+  was_viewed BOOLEAN DEFAULT false
+)

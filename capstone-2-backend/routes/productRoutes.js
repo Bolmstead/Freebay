@@ -8,9 +8,12 @@ const express = require("express");
 const { BadRequestError } = require("../expressError");
 // const { ensureAdmin } = require("../middleware/auth");
 const Product = require("../models/productModel");
-const BridgedTables = require("../models/productModel");
+const BridgedTables = require("../models/bridgedTablesModel");
 const User = require("../models/userModel");
-const { ensureLoggedInAndCorrectUser, ensureLoggedIn, authenticateJWT } = require("../middleware/auth");
+const { authenticateJWT, 
+  ensureLoggedIn, 
+  ensureLoggedInAndCorrectUser 
+} = require("../middleware/auth");
 
 
 
@@ -34,7 +37,8 @@ const router = new express.Router();
  // WORKS!!!! (MINIMUM DOES)
 router.get("/", async function (req, res, next) {
   const q = req.query;
-  console.log("req.query", req.query)
+
+  console.log(`req.query from "/" route`, req.query)
   // arrive as strings from querystring, but we want as ints
   // if (q.rating !== undefined) q.rating = +q.rating;
   // if (q.numOfRatings !== undefined) q.numOfRatings = +q.numOfRatings;
@@ -68,7 +72,7 @@ router.get("/", async function (req, res, next) {
 router.get("/:id", async function (req, res, next) {
   try {
     console.log(req.params.id)
-    const product = await Product.get(req.params.id);
+    const product = await Product.getProductAndBid(req.params.id);
     return res.json({ product });
   } catch (err) {
     return next(err);
@@ -84,22 +88,32 @@ router.get("/:id", async function (req, res, next) {
  * Authorization required: none
  */
 
-router.post("/:productId/bid/:amount", async function (req, res, next) {
+router.post("/:productId/bid/:amount", 
+ async function (req, res, next) {
   try {
-    const user = res.locals.user;
-    console.log("user", user)
+    // const user = res.locals.user;
+    const user = {
+        email: 'olms2074@gmail.com',
+        username: 'Bolmstead',
+        firstName: 'Berkley',
+        lastName: 'Olmstead',
+        balance: '100'      
+    }
+    console.log("hardcoded user", user)
     const productId = req.params.productId;
-    const bidAmount = req.params.amount;
-    const product = await Product.get(productId);
+    const newBid = req.params.amount;
+    const product = await Product.getProductAndBid(productId);
 
-    if (product.bidPrice > bidAmount) {
+    console.log("productresult from /:productId/bid/:amount",product)
+
+    if (product.highestBid > newBid) {
+      console.log("product.highestBid IS NOT > newBid")
       throw new BadRequestError(errs);
     }
 
-    const highestBid = await BridgedTables.highestBid(productId, user.email, amount)
-    const addToBidCount = await Product.addToBidCount(productId)
+    const updateBid = await BridgedTables.updateBid(product, user, newBid)
 
-    return res.json({ highestBid, addToBidCount });
+    return res.json({result: "success"});
   } catch (err) {
     return next(err);
   }

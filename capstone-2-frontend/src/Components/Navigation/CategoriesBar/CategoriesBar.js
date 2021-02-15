@@ -29,13 +29,15 @@ import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import MenuList from '@material-ui/core/MenuList';
+import CategoryTest from './CategoryTest'
 
 
 
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    backgroundColor: "#FFFFFF"
+    backgroundColor: "#FFFFFF",
+    border: 1,
   },
   menuButton: {
     maxWidth: '30px', 
@@ -45,15 +47,18 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     display: 'flex',
+    minHeight: '40px'
   },
   paper: {
     marginRight: theme.spacing(2),
+    textTransform: 'none',
   },
   grow: {
     flexGrow: 1,
   },
   menuButton: {
     marginRight: theme.spacing(2),
+    textTransform: 'none',
   },
   inputRoot: {
     color: 'black',
@@ -81,7 +86,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   flexItem: {
-    flex: 1
+    flex: 1,
+    textTransform: 'none',
     },
 
 }));
@@ -148,8 +154,8 @@ function ProductCategoriesBar() {
 
 
   return (
-      <AppBar position="static" className={classes.appBar}>
-        <Toolbar className="center" className= {classes.root}>
+      <AppBar position="static" className={classes.appBar} elevation={0}>
+        <Toolbar className="center" className= {classes.root}ariant="dense">
           <Container>
           <Grid
               container
@@ -157,21 +163,26 @@ function ProductCategoriesBar() {
               justify="space-between"
               alignItems="center"
             >
-          
-          <Category category={"Electronics"} className= "flexItem"
-          subCategories = {["Cellphones & Accessories", "Computers & Accessories", "Photo", "Smart Home"]}/>
-          
-          <Category category={"Fashion"} className= "flexItem"
-          subCategories = {["Women", "Men", "Boys", "Girls", "Baby"]}/>
-          
-          <Category category={"Home & Garden"} className= "flexItem"
-          subCategories = {["Appliances", "Household", "Home Improvement", "Kitchen & Dining", "Lawn & Garden"]}/>
-          
-          <Category category={"Movies, TV, & Games"} className= "flexItem"
-          subCategories = {["Movies & TV", "Toys & Games", "Videogames"]}/>
-          
-          <Category category={"Misc."} className= "flexItem"
-          subCategories = {["Arts & Crafts", "Automotive", "Books", "Grocery", "Muiscal Instruments", "Pet Supplies", "Sports & Hobbies"]}/>
+            <Grid item >
+              <Category category={"Electronics"} className= "flexItem"
+              subCategories = {["Cell Phones & Accessories", "Computers & Accessories", "Photo", "Smart Home"]}/>
+            </Grid>
+            <Grid item >
+              <Category category={"Fashion"} className= "flexItem"
+              subCategories = {["Women", "Men", "Boys", "Girls", "Baby"]}/>
+            </Grid>
+            <Grid item >
+              <Category category={"Home & Garden"} className= "flexItem"
+              subCategories = {["Appliances", "Household", "Home Improvement", "Kitchen & Dining", "Lawn & Garden"]}/>
+            </Grid>
+            <Grid item >
+              <Category category={"Movies, TV, & Games"} className= "flexItem"
+              subCategories = {["Movies & TV", "Toys & Games", "Videogames"]}/>
+            </Grid>
+            <Grid item >
+              <Category category={"Misc."} className= "flexItem" 
+              subCategories = {["Arts & Crafts", "Automotive", "Books", "Grocery", "Muiscal Instruments", "Pet Supplies", "Sports & Hobbies"]}/>
+            </Grid>
           </Grid>
           </Container>
         </Toolbar>

@@ -5,6 +5,16 @@ import ProductSlider from './Components/Products/ProductSlider.js'
 import ProductCard from './Components/Products/ProductCard.js'
 import ProductList from './Components/Products/ProductList.js'
 import FreebayAPI from './Api'
+import { makeStyles } from '@material-ui/core/styles';
+import FreebayPic from './Components/Common/FreebayPic'
+import FaqCard from './Components/Common/FaqCard'
+import Grid from '@material-ui/core/Grid';
+import WonFeed from './Components/User/WonFeed.js'
+
+
+
+
+
 
 
 
@@ -13,13 +23,29 @@ import FreebayAPI from './Api'
 /* Home page that displays login and signup button links */
 
 function Home() {
-  // const product = await FreebayAPI.getProduct(3)
-  // console.log(product)
+  const useStyles = makeStyles((theme) => ({
+    image: {
+      marginTop: theme.spacing(8),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      
+    },
+  }));
 
   return (
-    <div><br/>
-        <h1>Home Page</h1>
-    </div>
+    <Grid  container spacing={3}>
+        <Grid item xs={12} alignItems="center" justify="center">
+          <FreebayPic />
+        </Grid>
+        <Grid item sm={4} margin ={3}>
+          <WonFeed />
+        </Grid>
+        <Grid item sm={8}>
+          <FaqCard />
+        </Grid>
+
+    </Grid>
   );
 }
 

@@ -6,7 +6,7 @@ import Home from "./Home";
 import Login from "./Components/Login";
 import ProductCard from "./Components/Products/ProductCard";
 import Signup from "./Components/Signup";
-import Profile from "./Components/Profile";
+import Profile from "./Components/User/Profile";
 
 import ProductList from "./Components/Products/ProductList";
 import ProductCategoryList from "./Components/Products/ProductCategoryList";
@@ -28,23 +28,15 @@ function Routes() {
             <Route exact path="/signup">
                 <Signup />
             </Route>
-            <Route exact path="/products/category/:subCategory" >
-                <ProductCategoryList />
+            <Route exact path="/products" >
+                <ProductList />
             </Route>
             <Route exact path="/product/:id">
                 <ProductDetails />
             </Route>
-            <Route exact path="/Login">
-                <Login />
-            </Route>
-            <Route exact path="/Signup">
-                <Signup/>
-            </Route>
-            <Route exact path="/Profile/:username">
+            <Route exact path="/profile/:username">
                 <Profile />
             </Route>
-
-
         
             <Route><h1>Not Found!</h1></Route>
         </Switch>

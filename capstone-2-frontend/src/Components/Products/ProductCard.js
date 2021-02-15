@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   },
   media: {
     height: 200,
-    width: 250,
+    minWidth: 250,
   },
   ratingNumber: {
     top: 200
@@ -62,7 +62,6 @@ function ProductCard({id, name, bidPrice, imageUrl, rating, numOfRatings, auctio
   const countdown = getTimeRemaining(auctionEndObj)
 
   const countdownDisplay = `${countdown["days"]}D ${countdown["hours"]}H`
-  console.log("countdownDisplay", countdownDisplay)
 
   return (
     <Link href={"/product/" + id} color="inherit">
@@ -73,7 +72,7 @@ function ProductCard({id, name, bidPrice, imageUrl, rating, numOfRatings, auctio
           image={imageUrl}
           title={shortName}
         />
-        <CardContent>
+        <CardContent style={{ minHeight: "100px"}}>
           <div>
           <Typography gutterBottom variant="body2" component="p">
             {shortName}
