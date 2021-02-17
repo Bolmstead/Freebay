@@ -83,9 +83,17 @@ class FreebayAPI {
     let res = await this.request(`users/${username}`);
     console.log("madeit to getUser API method after this.request",res)
 
-    return res.user;
+    return res;
   }
 
+  /** Post new Bid */
+
+  static async addBid(productId, bidAmount) {
+    let data={}
+    let res = await this.request(`products/${productId}/bid/${bidAmount}`, data, "post");
+    console.log("res from api.js addBid method", res)
+    return res;
+  }
  
 }
 

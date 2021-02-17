@@ -37,7 +37,7 @@ const router = new express.Router();
  // WORKS!!!! (MINIMUM DOES)
 router.get("/", async function (req, res, next) {
   const q = req.query;
-
+  console.log("user", res.locals.user)
   console.log(`req.query from "/" route`, req.query)
   // arrive as strings from querystring, but we want as ints
   // if (q.rating !== undefined) q.rating = +q.rating;
@@ -88,18 +88,13 @@ router.get("/:id", async function (req, res, next) {
  * Authorization required: none
  */
 
-router.post("/:productId/bid/:amount", 
- async function (req, res, next) {
+router.post("/:productId/bid/:amount", async function (req, res, next) {
   try {
-    // const user = res.locals.user;
-    const user = {
-        email: 'olms2074@gmail.com',
-        username: 'Bolmstead',
-        firstName: 'Berkley',
-        lastName: 'Olmstead',
-        balance: '100'      
-    }
-    console.log("hardcoded user", user)
+    const localsUser = res.locals.user;
+    console.log("localsUser from /:productId/bid/:amount", localsUser)
+    const user = await User.get(localsUser["username"])
+    console.log("user from /:productId/bid/:amount", user)
+
     const productId = req.params.productId;
     const newBid = req.params.amount;
     const product = await Product.getProductAndBid(productId);
@@ -110,6 +105,9 @@ router.post("/:productId/bid/:amount",
       console.log("product.highestBid IS NOT > newBid")
       throw new BadRequestError(errs);
     }
+    console.log("product from bid route", product)
+    console.log("user from bid route", user)
+    console.log("newBid from bid route", newBid)
 
     const updateBid = await BridgedTables.updateBid(product, user, newBid)
 

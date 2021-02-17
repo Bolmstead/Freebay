@@ -75,7 +75,8 @@ class Product {
                         users.email AS "bidderEmail",
                         users.first_name AS "bidderFirstName",
                         users.last_name AS "bidderLastName",
-                        users.username AS "bidderUsername"
+                        users.username AS "bidderUsername",
+                        highest_bids.bid_price AS "bidPrice"
                 FROM products
                 FULL OUTER JOIN highest_bids ON products.id = highest_bids.product_id
                 FULL OUTER JOIN users ON highest_bids.user_email = users.email`;
@@ -191,7 +192,7 @@ class Product {
             products.auction_end_dt AS "auctionEndDt",
             products.bid_count AS "bidCount",
             products.is_sold AS "isSold",
-            highest_bids.user_email AS "currentBidderEmail",
+            highest_bids.user_email AS "bidderEmail",
             highest_bids.bid_price AS "currentBid",
             users.username AS "currentBidderUsername"
     FROM products

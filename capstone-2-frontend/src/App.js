@@ -43,7 +43,6 @@ function App() {
           let userResult = await FreebayAPI.getUser(username);
           console.log("userResult",userResult)
           setCurrentUser(userResult);
-          console.log("right here is the issue")
           console.log("currentUser", currentUser, "token", token)
         } catch (err) {
           console.error("App loadUserInfo: problem loading", err);

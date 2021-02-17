@@ -9,7 +9,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import FreebayPic from './Components/Common/FreebayPic'
 import FaqCard from './Components/Common/FaqCard'
 import Grid from '@material-ui/core/Grid';
-import WonFeed from './Components/User/WonFeed.js'
 
 
 
@@ -39,7 +38,6 @@ function Home() {
           <FreebayPic />
         </Grid>
         <Grid item sm={4} margin ={3}>
-          <WonFeed />
         </Grid>
         <Grid item sm={8}>
           <FaqCard />

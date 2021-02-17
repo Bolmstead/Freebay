@@ -30,10 +30,13 @@ router.get("/:username", async function (req, res, next) {
     console.log("made it to the usersRoutes /:username route")
     console.log("req.params.username",req.params.username)
 
-    const user = await User.getUserAndNotifications(req.params.username);
-    console.log("user from /:username in usersRoutes.js",user)
+    const user = await User.get(req.params.username);
 
-    return res.json({ user });
+
+
+    console.log("user in /:username route", user )
+
+    return res.json(user);
   } catch (err) {
     return next(err);
   }

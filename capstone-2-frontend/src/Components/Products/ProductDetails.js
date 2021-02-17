@@ -6,7 +6,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
-import {useParams} from 'react-router-dom';
+import {useParams, Redirect} from 'react-router-dom';
 import FreebayAPI from '../../Api.js'
 import ProductsContext from "../Common/Context";
 import IconButton from '@material-ui/core/IconButton';
@@ -17,6 +17,7 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import TextField from '@material-ui/core/TextField';
 import ReactDOM from "react-dom";
 import Countdown from "react-countdown";
+import LoadingSpinner from '../Common/LoadingSpinner.js'
 
 import {
   Grid,
@@ -49,31 +50,49 @@ const useStyles = makeStyles({
 
 function ProductDetails() {
   const classes = useStyles();
-  const { products, getProduct } = useContext(ProductsContext);
+  const [infoLoaded, setInfoLoaded] = useState(false);
+  const [product, setProduct] = useState(null);
   const [countdown, setCountdown] = useState([]);
+  const [bidAmount, setBidAmount] = useState(null);
+
   const {id} = useParams();
 
-  useState(() => {
-    getProduct(id);
-    console.log(products)
+  useEffect(() => {
+    async function getProduct(id) {
+      const result = await FreebayAPI.getProduct(id)
+      setProduct(result);
+      console.log("productfrom ProductDetails component", product)
+      // console.log(`product["auctionEndDt"]`,product["auctionEndDt"])
+      // getTimeLeft(product["auctionEndDt"])
+      // console.log("countdown", countdown)
+      setInfoLoaded(true)
+    }
+    setInfoLoaded(false)
+    getProduct(id)
   }, []);
 
   // Create countdown timer
-  const auctionEndObj = new Date(products["auctionEndDt"])
-  
-  useEffect(() => {
-    async function getTimeLeft(auctionEndObj){
+ 
+  function getTimeLeft(){
+    const auctionEndObj = new Date(product["auctionEndDt"])
     const totalTimeLeft = Date.parse(auctionEndObj) - Date.parse(new Date());
     setCountdown(totalTimeLeft);
     }
-    getTimeLeft(auctionEndObj)
-    console.log("countdown",countdown)
-  }, [products]);
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    
+    let addBidRes = await FreebayAPI.addBid(id, bidAmount)
+    return <Redirect to="/" />
+
+
   }
+
+  function handleChange(evt) {
+    setBidAmount(evt.target.value);
+    console.log("bidAmount", bidAmount)
+  }
+
+  if (!infoLoaded) return <LoadingSpinner />;
 
 
   return (
@@ -85,7 +104,7 @@ function ProductDetails() {
           <Box color="text.secondary">
             <img
               className={classes.media}
-              src={products["imageUrl"]}
+              src={product["imageUrl"]}
             />
             </Box>
         </Grid>
@@ -93,24 +112,32 @@ function ProductDetails() {
           <Card className={classes.root}>
               <CardContent className={classes.content}>
                 <Typography component="h7" variant="h7">
-                  {products["name"]}
+                  {product["name"]}
                 </Typography><br/>
-                <Rating name="read-only" value={products["rating"]} size="medium" readOnly display="inline"/>      
+                <Rating name="read-only" value={product["rating"]} size="medium" readOnly display="inline"/>      
                 <Typography variant="caption" display="inline" className="ratingNumber" color="textSecondary">
-                  {products["numOfRatings"]}
+                  {product["numOfRatings"]}
                 </Typography>
-                <Typography variant="subtitle1" color="textSecondary">
-                Current bid: ${products["marketPrice"]}
-                </Typography>
+
+                { 
+                product["bidPrice"] 
+                ? <Typography variant="subtitle1" color="textSecondary">
+                  Current bid: ${product["bidPrice"]} by ${product["bidderUsername"]}
+                  </Typography>
+                : <Typography variant="subtitle1" color="textSecondary">
+                  Starting bid: ${product["bidPrice"]} by ${product["bidderUsername"]}
+                  </Typography>
+                }
+
                 <form className={classes.root} onSubmit={handleSubmit} noValidate autoComplete="off">
 
-                  <TextField id="outlined-basic" label="Bid" variant="outlined" size="small"/>        
+                  <TextField id="outlined-basic" label="Bid" variant="outlined" size="small" onChange={handleChange}/>        
                   <Button size="medium" type="submit" variant="contained" color="Primary" className={classes.margin}>
                     Place Bid
                   </Button>
                 </form>
 
-                <Countdown date={Date.now() + countdown} renderer={props => <Typography variant="body2" color="textPrimary" component="p" fontWeight="fontWeightBold">{"Time left: " + props.days + "d " + props.hours + "h " + props.minutes + "m " + props.seconds + "s"}</Typography>} />
+                {/* <Countdown date={Date.now() + countdown} renderer={props => <Typography variant="body2" color="textPrimary" component="p" fontWeight="fontWeightBold">{"Time left: " + props.days + "d " + props.hours + "h " + props.minutes + "m " + props.seconds + "s"}</Typography>} /> */}
 
               </CardContent>
           </Card>

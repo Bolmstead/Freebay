@@ -16,7 +16,8 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import TextField from '@material-ui/core/TextField';
 import ReactDOM from "react-dom";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import ProductsWon from "./ProductsWon";
+import WinsFeed from "./WinsFeed";
+import BidsFeed from "./BidsFeed";
 import NotificationsList from "./NotificationsList";
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
@@ -108,18 +109,13 @@ const useStyles = makeStyles({
 function Profile() {
   const classes = useStyles();
   const [userProfile, setUserProfile] = useState(null);
-  const [value, setValue] = React.useState(0);
   const {username} = useParams();
   const { currentUser } = useContext(Context);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
   useEffect(() => {
     async function getUserProfile(username) {
-        let user = await FreebayAPI.getUser(username);
-        setUserProfile(user);
+        let userObject = await FreebayAPI.getUser(username);
+        setUserProfile(userObject);
     }
     getUserProfile(username);
     console.log("userProfile,", userProfile)
@@ -127,6 +123,7 @@ function Profile() {
 
   if (!userProfile) return <CircularProgress />;
 
+  const {  firstName, lastName, email, balance, products_won, highest_bids, notifications } = userProfile
 
   return (
     <Container>
@@ -136,59 +133,44 @@ function Profile() {
         </Grid>
       </Grid>
 
-      <div className={classes.tabPanel}>
-        <AppBar position="static">
-          <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-            <Tab label="Profile Info" {...a11yProps(0)} />
-            <Tab label="Activity" {...a11yProps(1)} />
-            <Tab label="Notifications" {...a11yProps(2)} />
-          </Tabs>
-        </AppBar>
-        <TabPanel value={value} index={0}>
+
         <Card>
             
-            <CardContent >
-              <Typography variant="h5" component="h2" align="center">
-              {userProfile["username"]}
+          <CardContent >
+            <Typography variant="h5" component="h2" align="center">
+            {username}
+            </Typography>
+            <Typography className={classes.pos} color="textSecondary" align="center">
+                {firstName} {lastName}
               </Typography>
-              <Typography className={classes.pos} color="textSecondary" align="center">
-                  {userProfile["firstName"]} {userProfile["lastName"]}
-                </Typography>
-              <Grid container>
-              <Grid item xs={6}>
-                <Typography className={classes.pos} color="textSecondary" display="inline" align="center">
-                  Balance:  
-                </Typography>
-                <Typography className={classes.pos} style={{color: "limegreen"}} display="inline" align="center">
-                  ${userProfile["balance"]}
-                </Typography>
-                </Grid>
-                <Grid item xs={6}>
-                <Typography className={classes.pos} color="textSecondary" align="center" display="inline">
-                  Notifications: 
-                </Typography>
-                <Typography className={classes.pos} style={{color: "orange"}} display="inline" align="center">
-                  {userProfile["notifications"] ? userProfile["notifications"].length() : 0}
-                </Typography>
-                </Grid>
+            <Grid container>
+            <Grid item xs={6}>
+              <Typography className={classes.pos} color="textSecondary" display="inline" align="center">
+                Balance:  
+              </Typography>
+              <Typography className={classes.pos} style={{color: "limegreen"}} display="inline" align="center">
+                ${balance}
+              </Typography>
               </Grid>
-            </CardContent>
-          </Card>
-        </TabPanel>
-        <TabPanel value={value} index={1}>
+              <Grid item xs={6}>
+              <Typography className={classes.pos} color="textSecondary" align="center" display="inline">
+                Notifications: 
+              </Typography>
+              <Typography className={classes.pos} style={{color: "orange"}} display="inline" align="center">
+                {notifications.length}
+              </Typography>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
           <Grid container  justify="center" alignItems="center" direction="row">
-          <Grid item justify="center" alignItems="center" xs={6}><br/>
-          <ProductsWon/>
+            <Grid item justify="center" alignItems="center" xs={6}><br/>
+              <WinsFeed userProfile={userProfile}/>
+            </Grid>
+            <Grid item justify="center" alignItems="center"  xs={6}><br/>
+              <BidsFeed userProfile={userProfile}/>
+            </Grid>
           </Grid>
-          <Grid item justify="center" alignItems="center"  xs={6}><br/>
-          <ProductsWon/>
-          </Grid>
-      </Grid>
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          <NotificationsList />
-        </TabPanel>
-      </div>
 
         
       </Container>

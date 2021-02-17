@@ -121,102 +121,75 @@ class User {
     const user = userRes.rows[0];
 
     if (!user) throw new NotFoundError(`No user: ${username}`);
-      console.log("get method from user class", user)
+    console.log("userfrom get() in User model",user)
+  
+    // Grab Products won
+    const productsWonRes = await db.query(
+          `SELECT products.id,
+                  products.name,
+                  products.category,
+                  products.sub_category AS "subCategory",
+                  products.description,
+                  products.condition,
+                  products.rating,
+                  products.num_of_ratings AS "numOfRatings",
+                  products.image_url AS "imageUrl",
+                  products.market_price AS "marketPrice",
+                  products.auction_end_dt AS "auctionEndDt",
+                  products.bid_count AS "bidCount",
+                  products.is_sold AS "isSold",
+                  products_won.bid_price AS "bidPrice"
+          FROM products_won
+          FULL OUTER JOIN products ON products_won.product_id = products.id
+          WHERE products_won.user_email = $1`, [user["email"]]);
+
+    user.products_won = productsWonRes.rows;
+
+    console.log("productsWonRes from get() in User model", productsWonRes)
+
+    // Grab Highest Bids
+    const highestBidsRes = await db.query(
+      `SELECT products.id,
+              products.name,
+              products.category,
+              products.sub_category AS "subCategory",
+              products.description,
+              products.condition,
+              products.rating,
+              products.num_of_ratings AS "numOfRatings",
+              products.image_url AS "imageUrl",
+              products.market_price AS "marketPrice",
+              products.auction_end_dt AS "auctionEndDt",
+              products.bid_count AS "bidCount",
+              products.is_sold AS "isSold",
+              highest_bids.bid_price AS "bidPrice"
+          FROM highest_bids
+          FULL OUTER JOIN products ON highest_bids.product_id = products.id
+          WHERE highest_bids.user_email = $1`, [user["email"]]);
+
+    user.highest_bids = highestBidsRes.rows;
+
+    console.log("highestBidsRes from get() in User model", highestBidsRes)
+
+    console.log("ALMOST final user object", user)
+
+    // Grab Notifications
+    const notificationsRes = await db.query(
+      `SELECT notifications.id,
+              notifications.text,
+              notifications.related_product_id AS "relatedProductId"
+        FROM notifications
+        WHERE notifications.user_email = $1`, [user["email"]]);
+
+    user.notifications = notificationsRes.rows;
+
+    console.log("notificationsRes from get() in User model", notificationsRes.rows)
+
+    console.log("final user object", user)
+
     return user;
   }
 
-  static async getUserAndNotifications(username) {
-    const productRes = await db.query( 
-    `SELECT users.email,
-        users.username,
-        users.first_name AS "firstName",
-        users.last_name AS "lastName",
-        users.balance,
-        notifications.id,
-        notifications.notification,
-        notifications.was_viewed
-    FROM users
-    FULL OUTER JOIN notifications ON users.email = notifications.user_email
-    WHERE users.username = $1`,
-        [username]);
-
-    console.log("productRes from getUserAndNotifications() method", productRes.rows[0])
-    if (!productRes) throw new NotFoundError(`No user found: ${id}`);
-
-    // const product = productRes.rows[0];
-    return productRes.rows[0];
-
-  }
-
-
-  static async getUserAndProductsWon(username) {
-    const productRes = await db.query( 
-    `SELECT users.email,
-        users.username,
-        users.first_name AS "firstName",
-        users.last_name AS "lastName",
-        users.balance,
-        products.id,
-        products.name,
-        products.category,
-        products.sub_category AS "subCategory",
-        products.description,
-        products.condition,
-        products.rating,
-        products.num_of_ratings AS "numOfRatings",
-        products.image_url AS "imageUrl",
-        products.market_price AS "marketPrice",
-        products.auction_end_dt AS "auctionEndDt",
-        products.bid_count AS "bidCount",
-        products.is_sold AS "isSold"
-    FROM users
-    FULL OUTER JOIN products_won ON users.email = products_won.user_email
-    FULL OUTER JOIN products ON products_won.product_id = products.id
-    WHERE users.username = $1`,
-        [username]);
-
-    console.log("productRes from getUserAndProductsWon() method", productRes.rows[0])
-    if (!productRes) throw new NotFoundError(`No product found: ${id}`);
-
-    // const product = productRes.rows[0];
-    return productRes.rows[0];
-
-  }
-
-  //WORK ON THIS!!!!!!!!!
-  static async getUserAndHighestBids(userId) {
-  const productRes = await db.query( 
-    `SELECT users.email,
-          users.username,
-          users.first_name AS "firstName",
-          users.last_name AS "lastName",
-          users.balance,
-          products.id,
-          products.name,
-          products.category,
-          products.sub_category AS "subCategory",
-          products.description,
-          products.condition,
-          products.rating,
-          products.num_of_ratings AS "numOfRatings",
-          products.image_url AS "imageUrl",
-          products.market_price AS "marketPrice",
-          products.auction_end_dt AS "auctionEndDt",
-          products.bid_count AS "bidCount",
-          products.is_sold AS "isSold",
-      FROM users
-      JOIN products_won ON products.id = products_won.product_id
-      JOIN users ON products_won.user_email = users.email
-      WHERE products.id = $1`,
-        [userId]);
-
-    console.log("productRes from getUserAndHighestBids() method", productRes.rows[0])
-    if (!productRes) throw new NotFoundError(`No product found: ${userId}`);
-
-    // const product = productRes.rows[0];
-    return productRes.rows[0];
-
-  }
 
 
 
@@ -239,6 +212,36 @@ class User {
     console.log("increaseUserBalance result", result)
     return result;
   }
+
+
+  static async getHighestBids(userEmail) {
+    const usersHighestBidsRes = await db.query(
+      `SELECT products.id,
+              products.name,
+              products.category,
+              products.sub_category AS "subCategory",
+              products.description,
+              products.condition,
+              products.rating,
+              products.num_of_ratings AS "numOfRatings",
+              products.image_url AS "imageUrl",
+              products.market_price AS "marketPrice",
+              products.auction_end_dt AS "auctionEndDt",
+              products.bid_count AS "bidCount",
+              products.is_sold AS "isSold",
+              highest_bids.bid_price AS "bidPrice"
+          FROM highest_bids
+          FULL OUTER JOIN products ON highest_bids.product_id = products.id
+          WHERE highest_bids.user_email = $1`, [userEmail]);
+
+    if (!usersHighestBidsRes) throw new NotFoundError(`Undable to getHighestBids in userModel.js`);
+
+    console.log("getHighestBids in userModel.js", usersHighestBidsRes)
+
+    return usersHighestBidsRes
+  }
+  
+      
 
 
   /** Update user data with `data`.
