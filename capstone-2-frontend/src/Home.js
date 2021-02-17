@@ -1,25 +1,13 @@
 import React from "react";
-import {Button} from 'react-bootstrap';
-import {Link} from 'react-router-dom';
-import ProductSlider from './Components/Products/ProductSlider.js'
-import ProductCard from './Components/Products/ProductCard.js'
-import ProductList from './Components/Products/ProductList.js'
-import FreebayAPI from './Api'
 import { makeStyles } from '@material-ui/core/styles';
 import FreebayPic from './Components/Common/FreebayPic'
 import FaqCard from './Components/Common/FaqCard'
 import Grid from '@material-ui/core/Grid';
+import ExampleFeed from './Components/User/ExampleFeed.js'
+import { Typography } from "@material-ui/core";
 
-
-
-
-
-
-
-
-
-
-/* Home page that displays login and signup button links */
+/* Home page that will render a feed of users who have 
+recently won products, an image link and a link to a FAQ's page */
 
 function Home() {
   const useStyles = makeStyles((theme) => ({
@@ -38,6 +26,10 @@ function Home() {
           <FreebayPic />
         </Grid>
         <Grid item sm={4} margin ={3}>
+          <Typography>
+            News Feed
+          </Typography>
+          <ExampleFeed />
         </Grid>
         <Grid item sm={8}>
           <FaqCard />

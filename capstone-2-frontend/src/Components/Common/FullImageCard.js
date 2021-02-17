@@ -5,6 +5,8 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import withStyles from "@material-ui/core/styles/withStyles";
 
+// Smaller components to help create the FreebayImage component
+
 export const FiCard = withStyles({
   root: {
     position: "relative"

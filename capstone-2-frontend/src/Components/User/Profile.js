@@ -1,28 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Rating from '@material-ui/lab/Rating';
+import { makeStyles} from '@material-ui/core/styles';
 import {useParams} from 'react-router-dom';
 import FreebayAPI from '../../Api.js'
 import Context from "../Common/Context";
-import IconButton from '@material-ui/core/IconButton';
 import Container from '@material-ui/core/Container';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import Link from '@material-ui/core/Link';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import TextField from '@material-ui/core/TextField';
-import ReactDOM from "react-dom";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import WinsFeed from "./WinsFeed";
-import BidsFeed from "./BidsFeed";
+import ExampleFeed from "./ExampleFeed";
 import Notifications from "./Notifications";
 import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 
 import {
@@ -34,6 +19,9 @@ import {
 } from '@material-ui/core/'
 
 
+// A users profile. If the profile is the current user, notifications 
+// are displayed. If the profile does not match the current user, 
+// notifications would not be displayed.
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -148,10 +136,16 @@ function Profile() {
       </Grid>
           <Grid container  justify="center" alignItems="center" direction="row">
             <Grid item justify="center" alignItems="center" xs={6}><br/>
-              <WinsFeed userProfile={userProfile}/>
+              <Typography className={classes.pos} color="textSecondary" align="center">
+                Products Won
+              </Typography>
+              <ExampleFeed />
             </Grid>
             <Grid item justify="center" alignItems="center"  xs={6}><br/>
-              <BidsFeed userProfile={userProfile}/>
+              <Typography className={classes.pos} color="textSecondary" align="center">
+                Current Bids
+              </Typography>
+              <ExampleFeed />
             </Grid>
           </Grid>
 

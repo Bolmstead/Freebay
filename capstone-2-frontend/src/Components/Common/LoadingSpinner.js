@@ -2,6 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+// Loading spinner to be rendered before pages content is displayed
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',

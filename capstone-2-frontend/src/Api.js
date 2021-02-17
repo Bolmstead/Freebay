@@ -4,14 +4,11 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
 /** API Class.
  *
- * Static class tying together methods used to get/send to to the API.
- * There shouldn't be any frontend-specific stuff here, and there shouldn't
- * be any API-aware stuff elsewhere in the frontend.
- *
+ * Static class tying together methods used to get/send to to the API. *
  */
 
 class FreebayAPI {
-  // the token for interactive with the API will be stored here.
+  // the token for with the API will be stored here.
   static token;
 
   static async request(endpoint, data = {}, method = "get") {
@@ -95,8 +92,7 @@ class FreebayAPI {
     return res;
   }
 
-  /** View notification */
-
+  /** Post method for when a user views a notification */
 
   static async viewNotification(notificationId) {
     let data={}
@@ -106,8 +102,5 @@ class FreebayAPI {
   }
  
 }
-
-// for now, put token ("testuser" / "password" on class)
-
 
 export default FreebayAPI;

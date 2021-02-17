@@ -1,8 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
 import Link from '@material-ui/core/Link';
-import { ListItemIcon } from '@material-ui/core';
 import { v4 as uuid } from 'uuid';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
@@ -12,10 +10,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Popover from '@material-ui/core/Popover';
 
-
-
+// A category of the CategoriesBar component.
+// shows a submenu of sub-categories when clicked.
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -1,25 +1,18 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import ProductCard from './ProductCard.js'
 import { makeStyles } from '@material-ui/core/styles'
 import {
-    Grid,
-    Card,
-    CardContent,
-    Typography,
-    CardHeader
+    Grid
 } from '@material-ui/core/'
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import FreebayAPI from '../../Api.js'
-import ProductsContext from "../Common/Context";
-import { v4 as uuid } from 'uuid';
-import {useParams, useLocation} from 'react-router-dom';
-import Pagination from '@material-ui/lab/Pagination';
+import { useLocation} from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 
+// The list of product categories when a user clicks on a subcategory
+// that is listed within the categories navigation bar
 
 
 function useQuery() {

@@ -1,35 +1,26 @@
-import React, { useState, useEffect, useContext } from "react";
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardMedia from '@material-ui/core/CardMedia';
+import React, { useState, useEffect } from "react";
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import {useParams, Redirect} from 'react-router-dom';
 import FreebayAPI from '../../Api.js'
-import ProductsContext from "../Common/Context";
-import IconButton from '@material-ui/core/IconButton';
 import Container from '@material-ui/core/Container';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import Link from '@material-ui/core/Link';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import TextField from '@material-ui/core/TextField';
-import ReactDOM from "react-dom";
-import Countdown from "react-countdown";
 import LoadingSpinner from '../Common/LoadingSpinner.js'
 
 import {
   Grid,
   Card,
   CardContent,
-  Typography,
-  CardHeader,
+  Typography
 } from '@material-ui/core/'
 
 
 
-
+// Component that displays all information of a product.
+// Renders a countdown to the end of the auction along with an input
+// to allow the user to bid on the product.
 
 
 const useStyles = makeStyles({

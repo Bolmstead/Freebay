@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -8,19 +8,19 @@ import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
-import SearchForm from "../Common/SearchForm"
-import FreebayAPI from '../../Api.js'
 import Context from "../Common/Context";
 import {Redirect, useHistory} from 'react-router-dom';
 
+// Search Bar to allow user to search products.
+// If logged in, displays user's account balance, notifications 
+// icon, and profile icon. When clicked on, the notifications icon 
+// will show user's unread notifications. If not logged in, shows 
+// login and signup links.
 
 const useStyles = makeStyles((theme) => ({
   balance: {
@@ -102,7 +102,7 @@ function PrimarySearchAppBar() {
   const [notificationsAnchorEl, setNotificationsAnchorEl] = React.useState(null);
 
 
-  const { products, getProducts, currentUser, getCurrentUser, logout} = useContext(Context);
+  const { currentUser, logout} = useContext(Context);
   const history = useHistory()
   let numOfNotifications;
 

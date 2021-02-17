@@ -4,18 +4,17 @@ import './App.css';
 import jwt from "jsonwebtoken";
 import PrimarySearchAppBar from './Components/Navigation/PrimarySearchAppBar.js'
 import CategoriesBar from './Components/Navigation/CategoriesBar/CategoriesBar.js'
-import TestAppBar from './Components/Navigation/CategoriesBar/Category.js'
 import Routes from './Routes.js'
 import Container from '@material-ui/core/Container';
 import Context from "./Components/Common/Context.js";
 import FreebayAPI from './Api'
 import useLocalStorage from "./hooks/useLocalStorage";
-import CircularProgress from '@material-ui/core/CircularProgress';
-import LoadingSpinner from './Components/Common/LoadingSpinner.js'
+import LoadingSpinner from './Components/Common/LoadingSpinner.js';
 
 
 export const TOKEN_STORAGE_ID = "freebay-token";
 
+// Renders entire Application
 
 function App() {
   const [infoLoaded, setInfoLoaded] = useState(false);
@@ -37,7 +36,6 @@ function App() {
       if (token) {
         try {
           let { username } = jwt.decode(token);
-          // put the token on the Api class so it can use it to call the API.
           console.log("FreebayAPI.token", FreebayAPI.token)
           FreebayAPI.token = token;
           let userResult = await FreebayAPI.getUser(username);
@@ -52,8 +50,6 @@ function App() {
       setInfoLoaded(true)
     }
 
-    // once the data is fetched (or even if an error happens!), this will be set back
-    // to false to control the spinner.
     setInfoLoaded(false)
     getCurrentUser();
 
@@ -89,7 +85,7 @@ function App() {
 
 
 
-// PRODUCT HOOKS
+// Product Hooks
   async function getProductsInCategory(category) {
     let res = await FreebayAPI.getProductsInCategory(category);
     setProducts(res);

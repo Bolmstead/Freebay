@@ -6,6 +6,9 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+//  Renders card to provide a link to frequently asked questions
+//  to be rendered on the home page
+
 const useStyles = makeStyles({
   root: {
     minWidth: 275,

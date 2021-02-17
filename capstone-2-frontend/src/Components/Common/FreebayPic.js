@@ -1,25 +1,18 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
-import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Link from '@material-ui/core/Link';
-import ReactDOM from "react-dom";
-import Container from "@material-ui/core/Container";
 import {
     FiCard,
-    FiCardActionArea,
     FiCardActions,
     FiCardContent,
     FiCardMedia
   } from "./FullImageCard";
 
+
+// Picture template to show on the homepage right below CategoriesBar
+// Also acts as a link to send users to a certain part of the website
 
 
 const useStyles = makeStyles((theme) => ({
