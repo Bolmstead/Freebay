@@ -8,6 +8,8 @@ const {
 } = require("../expressError");
 const User = require("../models/userModel");
 const Product = require("../models/productModel");
+const Notification = require("../models/NotificationModel");
+
 
 
 
@@ -88,7 +90,12 @@ class BridgedTables {
     console.log("user from updateBid method in BridgedTables", user)
     console.log("newBid from updateBid method in BridgedTables", newBid)
 
-    const {currentBidderEmail, currentBid, currentBidderUsername} = product
+    const {bidderEmail, currentBid, currentBidderUsername} = product
+
+    console.log("bidderEmail from updateBid method", bidderEmail)
+    console.log("currentBid from updateBid method", currentBid)
+    console.log("currentBidderUsername from updateBid method", currentBidderUsername)
+
   
 
     if (currentBid) {
@@ -97,8 +104,8 @@ class BridgedTables {
       const currentBidInt = parseInt(currentBid)
       const newBidInt = parseInt(newBid)
 
-      console.log("currentBidInt", typeof(currentBidInt))
-      console.log("newBidInt", typeof(newBidInt))
+      console.log("currentBidInt", currentBidInt)
+      console.log("newBidInt", newBidInt)
 
       if (currentBidInt < newBidInt) {
         console.log("bid price is higher than the previous")
@@ -110,10 +117,12 @@ class BridgedTables {
           console.log("previous bid deleted")
 
           const auctionEndObj = new Date(product["auctionEndDt"]);
-          console.log("auctionEndObj",auctionEndObj)
       
           const timeLeft = Date.parse(auctionEndObj) - Date.parse(new Date());
           console.log("timeLeft",timeLeft)
+
+        // add notification to previous bidder
+        Notification.addNotification(bidderEmail, `You have been outbid by ${user["username"]}!`, product["id"] )
       
           // if( timeLeft < 60000) {
           //   console.log("timeleft is less than one min")
@@ -124,7 +133,7 @@ class BridgedTables {
           //   Product.addAuctionTime(auctionEndString)
           // }
         // increase balance
-        await User.increaseUserBalance(currentBid, currentBidderEmail)
+        await User.increaseUserBalance(currentBidInt, bidderEmail)
       }
       else {
         console.log("bid price is NOT higher than the previous")
@@ -141,9 +150,14 @@ class BridgedTables {
 
     console.log("theHighestBid", theHighestBid)
 
+    console.log("product[id]", product["id"])
+
+
+
     if (!theHighestBid) throw new BadRequestError(`Unable to update the bid: ${productId}, ${newBidderEmail}, ${bidPrice}`);
     else{ Product.addToBidCount(product["id"]);
-          User.lowerUserBalance(newBid, user["email"])}
+          User.lowerUserBalance(newBid, user["email"]);
+        }
 
     // Add notification of outbid to previous highest bidder
     // const notification = `You have been outbid by ${newBidder["username"]} for the item ${product["name"]}. The current bid is ${bidPrice}. If you would like, please bid again.`
@@ -154,8 +168,8 @@ class BridgedTables {
 
     // if (!addNotificationResult) throw new BadRequestError(`Unable to update add previous bidder's notification: ${notification}`);
   }
-}
 
+}
 
 // BridgedTables.wonProduct(6,"username", 45)
 // BridgedTables.wonProduct(16,"username", 69609)

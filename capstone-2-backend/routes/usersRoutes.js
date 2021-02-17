@@ -8,6 +8,7 @@ const express = require("express");
 const { ensureCorrectUserOrAdmin, ensureAdmin } = require("../middleware/auth");
 const { BadRequestError } = require("../expressError");
 const User = require("../models/userModel");
+const Notification = require("../models/NotificationModel");
 const { createToken } = require("../helpers/tokens");
 // const userNewSchema = require("../schemas/userNew.json");
 // const userUpdateSchema = require("../schemas/userUpdate.json");
@@ -28,13 +29,13 @@ router.get("/:username", async function (req, res, next) {
   console.log("/users/:username")
   try {
     console.log("made it to the usersRoutes /:username route")
-    console.log("req.params.username",req.params.username)
+    // console.log("req.params.username",req.params.username)
 
     const user = await User.get(req.params.username);
 
 
 
-    console.log("user in /:username route", user )
+    // console.log("user in /:username route", user )
 
     return res.json(user);
   } catch (err) {
@@ -53,20 +54,17 @@ router.get("/:username", async function (req, res, next) {
 //  * Authorization required: admin or same-user-as-:username
 //  **/
 
-// router.patch("/:username", ensureCorrectUserOrAdmin, async function (req, res, next) {
-//   try {
-//     const validator = jsonschema.validate(req.body, userUpdateSchema);
-//     if (!validator.valid) {
-//       const errs = validator.errors.map(e => e.stack);
-//       throw new BadRequestError(errs);
-//     }
+router.post("/view_notification/:id", async function (req, res, next) {
+  try {
+    console.log("made it to the usersRoutes /view_notification/:id route")
 
-//     const user = await User.update(req.params.username, req.body);
-//     return res.json({ user });
-//   } catch (err) {
-//     return next(err);
-//   }
-// });
+    await Notification.viewNotification(req.params.id);
+
+    return res.json("success");
+  } catch (err) {
+    return next(err);
+  }
+});
 
 
 

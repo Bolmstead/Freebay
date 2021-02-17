@@ -18,7 +18,7 @@ import ReactDOM from "react-dom";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import WinsFeed from "./WinsFeed";
 import BidsFeed from "./BidsFeed";
-import NotificationsList from "./NotificationsList";
+import Notifications from "./Notifications";
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -129,40 +129,23 @@ function Profile() {
     <Container>
       <Grid container justify="center" alignItems="center"   direction="row">
         <Grid item xs={6}><br/>
-
+          <Card> 
+            <CardContent >
+              <Typography variant="h5" component="h2" align="center">
+              {username}
+              </Typography>
+              <Typography className={classes.pos} color="textSecondary" align="center">
+                  {firstName} {lastName}
+                </Typography>
+            </CardContent>
+          </Card>
         </Grid>
       </Grid>
-
-
-        <Card>
-            
-          <CardContent >
-            <Typography variant="h5" component="h2" align="center">
-            {username}
-            </Typography>
-            <Typography className={classes.pos} color="textSecondary" align="center">
-                {firstName} {lastName}
-              </Typography>
-            <Grid container>
-            <Grid item xs={6}>
-              <Typography className={classes.pos} color="textSecondary" display="inline" align="center">
-                Balance:  
-              </Typography>
-              <Typography className={classes.pos} style={{color: "limegreen"}} display="inline" align="center">
-                ${balance}
-              </Typography>
-              </Grid>
-              <Grid item xs={6}>
-              <Typography className={classes.pos} color="textSecondary" align="center" display="inline">
-                Notifications: 
-              </Typography>
-              <Typography className={classes.pos} style={{color: "orange"}} display="inline" align="center">
-                {notifications.length}
-              </Typography>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
+      <Grid container justify="center" alignItems="center"   direction="row">
+        <Grid item xs={8}><br/>
+          <Notifications/>
+        </Grid>
+      </Grid>
           <Grid container  justify="center" alignItems="center" direction="row">
             <Grid item justify="center" alignItems="center" xs={6}><br/>
               <WinsFeed userProfile={userProfile}/>

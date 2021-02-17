@@ -47,7 +47,6 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   // grab the number of the page
   let query = useQuery()
-  console.log("queryfrom ProductList.js route", query)
   // let subCategory = query.get("subCategory")
   // let page = query.get("page")
   // if (!page) {
@@ -55,7 +54,6 @@ const ProductList = () => {
   // }
 
   let searchObject = Object.fromEntries(new URLSearchParams(query));
-  console.log("searchObject from ProductList.js route", query)
 
 
   let { page, subCategory} = searchObject
@@ -64,13 +62,12 @@ const ProductList = () => {
     page = "1"
   }
 
-  console.log("searchObject", searchObject)
  //grab products
   useEffect(() => {
     async function getProductsInCategory() {
       let res = await FreebayAPI.getProducts(searchObject);
       setProducts(res);
-      console.log("products", products)
+      // console.log("products", products)
     }
     getProductsInCategory()
   }, []);
@@ -78,12 +75,12 @@ const ProductList = () => {
 
   // grab the next page number
   const nextPage = (parseInt(page) + 1).toString()
-  console.log("nextPage", nextPage)
+  // console.log("nextPage", nextPage)
 
   query.set("page", nextPage)
   
   const nextPageQuery = query.toString()
-  console.log("nextPageQuery", nextPageQuery)
+  // console.log("nextPageQuery", nextPageQuery)
 
   // grab the previous page number
   let prevPage;
@@ -96,7 +93,7 @@ const ProductList = () => {
     query.set("page", prevPage)
     
     const prevPageQuery = query.toString()
-    console.log("prevPageQuery", prevPageQuery)
+    // console.log("prevPageQuery", prevPageQuery)
   }
 
 

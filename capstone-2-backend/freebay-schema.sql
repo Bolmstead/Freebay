@@ -42,7 +42,7 @@ CREATE TABLE highest_bids (
 );
 
 CREATE TABLE notifications (
-  id INTEGER,
+  id SERIAL PRIMARY KEY,
   user_email varchar(100)
     REFERENCES users(email) ON DELETE CASCADE,
   text TEXT,

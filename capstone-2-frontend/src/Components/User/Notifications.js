@@ -13,6 +13,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+
 import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -48,21 +51,24 @@ function generate(element) {
   );
 }
 
-export default function NotificationsList() {
+export default function Notifications() {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
 
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
-          <Typography variant="h6" className={classes.title}>
-            Notifications
-          </Typography>
-          <div className={classes.demo}>
-            <List >
+      <Grid container justify="center" alignItems="center"   direction="row" spacing="2">
+        <Grid item xs={12} md={8}>
+
+
+        <Card> 
+            <CardContent >
+              <Typography variant="h5" component="h2" align="center">
+              Notifications
+              </Typography>
+              <List >
               {generate(
-                <ListItem>
+                <ListItem dense="true">
                   <ListItemAvatar>
                     <Avatar>
                       <FolderIcon />
@@ -74,8 +80,10 @@ export default function NotificationsList() {
                   />
                 </ListItem>,
               )}
-            </List>
-          </div>
+              </List>
+            </CardContent>
+          </Card>
+
         </Grid>
       </Grid>
     </div>

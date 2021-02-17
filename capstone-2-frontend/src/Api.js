@@ -38,7 +38,7 @@ class FreebayAPI {
 
   static async getProduct(id) {
     let res = await this.request(`products/${id}`);
-    console.log("res",res)
+    // console.log("res",res)
     return res.product;
   }
 
@@ -48,12 +48,12 @@ class FreebayAPI {
     console.log("searchObject from Api.js getProducts", searchObject)
     const queryString = Object.keys(searchObject).map(key => key + '=' + searchObject[key]).join('&');
 
-    console.log("queryString from Api.js getProducts", queryString)
+    // console.log("queryString from Api.js getProducts", queryString)
 
     let url = `products/?` + queryString
-    console.log("url", url)
+    // console.log("url", url)
     let res = await this.request(url);
-    console.log("res from getProducts,", res)
+    // console.log("res from getProducts,", res)
 
     return res.products;
   }
@@ -62,7 +62,7 @@ class FreebayAPI {
 
   static async login(data) {
     let res = await this.request(`auth/token`, data, "post");
-    console.log("res from api.js login method", res)
+    // console.log("res from api.js login method", res)
 
     return res.token;
   }
@@ -71,7 +71,7 @@ class FreebayAPI {
 
   static async signup(data) {
     let res = await this.request(`auth/register`, data, "post");
-    console.log("res from api.js signup method", res)
+    // console.log("res from api.js signup method", res)
 
     return res.token;
   }
@@ -79,9 +79,9 @@ class FreebayAPI {
   /** Get current user information. */
   
   static async getUser(username) {
-    console.log("madeit to getUser API method")
+    // console.log("madeit to getUser API method")
     let res = await this.request(`users/${username}`);
-    console.log("madeit to getUser API method after this.request",res)
+    // console.log("madeit to getUser API method after this.request",res)
 
     return res;
   }
@@ -91,7 +91,17 @@ class FreebayAPI {
   static async addBid(productId, bidAmount) {
     let data={}
     let res = await this.request(`products/${productId}/bid/${bidAmount}`, data, "post");
-    console.log("res from api.js addBid method", res)
+    // console.log("res from api.js addBid method", res)
+    return res;
+  }
+
+  /** View notification */
+
+
+  static async viewNotification(notificationId) {
+    let data={}
+    let res = await this.request(`users/view_notification/${notificationId}`, data, "post");
+    // console.log("res from api.js addBid method", res)
     return res;
   }
  

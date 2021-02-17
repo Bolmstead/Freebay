@@ -69,7 +69,7 @@ export default function Signup() {
     evt.preventDefault();
     let result = await signup(formData);
     if (result.success) {
-      history.push("/home");
+      history.push("/");
     } else {
       setFormErrors(result.errors);
     }

@@ -89,10 +89,10 @@ class Product {
     // Pagination
     let limit = 24
     let offset
-    console.log("page from getProducts product model",page, "typeofpage", typeof(page))
+    // console.log("page from getProducts product model",page, "typeofpage", typeof(page))
 
     if (!page) {
-      console.log("PAGE IS UNDEFINED")
+      // console.log("PAGE IS UNDEFINED")
       offset = 0
     }
     else {
@@ -103,7 +103,7 @@ class Product {
     paginationQuery += offset
 
 
-    console.log("search categories to be used in SQL command","page", page,"name", name, 'category', category, 'subCategory', subCategory, 'description', description, 'condition', condition,'rating', rating, 'numOfRatings', numOfRatings, 'auctionEndDt', auctionEndDt)
+    // console.log("search categories to be used in SQL command","page", page,"name", name, 'category', category, 'subCategory', subCategory, 'description', description, 'condition', condition,'rating', rating, 'numOfRatings', numOfRatings, 'auctionEndDt', auctionEndDt)
 
 
     // For each possible search term, add to whereExpressions and queryValues so
@@ -158,14 +158,14 @@ class Product {
 
     query += paginationQuery
 
-    console.log("query", query)
-    console.log("queryValues", queryValues)
+    // console.log("query", query)
+    // console.log("queryValues", queryValues)
 
 
     // Finalize query and return results
 
     const findAllRes = await db.query(query, queryValues);
-    console.log("result from get products request", findAllRes.rows)
+    // console.log("result from get products request", findAllRes.rows)
     return findAllRes.rows;
   }
 
@@ -201,7 +201,7 @@ class Product {
     WHERE id = $1`,
         [id]);
 
-    console.log("productRes from get() method", productRes.rows[0])
+    // console.log("productRes from get() method", productRes.rows[0])
     if (!productRes) throw new NotFoundError(`No product found: ${id}`);
 
     // const product = productRes.rows[0];
@@ -268,7 +268,7 @@ class Product {
                       WHERE id = $1`,[productId]);
     if (!result) throw new NotFoundError(
           `Bid not added to count: ${productId}`);
-    console.log("result from addtobidcount", result)
+    // console.log("result from addtobidcount", result)
     return result;
   }
 
@@ -278,7 +278,7 @@ class Product {
                       WHERE id = $2`,[newDateTime, productId]);
     if (!result) throw new NotFoundError(
           `30 seconds not added to auction time: ${productId}`);
-    console.log("result from addAuctionTime", result)
+    // console.log("result from addAuctionTime", result)
     return result;
   }
 
@@ -300,7 +300,7 @@ class Product {
                       SET is_sold = true
                       WHERE id = $1`,[productId]);
     if (!result) throw new NotFoundError(`No product: ${productId}`);
-    console.log("productSold result", result)
+    // console.log("productSold result", result)
     return result;
   }
 
@@ -320,7 +320,7 @@ class Product {
        SET num_of_ratings = num_of_ratings + 1, rating = ${newTotalRating}
        WHERE id = $1`,[productId]);
     if (!result) throw new NotFoundError(`No product: ${productId}`);
-    console.log("New Product Rating", result)
+    // console.log("New Product Rating", result)
     return result;
   }
 }

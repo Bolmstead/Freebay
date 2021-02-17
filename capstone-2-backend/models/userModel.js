@@ -35,15 +35,15 @@ class User {
     [email],
     );
     const user = result.rows[0];
-    console.log("user from User.authenticate", user)
-    console.log("password", password)
+    // console.log("user from User.authenticate", user)
+    // console.log("password", password)
 
 
     if (user) {
       // compare hashed password to a new hash from password
       const isValid = await bcrypt.compare(password, user.password);
       if (isValid === true) {
-        console.log("password was valid from authenticate method in user model")
+        // console.log("password was valid from authenticate method in user model")
         delete user.password;
         return user;
       }
@@ -145,7 +145,7 @@ class User {
 
     user.products_won = productsWonRes.rows;
 
-    console.log("productsWonRes from get() in User model", productsWonRes)
+    // console.log("productsWonRes from get() in User model", productsWonRes)
 
     // Grab Highest Bids
     const highestBidsRes = await db.query(
@@ -169,9 +169,9 @@ class User {
 
     user.highest_bids = highestBidsRes.rows;
 
-    console.log("highestBidsRes from get() in User model", highestBidsRes)
+    // console.log("highestBidsRes from get() in User model", highestBidsRes)
 
-    console.log("ALMOST final user object", user)
+    // console.log("ALMOST final user object", user)
 
     // Grab Notifications
     const notificationsRes = await db.query(
@@ -183,9 +183,9 @@ class User {
 
     user.notifications = notificationsRes.rows;
 
-    console.log("notificationsRes from get() in User model", notificationsRes.rows)
+    // console.log("notificationsRes from get() in User model", notificationsRes.rows)
 
-    console.log("final user object", user)
+    console.log("final user object from getUser", user)
 
     return user;
   }
@@ -199,7 +199,7 @@ class User {
                       SET balance = balance - $1
                       WHERE email = $2`,[amount, email]);
     if (!result) throw new NotFoundError(`Balance not lowered by ${amount} for user:  ${email}`);
-    console.log("lowerUserBalance result", result)
+    // console.log("lowerUserBalance result", result)
     return result;
   }
 
@@ -209,6 +209,8 @@ class User {
                       SET balance = balance + $1
                       WHERE email = $2`,[amount, email]);
     if (!result) throw new NotFoundError(`Balance not increased by ${amount} for user:  ${email}`);
+    console.log("amount from increaseUserBalance", amount)
+    console.log("email from increaseUserBalance", email)
     console.log("increaseUserBalance result", result)
     return result;
   }
@@ -236,7 +238,7 @@ class User {
 
     if (!usersHighestBidsRes) throw new NotFoundError(`Undable to getHighestBids in userModel.js`);
 
-    console.log("getHighestBids in userModel.js", usersHighestBidsRes)
+    // console.log("getHighestBids in userModel.js", usersHighestBidsRes)
 
     return usersHighestBidsRes
   }
