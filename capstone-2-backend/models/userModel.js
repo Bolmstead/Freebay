@@ -7,6 +7,8 @@ const {
   BadRequestError,
   UnauthorizedError,
 } = require("../expressError");
+const Notification = require("./NotificationModel");
+
 
 const { BCRYPT_WORK_FACTOR } = require("../config.js");
 
@@ -95,6 +97,8 @@ class User {
 
     const user = result.rows[0];
     console.log("user from register method", user)
+
+    Notification.addNotification(user["email"], `Welcome to Freebay! As a welcome gift, we have deposited $100 Freebay bucks into your account! If you have any questions please see our FAQs page.` )
     return user;
   }
 
@@ -121,7 +125,7 @@ class User {
     const user = userRes.rows[0];
 
     if (!user) throw new NotFoundError(`No user: ${username}`);
-    console.log("userfrom get() in User model",user)
+    console.log("user from get() in User model",user)
   
     // Grab Products won
     const productsWonRes = await db.query(
@@ -138,7 +142,8 @@ class User {
                   products.auction_end_dt AS "auctionEndDt",
                   products.bid_count AS "bidCount",
                   products.is_sold AS "isSold",
-                  products_won.bid_price AS "bidPrice"
+                  products_won.bid_price AS "bidPrice",
+                  products_won.timestamp
           FROM products_won
           FULL OUTER JOIN products ON products_won.product_id = products.id
           WHERE products_won.user_email = $1`, [user["email"]]);
@@ -162,14 +167,15 @@ class User {
               products.auction_end_dt AS "auctionEndDt",
               products.bid_count AS "bidCount",
               products.is_sold AS "isSold",
-              highest_bids.bid_price AS "bidPrice"
+              highest_bids.bid_price AS "bidPrice",
+              highest_bids.timestamp
           FROM highest_bids
           FULL OUTER JOIN products ON highest_bids.product_id = products.id
           WHERE highest_bids.user_email = $1`, [user["email"]]);
 
     user.highest_bids = highestBidsRes.rows;
 
-    // console.log("highestBidsRes from get() in User model", highestBidsRes)
+    console.log("highestBidsRes from get() in User model", highestBidsRes)
 
     // console.log("ALMOST final user object", user)
 
@@ -177,7 +183,9 @@ class User {
     const notificationsRes = await db.query(
       `SELECT notifications.id,
               notifications.text,
-              notifications.related_product_id AS "relatedProductId"
+              notifications.related_product_id AS "relatedProductId",
+              notifications.was_viewed AS "wasViewed",
+              notifications.timestamp
         FROM notifications
         WHERE notifications.user_email = $1`, [user["email"]]);
 

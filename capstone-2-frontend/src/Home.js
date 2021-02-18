@@ -4,6 +4,9 @@ import FreebayPic from './Components/Common/FreebayPic'
 import FaqCard from './Components/Common/FaqCard'
 import Grid from '@material-ui/core/Grid';
 import ExampleFeed from './Components/User/ExampleFeed.js'
+import BidsFeed from './Components/User/BidsFeed.js'
+import WinsFeed from './Components/User/WinsFeed.js'
+
 import { Typography } from "@material-ui/core";
 
 /* Home page that will render a feed of users who have 

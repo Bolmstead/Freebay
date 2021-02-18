@@ -122,8 +122,10 @@ class BridgedTables {
           console.log("timeLeft",timeLeft)
 
         // add notification to previous bidder
-        Notification.addNotification(bidderEmail, `You have been outbid by ${user["username"]}!`, product["id"] )
-      
+        if( bidderEmail !== user.email) {
+          console.log("`You have been outbid by ____!`")
+          Notification.addNotification(bidderEmail, `You have been outbid by ${user["username"]}!`, product["id"] )
+        }
           // if( timeLeft < 60000) {
           //   console.log("timeleft is less than one min")
           //   auctionEndObj.setSeconds(auctionEndObj.getSeconds()+ 30)
@@ -135,9 +137,15 @@ class BridgedTables {
         // increase balance
         await User.increaseUserBalance(currentBidInt, bidderEmail)
       }
-      else {
-        console.log("bid price is NOT higher than the previous")
+
+      if (currentBidInt >= newBidInt) {
+        console.log("Bid price is NOT higher than the previous")
         throw new BadRequestError(`Your bid of ${newBid} is not higher than the previous bid of ${currentBid}`);
+      }
+
+      if (newBidInt > user.balance) {
+        console.log("Insufficient funds")
+        throw new BadRequestError(`Insufficient funds`);
       }
 
     }
@@ -157,6 +165,7 @@ class BridgedTables {
     if (!theHighestBid) throw new BadRequestError(`Unable to update the bid: ${productId}, ${newBidderEmail}, ${bidPrice}`);
     else{ Product.addToBidCount(product["id"]);
           User.lowerUserBalance(newBid, user["email"]);
+          Notification.addNotification(user["email"], `Congrats! You have placed a bid on ${product["name"]}!`, product["id"] )
         }
 
     // Add notification of outbid to previous highest bidder

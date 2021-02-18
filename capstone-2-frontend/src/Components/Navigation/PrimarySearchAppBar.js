@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,6 +15,7 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Context from "../Common/Context";
 import {Redirect, useHistory} from 'react-router-dom';
+import FreebayAPI from "../../Api.js"
 
 // Search Bar to allow user to search products.
 // If logged in, displays user's account balance, notifications 
@@ -103,13 +104,22 @@ function PrimarySearchAppBar() {
 
 
   const { currentUser, logout} = useContext(Context);
-  const history = useHistory()
-  let numOfNotifications;
 
-  if (currentUser) {
-    const numOfNotifications = currentUser["notifications"]
+  console.log("currentUser from PrimarySearchAppBar", currentUser)
+
+  const history = useHistory()
+
+  let notifications;
+  let newNotifications;
+
+  if (currentUser){
+    notifications = currentUser["notifications"];
+    console.log("notifications from PrimarySearchAppBar", notifications)
+    newNotifications = notifications.filter( n => !n.wasViewed)
+    console.log("newNotifications from PrimarySearchAppBar", newNotifications)
   }
-  console.log("numOfNotifications",numOfNotifications)
+
+
 
   // Handle the Input in the Search Bar
   function handleSubmit(evt) {
@@ -140,8 +150,24 @@ function PrimarySearchAppBar() {
   };
 
   const handleNotificationsMenuOpen = (event) => {
+    console.log("handleNotificationsMenuOpen")
     setNotificationsAnchorEl(event.currentTarget);
   };
+
+  
+
+  useEffect(function viewNotifications() {
+    async function viewNotificationsApi() {
+        try {
+          await FreebayAPI.viewNotifications(currentUser.email);
+        } catch (err) {
+          console.error("Error with FreebayAPI.viewNotifications()", err);
+        }
+      }
+    viewNotificationsApi();
+  }, [notificationsAnchorEl]);
+
+
 
   const handleNotificationsMenuClose = () => {
     setNotificationsAnchorEl(null);
@@ -163,10 +189,15 @@ function PrimarySearchAppBar() {
       ? <Link href={"/Profile/" + currentUser["username"]}><MenuItem onClick={handleProfileMenuClose}>Profile</MenuItem></Link>
       : <MenuItem onClick={handleProfileMenuClose}>Profile</MenuItem>
       } 
-      <Link href={"/"} className="m-2" onClick={logout}><MenuItem onClick={handleProfileMenuClose}>Logout</MenuItem></Link>
+      <Link className="m-2" onClick={logout}><MenuItem onClick={handleProfileMenuClose}>Logout</MenuItem></Link>
     </Menu>
   );
+
+
+
+
   const renderNotificationsMenu = (
+    
     <Menu
       anchorEl={notificationsAnchorEl}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -176,8 +207,17 @@ function PrimarySearchAppBar() {
       open={isNotificationsMenuOpen}
       onClose={handleNotificationsMenuClose}
     >
-      <MenuItem onClick={handleNotificationsMenuClose}>"example notification"</MenuItem>
-      <MenuItem onClick={handleNotificationsMenuClose}>View all notifications</MenuItem>
+    { notifications 
+    ?
+      ( newNotifications.length > 0
+      ?
+        newNotifications.map( n => (<MenuItem onClick={handleNotificationsMenuClose}>{n.text}</MenuItem>))
+      :
+      <MenuItem onClick={handleNotificationsMenuClose}>No new notifications</MenuItem>
+      )
+    :
+      <div></div>
+    }
     </Menu>
   );
 
@@ -219,8 +259,8 @@ function PrimarySearchAppBar() {
                 <div className={classes.sectionDesktop}>
                 <Typography className={classes.balance}>{"$" + currentUser["balance"]}</Typography>
                 <IconButton aria-label="show notifications">
-                  {numOfNotifications 
-                  ? <Badge badgeContent={numOfNotifications.length()} color="secondary" >      
+                  {newNotifications.length > 0 
+                  ? <Badge badgeContent={newNotifications.length} color="secondary" >      
                       <NotificationsIcon 
                       edge="end"
                       aria-label="account of current user"
@@ -254,6 +294,7 @@ function PrimarySearchAppBar() {
           }
         </Toolbar>
       </AppBar>
+      
       {renderNotificationsMenu}
       {renderAccountMenu}
     </div>

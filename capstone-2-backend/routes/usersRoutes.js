@@ -54,11 +54,12 @@ router.get("/:username", async function (req, res, next) {
 //  * Authorization required: admin or same-user-as-:username
 //  **/
 
-router.post("/view_notification/:id", async function (req, res, next) {
+router.post("/view_notifications/:email", async function (req, res, next) {
   try {
-    console.log("made it to the usersRoutes /view_notification/:id route")
+    console.log("made it to the usersRoutes /view_notifications/:username route")
 
-    await Notification.viewNotification(req.params.id);
+    console.log("req.params", req.params)
+    await Notification.viewNotifications(req.params.email);
 
     return res.json("success");
   } catch (err) {

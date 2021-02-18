@@ -78,7 +78,7 @@ class FreebayAPI {
   static async getUser(username) {
     // console.log("madeit to getUser API method")
     let res = await this.request(`users/${username}`);
-    // console.log("madeit to getUser API method after this.request",res)
+    console.log("madeit to getUser API method after this.request",res)
 
     return res;
   }
@@ -94,9 +94,12 @@ class FreebayAPI {
 
   /** Post method for when a user views a notification */
 
-  static async viewNotification(notificationId) {
-    let data={}
-    let res = await this.request(`users/view_notification/${notificationId}`, data, "post");
+  static async viewNotifications(email) {
+    let data = {}
+    console.log("made it to viewNotificatinos Api.js", data)
+    let res = await this.request(`users/view_notifications/${email}`, data, "post");
+    console.log("res from viewNotifications Api.js", res)
+
     // console.log("res from api.js addBid method", res)
     return res;
   }

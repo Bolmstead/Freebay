@@ -6,9 +6,15 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 
-// Feed of a user's product's wins. To be displayed for anyone viewing the page
+
+
+
+// Feed of a user's highest bids. To be displayed for anyone viewing the page
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,53 +32,57 @@ export default function BidsFeed(userProfile) {
 
   console.log("userProfile in WonOrBids Feed", userProfile )
 
-  const { products_won} = userProfile["userProfile"]
+  const { products_won } = userProfile["userProfile"]
 
   console.log("products_won in WonOrBids Feed", products_won )
 
-  const mappedList = (
-    products_won.map( p => {  
-      {<ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Product Image" src={p.imageUrl} />
-        </ListItemAvatar>
-      <ListItemText
-        primary={p.name}
-        secondary={
-          <React.Fragment>
-            <Typography
-              component="span"
-              variant="body2"
-              className={classes.inline}
-              color="textPrimary"
-            >
-              {p.bidPrice}
-            </Typography>
-          </React.Fragment>
-        }
-      />
-      </ListItem>}
-    })
-  )
-
-  console.log("mappedList in WonOrBids Feed", mappedList )
-
-
   return (
+    <div className={classes.root}>
+    <Typography variant="h5" component="h2" align="center">
+      Products Won
+    </Typography>
+    <Card >
+    <CardContent style={{maxHeight: 150, overflow: 'auto'}}>
     <List className={classes.root}>
-        <div alignItems="center" justify="center">
-            <span>Products you have won</span>
-        </div>
+      <h1>{userProfile["username"]}</h1>
         { products_won.length > 0 
-        ? <h1>Array of products won</h1>
-        // {mappedList}
-        :<ListItem alignItems="flex-start">
-          <ListItemText
-            secondary="You haven't won any products yet"
-          />
+        
+        ? 
+          
+        products_won.map( p => (  
+          <ListItem alignItems="flex-start">
+          <ListItemAvatar>
+            <Avatar alt="Product Image" src={p.imageUrl} />
+          </ListItemAvatar>
+        <ListItemText
+          primary={p.name}
+          secondary={
+            <React.Fragment>
+              <Typography
+                variant="caption"
+                className={classes.inline}
+                color="textPrimary"
+              >
+                ${p.bidPrice}
+              </Typography>
+            </React.Fragment>
+          }
+        />
+        </ListItem>
+        ))
+
+        :
+        
+          <ListItem alignItems="flex-start">
+            <ListItemText secondary="None yet!"/>
           </ListItem>
         }
-
-
     </List>
+    </CardContent>
+    </Card>
+    </div>
+
   )}
+
+
+  

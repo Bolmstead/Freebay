@@ -3,11 +3,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
-import {useParams, Redirect} from 'react-router-dom';
+import {useParams, Redirect, useHistory, withRouter} from 'react-router-dom';
 import FreebayAPI from '../../Api.js'
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import LoadingSpinner from '../Common/LoadingSpinner.js'
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+
 
 import {
   Grid,
@@ -24,6 +28,10 @@ import {
 
 
 const useStyles = makeStyles({
+  box: {
+   height: '4rem',
+   backgroundColor: "#68B900"
+  },
   media: {
     height: 300,
     width: 300,
@@ -34,6 +42,17 @@ const useStyles = makeStyles({
   cover: {
     width: 151,
   },
+
+  hr: {
+    height:'1px', 
+    borderWidth:0, 
+    color:'lightgrey', 
+    backgroundColor: '#e6e6e6', 
+    margin:0, 
+    padding: 0
+  }
+
+  
 });
 
 
@@ -46,6 +65,7 @@ function ProductDetails() {
   const [countdown, setCountdown] = useState([]);
   const [bidAmount, setBidAmount] = useState(null);
 
+  const history = useHistory()
   const {id} = useParams();
 
   useEffect(() => {
@@ -57,6 +77,7 @@ function ProductDetails() {
       // getTimeLeft(product["auctionEndDt"])
       // console.log("countdown", countdown)
       setInfoLoaded(true)
+      console.log("product",product)
     }
     setInfoLoaded(false)
     getProduct(id)
@@ -73,7 +94,7 @@ function ProductDetails() {
   async function handleSubmit(evt) {
     evt.preventDefault();
     let addBidRes = await FreebayAPI.addBid(id, bidAmount)
-    return <Redirect to="/" />
+      return <Redirect to="/" />
 
 
   }
@@ -88,8 +109,9 @@ function ProductDetails() {
 
   return (
     <Container>
+<br/>
 
-      <h1>Product Details</h1>
+
       <Grid container spacing={2}>
         <Grid item  xs={12} sm={6}>
           <Box color="text.secondary">
@@ -109,15 +131,28 @@ function ProductDetails() {
                 <Typography variant="caption" display="inline" className="ratingNumber" color="textSecondary">
                   {product["numOfRatings"]}
                 </Typography>
+                <br/><br/>
 
+                <hr className={classes.hr}/>
+                <br/>
                 { 
-                product["bidPrice"] 
-                ? <Typography variant="subtitle1" color="textSecondary">
-                  Current bid: ${product["bidPrice"]} by ${product["bidderUsername"]}
+                product["currentBid"] 
+                ? <div>
+                    <Typography variant="h4" color="textPrimary" display="inline" >
+                    ${product["currentBid"]}
+                    </Typography>
+                  <Typography variant="subtitle1" color="textSecondary" display="inline">
+                 is the current bid by {product["currentBidderUsername"]}
                   </Typography>
-                : <Typography variant="subtitle1" color="textSecondary">
-                  Starting bid: ${product["bidPrice"]} by ${product["bidderUsername"]}
+                  </div>
+                : <div>
+                <Typography variant="h4" color="textPrimary"  display="inline">
+                  ${product["marketPrice"]}
                   </Typography>
+                  <Typography variant="subtitle1" color="textSecondary" display="inline">
+                  is the starting bid
+                  </Typography>
+                  </div>
                 }
 
                 <form className={classes.root} onSubmit={handleSubmit} noValidate autoComplete="off">
@@ -127,8 +162,27 @@ function ProductDetails() {
                     Place Bid
                   </Button>
                 </form>
+                <br/>
+
 
                 {/* <Countdown date={Date.now() + countdown} renderer={props => <Typography variant="body2" color="textPrimary" component="p" fontWeight="fontWeightBold">{"Time left: " + props.days + "d " + props.hours + "h " + props.minutes + "m " + props.seconds + "s"}</Typography>} /> */}
+
+              </CardContent>
+          </Card>
+        </Grid>
+
+        <Grid item  xs={12}>
+          <Card className={classes.root}>
+              <CardContent className={classes.content}>
+                <Typography component="h7" variant="h7">
+                  Description
+                </Typography><br/><br/>
+
+                <hr className={classes.hr}/>
+                <br/>
+                  <Typography variant="subtitle1" color="textSecondary">
+                  {product["description"]} 
+                  </Typography>
 
               </CardContent>
           </Card>
@@ -139,5 +193,5 @@ function ProductDetails() {
   );
 }
 
-export default ProductDetails;
+export default withRouter(ProductDetails);
 

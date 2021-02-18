@@ -18,13 +18,13 @@ const { BCRYPT_WORK_FACTOR } = require("../config.js");
 class Notification {
 
   
-  static async viewNotification(notificationId) {
-    console.log("view Notification method", notificationId)
+  static async viewNotifications(userEmail) {
+    console.log("view Notification method", userEmail)
     await db.query(
       `UPDATE notifications
       SET was_viewed = true
-      WHERE id = $1
-      `, [notificationId]);
+      WHERE user_email = $1
+      `, [userEmail]);
   }
 
 
@@ -35,6 +35,8 @@ class Notification {
     VALUES ($1, $2, $3)
     `, [userEmail, text, relatedProductId]);
   }
+
+
 }
 
 // Notifications.wonProduct(6,"username", 45)

@@ -6,6 +6,9 @@ import Context from "../Common/Context";
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ExampleFeed from "./ExampleFeed";
+import BidsFeed from "./BidsFeed";
+import WinsFeed from "./WinsFeed";
+
 import Notifications from "./Notifications";
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
@@ -22,42 +25,6 @@ import {
 // A users profile. If the profile is the current user, notifications 
 // are displayed. If the profile does not match the current user, 
 // notifications would not be displayed.
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
-
-
-
 
 
 const useStyles = makeStyles({
@@ -103,6 +70,7 @@ function Profile() {
   useEffect(() => {
     async function getUserProfile(username) {
         let userObject = await FreebayAPI.getUser(username);
+        console.log("username from params in Profile component", username)
         setUserProfile(userObject);
     }
     getUserProfile(username);
@@ -116,7 +84,7 @@ function Profile() {
   return (
     <Container>
       <Grid container justify="center" alignItems="center"   direction="row">
-        <Grid item xs={6}><br/>
+        <Grid item xs={4}><br/>
           <Card> 
             <CardContent >
               <Typography variant="h5" component="h2" align="center">
@@ -131,22 +99,16 @@ function Profile() {
       </Grid>
       <Grid container justify="center" alignItems="center"   direction="row">
         <Grid item xs={8}><br/>
-          <Notifications/>
+          <Notifications userProfile={userProfile}/>
         </Grid>
-      </Grid>
           <Grid container  justify="center" alignItems="center" direction="row">
             <Grid item justify="center" alignItems="center" xs={6}><br/>
-              <Typography className={classes.pos} color="textSecondary" align="center">
-                Products Won
-              </Typography>
-              <ExampleFeed />
+              <WinsFeed userProfile={userProfile}/>
             </Grid>
             <Grid item justify="center" alignItems="center"  xs={6}><br/>
-              <Typography className={classes.pos} color="textSecondary" align="center">
-                Current Bids
-              </Typography>
-              <ExampleFeed />
+              <BidsFeed userProfile={userProfile}/>
             </Grid>
+          </Grid>
           </Grid>
 
         

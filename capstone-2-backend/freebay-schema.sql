@@ -30,7 +30,8 @@ CREATE TABLE products_won (
     REFERENCES products(id) ON DELETE CASCADE,
   user_email VARCHAR(100)
     REFERENCES users(email) ON DELETE CASCADE,
-  bid_price DECIMAL NOT NULL
+  bid_price DECIMAL NOT NULL,
+  timestamp TIMESTAMP
 );
 
 CREATE TABLE highest_bids (
@@ -38,7 +39,8 @@ CREATE TABLE highest_bids (
     REFERENCES products(id) ON DELETE CASCADE,
   user_email VARCHAR(100)
     REFERENCES users(email) ON DELETE CASCADE,
-  bid_price DECIMAL NOT NULL
+  bid_price DECIMAL NOT NULL,
+  timestamp TIMESTAMP
 );
 
 CREATE TABLE notifications (
@@ -47,5 +49,6 @@ CREATE TABLE notifications (
     REFERENCES users(email) ON DELETE CASCADE,
   text TEXT,
   related_product_id INTEGER,
-  was_viewed BOOLEAN DEFAULT false
+  was_viewed BOOLEAN DEFAULT false,
+  timestamp TIMESTAMP
 )
