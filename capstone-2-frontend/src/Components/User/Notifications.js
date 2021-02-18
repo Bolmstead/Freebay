@@ -43,7 +43,10 @@ export default function Notifications(userProfile) {
 
   const { notifications } = currentUser
 
+  notifications.reverse()
+
   console.log("notifications descrucutred from currentUser in Notifications component", notifications)
+
 
 
   return (
@@ -51,14 +54,14 @@ export default function Notifications(userProfile) {
       <Grid container justify="center" alignItems="center"   direction="row" spacing="2">
         <Grid item xs={12}>
         <Typography variant="h5" component="h2" align="center">
-            Notifications
+            All Notifications
           </Typography>
         <Card>  
             <CardContent style={{maxHeight: 150, overflow: 'auto'}}>
               <List >
         { notifications.length
           ? 
-            notifications.map( n => (
+          notifications.map( n => (
 
               <ListItem dense="true">
                 <ListItemAvatar>

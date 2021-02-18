@@ -84,7 +84,7 @@ function Profile() {
   return (
     <Container>
       <Grid container justify="center" alignItems="center"   direction="row">
-        <Grid item xs={4}><br/>
+        <Grid item xs={12} md={6} ><br/>
           <Card> 
             <CardContent >
               <Typography variant="h5" component="h2" align="center">
@@ -98,7 +98,7 @@ function Profile() {
         </Grid>
       </Grid>
       <Grid container justify="center" alignItems="center"   direction="row">
-        <Grid item xs={8}><br/>
+        <Grid item xs={12} md={10}><br/>
           <Notifications userProfile={userProfile}/>
         </Grid>
           <Grid container  justify="center" alignItems="center" direction="row">

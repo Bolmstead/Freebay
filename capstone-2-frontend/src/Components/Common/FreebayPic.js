@@ -9,6 +9,8 @@ import {
     FiCardContent,
     FiCardMedia
   } from "./FullImageCard";
+import Link from '@material-ui/core/Link';
+
 
 
 // Picture template to show on the homepage right below CategoriesBar
@@ -50,6 +52,7 @@ function FreebayPic() {
 
   return (
       <div>
+        <Link style={{textDecoration: 'none'}} href={"/products?subCategory=Computers%20&%20Accessories"}>
         <Box my={0}>
 
         <FiCard className={classes.card}>
@@ -60,9 +63,10 @@ function FreebayPic() {
             title="Contemplative Reptile"
           />
           <FiCardContent className={classes.fiCardContent}>
-            <h1 className={classes.header}>All the best tech for less</h1>
+            <Typography               variant="h3"
+ className={classes.header}>All the best tech for less</Typography>
             <Typography
-              variant="body2"
+              variant="body1"
               className={classes.fiCardContentTextSecondary}
               component="p"
             >
@@ -70,12 +74,11 @@ function FreebayPic() {
             </Typography>
           </FiCardContent>
           <FiCardActions className={classes.fiCardContent}>
-            <Button size="small" color="inherit" variant="outlined">
-              Learn More
-            </Button>
+
           </FiCardActions>
         </FiCard>
       </Box>
+      </Link>
     </div>
   );
 }
