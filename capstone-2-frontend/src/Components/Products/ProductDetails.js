@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
-import {useParams, Redirect, useHistory, withRouter} from 'react-router-dom';
+import {useParams, Redirect, useHistory, withRouter, ReactDOM } from 'react-router-dom';
 import FreebayAPI from '../../Api.js'
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
@@ -11,12 +11,15 @@ import LoadingSpinner from '../Common/LoadingSpinner.js'
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import Countdown from 'react-countdown';
+
 
 
 import {
   Grid,
   Card,
   CardContent,
+  CardMedia,
   Typography
 } from '@material-ui/core/'
 
@@ -28,15 +31,15 @@ import {
 
 
 const useStyles = makeStyles({
-  box: {
-   height: '4rem',
-   backgroundColor: "#68B900"
+
+  imageContainer: {
+    height: '400px',
+    width: '400px',
+    margin: 'auto'
   },
   media: {
-    height: 300,
-    width: 300,
-    borderRadius: 2,
-    border: 1,
+    height: '400px',
+    objectFit: 'contain',
   },
 
   cover: {
@@ -50,7 +53,11 @@ const useStyles = makeStyles({
     backgroundColor: '#e6e6e6', 
     margin:0, 
     padding: 0
+  },
+  root: {
+
   }
+
 
   
 });
@@ -112,24 +119,25 @@ function ProductDetails() {
 <br/>
 
 
-      <Grid container spacing={2}>
-        <Grid item  xs={12} sm={6}>
-          <Box color="text.secondary">
-            <img
+      <Grid container spacing={2}  >
+        <Grid item  xs={12} md={6}>
+          <Card className={classes.imageContainer} variant="outlined">
+          <CardMedia
               className={classes.media}
-              src={product["imageUrl"]}
+              image={product["imageUrl"]}
             />
-            </Box>
+            </Card>
         </Grid>
-        <Grid item  xs={12} sm={6}>
+        <Grid item  xs={12} md={6}   justifyContent="center"
+  alignItems="center">
           <Card className={classes.root}>
-              <CardContent className={classes.content}>
+              <CardContent className={classes.content} justify="center">
                 <Typography component="h7" variant="h7">
                   {product["name"]}
                 </Typography><br/>
                 <Rating name="read-only" value={product["rating"]} size="medium" readOnly display="inline"/>      
                 <Typography variant="caption" display="inline" className="ratingNumber" color="textSecondary">
-                  {product["numOfRatings"]}
+                  {product["numOfRatings"]} ratings
                 </Typography>
                 <br/><br/>
 
@@ -165,7 +173,7 @@ function ProductDetails() {
                 <br/>
 
 
-                {/* <Countdown date={Date.now() + countdown} renderer={props => <Typography variant="body2" color="textPrimary" component="p" fontWeight="fontWeightBold">{"Time left: " + props.days + "d " + props.hours + "h " + props.minutes + "m " + props.seconds + "s"}</Typography>} /> */}
+                <Countdown date={Date.now() + countdown} renderer={props => <Typography variant="body2" color="textPrimary" component="p" fontWeight="fontWeightBold">{"Time left: " + props.days + "d " + props.hours + "h " + props.minutes + "m " + props.seconds + "s"}</Typography>} />
 
               </CardContent>
           </Card>

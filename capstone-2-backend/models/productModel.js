@@ -1,63 +1,15 @@
 "use strict";
 
-const products1 = require("../products_1");
-const products2 = require("../products_2");
-const products3 = require("../products_3");
-
 const db = require("../db");
 const { BadRequestError, NotFoundError } = require("../expressError");
+const User = require("./userModel");
+const ProductWon = require("./ProductWonModel");
+const HighestBid = require("./HighestBidModel");
+const Notification = require("./NotificationModel");
 
-
-/** Related functions for companies. */
 
 class Product {
-  /** Create a product (from data), update db, return new product data.
-   *
-   * data should be { handle, name, description, numEmployees, logoUrl }
-   *
-   * Returns { handle, name, description, numEmployees, logoUrl }
-   *
-   * Throws BadRequestError if product already in database.
-   * */
-
-  // static async create({ handle, name, description, numEmployees, logoUrl }) {
-  //   const duplicateCheck = await db.query(
-  //         `SELECT handle
-  //          FROM companies
-  //          WHERE handle = $1`,
-  //       [handle]);
-
-  //   if (duplicateCheck.rows[0])
-  //     throw new BadRequestError(`Duplicate product: ${handle}`);
-
-  //   const result = await db.query(
-  //         `INSERT INTO companies
-  //          (handle, name, description, num_employees, logo_url)
-  //          VALUES ($1, $2, $3, $4, $5)
-  //          RETURNING handle, name, description, num_employees AS "numEmployees", logo_url AS "logoUrl"`,
-  //       [
-  //         handle,
-  //         name,
-  //         description,
-  //         numEmployees,
-  //         logoUrl,
-  //       ],
-  //   );
-  //   const product = result.rows[0];
-
-  //   return product;
-  // }
-
-  /** Find all companies (optional filter on searchFilters).
-   *
-   * searchFilters (all optional):
-   * - minEmployees
-   * - maxEmployees
-   * - name (will find case-insensitive, partial matches)
-   *
-   * Returns [{ handle, name, description, numEmployees, logoUrl }, ...]
-   * */
-
+  // Get all products
   static async getProducts(q) {
     let query = `SELECT products.id,
                         products.name,
@@ -71,7 +23,7 @@ class Product {
                         products.market_price AS "marketPrice",
                         products.auction_end_dt AS "auctionEndDt",
                         products.bid_count AS "bidCount",
-                        products.is_sold AS "isSold",
+                        products.auction_ended AS "auctionEnded",
                         users.email AS "bidderEmail",
                         users.first_name AS "bidderFirstName",
                         users.last_name AS "bidderLastName",
@@ -84,11 +36,11 @@ class Product {
     let queryValues = []; 
     let paginationQuery = " limit 24 OFFSET ";
 
-    let { page, name, category, subCategory, description, condition, rating, numOfRatings, auctionEndDt} = q;
+    let { page, name, category, subCategory, description, condition, rating, numOfRatings, auctionEndDt, auctionEnded} = q;
 
     // Pagination
     let limit = 24
-    let offset
+    let offset;
     // console.log("page from getProducts product model",page, "typeofpage", typeof(page))
 
     if (!page) {
@@ -150,7 +102,7 @@ class Product {
     }
 
 
-    whereExpressions.push(`is_sold = false`);
+    whereExpressions.push(`auction_ended = false`);
 
     query += " WHERE " + whereExpressions.join(" AND ");
 
@@ -165,6 +117,29 @@ class Product {
     // Finalize query and return results
 
     const findAllRes = await db.query(query, queryValues);
+
+    const currentDateTime = Date.parse(new Date());
+    console.log("currentDateTime",currentDateTime)
+
+    for ( const p of findAllRes.rows) {
+      const endDt = new Date(p.auctionEndDt)
+      console.log("Date.parse(endDt) - currentDateTime", (currentDateTime - Date.parse(endDt)))
+      console.log("dateTime", endDt)
+      if ((Date.parse(endDt) - currentDateTime) < 0){
+          if(p.bidderEmail) {
+            ProductWon.wonProduct(p.id, p.name, p.bidderEmail, p.bidPrice)
+          } else {
+            Product.auctionEnded(p.id)
+          }
+      } else {
+        console.log("product still up for auction")
+      }
+    }
+
+
+
+    console.log("endedAuctionProducts", endedAuctionProducts)
+    
     // console.log("result from get products request", findAllRes.rows)
     return findAllRes.rows;
   }
@@ -191,7 +166,7 @@ class Product {
             products.market_price AS "marketPrice",
             products.auction_end_dt AS "auctionEndDt",
             products.bid_count AS "bidCount",
-            products.is_sold AS "isSold",
+            products.auction_ended AS "auctionEnded",
             highest_bids.user_email AS "bidderEmail",
             highest_bids.bid_price AS "currentBid",
             users.username AS "currentBidderUsername"
@@ -203,65 +178,32 @@ class Product {
 
     // console.log("productRes from get() method", productRes.rows[0])
     if (!productRes) throw new NotFoundError(`No product found: ${id}`);
-
-    // const product = productRes.rows[0];
-    return productRes.rows[0];
-  }
-
-
-        /** Add all products to database
-   *
-   * This is a "partial update" --- it's fine if data doesn't contain all the
-   * fields; this only changes provided ones.
-   *
-   * Data can include: {name, description, numEmployees, logoUrl}
-   *
-   * Returns {handle, name, description, numEmployees, logoUrl}
-   *
-   * Throws NotFoundError if not found.
-   */
-
-  static async seedProducts() {
-    for (let i = 0; i < products1.length; i++) {
-      console.log(i)
-      const valuesArray =
-        [products1[i]["item"], products1[i]["category"], products1[i]["sub_category"], products1[i]["description"], products1[i]["condition"], products1[i]["rating"], products1[i]["num_of_ratings"], products1[i]["image_1"], products1[i]["market_price"], products1[i]["auction_end_dt"]]
-
-      await db.query(`INSERT INTO products (name, category, sub_category, description, condition, rating, num_of_ratings, image_url, market_price, auction_end_dt) 
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`, valuesArray)
-      }
     
-    for (let i = 0; i < products2.length; i++) {
-      console.log(i)
-      const valuesArray =
-        [products2[i]["item"], products2[i]["category"], products2[i]["sub_category"], products2[i]["description"], products2[i]["condition"], products2[i]["rating"], products2[i]["num_of_ratings"], products2[i]["image_1"], products2[i]["market_price"], products2[i]["auction_end_dt"]]
+    const product = productRes.rows[0]
 
-      await db.query(`INSERT INTO products (name, category, sub_category, description, condition, rating, num_of_ratings, image_url, market_price, auction_end_dt) 
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`, valuesArray)
-      }
+    const currentDateTime = Date.parse(new Date());
+    const endDt = new Date(product.auctionEndDt)
+    console.log("endDt", endDt)
 
-    for (let i = 0; i < products3.length; i++) {
-      console.log(i)
-      const valuesArray =
-        [products3[i]["item"], products3[i]["category"], products3[i]["sub_category"], products3[i]["description"], products3[i]["condition"], products3[i]["rating"], products3[i]["num_of_ratings"], products3[i]["image_1"], products3[i]["market_price"], products3[i]["auction_end_dt"]]
+    if ((Date.parse(endDt) - currentDateTime) < 0){
+      // console.log("auction ended")
+      // console.log("p",p)
+      // console.log("p.email",p.email)
 
-      await db.query(`INSERT INTO products (name, category, sub_category, description, condition, rating, num_of_ratings, image_url, market_price, auction_end_dt) 
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`, valuesArray)
-      }
+        if(product.bidderEmail) {
+          Product.addProductWon(product.id, product.Name, product.bidderEmail, product.currentBid)
+        } else {
+          Product.auctionEnded(product.id)
+        }
+    } else {
+      console.log("product still up for auction")
     }
 
-    /** Update product as sold.
-   *
-   * This is a "partial update" --- it's fine if data doesn't contain all the
-   * fields; this only changes provided ones.
-   *
-   * Data can include: {name, description, numEmployees, logoUrl}
-   *
-   * Returns {handle, name, description, numEmployees, logoUrl}
-   *
-   * Throws NotFoundError if not found.
-   */
+    // const product = productRes.rows[0];
+    return product;
+  }
 
+  // increase a users bid count2
   static async addToBidCount(productId) {
     const result = await db.query(`UPDATE products 
                       SET bid_count = bid_count + 1
@@ -279,28 +221,6 @@ class Product {
     if (!result) throw new NotFoundError(
           `30 seconds not added to auction time: ${productId}`);
     // console.log("result from addAuctionTime", result)
-    return result;
-  }
-
-
-    /** Update product as sold.
-   *
-   * This is a "partial update" --- it's fine if data doesn't contain all the
-   * fields; this only changes provided ones.
-   *
-   * Data can include: {name, description, numEmployees, logoUrl}
-   *
-   * Returns {handle, name, description, numEmployees, logoUrl}
-   *
-   * Throws NotFoundError if not found.
-   */
-
-  static async productSold(productId) {
-    const result = await db.query(`UPDATE products 
-                      SET is_sold = true
-                      WHERE id = $1`,[productId]);
-    if (!result) throw new NotFoundError(`No product: ${productId}`);
-    // console.log("productSold result", result)
     return result;
   }
 
@@ -323,12 +243,24 @@ class Product {
     // console.log("New Product Rating", result)
     return result;
   }
+
+  // Change auction_ended column of a product to true
+
+  static async auctionEnded(productId) {
+    const auctionEndedResult = await db.query(
+      `UPDATE products 
+        SET auction_ended = true
+        WHERE id = $1`,[productId]);
+
+    if (!auctionEndedResult) throw new NotFoundError(`productauctionEnded boolean value unchanged ${auctionEndedResult}`);
+    // console.log("productSold result", result)
+    console.log("auctionEndedResult from addProductWon()", auctionEndedResult)
+  }
+
+
 }
 
-// Product.addRating(785, 5)
-// Product.get(785)
 
-Product.addAuctionTime(24)
 
 
 

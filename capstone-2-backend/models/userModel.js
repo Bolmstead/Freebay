@@ -7,6 +7,9 @@ const {
   BadRequestError,
   UnauthorizedError,
 } = require("../expressError");
+const Product = require("./ProductModel");
+const ProductWon = require("./ProductWonModel");
+const HighestBid = require("./HighestBidModel");
 const Notification = require("./NotificationModel");
 
 
@@ -22,7 +25,6 @@ class User {
    * Throws UnauthorizedError is user not found or wrong password.
    **/
 
-   // works!!!!!!!!!!1
   static async authenticate(email, password) {
     // try to find the user first
     const result = await db.query(
@@ -37,15 +39,11 @@ class User {
     [email],
     );
     const user = result.rows[0];
-    // console.log("user from User.authenticate", user)
-    // console.log("password", password)
-
 
     if (user) {
       // compare hashed password to a new hash from password
       const isValid = await bcrypt.compare(password, user.password);
       if (isValid === true) {
-        // console.log("password was valid from authenticate method in user model")
         delete user.password;
         return user;
       }
@@ -60,7 +58,6 @@ class User {
    *
    * Throws BadRequestError on duplicates.
    **/
-  // WORKS!!!
   static async register(
       { email, username, password, firstName, lastName }) {
     console.log("User model register method")
@@ -141,7 +138,7 @@ class User {
                   products.market_price AS "marketPrice",
                   products.auction_end_dt AS "auctionEndDt",
                   products.bid_count AS "bidCount",
-                  products.is_sold AS "isSold",
+                  products.auction_ended AS "auctionEnded",
                   products_won.bid_price AS "bidPrice",
                   products_won.timestamp
           FROM products_won
@@ -166,7 +163,7 @@ class User {
               products.market_price AS "marketPrice",
               products.auction_end_dt AS "auctionEndDt",
               products.bid_count AS "bidCount",
-              products.is_sold AS "isSold",
+              products.auction_ended AS "auctionEnded",
               highest_bids.bid_price AS "bidPrice",
               highest_bids.timestamp
           FROM highest_bids
@@ -202,24 +199,24 @@ class User {
 
 
 
-  static async lowerUserBalance(amount, email) {
+  static async decreaseBalance(amount, email) {
     const result = await db.query(`UPDATE users 
                       SET balance = balance - $1
                       WHERE email = $2`,[amount, email]);
     if (!result) throw new NotFoundError(`Balance not lowered by ${amount} for user:  ${email}`);
-    // console.log("lowerUserBalance result", result)
+    // console.log("decreaseBalance result", result)
     return result;
   }
 
 
-  static async increaseUserBalance(amount, email) {
+  static async increaseBalance(amount, email) {
     const result = await db.query(`UPDATE users 
                       SET balance = balance + $1
                       WHERE email = $2`,[amount, email]);
     if (!result) throw new NotFoundError(`Balance not increased by ${amount} for user:  ${email}`);
-    console.log("amount from increaseUserBalance", amount)
-    console.log("email from increaseUserBalance", email)
-    console.log("increaseUserBalance result", result)
+    console.log("amount from increaseBalance", amount)
+    console.log("email from increaseBalance", email)
+    console.log("increaseBalance result", result)
     return result;
   }
 
@@ -238,7 +235,7 @@ class User {
               products.market_price AS "marketPrice",
               products.auction_end_dt AS "auctionEndDt",
               products.bid_count AS "bidCount",
-              products.is_sold AS "isSold",
+              products.auction_ended AS "auctionEnded",
               highest_bids.bid_price AS "bidPrice"
           FROM highest_bids
           FULL OUTER JOIN products ON highest_bids.product_id = products.id
@@ -319,14 +316,5 @@ class User {
 
 }
 
-const user = {
-  email: "asdfasdf@test.com",
-  username: "useddr123",
-  password: "blah",
-  firstName: "John2",
-  lastName: "Johnson2"
-}
-// User.get("asdfasdf@test.com")
-// User.register(user)
 
 module.exports = User;

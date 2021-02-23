@@ -13,7 +13,7 @@ CREATE TABLE products (
   market_price DECIMAL NOT NULL,
   auction_end_dt TIMESTAMP NOT NULL,
   bid_count INTEGER NOT NULL DEFAULT 0,
-  is_sold BOOLEAN DEFAULT false
+  auction_ended BOOLEAN DEFAULT false
 );
 
 CREATE TABLE users (
@@ -30,8 +30,7 @@ CREATE TABLE products_won (
     REFERENCES products(id) ON DELETE CASCADE,
   user_email VARCHAR(100)
     REFERENCES users(email) ON DELETE CASCADE,
-  bid_price DECIMAL NOT NULL,
-  timestamp TIMESTAMP
+  bid_price DECIMAL NOT NULL
 );
 
 CREATE TABLE highest_bids (
@@ -39,8 +38,7 @@ CREATE TABLE highest_bids (
     REFERENCES products(id) ON DELETE CASCADE,
   user_email VARCHAR(100)
     REFERENCES users(email) ON DELETE CASCADE,
-  bid_price DECIMAL NOT NULL,
-  timestamp TIMESTAMP
+  bid_price DECIMAL NOT NULL
 );
 
 CREATE TABLE notifications (
@@ -49,6 +47,5 @@ CREATE TABLE notifications (
     REFERENCES users(email) ON DELETE CASCADE,
   text TEXT,
   related_product_id INTEGER,
-  was_viewed BOOLEAN DEFAULT false,
-  timestamp TIMESTAMP
+  was_viewed BOOLEAN DEFAULT false
 )

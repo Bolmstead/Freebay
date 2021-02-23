@@ -7,34 +7,22 @@ const express = require("express");
 
 const { BadRequestError } = require("../expressError");
 // const { ensureAdmin } = require("../middleware/auth");
-const Product = require("../models/productModel");
-const BridgedTables = require("../models/bridgedTablesModel");
-const User = require("../models/userModel");
 const { authenticateJWT, 
   ensureLoggedIn, 
   ensureLoggedInAndCorrectUser 
 } = require("../middleware/auth");
-
-
-
+const User = require("../models/userModel");
+const Product = require("../models/ProductModel");
+const ProductWon = require("../models/ProductWonModel");
+const Notification = require("../models/NotificationModel");
+const HighestBid = require("../models/HighestBidModel");
 // const productNewSchema = require("../schemas/productNew.json");
 // const productUpdateSchema = require("../schemas/productUpdate.json");
 // const productSearchSchema = require("../schemas/productSearch.json");
 
 const router = new express.Router();
 
-/** GET /  =>
- *   { products: [ { handle, name, description, numEmployees, logoUrl }, ...] }
- *
- * Can filter on provided search filters:
- * - minEmployees
- * - maxEmployees
- * - nameLike (will find case-insensitive, partial matches)
- *
- * Authorization required: none
- */
 
- // WORKS!!!! (MINIMUM DOES)
 router.get("/", async function (req, res, next) {
   const q = req.query;
   console.log("user", res.locals.user)
@@ -60,15 +48,7 @@ router.get("/", async function (req, res, next) {
 //   }
 // });
 
-/** GET /[handle]  =>  { product }
- *
- *  product is { handle, name, description, numEmployees, logoUrl, jobs }
- *   where jobs is [{ id, title, salary, equity }, ...]
- *
- * Authorization required: none
- */
 
-//  WORKS!!!!
 router.get("/:id", async function (req, res, next) {
   try {
     console.log(req.params.id)
@@ -80,13 +60,7 @@ router.get("/:id", async function (req, res, next) {
 
 });
 
-/** GET /[handle]  =>  { product }
- *
- *  product is { handle, name, description, numEmployees, logoUrl, jobs }
- *   where jobs is [{ id, title, salary, equity }, ...]
- *
- * Authorization required: none
- */
+
 
 router.post("/:productId/bid/:amount", async function (req, res, next) {
   try {
@@ -109,7 +83,7 @@ router.post("/:productId/bid/:amount", async function (req, res, next) {
     console.log("user from bid route", user)
     console.log("newBid from bid route", newBid)
 
-    const updateBid = await BridgedTables.updateBid(product, user, newBid)
+    const updateBid = await HighestBid.updateBid(product, user, newBid)
 
     return res.json({result: "success"});
   } catch (err) {
@@ -118,65 +92,18 @@ router.post("/:productId/bid/:amount", async function (req, res, next) {
 
 });
 
-/** GET /[handle]  =>  { product }
- *
- *  product is { handle, name, description, numEmployees, logoUrl, jobs }
- *   where jobs is [{ id, title, salary, equity }, ...]
- *
- * Authorization required: none
- */
-
-router.delete("/:productId/bid", async function (req, res, next) {
-  try {
-    const product = await BridgedTables.removeLowerBid(req.params.productId);
-    return res.json({ product });
-  } catch (err) {
-    return next(err);
-  }
-})
-/** GET /[handle]  =>  { product }
- *
- *  product is { handle, name, description, numEmployees, logoUrl, jobs }
- *   where jobs is [{ id, title, salary, equity }, ...]
- *
- * Authorization required: none
- */
 
  // FIX!!! USER IS UNDEFINED
 router.post("/:productId/winner", async function (req, res, next) {
   try {
     user = res.local.user
-    const product = await BridgedTables.wonProduct(req.params.productId, user.email);
+    const product = await ProductWon.wonProduct(req.params.productId, user.email);
     return res.json({ product });
   } catch (err) {
     return next(err);
   }
 
 });
-
-/** POST / { product } =>  { product }
- *
- * product should be { handle, name, description, numEmployees, logoUrl }
- *
- * Returns { handle, name, description, numEmployees, logoUrl }
- *
- * Authorization required: admin
- */
-
-// router.post("/", ensureAdmin, async function (req, res, next) {
-//   try {
-//     const validator = jsonschema.validate(req.body, productNewSchema);
-//     if (!validator.valid) {
-//       const errs = validator.errors.map(e => e.stack);
-//       throw new BadRequestError(errs);
-//     }
-
-//     const product = await Product.create(req.body);
-//     return res.status(201).json({ product });
-//   } catch (err) {
-//     return next(err);
-//   }
-// });
 
 
 module.exports = router;

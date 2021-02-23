@@ -1,70 +1,107 @@
-# Getting Started with Create React App
+<p align="center">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  <h3 align="center">freeBay! An eBay Website Clone</h3>
+  <h3 align="center">freeBay! An eBay Website Clone</h3>
 
-## Available Scripts
 
-In the project directory, you can run:
+  <p align="center">
+    A website to allow users/instructors to create, schedule, and signup for yoga classes in Boise, Idaho.
+    <br />
+    <a href="https://yoga-website.herokuapp.com/">View Heroku Demo</a>
+  </p>
+</p>
 
-### `npm start`
+![Website_pic](static/images/yoga_homepage.png?raw=true "website")
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+This project was created as the Capstone 1 project for the Springboard Software Engineering Course. It will hopefully be used  operate as a website for the Lunchtime Yoga for Business Professionals group in the future. A user can do the following on the website:
+* View the organization's information including pricing, instructor bios, contact methods, and social media links.
+* Create an account with an encrypted password using bcrypt.
+* Signup for available yoga classes using the website's interactive  calendar.
+* View enrolled yoga classes and cancel any class signup.
+* Edit current account information.
+* Receive automatic emails confirming class signup, signup cancellation, or account creation.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Instructors are also able to do all of the above and are authorized to:
+* Create/delete yoga classes.
+* View all users signed up for their yoga class.
+* View contact information of all users and instructors.
 
-### `npm run build`
+![Website_pic](static/images/dashboard.png?raw=true "website")
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Built With
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The coding languages, frameworks, source code, and API that I used to build this project:
+* Python
+* Javascript
+* HTML
+* CSS
+* [Bootstrap](https://getbootstrap.com)
+* [JQuery](https://jquery.com)
+* [Axios](https://www.npmjs.com/package/axios)
+* [Jinja](https://jinja.palletsprojects.com/en/2.11.x/)
+* [Flask](https://flask.palletsprojects.com/en/1.1.x/)
+* [Postgres](https://www.postgresql.org/)
+* [SQL Alchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/)
+* [Flask-Bcrypt](https://flask-bcrypt.readthedocs.io/en/latest/)
+* [WTForms](https://wtforms.readthedocs.io/en/2.3.x/)
+* [Font Awesome](https://fontawesome.com/)
+* [Simple Calendar](https://github.com/brospars/simple-calendar)
+* [SendGrid Email API](https://sendgrid.com/docs/api-reference/)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## How to Run the Project
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+To get a local copy up and running follow these steps:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Clone Repo
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. Clone the repo by clicking on the green "Code" button at the top of the github repo page or by entering the following in your terminal:
+   ```sh
+   git clone https://github.com/Bolmstead/Yoga.git
+   ```
+2. (optional but recommended) Create a [virtual environment](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/) in the same directory of the cloned, unzipped code.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Library Installations
 
-## Learn More
+3. Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the requirements.txt.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  ```sh
+  pip install -r requirements.txt
+  ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Postgres Installation
 
-### Code Splitting
+4. Install [Postgres](https://www.postgresql.org/).
+5. Create a database named "yoga" in your terminal.
+  ```sh
+  createdb yoga
+  ```
+6. Start a server in your projects directory and you are done!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+## Roadmap
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Possible features that I would like to integrate into the website are:
+* As requested by an instructor, an instructor could add any user to a class.
+* Payment system to allow a user to pay/prepay for classes on the website.
+* User having a class credits column that would deplete after they attend a class and can be refilled by an instructor if receive prepayments.
+* Google calendar API that would allow a user to save their class signup to their google calendar. Also could be used for instructors when they create a class.
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Notes
+For the sake of the capstone code review, any user can sign up to be an instructor on the website. This allows anyone to view the instructor's functionality. If this website were to be implemented, instructors accounts would be created in a different way requiring approval.
 
-### Advanced Configuration
+The source code for the calendar used on the website was pulled and maniputlated from [Simple Calendar](https://github.com/brospars/simple-calendar). Author of the Simple Calendar grants permission to any person to use, copy, modify, or publish the code. All documents regarding the Simple Calendar code are located in /static/calendar.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Enjoy!
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Contact
 
-### `npm run build` fails to minify
+Berkley Olmstead - olms2074@gmail.com - [Linkedin](https://www.linkedin.com/in/berkleyolmstead/)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Project Link: [https://github.com/Bolmstead/Yoga](https://github.com/Bolmstead/Yoga)

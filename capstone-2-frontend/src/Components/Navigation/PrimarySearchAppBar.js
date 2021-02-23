@@ -94,13 +94,18 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
 
+  link: {
+    textTransform: 'none'
+  }
+
 }));
 
 function PrimarySearchAppBar() {
   const classes = useStyles();
   const [searchTerm, setSearchTerm] = useState("");
-  const [accountAnchorEl, setaccountAnchorEl] = React.useState(null);
-  const [notificationsAnchorEl, setNotificationsAnchorEl] = React.useState(null);
+  const [accountAnchorEl, setaccountAnchorEl] = useState(null);
+  const [notificationsAnchorEl, setNotificationsAnchorEl] = useState(null);
+  const [redirect, setRedirect] = useState(false);
 
 
   const { currentUser, logout} = useContext(Context);
@@ -120,16 +125,6 @@ function PrimarySearchAppBar() {
   }
 
 
-
-  // Handle the Input in the Search Bar
-  function handleSubmit(evt) {
-    // take care of accidentally trying to search for just spaces
-    // evt.preventDefault()
-    console.log("searchTerm", searchTerm)
-    let newUrl = `/products?name=` + searchTerm
-    console.log("newUrl from the handlesubmit in searchbar",newUrl)
-    return <Redirect to={newUrl}/>
-  }
 
   function handleChange(evt) {
     setSearchTerm(evt.target.value);
@@ -168,10 +163,25 @@ function PrimarySearchAppBar() {
   }, [notificationsAnchorEl]);
 
 
+  // Handle the Input in the Search Bar
+  function handleSubmit(evt) {
+    console.log("searchTerm from handleSubmit", searchTerm)
+    let newUrl = `/products?name=` + searchTerm
+    console.log("newUrl from the handlesubmit in searchbar",newUrl)
+    setRedirect(true)
+    if(redirect){
+      return <Redirect to='products?name=tv'/>
+   }
+    }
+
+
 
   const handleNotificationsMenuClose = () => {
     setNotificationsAnchorEl(null);
   };
+
+
+
 
 
   const menuId = 'primary-search-account-menu';
@@ -184,12 +194,13 @@ function PrimarySearchAppBar() {
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isAccountMenuOpen}
       onClose={handleProfileMenuClose}
+      className={classes.link}
     >
       { currentUser 
-      ? <Link href={"/Profile/" + currentUser["username"]}><MenuItem onClick={handleProfileMenuClose}>Profile</MenuItem></Link>
-      : <MenuItem onClick={handleProfileMenuClose}>Profile</MenuItem>
+      ? <Link href={"/Profile/" + currentUser["username"]}><MenuItem onClick={handleProfileMenuClose} className={classes.link}>Profile</MenuItem></Link>
+      : <MenuItem onClick={handleProfileMenuClose} className={classes.link}>Profile</MenuItem>
       } 
-      <Link className="m-2" onClick={logout}><MenuItem onClick={handleProfileMenuClose}>Logout</MenuItem></Link>
+      <Link className="m-2" onClick={logout} className={classes.link}><MenuItem onClick={handleProfileMenuClose}>Logout</MenuItem></Link>
     </Menu>
   );
 
