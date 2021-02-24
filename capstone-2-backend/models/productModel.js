@@ -20,7 +20,7 @@ class Product {
                         products.rating,
                         products.num_of_ratings AS "numOfRatings",
                         products.image_url AS "imageUrl",
-                        products.market_price AS "marketPrice",
+                        products.starting_bid AS "startingBid",
                         products.auction_end_dt AS "auctionEndDt",
                         products.bid_count AS "bidCount",
                         products.auction_ended AS "auctionEnded",
@@ -103,29 +103,24 @@ class Product {
 
 
     whereExpressions.push(`auction_ended = false`);
-
     query += " WHERE " + whereExpressions.join(" AND ");
-
     console.log("query", query)
-
     query += paginationQuery
-
-    // console.log("query", query)
-    // console.log("queryValues", queryValues)
-
-
-    // Finalize query and return results
-
+    
     const findAllRes = await db.query(query, queryValues);
 
+    if(!findAllRes) {
+      throw new BadRequestError(`Unable to make request for products in Products.getProducts()`);
+    }
+
+    // Logic to determine if a product is still in auction. If not, add product to products_won for the highest bidder. If auction ended and no bidder, only set product's auction_ended column to true.
     const currentDateTime = Date.parse(new Date());
     console.log("currentDateTime",currentDateTime)
 
     for ( const p of findAllRes.rows) {
       const endDt = new Date(p.auctionEndDt)
-      console.log("Date.parse(endDt) - currentDateTime", (currentDateTime - Date.parse(endDt)))
-      console.log("dateTime", endDt)
-      if ((Date.parse(endDt) - currentDateTime) < 0){
+      if ((currentDateTime - Date.parse(endDt)) > 0){
+        console.log("product's auction ended")
           if(p.bidderEmail) {
             ProductWon.wonProduct(p.id, p.name, p.bidderEmail, p.bidPrice)
           } else {
@@ -137,8 +132,7 @@ class Product {
     }
 
 
-
-    console.log("endedAuctionProducts", endedAuctionProducts)
+    console.log("findAllRes.rows", findAllRes.rows)
     
     // console.log("result from get products request", findAllRes.rows)
     return findAllRes.rows;
@@ -163,7 +157,7 @@ class Product {
             products.rating,
             products.num_of_ratings AS "numOfRatings",
             products.image_url AS "imageUrl",
-            products.market_price AS "marketPrice",
+            products.starting_bid AS "startingBid",
             products.auction_end_dt AS "auctionEndDt",
             products.bid_count AS "bidCount",
             products.auction_ended AS "auctionEnded",
@@ -177,7 +171,7 @@ class Product {
         [id]);
 
     // console.log("productRes from get() method", productRes.rows[0])
-    if (!productRes) throw new NotFoundError(`No product found: ${id}`);
+    if (!productRes) throw new BadRequestError(`Unable to get product`);
     
     const product = productRes.rows[0]
 
@@ -185,6 +179,7 @@ class Product {
     const endDt = new Date(product.auctionEndDt)
     console.log("endDt", endDt)
 
+    // If the auction date and time has passed, either add the product won to the user or just set the auction_ended to true
     if ((Date.parse(endDt) - currentDateTime) < 0){
       // console.log("auction ended")
       // console.log("p",p)
@@ -203,22 +198,24 @@ class Product {
     return product;
   }
 
+
   // increase a users bid count2
   static async addToBidCount(productId) {
     const result = await db.query(`UPDATE products 
                       SET bid_count = bid_count + 1
                       WHERE id = $1`,[productId]);
-    if (!result) throw new NotFoundError(
+    if (!result) throw new BadRequestError(
           `Bid not added to count: ${productId}`);
     // console.log("result from addtobidcount", result)
     return result;
   }
 
+
   static async addAuctionTime(productId, newDateTime) {
     const result = await db.query(`UPDATE products 
                       SET auction_end_dt = $1
                       WHERE id = $2`,[newDateTime, productId]);
-    if (!result) throw new NotFoundError(
+    if (!result) throw new BadRequestError(
           `30 seconds not added to auction time: ${productId}`);
     // console.log("result from addAuctionTime", result)
     return result;
@@ -239,7 +236,7 @@ class Product {
       `UPDATE products 
        SET num_of_ratings = num_of_ratings + 1, rating = ${newTotalRating}
        WHERE id = $1`,[productId]);
-    if (!result) throw new NotFoundError(`No product: ${productId}`);
+    if (!result) throw new BadRequestError(`Unable to update product with new rating`);
     // console.log("New Product Rating", result)
     return result;
   }
@@ -252,15 +249,11 @@ class Product {
         SET auction_ended = true
         WHERE id = $1`,[productId]);
 
-    if (!auctionEndedResult) throw new NotFoundError(`productauctionEnded boolean value unchanged ${auctionEndedResult}`);
+    if (!auctionEndedResult) throw new BadRequestError(`productauctionEnded boolean value unchanged ${auctionEndedResult}`);
     // console.log("productSold result", result)
     console.log("auctionEndedResult from addProductWon()", auctionEndedResult)
   }
-
-
 }
-
-
 
 
 

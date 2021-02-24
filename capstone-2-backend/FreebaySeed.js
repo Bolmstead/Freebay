@@ -34,16 +34,16 @@ class SeedProducts{
       console.log("auction_end_dt", auction_end_dt)
 
       // Create starting price as half of the product's actual price
-      let starting_price = market_price * .5
-
+      let starting_bid = Math.round(market_price * .5)
+      starting_bid = Math.round(100*starting_bid)/100
       // Grab random rating and number of ratings
       const num_of_ratings = SeedProducts.randomNumberOfRatings()
       const rating = SeedProducts.randomRating()
 
       const valuesArray =
-        [item, category, sub_category, description, condition, rating, num_of_ratings, image_1, starting_price, auction_end_dt]
+        [item, category, sub_category, description, condition, rating, num_of_ratings, image_1, starting_bid, auction_end_dt]
 
-      await db.query(`INSERT INTO products (name, category, sub_category, description, condition, rating, num_of_ratings, image_url, market_price, auction_end_dt) 
+      await db.query(`INSERT INTO products (name, category, sub_category, description, condition, rating, num_of_ratings, image_url, starting_bid, auction_end_dt) 
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`, valuesArray)
       }
     
@@ -56,16 +56,17 @@ class SeedProducts{
       console.log("auction_end_dt", auction_end_dt)
 
       // Create starting price as half of the product's actual price
-      let starting_price = market_price * .5
+      let starting_bid = market_price * .5
+      starting_bid = Math.round(100*starting_bid)/100
 
       // Grab random rating and number of ratings
       const num_of_ratings = SeedProducts.randomNumberOfRatings()
       const rating = SeedProducts.randomRating()
 
       const valuesArray =
-        [item, category, sub_category, description, condition, rating, num_of_ratings, image_1, starting_price, auction_end_dt]
+        [item, category, sub_category, description, condition, rating, num_of_ratings, image_1, starting_bid, auction_end_dt]
 
-      await db.query(`INSERT INTO products (name, category, sub_category, description, condition, rating, num_of_ratings, image_url, market_price, auction_end_dt) 
+      await db.query(`INSERT INTO products (name, category, sub_category, description, condition, rating, num_of_ratings, image_url, starting_bid, auction_end_dt) 
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`, valuesArray)
       }
 
@@ -78,17 +79,17 @@ class SeedProducts{
       console.log("auction_end_dt", auction_end_dt) 
 
       // Create starting price as half of the product's actual price
-      let starting_price = market_price * .5
+      let starting_bid = market_price * .5
+      starting_bid = Math.round(100*starting_bid)/100
 
       // Grab random rating and number of ratings
       const num_of_ratings = SeedProducts.randomNumberOfRatings()
       const rating = SeedProducts.randomRating()
 
-      console.log(valuesArray)
       const valuesArray =
-        [item, category, sub_category, description, condition, rating, num_of_ratings, image_1, starting_price, auction_end_dt]
+        [item, category, sub_category, description, condition, rating, num_of_ratings, image_1, starting_bid, auction_end_dt]
 
-      await db.query(`INSERT INTO products (name, category, sub_category, description, condition, rating, num_of_ratings, image_url, market_price, auction_end_dt) 
+      await db.query(`INSERT INTO products (name, category, sub_category, description, condition, rating, num_of_ratings, image_url, starting_bid, auction_end_dt) 
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`, valuesArray)
       }
     }

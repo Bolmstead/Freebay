@@ -79,21 +79,18 @@ function ProductDetails() {
     async function getProduct(id) {
       const result = await FreebayAPI.getProduct(id)
       setProduct(result);
+      console.log('product', product)
       console.log("productfrom ProductDetails component", product)
-      // console.log(`product["auctionEndDt"]`,product["auctionEndDt"])
-      // getTimeLeft(product["auctionEndDt"])
-      // console.log("countdown", countdown)
+      getTimeLeft(result["auctionEndDt"])
       setInfoLoaded(true)
-      console.log("product",product)
     }
     setInfoLoaded(false)
     getProduct(id)
   }, []);
 
   // Create countdown timer
- 
-  function getTimeLeft(){
-    const auctionEndObj = new Date(product["auctionEndDt"])
+  function getTimeLeft(dateTime){
+    const auctionEndObj = new Date(dateTime)
     const totalTimeLeft = Date.parse(auctionEndObj) - Date.parse(new Date());
     setCountdown(totalTimeLeft);
     }
@@ -112,6 +109,7 @@ function ProductDetails() {
   }
 
   if (!infoLoaded) return <LoadingSpinner />;
+  console.log("countdown",countdown)
 
 
   return (
@@ -141,25 +139,23 @@ function ProductDetails() {
                 </Typography>
                 <br/><br/>
 
-                <hr className={classes.hr}/>
-                <br/>
+                <hr className={classes.hr}/><br/>
                 { 
                 product["currentBid"] 
                 ? <div>
                     <Typography variant="h4" color="textPrimary" display="inline" >
-                    ${product["currentBid"]}
-                    </Typography>
-                  <Typography variant="subtitle1" color="textSecondary" display="inline">
-                 is the current bid by {product["currentBidderUsername"]}
+                    ${product["currentBid"]}                   <Typography variant="subtitle1" color="textSecondary" display="inline">
+                 is the current bid by <Link href={"/Profile/" + product.currentBidderUsername}>{product.currentBidderUsername}</Link>
                   </Typography>
+                    </Typography>
                   </div>
                 : <div>
                 <Typography variant="h4" color="textPrimary"  display="inline">
-                  ${product["marketPrice"]}
-                  </Typography>
-                  <Typography variant="subtitle1" color="textSecondary" display="inline">
+                  ${product["marketPrice"]}                  <Typography variant="subtitle1" color="textSecondary" display="inline">
                   is the starting bid
                   </Typography>
+                  </Typography>
+
                   </div>
                 }
 
@@ -172,9 +168,12 @@ function ProductDetails() {
                 </form>
                 <br/>
 
+                <Typography variant="body2" color="textPrimary" component="p" fontWeight="fontWeightBold">{product.bidCount} bids</Typography>
 
                 <Countdown date={Date.now() + countdown} renderer={props => <Typography variant="body2" color="textPrimary" component="p" fontWeight="fontWeightBold">{"Time left: " + props.days + "d " + props.hours + "h " + props.minutes + "m " + props.seconds + "s"}</Typography>} />
 
+
+                
               </CardContent>
           </Card>
         </Grid>

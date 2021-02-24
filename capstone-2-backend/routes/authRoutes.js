@@ -2,14 +2,14 @@
 
 /** Routes for authentication. */
 
-// const jsonschema = require("jsonschema");
+const jsonschema = require("jsonschema");
 
 const User = require("../models/userModel");
 const express = require("express");
 const router = new express.Router();
 const { createToken } = require("../helpers/tokens");
-// const userAuthSchema = require("../schemas/userAuth.json");
-// const userRegisterSchema = require("../schemas/userRegister.json");
+const userAuthSchema = require("../schemas/userAuth.json");
+const userRegisterSchema = require("../schemas/userRegister.json");
 const { BadRequestError } = require("../expressError");
 
 /** POST /auth/token:  { username, password } => { token }
@@ -18,15 +18,15 @@ const { BadRequestError } = require("../expressError");
  *
  * Authorization required: none
  */
-// WORKS!!!!!
+//  WORKS AS OF FEB 24
 router.post("/token", async function (req, res, next) {
   try {
-    // const validator = jsonschema.validate(req.body, userAuthSchema);
-    // if (!validator.valid) {
-    //   const errs = validator.errors.map(e => e.stack);
-    //   throw new BadRequestError(errs);
-    // }
-
+    const validator = jsonschema.validate(req.body, userAuthSchema);
+    console.log("req.body", req.body)
+    if (!validator.valid) {
+      const errs = validator.errors.map(e => e.stack);
+      throw new BadRequestError(errs);
+    }
     const { email, password } = req.body;
     const user = await User.authenticate(email, password);
     const token = createToken(user);
@@ -46,14 +46,14 @@ router.post("/token", async function (req, res, next) {
  * Authorization required: none
  */
 
- // WORKS!!!!!!!!!
+//  WORKS AS OF FEB 24
 router.post("/register", async function (req, res, next) {
   try {
-//     const validator = jsonschema.validate(req.body, userRegisterSchema);
-//     if (!validator.valid) {
-//       const errs = validator.errors.map(e => e.stack);
-//       throw new BadRequestError(errs);
-//     }
+    const validator = jsonschema.validate(req.body, userRegisterSchema);
+    if (!validator.valid) {
+      const errs = validator.errors.map(e => e.stack);
+      throw new BadRequestError(errs);
+    }
     const newUser = await User.register({ ...req.body, });
     const token = createToken(newUser);
     return res.status(201).json({ token });

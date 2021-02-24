@@ -104,7 +104,7 @@ const ProductList = () => {
       <Grid container spacing={3}>
         {products.map((product) =>{
           return <Grid item s={4} m={3} spacing={3}>
-                    <ProductCard id={product["id"]} imageUrl = {product["imageUrl"]} name ={product["name"]} bidPrice = {product["marketPrice"]} rating = {product["rating"]} numOfRatings = {product["numOfRatings"]} auctionEndDt = {product["auctionEndDt"]}/>
+                    <ProductCard id={product["id"]} imageUrl = {product["imageUrl"]} name ={product["name"]} marketPrice = {product["marketPrice"]} rating = {product["rating"]} numOfRatings = {product["numOfRatings"]} auctionEndDt = {product["auctionEndDt"]} bidderUsername = {product.bidderUsername} bidPrice = {product.bidPrice}/>
                   </Grid>
         })}
       </Grid>

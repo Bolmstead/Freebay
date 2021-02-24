@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import {
     FiCard,
     FiCardActions,
@@ -23,7 +24,17 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "flex-end",
-    margin: "0px"
+    margin: "10px",
+    color: "white",
+    fontWeight: "bold"
+  },
+  headerSecondary: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "flex-end",
+    margin: "10px",
+    color: "white",
   },
   imageTitle: {
     margin: 0,
@@ -34,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   img: {
     padding: 0,
     margin: 0,
-    height: "auto",
+    height: "auto"
   },
   card: {
     padding: 0,
@@ -56,22 +67,25 @@ function FreebayPic() {
         <Box my={0}>
 
         <FiCard className={classes.card}>
-          <FiCardMedia
+          <FiCardMedia 
             media="picture"
             alt="Contemplative Reptile"
             image="/Images/clickbait/electronics.jpg"
             title="Contemplative Reptile"
           />
           <FiCardContent className={classes.fiCardContent}>
-            <Typography               variant="h3"
- className={classes.header}>All the best tech for less</Typography>
+            <Typography variant="h4" className={classes.header}>
+              All the best tech. For less.
+            </Typography>
             <Typography
               variant="body1"
-              className={classes.fiCardContentTextSecondary}
+              className={classes.headerSecondary}
               component="p"
+              display="inline" 
             >
-            Cellphones, Laptops, TV's, and more!
-            </Typography>
+            Get it here  <ArrowForwardIcon />
+
+            </Typography >
           </FiCardContent>
           <FiCardActions className={classes.fiCardContent}>
 

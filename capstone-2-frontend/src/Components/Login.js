@@ -39,7 +39,7 @@ export default function Login( ) {
 
   
   const [formData, setFormData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
   const [formErrors, setFormErrors] = useState([]);

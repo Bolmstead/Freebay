@@ -38,7 +38,9 @@ export const FiCardMedia = withStyles({
     top: 0,
     right: 0,
     height: "100%",
-    width: "100%"
+    width: "100%",
+    boxShadow: "0 3000px rgba(0, 0, 0, 0.3) inset"
+    
   }
 })(CardMedia);
 

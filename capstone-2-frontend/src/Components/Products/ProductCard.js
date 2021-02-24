@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 });
 
 
-function ProductCard({id, name, bidPrice, imageUrl, rating, numOfRatings, auctionEndDt}) {
+function ProductCard({id, name, marketPrice, imageUrl, rating, numOfRatings, auctionEndDt, bidderUsername, bidPrice}) {
   const classes = useStyles();
 
   function truncate(str, n){
@@ -33,7 +33,7 @@ function ProductCard({id, name, bidPrice, imageUrl, rating, numOfRatings, auctio
     return (str.length > n) ? str.substr(0, n-1) + '...' : str;}
   };
 
-  const priceTitle = `$` + bidPrice
+  marketPrice = `$` + marketPrice
   const shortName = truncate(name, 100)
 
   const auctionEndObj = new Date(auctionEndDt)
@@ -72,16 +72,36 @@ function ProductCard({id, name, bidPrice, imageUrl, rating, numOfRatings, auctio
           <Typography gutterBottom variant="body2" component="p">
             {shortName}
           </Typography>
-        <Rating name="read-only" value={rating} size="small" readOnly display="inline"/>      <Typography variant="caption" display="inline" className="ratingNumber" color="textSecondary">
-        {numOfRatings}
-      </Typography>
+        <Rating name="read-only" value={rating} size="small" readOnly display="inline"/> 
       </div>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {priceTitle}
+          <Typography variant="body1" color="body2" component="p">
+            {marketPrice}
           </Typography>
-          {/* <Typography variant="body2" color="textPrimary" component="p" fontWeight="fontWeightBold">
-            {countdownDisplay}
-          </Typography> */}
+          { bidderUsername
+          ?
+            <div>
+              <Typography variant="body1" color="body2" component="p">
+                {bidPrice}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {bidderUsername}
+              </Typography>
+            </div>
+          :
+          <div>
+            <Typography variant="body1" color="body2" component="p">
+              {marketPrice}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {bidPrice}
+            </Typography>
+          </div>
+
+          }
+          <Typography variant="body2" color="textSecondary" component="p">
+            {marketPrice}
+          </Typography>
+
         </CardContent>
       </CardActionArea>
     </Card>

@@ -33,7 +33,8 @@ class User {
               password,
               first_name AS "firstName",
               last_name AS "lastName",
-              balance
+              balance,
+              last_login AS "lastLogin"
        FROM users
        WHERE email = $1`,
     [email],
@@ -45,6 +46,7 @@ class User {
       const isValid = await bcrypt.compare(password, user.password);
       if (isValid === true) {
         delete user.password;
+        User.dailyReward(user)
         return user;
       }
     }
@@ -58,8 +60,7 @@ class User {
    *
    * Throws BadRequestError on duplicates.
    **/
-  static async register(
-      { email, username, password, firstName, lastName }) {
+  static async register({ email, username, password, firstName, lastName }) {
     console.log("User model register method")
     const duplicateCheck = await db.query(
           `SELECT email
@@ -92,10 +93,13 @@ class User {
         ],
     );
 
+    if (!result) {
+      throw new BadRequestError(`Unable to insert into users`);
+    }
     const user = result.rows[0];
     console.log("user from register method", user)
 
-    Notification.addNotification(user["email"], `Welcome to Freebay! As a welcome gift, we have deposited $100 Freebay bucks into your account! If you have any questions please see our FAQs page.` )
+    Notification.addNotification(user["email"], `Welcome to Freebay! As a welcome gift, we have deposited $100 Freebay bucks into your account! If you have any questions please see our FAQ page.` )
     return user;
   }
 
@@ -135,12 +139,12 @@ class User {
                   products.rating,
                   products.num_of_ratings AS "numOfRatings",
                   products.image_url AS "imageUrl",
-                  products.market_price AS "marketPrice",
+                  products.starting_bid AS "startingBid",
                   products.auction_end_dt AS "auctionEndDt",
                   products.bid_count AS "bidCount",
                   products.auction_ended AS "auctionEnded",
                   products_won.bid_price AS "bidPrice",
-                  products_won.timestamp
+                  products_won.datetime
           FROM products_won
           FULL OUTER JOIN products ON products_won.product_id = products.id
           WHERE products_won.user_email = $1`, [user["email"]]);
@@ -160,12 +164,12 @@ class User {
               products.rating,
               products.num_of_ratings AS "numOfRatings",
               products.image_url AS "imageUrl",
-              products.market_price AS "marketPrice",
+              products.starting_bid AS "startingBid",
               products.auction_end_dt AS "auctionEndDt",
               products.bid_count AS "bidCount",
               products.auction_ended AS "auctionEnded",
               highest_bids.bid_price AS "bidPrice",
-              highest_bids.timestamp
+              highest_bids.datetime
           FROM highest_bids
           FULL OUTER JOIN products ON highest_bids.product_id = products.id
           WHERE highest_bids.user_email = $1`, [user["email"]]);
@@ -182,7 +186,7 @@ class User {
               notifications.text,
               notifications.related_product_id AS "relatedProductId",
               notifications.was_viewed AS "wasViewed",
-              notifications.timestamp
+              notifications.datetime
         FROM notifications
         WHERE notifications.user_email = $1`, [user["email"]]);
 
@@ -203,7 +207,7 @@ class User {
     const result = await db.query(`UPDATE users 
                       SET balance = balance - $1
                       WHERE email = $2`,[amount, email]);
-    if (!result) throw new NotFoundError(`Balance not lowered by ${amount} for user:  ${email}`);
+    if (!result) throw new BadRequestError(`Balance not lowered by ${amount} for user:  ${email}`);
     // console.log("decreaseBalance result", result)
     return result;
   }
@@ -213,11 +217,45 @@ class User {
     const result = await db.query(`UPDATE users 
                       SET balance = balance + $1
                       WHERE email = $2`,[amount, email]);
-    if (!result) throw new NotFoundError(`Balance not increased by ${amount} for user:  ${email}`);
-    console.log("amount from increaseBalance", amount)
-    console.log("email from increaseBalance", email)
-    console.log("increaseBalance result", result)
+    if (!result) throw new BadRequestError(`Balance not increased by ${amount} for user:  ${email}`);
+    // console.log("amount from increaseBalance", amount)
+    // console.log("email from increaseBalance", email)
+    // console.log("increaseBalance result", result)
     return result;
+  }
+
+  static async updateLastLogin(email) {
+    const result = await db.query(`UPDATE users 
+                      SET last_login = CURRENT_TIMESTAMP
+                      WHERE email = $1
+                      RETURNING last_login AS "lastLogin"`,[email]);
+    if (!result) throw new BadRequestError(`Unable to update the last login for user: ${email}`);
+    // console.log("amount from updateLastLogin", amount)
+    // console.log("email from updateLastLogin", email)
+    // console.log("updateLastLogin result", result)
+    return result;
+  }
+
+  static async dailyReward(user) {
+    let previousLogin = user.lastLogin
+    let updateLastLoginResult = await User.updateLastLogin(user.email)
+    let currentLogin = updateLastLoginResult.rows[0].lastLogin
+    console.log("previousLogin!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", previousLogin.getDay())
+    console.log("currentLogin", currentLogin.getDay())
+
+    let daysPassed;
+
+    // if (currentLogin.getFullYear() === previousLogin.getFullYear()){
+    //   if (currentLogin.getMonth() === previousLogin.getMonth()) {
+    //     if (currentLogin.getDay() === previousLogin.getDay()) {
+    //       dayspassed = 0
+    //     } else {
+    //       dayspassed = currentLogin.getDay() - previousLogin.getDay()
+    //     }
+
+    //   }
+    // }
+
   }
 
 
@@ -232,7 +270,7 @@ class User {
               products.rating,
               products.num_of_ratings AS "numOfRatings",
               products.image_url AS "imageUrl",
-              products.market_price AS "marketPrice",
+              products.starting_bid AS "startingBid",
               products.auction_end_dt AS "auctionEndDt",
               products.bid_count AS "bidCount",
               products.auction_ended AS "auctionEnded",
@@ -241,78 +279,14 @@ class User {
           FULL OUTER JOIN products ON highest_bids.product_id = products.id
           WHERE highest_bids.user_email = $1`, [userEmail]);
 
-    if (!usersHighestBidsRes) throw new NotFoundError(`Undable to getHighestBids in userModel.js`);
+    if (!usersHighestBidsRes) throw new BadRequestError(`Undable to getHighestBids in userModel.js`);
 
     // console.log("getHighestBids in userModel.js", usersHighestBidsRes)
 
     return usersHighestBidsRes
   }
   
-      
 
-
-  /** Update user data with `data`.
-   *
-   * This is a "partial update" --- it's fine if data doesn't contain
-   * all the fields; this only changes provided ones.
-   *
-   * Data can include:
-   *   { firstName, lastName, password, email,  }
-   *
-   * Returns { username, firstName, lastName, email,  }
-   *
-   * Throws NotFoundError if not found.
-   *
-   * WARNING: this function can set a new password or make a user an admin.
-   * Callers of this function must be certain they have validated inputs to this
-   * or a serious security risks are opened.
-   */
-
-  // static async update(username, data) {
-  //   if (data.password) {
-  //     data.password = await bcrypt.hash(data.password, BCRYPT_WORK_FACTOR);
-  //   }
-
-  //   const { setCols, values } = sqlForPartialUpdate(
-  //       data,
-  //       {
-  //         firstName: "first_name",
-  //         lastName: "last_name",
-  //         : "",
-  //       });
-  //   const usernameVarIdx = "$" + (values.length + 1);
-
-  //   const querySql = `UPDATE users 
-  //                     SET ${setCols} 
-  //                     WHERE username = ${usernameVarIdx} 
-  //                     RETURNING username,
-  //                               first_name AS "firstName",
-  //                               last_name AS "lastName",
-  //                               email,
-  //                                AS ""`;
-  //   const result = await db.query(querySql, [...values, username]);
-  //   const user = result.rows[0];
-
-  //   if (!user) throw new NotFoundError(`No user: ${username}`);
-
-  //   delete user.password;
-  //   return user;
-  // }
-
-  /** Delete given user from database; returns undefined. */
-
-  // static async remove(username) {
-  //   let result = await db.query(
-  //         `DELETE
-  //          FROM users
-  //          WHERE username = $1
-  //          RETURNING username`,
-  //       [username],
-  //   );
-  //   const user = result.rows[0];
-
-  //   if (!user) throw new NotFoundError(`No user: ${username}`);
-  // }
 
 }
 

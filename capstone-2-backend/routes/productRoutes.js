@@ -24,29 +24,17 @@ const router = new express.Router();
 
 
 router.get("/", async function (req, res, next) {
-  const q = req.query;
-  console.log("user", res.locals.user)
-  console.log(`req.query from "/" route`, req.query)
-  // arrive as strings from querystring, but we want as ints
-  // if (q.rating !== undefined) q.rating = +q.rating;
-  // if (q.numOfRatings !== undefined) q.numOfRatings = +q.numOfRatings;
-  // if (q.highestBidPrice !== undefined) q.highestBidPrice = +q.highestBidPrice;
-
-//   try {
-//     const validator = jsonschema.validate(q, productSearchSchema);
-//     if (!validator.valid) {
-//       const errs = validator.errors.map(e => e.stack);
-//       throw new BadRequestError(errs);
-//     }
-
+  try {
+    const q = req.query;
+    console.log("user", res.locals.user)
+    console.log(`req.query from "/" route`, req.query)
     const products = await Product.getProducts(q);
     return res.json({ products });
+  } catch (err){
+    return next(err)
+  }
 
 })
-//   } catch (err) {
-//     return next(err);
-//   }
-// });
 
 
 router.get("/:id", async function (req, res, next) {
@@ -83,7 +71,7 @@ router.post("/:productId/bid/:amount", async function (req, res, next) {
     console.log("user from bid route", user)
     console.log("newBid from bid route", newBid)
 
-    const updateBid = await HighestBid.updateBid(product, user, newBid)
+    await HighestBid.updateBid(product, user, newBid)
 
     return res.json({result: "success"});
   } catch (err) {
