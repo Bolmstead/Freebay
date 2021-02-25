@@ -1,3 +1,4 @@
+import { makeStyles } from '@material-ui/core/styles';
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -6,6 +7,42 @@ import CardMedia from "@material-ui/core/CardMedia";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 // Smaller components to help create the FreebayImage component
+
+export const useStyles = makeStyles((theme) => ({
+  header: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "flex-end",
+    margin: "10px",
+    color: "white",
+    fontWeight: "bold"
+  },
+  headerSecondary: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "flex-end",
+    margin: "10px",
+    color: "white",
+  },
+  imageTitle: {
+    margin: 0,
+    padding: "1rem",
+    color: "white",
+    textShadow: "2px 2px 4px",
+  },
+  img: {
+    padding: 0,
+    margin: 0,
+    height: "auto"
+  },
+  card: {
+    padding: 0,
+    margin: 0,
+    height: "250px",
+  }
+}));
 
 export const FiCard = withStyles({
   root: {
@@ -46,9 +83,11 @@ export const FiCardMedia = withStyles({
 
 // --- Exports --- //
 export default {
+  useStyles,
   FiCard,
   FiCardActionArea,
   FiCardActions,
   FiCardContent,
   FiCardMedia
 };
+

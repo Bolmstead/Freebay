@@ -1,112 +1,4 @@
 const products3 = [
-        {
-         "item":"1984 (Signet Classics)",
-         "category":"Sports, Hobbies, & Misc",
-         "sub_category":"Books",
-         "description":"This is a really cool product",
-         "condition":"New - Open Box",
-         "rating":3.7,
-         "num_of_ratings":3213,
-         "image_1":"https://secure.touchnet.com/C20243_ustores/web/images/product-default-image.png",
-         "market_price":7.29,
-         "auction_end_dt":"2021-02-18 15:55:19"
-      },
-      {
-         "item":"The Midnight Library: A Novel",
-         "category":"Sports, Hobbies, & Misc",
-         "sub_category":"Books",
-         "description":"This is a really cool product",
-         "condition":"Used",
-         "rating":0.3,
-         "num_of_ratings":2757,
-         "image_1":"https://secure.touchnet.com/C20243_ustores/web/images/product-default-image.png",
-         "market_price":15.79,
-         "auction_end_dt":"2021-02-18 02:50:19"
-      },
-      {
-         "item":"Caste (Oprah's Book Club): The Origins of Our Discontents",
-         "category":"Sports, Hobbies, & Misc",
-         "sub_category":"Books",
-         "description":"This is a really cool product",
-         "condition":"Good",
-         "rating":3.0,
-         "num_of_ratings":1325,
-         "image_1":"https://secure.touchnet.com/C20243_ustores/web/images/product-default-image.png",
-         "market_price":19.02,
-         "auction_end_dt":"2021-02-15 03:50:19"
-      },
-      {
-         "item":"Harvey The Heart Had Too Many Farts: A Rhyming Read Aloud Story Book For Kids And Adults About Farting and Friendship, A Valentine's Day Gift For Boys and Girls",
-         "category":"Sports, Hobbies, & Misc",
-         "sub_category":"Books",
-         "description":"This is a really cool product",
-         "condition":"New",
-         "rating":2.4,
-         "num_of_ratings":2635,
-         "image_1":"https://secure.touchnet.com/C20243_ustores/web/images/product-default-image.png",
-         "market_price":11.14,
-         "auction_end_dt":"2021-02-19 07:52:19"
-      },
-      {
-         "item":"If Animals Kissed Good Night",
-         "category":"Sports, Hobbies, & Misc",
-         "sub_category":"Books",
-         "description":"This is a really cool product",
-         "condition":"New - Open Box",
-         "rating":1.4,
-         "num_of_ratings":1753,
-         "image_1":"https://secure.touchnet.com/C20243_ustores/web/images/product-default-image.png",
-         "market_price":4.79,
-         "auction_end_dt":"2021-02-12 07:55:19"
-      },
-      {
-         "item":"Goodnight, Astronaut",
-         "category":"Sports, Hobbies, & Misc",
-         "sub_category":"Books",
-         "description":"This is a really cool product",
-         "condition":"New",
-         "rating":4.9,
-         "num_of_ratings":2993,
-         "image_1":"https://secure.touchnet.com/C20243_ustores/web/images/product-default-image.png",
-         "market_price":3.98,
-         "auction_end_dt":"2021-02-16 15:51:19"
-      },
-      {
-         "item":"Love from The Very Hungry Caterpillar (The World of Eric Carle)",
-         "category":"Sports, Hobbies, & Misc",
-         "sub_category":"Books",
-         "description":"This is a really cool product",
-         "condition":"Good",
-         "rating":0.8,
-         "num_of_ratings":792,
-         "image_1":"https://secure.touchnet.com/C20243_ustores/web/images/product-default-image.png",
-         "market_price":3.98,
-         "auction_end_dt":"2021-02-18 00:50:19"
-      },
-      {
-         "item":"The Vanishing Half: A Novel",
-         "category":"Sports, Hobbies, & Misc",
-         "sub_category":"Books",
-         "description":"This is a really cool product",
-         "condition":"New - Open Box",
-         "rating":1.5,
-         "num_of_ratings":2781,
-         "image_1":"https://secure.touchnet.com/C20243_ustores/web/images/product-default-image.png",
-         "market_price":16.2,
-         "auction_end_dt":"2021-02-14 22:51:19"
-      },
-      {
-         "item":"Untamed",
-         "category":"Sports, Hobbies, & Misc",
-         "sub_category":"Books",
-         "description":"This is a really cool product",
-         "condition":"New",
-         "rating":3.6,
-         "num_of_ratings":3867,
-         "image_1":"https://secure.touchnet.com/C20243_ustores/web/images/product-default-image.png",
-         "market_price":15.6,
-         "auction_end_dt":"2021-02-09 08:53:19"
-      },
       {
          "item":"Sparkling Ice, Black Cherry Sparkling Water, with Antioxidants and Vitamins, Zero Sugar, 17 fl oz Bottles (Pack of 12)",
          "category":"Sports, Hobbies, & Misc",
@@ -1347,7 +1239,7 @@ const products3 = [
          "item":"Pet Mate Arm & Hammer Large Sifting Litter Pan",
          "category":"Sports, Hobbies, & Misc",
          "sub_category":"Pet Supplies",
-         "description":"SIFTING LITTER BOX This sifting kitty litter box includes two regular pans  a sifting pan to provide an efficient way to clean your cat's litter box no scooping required! Helps keep clean litter fresher for longer.LARGE CAT LITTER BOX Simply lift the sifter pan in order to separate soiled  clean litter. The reinforced bottom holds up to lifting heavier amounts. The antimicrobial protection helps prevent odor-causing bacteria  stains.PET CLEAN UP Swiftly clean up after your dog or cat while at home or on walks with a variety of waste management products. From waste bags rakes pans trainings pads to poop scoopers litter boxes  litter we've got you  your pet covered.Petmate For over  years we at Petmate are passionate about our dogs cats  furry friends in general. Starting with the very first dog kennel we've produced plenty of eco-friendly products that pets will love.JUST FOR PETS Petmate makes a variety of pet products for dogs cats chickens  other small furry friends! Check out our brands such as Aspen Pet Arm  Hammer Booda Chuckit! Jackson Galaxy  m",
+         "description":"SIFTING LITTER BOX This sifting kitty litter box includes two regular pans  a sifting pan to provide an efficient way to clean your cat's litter box no scooping required! Helps keep clean litter fresher for longer.LARGE CAT LITTER BOX Simply lift the sifter pan in order to separate soiled  clean litter. The reinforced bottom holds up to lifting heavier amounts. The antimicrobial protection helps prevent odor-causing bacteria  stains.PET CLEAN UP Swiftly clean up after your dog or cat while at home or on walks with a variety of waste management products. From waste bags rakes pans trainings pads to poop scoopers litter boxes     litter we've got you  your pet covered.Petmate For over  years we at Petmate are passionate about our dogs cats  furry friends in general. Starting with the very first dog kennel we've produced plenty of eco-friendly products that pets will love.JUST FOR PETS Petmate makes a variety of pet products for dogs cats chickens  other small furry friends! Check out our brands such as Aspen Pet Arm  Hammer Booda Chuckit! Jackson Galaxy  m",
          "condition":"New",
          "rating":3.9,
          "num_of_ratings":4845,
@@ -1863,7 +1755,7 @@ const products3 = [
          "item":"GoTags Stainless Steel Pet ID Tags, Personalized Dog Tags and Cat Tags, up to 8 Lines of Custom Text, Engraved on Both Sides, in Bone, Round, Heart, Bow Tie, Flower, Star and More",
          "category":"Sports, Hobbies, & Misc",
          "sub_category":"Pet Supplies",
-         "description":"GREAT IDENTIFICATION FOR YOUR DOG  CAT - When it comes to durability and quality our stainless steel tag holds up to the most active pet. To see all our pet ID products click on our brand name GOTAGS above the product listing title.FAR STRONGER THAN ALUMINUM TAGS AND LESS PRONE TO WEAR stainless steel lasts longer and is unlikely to wear thin and break like aluminum tags. The laser engraving is clear permanent and attractive on a polished mirror-finish surface.WITH  SIDED ENGRAVING  UP TO  LINES OF PERSONALIZED TEXT there's plenty of room for all of your pet's important information - up to  lines on front of tag and  lines on back of tag. Please follow the ordering instruction below to place your order.TO ORDER SELECT SHAPE  SIZE FROM THE ABOVE CHOICES. After selecting shape  size click CUSTOMIZE NOW to add your personalization details to the tag. When personalizing you may include up to  lines of text on each side by selecting FRONT surface  BACK surface. Add to cart ONLY AFTER you have completed both surfaces with your information.Regular Size  Approx. . inches x . inches. An example of how to customize your tag can be seen in the ORDERING INSTRUCTION image on the product p",
+         "description":"GREAT IDENTIFICATION FOR YOUR DOG  CAT - When it comes to durability and quality our stainless steel tag holds up to the most active pet. To see all our pet ID products click on our brand name GOTAGS above the product listing item.FAR STRONGER THAN ALUMINUM TAGS AND LESS PRONE TO WEAR stainless steel lasts longer and is unlikely to wear thin and break like aluminum tags. The laser engraving is clear permanent and attractive on a polished mirror-finish surface.WITH  SIDED ENGRAVING  UP TO  LINES OF PERSONALIZED TEXT there's plenty of room for all of your pet's important information - up to  lines on front of tag and  lines on back of tag. Please follow the ordering instruction below to place your order.TO ORDER SELECT SHAPE  SIZE FROM THE ABOVE CHOICES. After selecting shape  size click CUSTOMIZE NOW to add your personalization details to the tag. When personalizing you may include up to  lines of text on each side by selecting FRONT surface  BACK surface. Add to cart ONLY AFTER you have completed both surfaces with your information.Regular Size  Approx. . inches x . inches. An example of how to customize your tag can be seen in the ORDERING INSTRUCTION image on the product p",
          "condition":"Used",
          "rating":4.2,
          "num_of_ratings":4170,
@@ -2352,7 +2244,7 @@ const products3 = [
          "auction_end_dt":"2021-02-11 21:50:19"
       },
       {
-         "item":"The Purpose Driven Life: What on Earth Am I Here For?",
+         "item":"The Purpose Driven Life: What on Earth Am I Here For",
          "category":"Sports, Hobbies, & Misc",
          "sub_category":"Books",
          "description":"This is a really cool product",
@@ -2362,7 +2254,407 @@ const products3 = [
          "image_1":"https://secure.touchnet.com/C20243_ustores/web/images/product-default-image.png",
          "market_price":8.2,
          "auction_end_dt":"2021-02-20 18:55:19"
-      }
-   ]
+      },
+   {
+      "item":"Ailun Glass Screen Protector Compatible for iPhone 11/iPhone XR, 6.1 Inch 3 Pack Tempered Glass",
+      "price":"$7.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"WORKS FOR iPhone iPhone XR  release . Inch display .mm tempered glass screen protector. Featuring maximum protection from scratches scrapes and bumps.Specialty Due to the rounded design of the iPhone XR and to enhance compatibility with most cases the Tempered glass does not cover the entire screen. HD ultra-clear . touch-screen accurate.hydrophobic and oleophobic screen coating protects against sweat and oil residue from fingerprints.It is  brand newPrecise laser cut tempered glass exquisitely polished.D rounded edges.Online video installation instruction can be found at the last image slot Easiest Installation - removing dust and aligning it properly before actual installationno worrying about bubblesenjoy your screen as if it wasn't there.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/81MZ5D1wHpL._AC_UX385_.jpg"
+   },
+   {
+      "item":"Apple 20W USB-C Power Adapter",
+      "price":"$17.98",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"This is a really cool product",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/41iWogJnZQL._AC_SX342_.jpg"
+   },
+   {
+      "item":"Mkeke Compatible with iPhone XR Screen Protector, IPhone 11 Screen protector,Tempered Glass Film for Apple iPhone XR and iPhone 11, 3-Pack Clear",
+      "price":"$7.98",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"Made iPhone xr  iPhone  - The Screen Protector covers your iPhone\\'s iPhone XR .\" display and is case-friendly due to the open edge design. Wear your favorite case and keep your screen protected at the same time! ONLY Compatible with iPhone XR .\" SizeSpecialty Due to the rounded design of the iPhone XR  iPhone  and to enhance compatibility with most cases the Tempered glass does not cover the entire screen. HD ultra-clear rounded glass for iPhone XR .inch  release is . touch-screen accurate.Glass Screen Protector for iPhone xr  iPhone  High-definition clear hydrophobic and oleophobic screen coating protects against sweat and oil residue from fingerprints.Easy installation - its super easy to install! Comes with an installation guidance frame to assist with the application process.Mkeke to protect your iPhone xr  iPhone  Screen against defects and damage",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/71nK-Ti90%2BL._AC_SX522_.jpg"
+   },
+   {
+      "item":"[UpgraUSB C Charger, AUKEY Minima 20W iPhone 12 Charger, Fast Charger with Foldable Plug,Ultra-Compact iPhone Charger,USB C Wall Charger for iPhone 12/12 Mini/12 Pro Max,Pixel 4-Black (1-Pack)",
+      "price":"42.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"High-Speed Charging Fast charge your iPhone    Pro   Pro Max Google Pixel    XL    XL or other compatible USB-C devices that support USB Power DeliveryUSB Power Delivery Next-generation future-proof fast charging technology that charges your USB Type-C phone or tablet at up to WSafe  Reliable Built-in safeguards protect your devices against excessive current overheating and overchargingCompact  Portable Extremely compact form factor and foldable plug ensure maximum portability wherever you go. Handy for home office and vacationsPackage Contents AUKEY PA-YS USB C Wall Charger -Pack with W Power Delivery PD . User Manual",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/51e70e9iLWL._AC_SX342_.jpg"
+   },
+   {
+      "item":"USB C Charger, Anker Nano Charger PIQ 3.0 Durable Compact Fast Charger, PowerPort III for iPhone 12/12 Mini/12 Pro/12 Pro Max/11, Galaxy, Pixel 4/3, iPad Pro (Cable Not Included)",
+      "price":"$16.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"Designed for iPhone Anker Nano is designed to provide the maximum charge to iPhone Unrivaled Speed Charge iPhone  and previous iPhone models up to  faster than with an original W ChargerSpace-Saving Design At  smaller than a standard iPhone  USB-C charger Anker Nano provides plenty of power while saving space in your bag or while plugged into a wall outletWorks with Most Handheld Devices Provide high-speed charging to most flagship phones including iPhone and Samsung Galaxy S as well as smartwatches and earbudsWhat You Get PowerPort III Nano welcome guide our worry-free -month warranty and friendly customer service cable not included",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/51gHyK0YQVL._AC_SX425_.jpg"
+   },
+   {
+      "item":"QHOHQ 3 Pack Screen Protector for iPhone 12 Pro Max [6with 2 Packs Tempered Glass Camera Lens Protector, Tempered Glass Film, 9H Hardness - HD - 2.5D Edge - Bubble Free - Scratch Resistant",
+      "price":"42.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"Designed for iPhone  Pro Max G . Inch  screen protector and camera lens protector. screen protection film and lens protection film are both made of good quality tempered glass. The precise laser cut size can cover the entire mobile phone screen. They are very easy to install. Please watch our installation video tutorial before installation to ensure the correct installation method and ensure that the screen is clean and free of annoying bubbles.This Screen Protector Work with Most Case.The combination of anti-fingerprint and HD functions. Plasma oleophobic coating treatment smooth hand feeling and effective anti-fingerprint anti-greasy has light transmittance and optical level effect it can effectively block and filter ultraviolet rays and enhance the visibility of the screen.Ultra-thin and curved design. .mm ultra-thin tempered glass screen protector maintains the original response sensitivity and touch bringing you a good touch experience. The glass protector is a professional arc design reaching an arc edge of .D or more making the fingers and hands feel comfortable and never scratching.AR technology and night shooting function specially designed iPhone  Pro Max G .-inch camera lens protective film. The protective film adopts the new technology of \"seamless\" integration of augmented reality with light transmittance and night shooting function without the need to design the flash hole position when the flash is turned on at night the original quality of photos and videos can be restored.Comprehensive screen protection full-coverage screen protection film will fit your screen  and has a high-strength nano-elastic impact and explosion-proof effect to protect your phone screen to the great extent.The lens protection film has been verified against iPhone  Pro Max .Inch.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/71JSy14DhNL._AC_SX425_.jpg"
+   },
+   {
+      "item":"USB Wall Charger, Charger Block, Ailkin 2.1A Multiport Fast Charge Power Brick Cube Replacement for iPad, iPhone, iPod, Samsung Galaxy, Huawei, HTC, LG, Nokia or Other Cell Phone Smart Devices",
+      "price":"42.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"Premium Performance Dual-USB output with total current V.A and input with -V enables you to charge two mobile devices simultaneously at high speed.It can really save your time.Safety assurance AILKIN'S charger has protection system against over charging over currents and over heating. The charger will automatically stop charging when power is full which can maximumly protect your device.LightweightHome charger adapter allows charging at home or in the office via USB cable connection. Simply plug in the USB cable and plug the adapter into the wall. Compact lightweight portable stylish easy to store.Multipurpose Pure black color match all usb cable cord or match your phones. You can share them with your lover family or friends. strengthen your relationship.PACKAGE INCLUDE - Pack dual Port USB wall chargers.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/51hC6xxfemL._AC_SX522_.jpg"
+   },
+   {
+      "item":"JETech Screen Protector for iPhone 11 and iPhone XR, 6.1-Inch, Tempered Glass Film, 2-Pack",
+      "price":"$6.98",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"NOTE Due to the round edge of iPhone  and iPhone XR the screen protector will NOT cover the full screen only the flat areaMade of high quality .mm thick premium tempered glass with rounded edges exclusively for iPhone  and iPhone XR .-inchExtremely high hardness resists scratches up to H harder than a knife. High response and high transparencyDust-free fingerprint-free one-push super easily installation bubble freeRetail package includes tempered glass screen protector cleaning cloth dust removal stick instructions customer service card",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/61Y8nGacOwL._AC_SX522_.jpg"
+   },
+   {
+      "item":"JETech Screen Protector for iPhone 11 Pro, for iPhone Xs, for iPhone X, 5.8-Inch, Tempered Glass Film, 2-Pack",
+      "price":"$5.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"-Pack. NOTE Due to the round edge of iPhone  Pro iPhone XS and iPhone X the screen protector will NOT cover the full screen only the flat areaMade with high quality .mm thick premium tempered glass with rounded edgesExtremely high hardness resists scratches up to H harder than a knife. High-response and high transparencyDust-free fingerprint-free one-push super easily installation bubble freeRetail package includes -Pack tempered glass screen protector cleaning cloth dust removal stick guide stick instructions customer service card",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/61QEY3YKqqL._AC_SX522_.jpg"
+   },
+   {
+      "item":"Temdan Clear Case Compatible with iPhone 12 Case/Compatible with iPhone 12 Pro Case - Clear",
+      "price":"$9.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"This clear case Designed for phone  case  designed for phone  pro case. Support wireless charging.Screen Protection Raised bezels around the screen help protect against scratches.Shockproof Corners This clear case has shockproof corners for dropproof protection.Slim and Clear Keeps your phone slim and stylish with the original beauty of your  pro.Scratch Resistant The back made of hard PC holds up to daily wear and tear.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/71H8OfamodL._AC_SX425_.jpg"
+   },
+   {
+      "item":"Ailun Glass Screen Protector Compatible for iPhone 12/iPhone 12 Pro 2020 6.1 Inch 3 Pack Case Friendly Tempered Glass",
+      "price":"42.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"WORKS FOR iPhone iPhone  Pro  . Inch .mm tempered glass screen protector. Featuring maximum protection from scratches scrapes and bumps.Specialtyto enhance compatibility with most cases the Tempered glass does not cover the entire screen. HD ultra-clear rounded glass for iPhone iPhone  Pro  is . touch-screen accurate.. High-definition clear hydrophobic and oleophobic screen coating protects against sweat and oil residue from fingerprints.It is  brand newPrecise laser cut tempered glass exquisitely polished.D rounded edges.Online video installation instruction Easiest Installation - removing dust and aligning it properly before actual installationno worrying about bubblesenjoy your screen as if it wasn't there.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/81npNMXFqXL._AC_SX425_.jpg"
+   },
+   {
+      "item":"Ailun Glass Screen Protector Compatible for iPhone 12 pro Max 2020 6.7 Inch 3 Pack Case Friendly Tempered Glass",
+      "price":"$7.89",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"WORKS FOR iPhone  pro Max . Inch Screen  .mm tempered glass screen protector. Featuring maximum protection from scratches scrapes and bumps.Case Friendly Specialtyto enhance compatibility with most cases the Tempered glass does not cover the entire screen. HD ultra-clear rounded glass for iPhone  pro Max  is . touch-screen accurate.. High-definition clear hydrophobic and oleophobic screen coating protects against sweat and oil residue from fingerprints.It is  brand newPrecise laser cut tempered glass exquisitely polished.D rounded edges.Online video installation instruction Easiest Installation - removing dust and aligning it properly before actual installationno worrying about bubblesenjoy your screen as if it wasn't there.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/81wjuAixb-L._AC_SX425_.jpg"
+   },
+   {
+      "item":"Yootech Wireless Charger, Qi-Certified 10W Max Fast Wireless Charging Pad Compatible with iPhone 12/12 Mini/12 Pro Max/SE 2020/11 Pro Max,Samsung Galaxy S21/S20/Note 10/S10,AirPods Pro(No AC Adapter)",
+      "price":"$9.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"This is a really cool product",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/61oIAKY9s1L._AC_SX522_.jpg"
+   },
+   {
+      "item":"Ailun Screen Protector Compatible for iPhone 11 Pro Max/iPhone Xs Max 3 Pack 6.5 Inch 2019/2018 Release Case Friendly Tempered Glass",
+      "price":"$7.98",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"Works For iPhone  Pro MaxiPhone Xs Max .inch  release. .mm tempered glass screen protector. Featuring maximum protection from scratches scrapes and bumps.not for iPhone  proSpecialty Due to the rounded design of the iPhone  Pro MaxXs Max and to enhance compatibility with most cases the Tempered glass does not cover the entire screen. HD ultra-clear rounded glass for iPhone  Pro MaxXs Max .inch  release is . touch-screen accurate.. High-definition clear hydrophobic and oleophobic screen coating protects against sweat and oil residue from fingerprints.It is  brand newPrecise laser cut tempered glass exquisitely polished.D rounded edges.Easiest Installation - removing dust and aligning it properly before actual installationno worrying about bubblesenjoy your screen as if it wasn't there.Precise laser cut tempered glassperfect fits.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/81CVqvi2wIL._AC_SX522_.jpg"
+   },
+   {
+      "item":"Apple MagSafe Charger",
+      "price":"$34.00",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"The MagSafe Charger makes wireless charging a snap.The perfectly aligned magnets attach to your AirPods or iPhoneProvides faster wireless charging.The MagSafe Charger maintains compatibility with Qi charging so it can be used to wirelessly charge your iPhone  or later as well as AirPods models with a wireless charging case as you would with any Qi-certified charger.Compatible with AirPods Pro AirPods with Wireless Charging Case and AirPods Wireless Charging CaseCompatible with iPhone  Pro iPhone  Pro Max iPhone  mini iPhone  iPhone  Pro iPhone  Pro Max iPhone  iPhone SE nd generation iPhone XS iPhone XS Max iPhone XR iPhone X iPhone  iPhone  PlusWhat's in the box MagSafe Charger m USB-C integrated cableFor optimal charging pair with the W USB-C Power Adapter sold separately.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/91ghhfky4LL._AC_SX342_.jpg"
+   },
+   {
+      "item":"USB C Female to USB Male Adapter 2 Pack,Type C to A Charger Cable Adapter for iPhone 11 12 Mini Pro Max,Airpods iPad 8th,Samsung Galaxy Note 10 S20 Plus 20 S21 21 FE Ultra,13 12S,Google Pixel 5 4 3 XL",
+      "price":"$9.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"This fits your.Make sure this fits by entering your model number.P.when\"ReplacementPartsBulletLoader\".executefunctionmodule module.initializeDPX Doesn\\'t work with MagSafe charger BE AWARE OF THE LIMITATION This is a USB-C female to USB-A male adapter designed for charging or data transfer and it will NOT support vidoe signal transmission. Latest Test Result This product doesn\\'t work with MagSafe wireless charger due to the incompatibility of charging protocols. So MagSafe charger must be paired with A USB-C power adapterWith this little dongle plugged into an available standard USB port your legacy devices charger power bank computer can turn into a USB-C enabled platform.You can easily hook up any USB-C peripherals USB Type-C cable USB Type-C flash drive USB Type-C hub that make use of the newer USB-C connector.This adapter offers data transfer speeds of up to  Mbps between connected devices and also supports up to  Amps of power output for charging your devices. Enjoy the fast and safe charging.Our aluminum-alloy-bodied dongle occupies very little space and can plug directly onto the end of your USB-A hardware so you wont have to worry about carrying it around.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/61-A-baiobL._AC_SY450_.jpg"
+   },
+   {
+      "item":"UBeesize Selfie Stick Tripod, 51\" Extendable Tripod Stand with Bluetooth Remote for Cell Phones, Heavy Duty Aluminum, Lightweight",
+      "price":"42.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"This is a really cool product",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/61H5ZTSKIlL._AC_SX522_.jpg"
+   },
+   {
+      "item":"Ailun Screen Protector Compatible for iPhone XS, iPhone X, iPhone 11 Pro,3 Pack,5.8 Inch Display Case Friendly Tempered Glass",
+      "price":"$5.98",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"WORKS FOR iPhone  Pro iPhone Xs  iPhone  iPhone X . Inch Screen . .mm tempered glass screen protector. Featuring maximum protection from scratches scrapes and bumps.Specialty Due to the rounded design of the iPhone  ProXXs and to enhance compatibility with most cases the Tempered glass does not cover the entire screen. HD ultra-clear rounded glass for iPhone  ProXXs is . touch-screen accurate.. High-definition clear hydrophobic and oleophobic screen coating protects against sweat and oil residue from fingerprints.It is  brand newPrecise laser cut tempered glass exquisitely polished.D rounded edges.Online video installation instruction Easiest Installation - removing dust and aligning it properly before actual installationno worrying about bubblesenjoy your screen as if it wasn't there.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/81g8xShoy6L._AC_SX522_.jpg"
+   },
+   {
+      "item":"Ailun Screen Protector Compatible for iPhone 8 plus,7 Plus,6s Plus,6 Plus, 5.5 Inch 3Pack Case Friendly Tempered Glass",
+      "price":"$6.98",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"Made in USA and ImportedWORKS FOR iPhone plus plussPlusPlus . Inch Screenonly.NOT FOR iPhone  and  . inch display .mm tempered glass screen protector. Featuring maximum protection from scratches scrapes and bumps.Specialty Due to the rounded design of the iPhone plus plussPlusPlus and to enhance compatibility with most cases the Tempered glass does not cover the entire screen. HD ultra-clear rounded glass for iPhone  plus plus . Inch Screen is . touch-screen accurate.. High-definition clear hydrophobic and oleophobic screen coating protects against sweat and oil residue from fingerprints.It is  brand newPrecise laser cut tempered glassno front camera cutout  exquisitely polished.D rounded edges.Online video installation instruction Easiest Installation - removing dust and aligning it properly before actual installationno worrying about bubblesenjoy your screen as if it wasn't there.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/81vpxt3Gd-L._AC_UX385_.jpg"
+   },
+   {
+      "item":"Smiling Case Compatible with Apple Watch Series 6/SE/ Series 5/Series 4 40mm with Built in Tempered Glass Screen Protector- All Around Hard PC Case Overall Protective Cover (Clear)",
+      "price":"$9.90",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"New version case This case compatible with apple watch series SE mm  series  mm and series  mm.Shock-proof  Against Scratches Made of high quality anti-scratch hard pc and tempered glass this mm case covers the full front and curved edges of the watch offering full protection for your watch against scratches drops and bumps.Sensitive Touch Ultra-Thin tempered glass film maintains watch's original response sensitivity ensuring quick app launching.Easy take on and off This new design mm screen protector easy take on and off and you do not need to take off your watch band.Includes  pack high quality case with screen protector compatible with apple watch series SE mm  series  mm and series  mm.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/61A%2BV1BXQyL._AC_SX522_.jpg"
+   },
+   {
+      "item":"UBeesize 10\" Selfie Ring Light with 50\" Extendable Tripod Stand & Flexible Phone Holder for Live Stream/Makeup/YouTube Video",
+      "price":"42.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"ColorBlackUBeesize Ring Light Stand Phone Tripod Stand Live Stream Stand with \" LED Ring Light .\" Dimmable Ring Light  light color mode white warm yellow and warm white and each mode has  level brightness. Perfect extra light for make-up taking photos making videos reading books and live streaming! -way tripod head The adjustable tripod head allows you to find the perfect angle to light your subject makes your photograph or livestreaming easily. Extendable Tripod StandMade of high-quality aluminum the tripod stand extends from \"to \" it will meet all the situations you need. Bluetooth Remote Shutter Connected via Bluetooth Operational up to  feet m. Never fail to capture some memorable photos and videos. In the box x Ring Light x Tripod stand x Flexible Phone Holder x Bluetooth Remote Control x Tripod Mount Phone Holder x User manual",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/71Fue2rQFVL._AC_SY355_.jpg"
+   },
+   {
+      "item":"amFilm Glass Screen Protector for iPhone 8, 7, 6S, 6 (4.7 Inch)(2 Pack) Tempered Glass Screen Protector",
+      "price":"$5.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"Specifically designed iPhone   S  Glass Screen ProtectorUltra-clear High Definition with . transparency to allow an optimal natural viewing experienceUltra thin-.mm thickness is reliable and resilient and promises full compatibility with touchscreen sensitivityHighly durable and scratch resistant - surface hardness H and topped with oleophobic coating to reduce fingerprints.Includes x GLASS Screen Protector WetDry Wipes Squeeze Card Easy Installation Use Guide Dust Removal Stickers",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/71iRhuFwS-L._AC_SX522_.jpg"
+   },
+   {
+      "item":"Selfie Ring Light with Tripod Stand & Cell Phone Holder for Live Stream/Makeup, UBeesize Mini Led Camera Ringlight for YouTube Video/Photography",
+      "price":"$33.98",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"ColorBlackSelfie Ring Light with Tripod Stand  Cell Phone Holder for Live StreamMakeup UBeesize Mini Led Camera Ringlight for YouTube VideoPhotography Compatible with iPhone Xs Max XR Android Upgraded",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/61dR6Py28XL._AC_SX522_.jpg"
+   },
+   {
+      "item":"CASEKOO Crystal Clear Designed for iPhone 12 Pro Max Case, [Not Yellow[Military Grade Drop TesShockproof Protective Phone Case Slim Thin Cover 5G 6.7 inch 2020, Clear",
+      "price":"$19.98",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"Crystal Clear  Yellow-resistant The crystal clear case flaunts original phone design and beauty never yellows with diamond antioxidant layer and is super easy to clean.Armor-level Shockproof The protective cover features  built-in corner Airbags to absorb impact and avoid scratches in most situations.Raised Camera  Screen Protection Raised bezels prevent screen and camera against drops  scratches. The tiny design of . mm lip over camera mm bezel over screen and  mm raised corner lips on the back provides extra and comprehensive protection.Perfect Fit The clear phone case fits perfectly to stop dust from entering and scratching the body of your phone.Slim Ergonomic Design  Enhanced Grip The slim phone case brings you greater portability and firmer grip with no bulk and no skidding.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/81-ZJ7QLXOL._AC_SX522_.jpg"
+   },
+   {
+      "item":"Adjustable Cell Phone Stand, OMOTON C2 Aluminum Desktop Phone Holder Dock Compatible with iPhone 11 Pro Max Xs XR 8 Plus 7 6, Samsung Galaxy, Google Pixel, Android Phones, Black",
+      "price":"$11.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"This is a really cool product",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/61vcpyB7UEL._AC_SX522_.jpg"
+   },
+   {
+      "item":"Adepoy Compatible with Apple Watch Bands 44mm 42mm 40mm 38mm, Soft Silicone Sport Wristbands Replacement Strap with Classic Clasp for iWatch Series SE 6 5 4 3 2 1 for Women Men, 3 Pack 38/40mm",
+      "price":"42.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"Color Clasp The apple watch bands adopted metal classic clasp it is more security and stable. We match different colors clasp according to the different colors of the apple strap. Appropriate matching make your apple watch more amazing.Waterproof and Skin-friendly The apple watch strap use soft and smooth silicone which is durable and lightweight. Comfortable touch feeling free your wrists when you with the silicone sport apple watch band.Free Size for All Adjustable size for all wrists. mmmm suits for mm apple watch . inch -. inch wrists also works for mm. mmmm suits for mm apple watch . inch-. inch wrists also works for mm.Much Colors The apple watch wristbands have  colors for you to choose. Change bands instead change watch give your watch new looking always.Customer Service We provide -year warranty for the silicone apple watch bands includes -year unconditional refund or free replacement.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/71xP%2BwjC0jL._AC_SX522_.jpg"
+   },
+   {
+      "item":"2021 Upgraded AUKEY Phone Car Holder with Stronger Vent Clip, Hands Free Cell Phone Holder for Car, Universal Air Vent Car Phone Mount",
+      "price":"$10.39",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"Upgraded Vent Clip Features a stronger larger vent clip and an innovative support frame to provide extra support it can hold your phone securely on an air vent in your carUpgraded Phone Cradle Design with a larger cradle to keep your phone stable in place. With the instant release button you can push the phone cradle arms in to secure your phone and press the button to releaseIdeal Viewing Angle A  rotating and pivoting ball joint allows you to adjust and quickly switch between portrait and landscape viewAdaptable Attachment Features a -levels locking knob to easily and firmly fix the air vent mounting grip on your car air ventPackage Contents AUKEY HD-C Car Phone Mount User Manual",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/719iaAphGgL._AC_SX466_.jpg"
+   },
+   {
+      "item":"Ruiboo Sport Loop Band Compatible with Apple Watch Band 38mm 40mm 42mm 44mm iWatch Series 6 5 SE 4 3 2 1 Strap, Nylon Velcro Women Men Stretchy Elastic Braided Replacement Wristband Breath Soft Light",
+      "price":"$13.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"This fits your.Make sure this fits by entering your model number.P.when\"ReplacementPartsBulletLoader\".executefunctionmodule module.initializeDPX Ruiboo sport loop band compatible with Smartwatch mm mm mm mm iWatch Series   SE     Sport Edition. Suitable for mm .- . wrist.Ruiboo double-layer weave strap is skin friendly allowing sweat to escape drying fast and easy to clean making you feel comfortable and breathable.The strong connector prevents the iWatch from loosening. The powerful Velcro keeps the iWatch firmly on your wrist. Have strong hook-and-loop fastener for quick and easy adjustment.Many colors are free to choose Highlight personality Match your clothes Make you more tasteful. Get  customer service We always try our best to solve your problem.Ruiboo sports loop replacement wristband is suitable as a special gift for family and friends on birthday Christmas Valentine\\'s Day or holidays. Sweet daily gifts can accompany them every day.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/81IjcA37EQL._AC_SX425_.jpg"
+   },
+   {
+      "item":"Trianium (3 Packs) Screen Protector Designed for Apple iPhone 11 Pro Max, iPhone XS Max (6.5\" 2018) Premium HD Clarity 0.25mm Tempered Glass Screen Protector Easy Installation Alignment Case (3-Pack)",
+      "price":"$9.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":" Pack ULTRA SLIM - Trianium\\'s Tempered Glass Screen Protectors are .mm thin making them hardly noticeable for your viewing pleasure. Specifically made for iPhone XS Max   iPhone  Pro Max .\" Display.Scratch proof - this durable screen protector consistently protects your screen from scratches scuffs and impacts.Crystal clear - these completely transparent protectors provide the native HD iPhone experience its like it\\'s not even there!Unmatched convenience - protective hydrophobic and oleophobic coating protects your screen from fingerprint marks and liquid residue. Also comes standard with a fully loaded kit for a quick and easy Installation experience.Lifetime protection - Trianium Lifetime Warranty secures your tempered glass screen protector purchase for life.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/61bIjX7sYfL._AC_SX425_.jpg"
+   },
+   {
+      "item":"Cell Phone Stand, Angle Height Adjustable LISEN Phone Stand For Desk, Thick Case Friendly Phone Holder Stand For Desk, Compatible with All Mobile Phones,iPhone,Switch,iPad,Tablet(4-10in)",
+      "price":"$13.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"This is a really cool product",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/61NaoND9XOL._AC_SY550_.jpg"
+   },
+   {
+      "item":"TOZO W1 Wireless Charger Thin Aviation Aluminum Computer Numerical Control Technology Fast Charging Pad Black (NO AC Adapter)",
+      "price":"42.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"This is a really cool product",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/613TRvtyAvL._AC_SX522_.jpg"
+   },
+   {
+      "item":"USB Charger, Anker Elite Dual Port 24W Wall Charger, PowerPort 2 with PowerIQ and Foldable Plug, for iPhone 11/Xs/XS Max/XR/X/8/7/6/Plus, iPad Pro/Air 2/Mini 3/Mini 4, Samsung S4/S5, and More",
+      "price":"$12.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"The Anker Advantage Join the  million powered by our leading technology.Less Time Charging Patented PowerIQ and VoltageBoost technologies charge any device at its fastest possible speed up to .A. Does not support Qualcomm Quick Charge.Durable Design Robust textured casing and premium internal components ensure perfect performance regardless of scrapes bumps or drops.Travel Ready Compact design foldable plug and - volt input are ideal for worldwide travel.What You Get Anker PowerPort  Elite welcome guide our worry-free -month warranty and friendly customer service.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/61WUNQiqqiL._AC_SX425_.jpg"
+   },
+   {
+      "item":"USB Wall Charger, LUOATIP 3-Pack 2.1A/5V Dual Port USB Cube Power Adapter Charger Plug Charging Block Replacement for Phone Xs/XR/X, 8/7/6 Plus, Samsung, LG, HTC, Moto, Android Phones",
+      "price":"$10.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"Model HC Widely Compatibility USB Charger Replacement for Phone Xs max Phone XR XS Plus Phone SE SC S Pad Pod Note HTC LG Motorola Samsung Galaxy Google Pixel and more phones.Parameter USB Output .Amp V. which enables to charge your two smart phone or tablet devices simultaneously at maximum speed.Compact Design Heat resistant and Anti-throw design Compact and Easy to carry Comfortable grip Suitable use for home travel office and business trip.Phone protection Fireproof material. Charger brick has the function of automatic protection circuit. Intelligent circuit design protects against short circuiting over-heating over-current and over-charging.Package includes LUOATIP -Pack Dual Port USB wall charger block.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/61RjldYuSEL._AC_SX522_.jpg"
+   },
+   {
+      "item":"Long iPhone Charger 10ft Extra Lightning Charging Cable 2Pack 10 Foot Cord for iPhone 11/11 Pro/X/Xs Max/XR/XR/X/8/8 Plus/7/7 Plus/6/6s/Plus/SE/5c/5s/5 iPad Air 2/Mini/Max 3Meter 10Feet Charger Wire",
+      "price":"$13.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"Long Charger Cable Pack FT USB Charging Wire For IPhone Xs Pluss iPadAirMiniWhy do we need the ft cable? Compared with the normal length cable what are the advantages of it?ft cable easy for charging your Apple device in the distance from desk to bed in your dorm.ft cable whatever you are lying on the sofa or bed at home the distance between you and charger is not a problem.ft cable the car charger can offer service for the passengers even in the back seat of the car.Don't be limited by the length of the cable.Relative to others' how's our product?Anti bending no need to worry about skin rupture and wire breakage.Hard material better winding resistance than nylon.Line diameter bigger thanoriginal. Dirt wear resistance. Long lifespanCan be used in car and other USB charger. Compatible with all -pin devices.NoteIf there is any problem with the product please contact us in time we will be responsible for your after-sales service if you do not contact us and leave negative emotions we will not be responsible for anyafter-sales",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/81X9XR4ZgZL._AC_SX522_.jpg"
+   },
+   {
+      "item":"Anker Wireless Charger, PowerWave Pad Qi-Certified 10W Max for iPhone SE 2020, 11, 11 Pro, 11 Pro Max, AirPods, Galaxy S20 S10, Note 10 9 (No AC Adapter, Not Compatible with MagSafe Magnetic Charging)",
+      "price":"$11.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"The Anker Advantage Enjoyed by over  million users worldwide our leading technology will change the way you charge.Complete Charging Convenience Instantly charge your phone or earbuds simply by placing them in the center of PowerWave Pad. Never fuss around with plugging and unplugging cables again just set down and power up.Universal Compatibility PowerWave Pad provides W output for Samsung Galaxy .W for iPhone and W for other phones or wireless earbuds including AirPods.Through-Case Charging Don't fumble with your phone case. PowerWave charges directly through protective cases up to  mm thick not including cases with magnetic or metal attachments.What You Get PowerWave Pad  ft Micro USB Cable welcome guide worry-free -month warranty and friendly customer service.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/6114qzNg-3L._AC_SX425_.jpg"
+   },
+   {
+      "item":"Beam Electronics Car Phone Mount Holder Universal Phone Car Air Vent Mount Holder Cradle Compatible for iPhone 12 11 Pro Max XS XS XR X 8+ 7+ SE 6s 6+ 5s 4 Samsung Galaxy S4-S10 LG Nexus Nokia",
+      "price":"$6.85",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"Quick Release Button Press button on back of unit to slide open and then take out mobile phone. Press the arms on both side to clamp mobile phone again simple of operation save time and power. Degree Rotation The fully -degree rotation provide you with the best viewing angle.The holder ensures safe driving whether you are talking navigating listening to music or charging.Broad Compatibility Passed a wide range of tests fit for most cellphones iPhone   Plus iPhone s Plus s s c Samsung Galaxy S HTCLG Nexus Nokia GPS Device. Sturdy cradle-less and attractive device holding system.suitable for width size from . inch to .inch smart phone or electronic devices.Single-handed Operation Simple installation and removal of smart phones. Simplistic Installation Single-handed Operation No Tools Needed.This car phone mount holder is compatible with most all cell phone devices",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/61tRW%2BkQxiL._AC_SX569_.jpg"
+   },
+   {
+      "item":"TOZO Compatible for iPhone 12 and Compatible for iPhone 12 Pro Screen Protector 3 Pack Premium Tempered Glass 0.26mm 9H Hardness 2.5D Film Easy install 6.1 inch",
+      "price":"42.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"Made by Premium Tempered Glass which is the same Material compatible for iPhone  and compatible for iPhone  Pro . inch Original Touch Screen Glass. It Makes The Touch Feeling The Same As compatible for iPhone  and compatible for iPhone  Pro . inch Original ScreenA H Hardness Super Thin Tempered Glass. It owns super high transmittance and high restoring the original color of screen.Protect Glass .mm .D thin Tempered Glass compatible for iPhone  and compatible for iPhone  Pro . inch. A H Hardness Super Thin Tempered Glass.Only Second to the World's Hardest Substance - Diamond Hardness  scratch-resistant and blowout-resistant .Its surface used Nanometer thin oil coating which is anti-fingerprint oil rub resistance and effectively preventing and filtering ultraviolet ray.Easy to Install. The installation frame enables perfect alignment of the protector. The cleaning cloth and dust remover give you a bubble and dust free application. Installation is easier than ever!",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/71XFkkNUL0L._AC_SX425_.jpg"
+   },
+   {
+      "item":"Mpow Car Phone Mount, Dashboard Windshield Car Phone Holder with Long Arm, Strong Sticky Gel Suction Cup, Anti-Shake Stabilizer Compatible iPhone 12 11 pro/11 pro max/XS/XR/X/8/7,Galaxy, Moto and More",
+      "price":"$15.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"FREE INSTALLATION  UNOBSTRUCTED SIGHT Mpow focuses on the innovative and smarter mounting solution and blazes past other traditional dashboard car mounts. Up to cm.in aluminum long gooseneck sends the dashboard Phone mount much closer to you without blocking your sight giving you the freedom to position it on multiple locations on the dashboard or windshield. Most importantly it can be bent to avoid obstructing display and irregular ventsSTRONG SUCTION CUP WITH STICKY GEL super strong vacuum suction cup features a layer of sticky gel and a locking lever which can maximize the stability and keep the mount in place. Comes with an anti-shake stabilizer it safely hold the device without vibrating and wobbling even on rough roads. The suction cup is reusable and washable Simply rinse in water and let air dry to restore the stickiness. As summer approaches and days are getting hotter please avoid direct exposure to the sun as this may affect the function of your car mountHOLDS PHONE AND CASE COMBINATIONS the adjustable side clamps extend from .in to .in compatible with most smartphones with screens up to . and even worn its case. Galaxy SSSSSJJAAA Huawei PMateMatehonor X iPhone  Pro  Pro Max XXSXRPlusPlusPlusS Sony Xperia XzXperia XzXperia Xz compact Xiaomi Redmi Note  ProRedmi Note  ProRedmi Note mi  Promi Mi Litemi AMI A Litemi A LG GGVV und MP VIEW YOUR PHONE AT ANY ANGLE The flexible and durable gooseneck can be bent to the shape you like allowing for flexible adjustment for easy positioning and access to device controls. Thanks to the  degrees ball-head the dashboard mount can be flexibly tuned to display at an optimal viewing angle either in landscape or portrait mode for convenient navigating calling and music in the vehicleBUILT TO LAST AND PROTECT the polished surface makes the mount look sleek in your car. The heat-resistant PC and ABS materials make Mpow dashboard Phone holder sturdier than other Pure ABS mounts. The foldable holding feet allow hassle-free charging on the go. The Sponge-Padded surface and grips of the cradle prevent slipping and scratches. Note Please avoid the car mount if you use a pop grip. It cannot hold phones with your Pop MountPop out standexpanding stands",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/61gc90tHQcL._AC_SX522_.jpg"
+   },
+   {
+      "item":"Mkeke 20W USB C Charger for Apple iPhone 12 / Fast Type C Wall Charger of USB-C Power Adapter for iPhone 12 Pro / 12 Pro Max / 11 / Samsung Galaxy/iPad Pro (1 Pack)",
+      "price":"$8.49",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"This fits your.Make sure this fits by entering your model number.P.when\"ReplacementPartsBulletLoader\".executefunctionmodule module.initializeDPX W USB-C Fast Charger Offers fast and efficient charging up to X faster than a W charger. Charge your iPhone  up to  capacity in just  minutes with the original cable. Cable not included only  ChargerFast USB-C PD Charger is designed for iPhone  Pro Pro MaxiPhone  and later AirPods iPad Ninetendo Switch Samsung Galaxy S and later. Compatible with any USB-C enabled device supporting w fast chargingSafe  Reliable fast charger for iPhone packed with a highly intelligent chip. Effectively protect your devices from overheating and overchargingThe Compact and Travel-Friendly USB-C power adapter ensures maximum portability wherever you goA great accessory for business trips. When waiting at the airport and your phone is out of power it can now be charged quickly. Or if you forget to charge your phone overnight you can use Mkekes W USB C Charger to charge up to  in just  minutes",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/61Rg81ZTgCL._AC_SY355_.jpg"
+   },
+   {
+      "item":"Anker PowerCore 10000 Portable Charger, One of The Smallest and Lightest 10000mAh Power Bank, Ultra-Compact Battery Pack, High-Speed Charging Technology Phone Charger for iPhone, Samsung and More.",
+      "price":"$23.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"The Anker Advantage Join the  million powered by our leading technology.Remarkably Compact One of the smallest and lightest mAh portable chargers. Provides almost three-and-a-half iPhone  charges or two-and-a-half Galaxy S charges.High-Speed Charging Ankers exclusive PowerIQ and VoltageBoost combine to deliver the fastest possible charge for any device. Qualcomm Quick Charge not supported.Certified Safe Ankers MultiProtect safety system ensures complete protection for you and your devices.What You Get Anker PowerCore  portable charger Micro USB cable travel pouch welcome guide our worry-free -month warranty and friendly customer service. USB-C and Lightning cable for iPhone  iPad sold separately",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/51npXeK2FNL._AC_SX425_.jpg"
+   },
+   {
+      "item":"Cordking Designed for iPhone 12 Case, Designed for iPhone 12 Pro Case, Silicone Slim Shockproof Phone Case Cover with [Soft Anti-Scratch Microfiber Lin6.1 inch, Black",
+      "price":"$14.98",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"This is a really cool product",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/61C5dbtfMHL._AC_SX569_.jpg"
+   },
+   {
+      "item":"Mkeke Compatible with iPhone 11 Case, Clear Cover for 6.1 Inch Black",
+      "price":"$10.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"Compatible with new iPhone  released in .tpu and hard pc offer stronger protection from sudden droppingPrecise charging cutout fits the volume buttons side button and curves of your device without adding bulk.e  case blue Precise charging cutout fits the volume buttons side button and curves of your device without adding bulk.Transparent and flawless material make you enjoy the look of iPhone  while providing extra protection.Provides a firm and comfortable grip for your phonethanks to a gracefully curved.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/61OhTykLdTL._AC_SY550_.jpg"
+   },
+   {
+      "item":"Misxi 2 Pack Hard PC Case with Tempered Glass Screen Protector Compatible with Apple Watch Series 6 SE Series 5 Series 4 44mm - Black",
+      "price":"$9.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"Application Compatible with series    SE   series  mm  series  mm.Overall protection This case with glass screen protector is designed to offer external surface protection to your watch without compromising usability.Easy to install Super easy to install for its snap-on design to avoid taking the straps off first.Kindly tip These covers don't support while swimming because the water will get trapped underneath the cases. If you forget to take it off you can wipe it out with a cloth or wipes.What you get  x high performance PC hard case  dry and wet wipes.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/61wDa7Ea5TL._AC_SX522_.jpg"
+   },
+   {
+      "item":"OtterBox Commuter Series Case for iPhone 12 & iPhone 12 Pro - Ocean Way (Aqua Sail/Aquifer) (77-80575)",
+      "price":"$39.95",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"Compatible with iphone   iphone  proLasting antimicrobial technology helps protect case exterior against many common bacteria it does not protect you or the screenCase is infused with silver-based additive that continually blocks microbial growthThin profile slips in and out of pockets with soft inner and hard outer layers absorb and deflect impacts open access to ports and speakersIncludes Otterbox limited lifetime warranty",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/51KpFHdsaqL._AC_SX522_.jpg"
+   },
+   {
+      "item":"Powlaken Watch Charger, Magnetic Charging Cable Cord Compatible with Apple Watch Series Se, 6, 5, 4, 3, 2, 1",
+      "price":"$12.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"This fits your.Make sure this fits by entering your model number.P.when\"ReplacementPartsBulletLoader\".executefunctionmodule module.initializeDPX Integrated Magnetic TechnologyOffer a Fast Charging SpeedOffer you Safe Charging ProtectionWith Lightweight and Portable DesignCompatible for Apple Watch Series SE      ",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/51%2Bh4xWdPbL._SX342_.jpg"
+   },
+   {
+      "item":"pzoz Compatible for Apple Watch Series 6/5 /4 /SE 44mm Case with Screen Protector Accessories Slim Guard Thin Bumper Full Coverage Matte Hard Cover Defense Edge for Women Men GPS iWatch (Black)",
+      "price":"$10.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"COMPATIBLE Compatible with Apple Watch Series    SE mm. Ultra-thin PC protective case with screen protector allows quick and easy installation Perfect fit for your watch.MATERIAL Durable PC  PET material cover the screen and edges. Full cover protect your iWatch prevents scratches and wear.DESIGN Smart design allows access to all controls buttons sensors and Apple watch features. Charge directly don't need to take off the watch case.SCREEN PROTECTOR -- The PET material screen protector can be repeatedly wiped with a glasses cloth to ensure the clarity of the screen without affecting repeated use. TIPSThis cases is not waterproof it doesn't suitable for while swimming if you forget to take it off or using this product when a lot of sweat is produced during sports activities may trap moisture between the product and the watch screen. You just need to wipe with a glasses cloth.SERVICE pzoz offers -month quality service. Package Included Watch Case with Screen Protector  x mm. Cases Only Apple Watch and Watch Band are not included!",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/613A5MzME0L._AC_SX522_.jpg"
+   },
+   {
+      "item":"CASEKOO Crystal Clear Designed for iPhone 12 Case, Designed for iPhone 12 Pro Case [Not YellowShockproof Protective Phone Case Slim Thin Cover (6.1'') 2020- Clear",
+      "price":"$16.99",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"Crystal Clear  Yellow-resistant The crystal clear case flaunts original phone design and beauty never yellows with diamond antioxidant layer and is super easy to clean.Armor-level Shockproof The protective cover features  built-in corner Airbags to absorb impact and avoid scratches in most situations.Raised Camera  Screen Protection Raised bezels prevent screen and camera against drops  scratches. The tiny design of . mm lip over camera mm bezel over screen and  mm raised corner lips on the back provides extra and comprehensive protection.Perfect Fit The clear phone case fits perfectly to stop dust from entering and scratching the body of your phone.Slim Ergonomic Design  Enhanced Grip The slim phone case brings you greater portability and firmer grip with no bulk and no skidding.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/81IuPNRdT9L._AC_SX425_.jpg"
+   },
+   {
+      "item":"JETech 3-Pack Screen Protector for iPhone SE 2020, iPhone 8, iPhone 7, iPhone 6s, and iPhone 6, Tempered Glass Film, 4.7-Inch",
+      "price":"$5.98",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"-Pack Designed for iPhone SE  iPhone  iPhone  iPhone s and iPhone  .-InchDue to the round edge of iPhone SE       s   the screen protector will NOT cover the full screen but only the flat areaExtremely high hardness resists scratches up to H harder than a knife. High-response and high transparencyDust-free fingerprint-free one-push super easy installation bubble freeRetail package includes -Pack tempered glass screen protector cleaning cloth dust removal stick guide stick instructions customer service card",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/71-a7F4zObL._AC_SX522_.jpg"
+   },
+   {
+      "item":"Anker Car Charger, Mini 24W 4.8A Metal Dual USB Car Charger, PowerDrive 2 Alloy Flush Fit Car Adapter with Blue LED, for iPhone XR/Xs/Max/X/8/7/Plus, iPad Pro/Air 2/Mini, Galaxy, LG, HTC and More",
+      "price":"$9.34",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"Double Duty - Twin USB-A ports pump out a combined Wenough to provide a full-speed charge to  phones at once. Not compatible with Qualcomm Quick Charge.Ultra-Compact - The car chargers super-small design conserves space allowing seamless access to the rest of your dashboard.Heavy Metal - Finished with a scratch-resistant alloy surface to match even the most pristine vehicle interiors.Premium Components - Gold-plated circuitry reduces heat while charging to maximize charging speed and efficiency.What You Get - PowerDrive  Alloy car charger welcome guide our worry-free -month warranty and friendly customer service.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/61mcOqMIgXL._AC_SX425_.jpg"
+   },
+   {
+      "item":"Apple iPhone 8, 64GB, Gold - For AT&T (Renewed)",
+      "price":"$175.00",
+      "category": "Electronics",
+      "sub_category": "Cell Phones & Accessories",
+      "description":"SizeGB  ColorGold  Service ProviderATT  Product gradeRenewedThis iPhone  is Certified Refurbished. It is  functional and in near perfect cosmetic condition with the possibility of a few light hair marks. This item will NOT come in its original packaging but will include a certified cable and UL approved power adapter. Headsets SIM card and manual are NOT included. This iPhone  is locked to the ATT GSM network. It will not work with ANY OTHER carrier besides ATT.",
+      "image_1":"https://images-na.ssl-images-amazon.com/images/I/51biqZP8%2B2L._AC_SX466_.jpg"
+   }
+]
 
    module.exports = products3;

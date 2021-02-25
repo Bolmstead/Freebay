@@ -105,6 +105,7 @@ class Product {
     whereExpressions.push(`auction_ended = false`);
     query += " WHERE " + whereExpressions.join(" AND ");
     console.log("query", query)
+
     query += paginationQuery
     
     const findAllRes = await db.query(query, queryValues);
@@ -112,6 +113,20 @@ class Product {
     if(!findAllRes) {
       throw new BadRequestError(`Unable to make request for products in Products.getProducts()`);
     }
+
+    // Create query of the total count of products
+    const totalProductsQuery = 
+    "SELECT COUNT(*) FROM products" + " WHERE " + whereExpressions.join(" AND ");
+
+    // Send query and save the count object to numOfProducts
+    const findTotalProducts = await db.query(totalProductsQuery, queryValues);
+    const numOfProducts = findTotalProducts.rows[0]
+
+
+    if(!findTotalProducts) {
+      throw new BadRequestError(`Unable to make request for products in Products.getProducts()`);
+    }
+
 
     // Logic to determine if a product is still in auction. If not, add product to products_won for the highest bidder. If auction ended and no bidder, only set product's auction_ended column to true.
     const currentDateTime = Date.parse(new Date());
@@ -130,12 +145,13 @@ class Product {
         console.log("product still up for auction")
       }
     }
-
-
-    console.log("findAllRes.rows", findAllRes.rows)
     
+    const productsAndCount = {
+      products: findAllRes.rows,
+      count: numOfProducts.count
+    }
     // console.log("result from get products request", findAllRes.rows)
-    return findAllRes.rows;
+    return productsAndCount;
   }
 
   /** Given a product handle, return data about product.

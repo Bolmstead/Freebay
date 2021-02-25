@@ -25,8 +25,10 @@ const useStyles = makeStyles({
 });
 
 
-function ProductCard({id, name, marketPrice, imageUrl, rating, numOfRatings, auctionEndDt, bidderUsername, bidPrice}) {
+function ProductCard({product}) {
   const classes = useStyles();
+
+  let {id, name, marketPrice, imageUrl, rating, numOfRatings, auctionEndDt, bidderUsername, bidPrice} = product
 
   function truncate(str, n){
     if (str !== undefined) {

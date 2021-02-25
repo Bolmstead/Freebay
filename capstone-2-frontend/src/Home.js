@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import FreebayPic from './Components/Common/FreebayPic'
+import HomePagePic from './Components/Common/HomePagePic'
 import FaqCard from './Components/Common/FaqCard'
 import Grid from '@material-ui/core/Grid';
 import ExampleFeed from './Components/User/ExampleFeed.js'
@@ -26,7 +26,7 @@ function Home() {
   return (
     <Grid  container spacing={3}>
         <Grid item xs={12} alignItems="center" justify="center">
-          <FreebayPic />
+          <HomePagePic />
         </Grid>
         <Grid item sm={4} margin ={3}>
           <Typography>

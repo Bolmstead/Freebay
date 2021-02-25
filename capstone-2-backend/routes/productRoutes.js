@@ -27,9 +27,8 @@ router.get("/", async function (req, res, next) {
   try {
     const q = req.query;
     console.log("user", res.locals.user)
-    console.log(`req.query from "/" route`, req.query)
-    const products = await Product.getProducts(q);
-    return res.json({ products });
+    const result = await Product.getProducts(q);
+    return res.json( result );
   } catch (err){
     return next(err)
   }

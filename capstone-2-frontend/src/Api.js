@@ -52,7 +52,7 @@ class FreebayAPI {
     let res = await this.request(url);
     // console.log("res from getProducts,", res)
 
-    return res.products;
+    return res;
   }
 
   /** Login for site. */

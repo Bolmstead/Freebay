@@ -11,6 +11,13 @@ const db = require("./db");
 
 class SeedProducts{
 
+  static randomCondition(){
+    const conditions = ["Brand New", "New - Open Box", "Good", "Used"]
+    const condition = conditions[(Math.floor(Math.random() * 4))]
+    console.log("condition",condition)
+    return condition
+  }
+
   static randomDate(start, end) {
     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
   }
@@ -23,11 +30,10 @@ class SeedProducts{
     return (Math.floor(Math.random() * 1111))
   }
 
-
   static async seedProducts() {
     for (let i = 0; i < products1.length; i++) {
       console.log(i)
-      const {item, category, sub_category, description, condition, image_1, market_price} = products1[i]
+      const {item, category, sub_category, description, image_1, market_price} = products1[i]
 
       // Create Random DateTime object
       let auction_end_dt = SeedProducts.randomDate(new Date(2021, 3, 5), new Date())
@@ -36,9 +42,12 @@ class SeedProducts{
       // Create starting price as half of the product's actual price
       let starting_bid = Math.round(market_price * .5)
       starting_bid = Math.round(100*starting_bid)/100
-      // Grab random rating and number of ratings
+
+      // Grab random rating, number of ratings, and condition
       const num_of_ratings = SeedProducts.randomNumberOfRatings()
       const rating = SeedProducts.randomRating()
+      const condition = SeedProducts.randomCondition()
+
 
       const valuesArray =
         [item, category, sub_category, description, condition, rating, num_of_ratings, image_1, starting_bid, auction_end_dt]
@@ -49,7 +58,7 @@ class SeedProducts{
     
     for (let i = 0; i < products2.length; i++) {
       console.log(i)
-      const {item, category, sub_category, description, condition, image_1, market_price} = products2[i]
+      const {item, category, sub_category, description, image_1, market_price} = products2[i]
 
       // Create Random DateTime object
       let auction_end_dt = SeedProducts.randomDate(new Date(2021, 3, 5), new Date())
@@ -62,6 +71,7 @@ class SeedProducts{
       // Grab random rating and number of ratings
       const num_of_ratings = SeedProducts.randomNumberOfRatings()
       const rating = SeedProducts.randomRating()
+      const condition = SeedProducts.randomCondition()
 
       const valuesArray =
         [item, category, sub_category, description, condition, rating, num_of_ratings, image_1, starting_bid, auction_end_dt]
@@ -72,7 +82,7 @@ class SeedProducts{
 
     for (let i = 0; i < products3.length; i++) {
       console.log(i)
-      const {item, category, sub_category, description, condition, image_1, market_price} = products3[i]
+      const {item, category, sub_category, description, image_1, market_price} = products3[i]
 
       // Create Random DateTime object
       let auction_end_dt = SeedProducts.randomDate(new Date(2021, 3, 5), new Date())
@@ -85,7 +95,9 @@ class SeedProducts{
       // Grab random rating and number of ratings
       const num_of_ratings = SeedProducts.randomNumberOfRatings()
       const rating = SeedProducts.randomRating()
+      const condition = SeedProducts.randomCondition()
 
+      console.log("item", item)
       const valuesArray =
         [item, category, sub_category, description, condition, rating, num_of_ratings, image_1, starting_bid, auction_end_dt]
 
