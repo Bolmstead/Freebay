@@ -16,6 +16,7 @@ import Link from '@material-ui/core/Link';
 import Context from "../Common/Context";
 import {Redirect, useHistory} from 'react-router-dom';
 import FreebayAPI from "../../Api.js"
+import useStyles from "./Stylings/stylePrimarySearchAppBar.js"
 
 // Search Bar to allow user to search products.
 // If logged in, displays user's account balance, notifications 
@@ -23,82 +24,6 @@ import FreebayAPI from "../../Api.js"
 // will show user's unread notifications. If not logged in, shows 
 // login and signup links.
 
-const useStyles = makeStyles((theme) => ({
-  balance: {
-    color: "#282828",
-    justifyContent: "center",
-    flexDirection: "column",
-    display: "flex"
-
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  button: {
-    textTransform: 'none',
-    color: '#282828'	
-  },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.black, 0.10),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.black, 0.15),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: theme.spacing(2),
-    flex: 3,
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto',
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(.65, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'black',
-  },
-  inputRoot: {
-    color: 'black',
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    [theme.breakpoints.up('md')]: {
-      width: '50ch',
-    },
-  },
-  flex: {
-      display: 'flex',
-    },
-  searchButton: {
-    background: 'none',
-    padding: '0px',
-    border: 'none',
-  },
-
-  title: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
-  },
-
-  sectionDesktop: {
-    display: 'flex',
-  },
-
-  link: {
-    textTransform: 'none'
-  }
-
-}));
 
 function PrimarySearchAppBar() {
   const classes = useStyles();
@@ -106,8 +31,6 @@ function PrimarySearchAppBar() {
   const [accountAnchorEl, setaccountAnchorEl] = useState(null);
   const [notificationsAnchorEl, setNotificationsAnchorEl] = useState(null);
   const [redirect, setRedirect] = useState(false);
-
-
   const { currentUser, logout} = useContext(Context);
 
   console.log("currentUser from PrimarySearchAppBar", currentUser)
@@ -243,7 +166,7 @@ function PrimarySearchAppBar() {
       <AppBar position="static" style= {{background: "#FFFFFF"}} elevation={0}>
         <Toolbar className= "flex">  
           <Link href="/">
-            <img src="/images/logo.png" alt="logo" id="logo"></img>
+            <img src="/images/logo.png" alt="logo" className={classes.logo}></img>
           </Link>
           <div className={classes.search}>
           <form onSubmit={handleSubmit} >

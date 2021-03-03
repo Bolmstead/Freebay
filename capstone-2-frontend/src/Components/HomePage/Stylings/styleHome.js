@@ -1,11 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  image: {
+    marginTop: theme.spacing(8),
     display: 'flex',
-  },
-  paper: {
-    marginRight: theme.spacing(0),
+    flexDirection: 'column',
+    alignItems: 'center',
+    
   },
 }));
 

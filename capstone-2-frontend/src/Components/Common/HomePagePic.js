@@ -22,9 +22,9 @@ function FreebayPic() {
         <FiCard className={classes.card}>
           <FiCardMedia 
             media="picture"
-            alt="Contemplative Reptile"
+            alt="Check out our Tech!"
             image="/Images/clickbait/electronics.jpg"
-            title="Contemplative Reptile"
+            title="Check out our Tech!"
           />
           <FiCardContent className={classes.fiCardContent}>
             <Typography variant="h4" className={classes.header}>

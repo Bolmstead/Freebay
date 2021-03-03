@@ -7,9 +7,7 @@ const {
   BadRequestError,
   UnauthorizedError,
 } = require("../expressError");
-const Product = require("./ProductModel");
-const ProductWon = require("./ProductWonModel");
-const HighestBid = require("./HighestBidModel");
+
 const Notification = require("./NotificationModel");
 
 
@@ -61,7 +59,6 @@ class User {
    * Throws BadRequestError on duplicates.
    **/
   static async register({ email, username, password, firstName, lastName }) {
-    console.log("User model register method")
     const duplicateCheck = await db.query(
           `SELECT email
            FROM users
@@ -70,7 +67,7 @@ class User {
     );
 
     if (duplicateCheck.rows[0]) {
-      throw new BadRequestError(`Duplicate email: ${username}`);
+      throw new BadRequestError(`Duplicate email: ${email}`);
     }
 
     // Let user start off with $100
@@ -97,7 +94,6 @@ class User {
       throw new BadRequestError(`Unable to insert into users`);
     }
     const user = result.rows[0];
-    console.log("user from register method", user)
 
     Notification.addNotification(user["email"], `Welcome to Freebay! As a welcome gift, we have deposited $100 Freebay bucks into your account! If you have any questions please see our FAQ page.` )
     return user;
@@ -126,7 +122,6 @@ class User {
     const user = userRes.rows[0];
 
     if (!user) throw new NotFoundError(`No user: ${username}`);
-    console.log("user from get() in User model",user)
   
     // Grab Products won
     const productsWonRes = await db.query(
@@ -147,7 +142,8 @@ class User {
                   products_won.datetime
           FROM products_won
           FULL OUTER JOIN products ON products_won.product_id = products.id
-          WHERE products_won.user_email = $1`, [user["email"]]);
+          WHERE products_won.user_email = $1
+          ORDER BY products_won.datetime DESC`, [user["email"]]);
 
     user.products_won = productsWonRes.rows;
 
@@ -172,11 +168,11 @@ class User {
               highest_bids.datetime
           FROM highest_bids
           FULL OUTER JOIN products ON highest_bids.product_id = products.id
-          WHERE highest_bids.user_email = $1`, [user["email"]]);
+          WHERE highest_bids.user_email = $1
+          ORDER BY highest_bids.datetime DESC`, [user["email"]]);
 
     user.highest_bids = highestBidsRes.rows;
 
-    console.log("highestBidsRes from get() in User model", highestBidsRes)
 
     // console.log("ALMOST final user object", user)
 
@@ -188,28 +184,22 @@ class User {
               notifications.was_viewed AS "wasViewed",
               notifications.datetime
         FROM notifications
-        WHERE notifications.user_email = $1`, [user["email"]]);
+        WHERE notifications.user_email = $1
+        ORDER BY notifications.datetime DESC`, [user.email]);
 
     user.notifications = notificationsRes.rows;
+    console.log("notifications", user.notifications)
 
     // console.log("notificationsRes from get() in User model", notificationsRes.rows)
 
-    console.log("final user object from getUser", user)
-
     return user;
   }
-
-
-
-
 
   static async decreaseBalance(amount, email) {
     const result = await db.query(`UPDATE users 
                       SET balance = balance - $1
                       WHERE email = $2`,[amount, email]);
     if (!result) throw new BadRequestError(`Balance not lowered by ${amount} for user:  ${email}`);
-    // console.log("decreaseBalance result", result)
-    return result;
   }
 
 
@@ -218,9 +208,7 @@ class User {
                       SET balance = balance + $1
                       WHERE email = $2`,[amount, email]);
     if (!result) throw new BadRequestError(`Balance not increased by ${amount} for user:  ${email}`);
-    // console.log("amount from increaseBalance", amount)
-    // console.log("email from increaseBalance", email)
-    // console.log("increaseBalance result", result)
+
     return result;
   }
 
@@ -230,9 +218,7 @@ class User {
                       WHERE email = $1
                       RETURNING last_login AS "lastLogin"`,[email]);
     if (!result) throw new BadRequestError(`Unable to update the last login for user: ${email}`);
-    // console.log("amount from updateLastLogin", amount)
-    // console.log("email from updateLastLogin", email)
-    // console.log("updateLastLogin result", result)
+
     return result;
   }
 
@@ -240,8 +226,6 @@ class User {
     let previousLogin = user.lastLogin
     let updateLastLoginResult = await User.updateLastLogin(user.email)
     let currentLogin = updateLastLoginResult.rows[0].lastLogin
-    console.log("previousLogin!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", previousLogin.getDay())
-    console.log("currentLogin", currentLogin.getDay())
 
     let daysPassed;
 
@@ -259,7 +243,7 @@ class User {
   }
 
 
-  static async getHighestBids(userEmail) {
+  static async getHighestBids() {
     const usersHighestBidsRes = await db.query(
       `SELECT products.id,
               products.name,
@@ -277,7 +261,7 @@ class User {
               highest_bids.bid_price AS "bidPrice"
           FROM highest_bids
           FULL OUTER JOIN products ON highest_bids.product_id = products.id
-          WHERE highest_bids.user_email = $1`, [userEmail]);
+          ORDER BY highest_bids.datetime DESC`);
 
     if (!usersHighestBidsRes) throw new BadRequestError(`Undable to getHighestBids in userModel.js`);
 

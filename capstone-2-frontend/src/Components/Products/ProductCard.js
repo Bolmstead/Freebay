@@ -7,36 +7,29 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import useStyles from './Stylings/styleProductCard.js'
 
 // Card of product image and some information regarding the product.
 // Will be rendered within the ProductList components.
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 300,
-  },
-  media: {
-    height: 200,
-    minWidth: 250,
-  },
-  ratingNumber: {
-    top: 200
-  }
-});
-
-
 function ProductCard({product}) {
   const classes = useStyles();
+  console.log("product in productCard", product)
 
-  let {id, name, marketPrice, imageUrl, rating, numOfRatings, auctionEndDt, bidderUsername, bidPrice} = product
+  let {id, name, startingBid, imageUrl, rating, numOfRatings, auctionEndDt, bidderUsername, bidPrice} = product
+  let bidDisplay;
 
   function truncate(str, n){
     if (str !== undefined) {
     return (str.length > n) ? str.substr(0, n-1) + '...' : str;}
   };
 
-  marketPrice = `$` + marketPrice
-  const shortName = truncate(name, 100)
+  if (bidPrice){
+    bidDisplay = parseFloat(bidPrice).toFixed(2);
+  } else {
+    bidDisplay = parseFloat(startingBid).toFixed(2);
+  }
+  const shortName = truncate(name, 50)
 
   const auctionEndObj = new Date(auctionEndDt)
 
@@ -58,51 +51,49 @@ function ProductCard({product}) {
 
   const countdown = getTimeRemaining(auctionEndObj)
 
-  const countdownDisplay = `${countdown["days"]}D ${countdown["hours"]}H`
+  const countdownDisplay = `${countdown.days}d ${countdown.hours}h`
 
   return (
     <Link href={"/product/" + id} color="inherit">
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={imageUrl}
-          title={shortName}
-        />
-        <CardContent style={{ minHeight: "100px"}}>
+        <div className={classes.imageContainer}>
+          <img
+            className={classes.media}
+            src={imageUrl}
+            title={shortName}
+          />
+        </div>
+        <CardContent style={{ minHeight: "120px"}}>
           <div>
           <Typography gutterBottom variant="body2" component="p">
             {shortName}
           </Typography>
-        <Rating name="read-only" value={rating} size="small" readOnly display="inline"/> 
+          <Rating name="read-only" value={product["rating"]} size="small" readOnly display="inline"/>   
+
       </div>
-          <Typography variant="body1" color="body2" component="p">
-            {marketPrice}
-          </Typography>
           { bidderUsername
           ?
             <div>
-              <Typography variant="body1" color="body2" component="p">
-                {bidPrice}
+              <Typography variant="h6" color="body2" component="p" display="inline"  className={classes.price}>
+                ${bidDisplay}{'  '}
               </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                {bidderUsername}
+              <Typography variant="body2" color="textSecondary" component="p" display="inline" >
+                bid by {bidderUsername}
               </Typography>
             </div>
           :
-          <div>
-            <Typography variant="body1" color="body2" component="p">
-              {marketPrice}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {bidPrice}
-            </Typography>
-          </div>
+            <div>
+              <Typography variant="h6" color="body2" component="p" display="inline" fontWeight="fontWeightBold" className={classes.price}>
+                ${bidDisplay}{'  '}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" display="inline" component="p">
+                Starting bid
+              </Typography>
+            </div>
 
           }
-          <Typography variant="body2" color="textSecondary" component="p">
-            {marketPrice}
-          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">{countdownDisplay}</Typography>
 
         </CardContent>
       </CardActionArea>

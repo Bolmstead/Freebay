@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import FreebayAPI from '../../Api.js'
 import { useLocation} from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import useStyles from './Stylings/styleProductCard.js'
 
 
 // The list of product categories when a user clicks on a subcategory
@@ -18,22 +19,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
-
-const useStyles = makeStyles(theme => ({
-  
-    root: {
-        flexGrow: 1,
-        padding: theme.spacing(2)
-    },
-    button: {
-      margin: theme.spacing(1),
-      textTransform: 'none'
-
-    },
-    extendedIcon: {
-      marginRight: theme.spacing(1),
-    },
-}))
 
 const ProductList = () => {
   const classes = useStyles();

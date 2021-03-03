@@ -8,33 +8,12 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from "react-router-dom";
-import Alert from "./Common/Alert";
-import Context from "./Common/Context";
-
+import Alert from '@material-ui/lab/Alert';
+import Context from "../Common/Context";
+import useStyles from "./Stylings/styleSignup"
 
 // Renders a Signin form to create an account. User is redirected 
 // to the home page once an account has been created.
-
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
 
 export default function Signup() {
   const classes = useStyles();
@@ -155,7 +134,13 @@ export default function Signup() {
             </Grid>
           </Grid>
           {formErrors.length
-                    ? <Alert type="danger" messages={formErrors} />
+                    ? 
+                    <div>
+                      <br/>
+                      <Alert variant="filled" severity="error">
+                        {formErrors}
+                      </Alert>
+                    </div>
                     : null
                 }
           <Button

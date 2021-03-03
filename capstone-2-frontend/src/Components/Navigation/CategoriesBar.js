@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import {useStyles} from './Stylings/styleCategoriesBar';
+import useStyles from './Stylings/styleCategoriesBar';
 
 // Navigation bar for a user to get to certain product pages of certain categories.
 // Rendered below the Search Navigation bar and renders multiple category components.

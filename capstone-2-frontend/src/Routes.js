@@ -1,11 +1,10 @@
-import './App.css';
 import { Switch, Route  } from "react-router-dom";
 import React  from "react";
 
-import Home from "./Home";
-import Login from "./Components/Login";
+import Home from "./Components/HomePage/Home.js";
+import Login from "./Components/auth/Login";
 import ProductCard from "./Components/Products/ProductCard";
-import Signup from "./Components/Signup";
+import Signup from "./Components/auth/Signup";
 import Profile from "./Components/User/Profile";
 
 import ProductList from "./Components/Products/ProductList";

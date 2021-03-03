@@ -10,18 +10,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import useStyles from './Stylings/styleCategory.js';
 
 // A category of the CategoriesBar component.
 // shows a submenu of sub-categories when clicked.
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  paper: {
-    marginRight: theme.spacing(0),
-  },
-}));
 
 export default function MenuListComposition({category, subCategories}) {
   const classes = useStyles();

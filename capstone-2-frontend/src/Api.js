@@ -103,6 +103,18 @@ class FreebayAPI {
     // console.log("res from api.js addBid method", res)
     return res;
   }
+
+  static async getBidsFeed() {
+    let res = await this.request(`products/recentBidders`);
+    // console.log("res",res)
+    return res.product;
+  }
+
+  static async getWinsFeed() {
+    let res = await this.request(`products/recentWinners`);
+    // console.log("res",res)
+    return res.product;
+  }
  
 }
 

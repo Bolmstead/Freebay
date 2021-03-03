@@ -12,6 +12,7 @@ import WinsFeed from "./WinsFeed";
 import Notifications from "./Notifications";
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
+import useStyles from './Stylings/styleProfile.js'
 
 import {
   Grid,
@@ -25,40 +26,6 @@ import {
 // A users profile. If the profile is the current user, notifications 
 // are displayed. If the profile does not match the current user, 
 // notifications would not be displayed.
-
-
-const useStyles = makeStyles({
-  media: {
-    height: 300,
-    width: 300,
-    borderRadius: 2,
-    border: 1,
-  },
-
-  cover: {
-    width: 151,
-  },
-  root: {
-    minWidth: 275,
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-  tabPanel: {
-    flexGrow: 1,
-    backgroundColor: 'white',
-  },
-});
-
-
 
 
 function Profile() {

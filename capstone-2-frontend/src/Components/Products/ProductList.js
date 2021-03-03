@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from './ProductCard.js'
-import { makeStyles } from '@material-ui/core/styles'
 import {
     Grid
   } from '@material-ui/core/'
@@ -9,27 +8,13 @@ import Button from '@material-ui/core/Button';
 import FreebayAPI from '../../Api.js'
 import { useLocation } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import useStyles from './Stylings/styleProductList.js'
+import {Typography} from '@material-ui/core/'
 
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
-
-const useStyles = makeStyles(theme => ({
-  
-    root: {
-        flexGrow: 1,
-        padding: theme.spacing(2)
-    },
-    button: {
-      margin: theme.spacing(1),
-      textTransform: 'none'
-
-    },
-    extendedIcon: {
-      marginRight: theme.spacing(1),
-    },
-}))
 
 const ProductList = () => {
   const classes = useStyles();
@@ -100,8 +85,11 @@ const ProductList = () => {
 
   return (
     <Container>
-      <h1>{categoryTitle}</h1>
-      <Grid container spacing={3}>
+      <Typography className={classes.listTitle} variant="h4" spacing={5}>
+        {categoryTitle}
+      </Typography>
+      <br/>
+      <Grid container spacing={3} justify="center">
         {products.map((product) =>{
           return <Grid item s={4} m={3} spacing={3}>
                     <ProductCard product={product}/>

@@ -6,10 +6,7 @@ const {
   BadRequestError,
   UnauthorizedError,
 } = require("../expressError");
-const User = require("./userModel");
-const Product = require("./ProductModel");
-const ProductWon = require("./ProductWonModel");
-const HighestBid = require("./HighestBidModel");
+
 
 
 const { BCRYPT_WORK_FACTOR } = require("../config.js");

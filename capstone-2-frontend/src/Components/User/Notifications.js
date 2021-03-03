@@ -10,23 +10,10 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import FolderIcon from '@material-ui/icons/Folder';
 import Context from "../Common/Context";
-
+import useStyles from './Stylings/styleNotifications.js'
 
 // Displays a feed of a user's viewed and unviewed notifications. 
 // If a user has not viewed a notification, the notification will be highlighted.
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    maxWidth: 752,
-  },
-  demo: {
-    backgroundColor: theme.palette.background.paper,
-  },
-  title: {
-    margin: theme.spacing(4, 0, 2),
-  },
-}));
 
 
 export default function Notifications(userProfile) {

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter } from 'react-router-dom';
-import './App.css';
+import { BrowserRouter, Redirect } from 'react-router-dom';
 import jwt from "jsonwebtoken";
 import PrimarySearchAppBar from './Components/Navigation/PrimarySearchAppBar.js'
-import CategoriesBar from './Components/Navigation/CategoriesBar/CategoriesBar.js'
+import CategoriesBar from './Components/Navigation/CategoriesBar.js'
 import Routes from './Routes.js'
 import Container from '@material-ui/core/Container';
 import Context from "./Components/Common/Context.js";
 import FreebayAPI from './Api'
 import useLocalStorage from "./hooks/useLocalStorage";
 import LoadingSpinner from './Components/Common/LoadingSpinner.js';
+import useStyles from './Stylings/styleApp.js'
 
 
 export const TOKEN_STORAGE_ID = "freebay-token";
@@ -17,6 +17,7 @@ export const TOKEN_STORAGE_ID = "freebay-token";
 // Renders entire Application
 
 function App() {
+  const classes = useStyles();
   const [infoLoaded, setInfoLoaded] = useState(false);
   const [products, setProducts] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
@@ -70,6 +71,8 @@ function App() {
   function logout() {
     setCurrentUser(null);
     setToken(null);
+    return <Redirect to="/" />
+
   }
 
   async function signup(data) {
@@ -86,12 +89,6 @@ function App() {
 
 
 // Product Hooks
-  async function getProductsInCategory(category) {
-    let res = await FreebayAPI.getProductsInCategory(category);
-    setProducts(res);
-    console.log("products", products)
-  }
-
   async function getProducts(query) {
     let res = await FreebayAPI.getProducts(query);
     setProducts(res);
@@ -114,13 +111,13 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-      <Context.Provider value={{ currentUser, setCurrentUser, signup, login, products, getProducts, getProductsInCategory, getProduct, logout}}>
+      <Context.Provider value={{ currentUser, setCurrentUser, signup, login, logout, products, getProduct, getProducts}}>
 
         <BrowserRouter>
 
         <Container>
         <PrimarySearchAppBar />
-        <hr style={{height:'1px', borderWidth:0, color:'lightgrey', backgroundColor: '#e6e6e6', margin:0, padding: 0,}}/>
+        <hr className={classes.hr}/>
         <CategoriesBar/>
         <Routes/>
         <Container>

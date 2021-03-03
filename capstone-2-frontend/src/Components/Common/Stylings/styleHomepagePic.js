@@ -6,8 +6,6 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-// Smaller components to help create the FreebayImage component
-
 export const useStyles = makeStyles((theme) => ({
   header: {
     display: "flex",
@@ -83,7 +81,6 @@ export const FiCardMedia = withStyles({
 
 // --- Exports --- //
 export default {
-  useStyles,
   FiCard,
   FiCardActionArea,
   FiCardActions,

@@ -7,9 +7,8 @@ const {
   UnauthorizedError,
   ForbiddenError,
 } = require("../expressError");
-const User = require("./userModel");
+const User = require("./UserModel");
 const Product = require("./ProductModel");
-const ProductWon = require("./ProductWonModel");
 const Notification = require("./NotificationModel");
 
 const { BCRYPT_WORK_FACTOR } = require("../config.js");
@@ -30,7 +29,7 @@ class HighestBids {
     // console.log("bidderEmail from updateBid method", bidderEmail)
     // console.log("currentBid from updateBid method", currentBid)
     // console.log("currentBidderUsername from updateBid method", currentBidderUsername)
-
+    console.log("currentBid", currentBid)
     if (currentBid) {
       // If there is a previous bid, delete the previous bid and
       // increase the previous bidder's balance
@@ -55,6 +54,9 @@ class HighestBids {
           console.log("timeLeft",timeLeft)
 
         // add notification to previous bidder
+        console.log("bidderEmail in addBid method", bidderEmail)
+        console.log("user.email in addBid method", user.email)
+
         if( bidderEmail !== user.email) {
           console.log("`You have been outbid by ${user.username}!`")
           Notification.addNotification(bidderEmail, `You have been outbid by ${user.username}!`, product.id )
@@ -101,7 +103,34 @@ class HighestBids {
       VALUES ($1, $2, $3)
       RETURNING product_id AS "productId", user_email AS "newBidderEmail", bid_price AS "bidPrice"`, [productId, userEmail, newBid]);
     if (!addHighestBidder) throw new BadRequestError(`product not deleted!`);
+  }
 
+  static async getBidsFeed() {
+    const bidsFeedRes = await db.query(
+      `SELECT products.id,
+              products.name,
+              products.category,
+              products.sub_category AS "subCategory",
+              products.description,
+              products.condition,
+              products.rating,
+              products.num_of_ratings AS "numOfRatings",
+              products.image_url AS "imageUrl",
+              products.starting_bid AS "startingBid",
+              products.auction_end_dt AS "auctionEndDt",
+              products.bid_count AS "bidCount",
+              products.auction_ended AS "auctionEnded",
+              highest_bids.bid_price AS "bidPrice"
+          FROM highest_bids
+          FULL OUTER JOIN products ON highest_bids.product_id = products.id
+          ORDER BY highest_bids.datetime DESC
+          LIMIT 5`);
+
+    if (!bidsFeedRes) throw new BadRequestError(`Undable to getHighestBids in userModel.js`);
+
+    // console.log("getHighestBids in userModel.js", bidsFeedRes)
+
+    return bidsFeedRes.rows
   }
 }
 
