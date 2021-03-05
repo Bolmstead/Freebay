@@ -55,10 +55,11 @@ function ProductDetails() {
         let bidDisplay = parseFloat(result.startingBid).toFixed(2);
         result.bidDisplay = bidDisplay;
       }
-      console.log("result", result)
+      console.log("result", typeof(result.bidCount))
       setProduct(result);
       getTimeLeft(result["auctionEndDt"])
       setInfoLoaded(true)
+
     }
     setInfoLoaded(false)
     getProduct(id)
@@ -99,7 +100,6 @@ function ProductDetails() {
 
   if (!infoLoaded) return <LoadingSpinner />;
   console.log("countdown",countdown)
-
 
   return (
     <Container>
@@ -172,15 +172,19 @@ function ProductDetails() {
                     : 
                       <div>
                         <Typography display="inline" variant="subtitle1" color="textSecondary" component="p" fontWeight="fontWeightBold">
-                          {product.bidCount} bids{'    -  '}
+                        {product.bidCount}
+                          { 
+                          (product.bidCount == 1)
+                          ? " bid" : " bids"
+                          }
                         </Typography>
-
+                        </div>
+                    }
                         <Countdown date={Date.now() + countdown} renderer={props => 
                           <Typography display="inline" variant="subtitle1" color="textSecondary" component="p">
                             {'  '}{"Time left: " + props.days + "d " + props.hours + "h " + props.minutes + "m " + props.seconds + "s"}
                           </Typography>} 
                         />
-                      </div>}
 
               </CardContent>
           </Card>

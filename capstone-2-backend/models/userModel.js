@@ -95,7 +95,7 @@ class User {
     }
     const user = result.rows[0];
 
-    Notification.addNotification(user["email"], `Welcome to Freebay! As a welcome gift, we have deposited $100 Freebay bucks into your account! If you have any questions please see our FAQ page.` )
+    Notification.addNotification(user["email"], `Welcome to Freebay! As a welcome gift, we have deposited $100 Freebay bucks into your account!`, "welcome" )
     return user;
   }
 

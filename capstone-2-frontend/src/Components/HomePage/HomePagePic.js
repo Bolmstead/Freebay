@@ -8,7 +8,7 @@ import {
     FiCardActions,
     FiCardContent,
     FiCardMedia
-  } from "./Stylings/styleHomepagePic";
+  } from "../Common/Stylings/styleHomepagePic";
 import Link from '@material-ui/core/Link';
 
 // Picture template to show on the homepage right below CategoriesBar

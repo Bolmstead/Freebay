@@ -6,8 +6,13 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    
   },
+  feedTitle: {
+    fontWeight: "bold"
+  },
+  carouselContainer: {
+    
+  }
 }));
 
 export default useStyles;

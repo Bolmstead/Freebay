@@ -104,16 +104,22 @@ class FreebayAPI {
     return res;
   }
 
-  static async getBidsFeed() {
-    let res = await this.request(`products/recentBidders`);
-    // console.log("res",res)
-    return res.product;
+  static async getProductsEndingSoon() {
+    let res = await this.request(`products/auctionsEndingSoon`);
+    console.log("res from getEndingSoon in API.js",res)
+    return res;
   }
 
   static async getWinsFeed() {
     let res = await this.request(`products/recentWinners`);
-    // console.log("res",res)
-    return res.product;
+    console.log("res in api.js getWinsFeed()",res)
+    return res;
+  }
+
+  static async getWhatsTrending() {
+    let res = await this.request(`products/getWhatsTrending`);
+    console.log("res from getEndingSoon in API.js",res)
+    return res;
   }
  
 }

@@ -1,10 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    maxWidth: '36ch',
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: "white",
     textTransform: 'none'
   },
   inline: {
@@ -13,10 +12,21 @@ export const useStyles = makeStyles((theme) => ({
   product: {
     textTransform: 'none'
   },
+  card: {
+    backgroundColor: "white",
+  },
   large: {
     width: "50px",
     height: "50px",
   },
+  cardContent: {
+    maxHeight: 150, 
+    overflow: 'auto',
+    minHeight: 150
+  },
+  listItemName: {
+    fontSize: 8
+  }
 }));
 
 export default useStyles

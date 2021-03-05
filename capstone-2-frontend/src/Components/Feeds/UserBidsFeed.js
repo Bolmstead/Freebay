@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import Link from '@material-ui/core/Link';
 
+
 import CardContent from '@material-ui/core/CardContent';
 import useStyles from './Stylings/styleBidsFeed.js'
 
@@ -18,25 +19,19 @@ import useStyles from './Stylings/styleBidsFeed.js'
 export default function BidsFeed(userProfile) {
   const classes = useStyles();
 
-  console.log("userProfile in WonOrBids Feed", userProfile )
+  console.log("userProfile in UserBidsFeed", userProfile )
 
   const { highest_bids } = userProfile["userProfile"]
 
-  console.log("highest_bids in WonOrBids Feed", highest_bids )
+  console.log("highest_bids in UserBidsFeed", highest_bids )
 
   return (
     <div className={classes.root}>
-      <Typography variant="h5" component="h2" align="center">
-            Current Bids
-      </Typography>
-      <Card >
-      <CardContent style={{maxHeight: 150, overflow: 'auto'}}>
+      <Paper className={classes.card} variant="outlined">
+      <CardContent className={classes.cardContent}>
     <List className={classes.root}>
-      <h1>{userProfile.username}</h1>
-        { highest_bids.length > 0 
-        
+        { highest_bids.length < 0 
         ? 
-          
         highest_bids.map( p => (  
           <Link href={"/Product/" + p.id} className={classes.product}>
             <ListItem alignItems="flex-start">
@@ -63,16 +58,15 @@ export default function BidsFeed(userProfile) {
             </ListItem>
           </Link>
         ))
-
         :
-        
-          <ListItem alignItems="flex-start">
-            <ListItemText secondary="None yet!"/>
-          </ListItem>
+
+        <Typography variant="h6" component="h2" align="center" color="textSecondary">
+                      <br></br>None yet!
+          </Typography>
         }
     </List>
     </CardContent>
-    </Card>
+    </Paper>
     </div>
 
   )}

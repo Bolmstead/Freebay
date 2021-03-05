@@ -13,29 +13,33 @@ import useStyles from './Stylings/styleWinsFeed.js'
 
 // Feed of a user's highest bids. To be displayed for anyone viewing the page
 
-export default function WinsFeed(userProfile) {
+export default function UserWinsFeed(userProfile) {
   const classes = useStyles();
 
   console.log("userProfile in WonOrBids Feed", userProfile )
 
-  const { products_won } = userProfile["userProfile"]
+  const { productsWon } = userProfile["userProfile"]
 
-  console.log("products_won in WonOrBids Feed", products_won )
+  console.log("productsWon in WonOrBids Feed", productsWon )
 
+  let productsWonShortName
+
+  if (productsWon) {
+    productsWonShortName = productsWon.forEach( p => (p.shortname = p.name.substring(0, 20)))
+    console.log(productsWonShortName,"productsWonShortName")
+  }
+  
   return (
     <div className={classes.root}>
-    <Typography variant="h5" component="h2" align="center">
-      Products Won
-    </Typography>
-    <Card >
-    <CardContent style={{maxHeight: 150, overflow: 'auto'}}>
+    <Paper className={classes.card} variant="outlined">
+    <CardContent className={classes.cardContent}>
     <List className={classes.root}>
       <h1>{userProfile["username"]}</h1>
-        { products_won.length > 0 
+        { productsWon
         
         ? 
           
-        products_won.map( p => (  
+        productsWonShortName.map( p => (  
           <Link href={"/Product/" + p.id}>
 
             <ListItem alignItems="flex-start">
@@ -63,13 +67,13 @@ export default function WinsFeed(userProfile) {
 
         :
         
-          <ListItem alignItems="flex-start">
-            <ListItemText secondary="None yet!"/>
-          </ListItem>
+        <Typography variant="h6" component="h2" align="center" color="textSecondary">
+              None yet!
+          </Typography>
         }
     </List>
     </CardContent>
-    </Card>
+    </Paper>
     </div>
 
   )}

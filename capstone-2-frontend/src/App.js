@@ -9,7 +9,7 @@ import Context from "./Components/Common/Context.js";
 import FreebayAPI from './Api'
 import useLocalStorage from "./hooks/useLocalStorage";
 import LoadingSpinner from './Components/Common/LoadingSpinner.js';
-import useStyles from './Stylings/styleApp.js'
+import useStyles from './Components/Common/Stylings/styleApp.js'
 
 
 export const TOKEN_STORAGE_ID = "freebay-token";
@@ -109,8 +109,7 @@ function App() {
 
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className={classes.appWrapper}>
       <Context.Provider value={{ currentUser, setCurrentUser, signup, login, logout, products, getProduct, getProducts}}>
 
         <BrowserRouter>
@@ -119,15 +118,14 @@ function App() {
         <PrimarySearchAppBar />
         <hr className={classes.hr}/>
         <CategoriesBar/>
-        <Routes/>
-        <Container>
         </Container>
+        <Container>
+        <Routes/>
         </Container>
         </BrowserRouter>
 
         </Context.Provider>
 
-      </header>
     </div>
   );
 }

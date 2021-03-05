@@ -24,12 +24,12 @@ class Notification {
       `, [username]);
   }
 
-  static async addNotification(userEmail, text, relatedProductId ) {
-    console.log("addNotification method", userEmail, text, relatedProductId)
+  static async addNotification(userEmail, text, category, relatedProductId ) {
+    console.log("addNotification method", userEmail, text, category, relatedProductId)
   await db.query(
-    `INSERT INTO notifications (user_email, text, related_product_id)
-    VALUES ($1, $2, $3)
-    `, [userEmail, text, relatedProductId]);
+    `INSERT INTO notifications (user_email, text, category related_product_id)
+    VALUES ($1, $2, $3, $4)
+    `, [userEmail, text, category, relatedProductId]);
   }
 }
 

@@ -25,7 +25,7 @@ class ProductsWon {
 
     HighestBid.deleteBid(productId)
     Product.auctionEnded(productId)
-    Notification.addNotification(userEmail, `Congrats! You won the auction for a ${productName}!`, productId)
+    Notification.addNotification(userEmail, `Congrats! You won the auction for a ${productName}!`, "win", productId)
 
     console.log("productWonRes from addProductWon()", productWonRes)
 
@@ -42,18 +42,19 @@ class ProductsWon {
               products.description,
               products.condition,
               products.rating,
-              products.num_of_ratings AS "numOfRatings",
               products.image_url AS "imageUrl",
-              products.starting_bid AS "startingBid",
               products.auction_end_dt AS "auctionEndDt",
               products.bid_count AS "bidCount",
               products.auction_ended AS "auctionEnded",
               products_won.bid_price AS "bidPrice",
-              products_won.datetime
+              products_won.datetime,
+              users.username,
+              users.email
         FROM products_won
         FULL OUTER JOIN products ON products_won.product_id = products.id
-        ORDER BY products_won.datetime DESC
-        LIMIT 5`);
+        FULL OUTER JOIN users ON products_won.user_email = users.email
+        WHERE products.auction_ended = true AND bid_price > 1
+        ORDER BY products_won.datetime DESC`);
 
     if (!winsFeedRes) throw new BadRequestError(`Unable to getHighestBids in userModel.js`);
 

@@ -8,6 +8,13 @@ export const useStyles = makeStyles(() => ({
     backgroundColor: '#e6e6e6', 
     margin:0, 
     padding: 0,
+  },
+  grey:{
+    backgroundColor: "#e6e6e6"
+  },
+  appWrapper:{
+    backgroundColor: "#FFFFFF",
+    height: "100vh"
   }
 }));
 

@@ -46,10 +46,11 @@ CREATE TABLE highest_bids (
 
 CREATE TABLE notifications (
   id SERIAL PRIMARY KEY,
-  user_email varchar(50)
+  user_email VARCHAR(50)
     REFERENCES users(email) ON DELETE CASCADE,
   text TEXT,
   related_product_id INTEGER,
   was_viewed BOOLEAN DEFAULT false,
+  category VARCHAR(50),
   datetime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )

@@ -1,17 +1,29 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    maxWidth: '36ch',
     backgroundColor: "white",
+    textTransform: 'none'
+
   },
   inline: {
     display: 'inline',
   },
+  product: {
+    textTransform: 'none'
+  },
+  card: {
+    backgroundColor: "white",
+  },
   large: {
     width: "50px",
     height: "50px",
+  },
+  cardContent: {
+    maxHeight: 150, 
+    overflow: 'auto',
+    minHeight: 150
   },
 }));
 

@@ -1,6 +1,16 @@
 import { makeStyles} from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
+  profileContainer: {
+    backgroundColor: "#F6F6F6"
+  },
+  profileHeader: {
+    backgroundColor: "#F6F6F6",
+    height: "50px"
+  },
+  userName: {
+    fontWeight: "bold"
+  },
   media: {
     height: 300,
     width: 300,

@@ -2,7 +2,8 @@
 
 const db = require("../db");
 const { BadRequestError, NotFoundError } = require("../expressError");
-const Notification = require("./NotificationModel");
+const ProductWon = require("./ProductWonModel");
+
 
 
 
@@ -135,7 +136,7 @@ class Product {
       if ((currentDateTime - Date.parse(endDt)) > 0){
         console.log("product's auction ended")
           if(p.bidderEmail) {
-            Product.wonProduct(p.id, p.name, p.bidderEmail, p.bidPrice)
+            ProductWon.wonProduct(p.id, p.name, p.bidderEmail, p.bidPrice)
           } else {
             Product.auctionEnded(p.id)
           }
@@ -200,7 +201,7 @@ class Product {
       // console.log("p.email",p.email)
 
         if(product.bidderEmail) {
-          Product.wonProduct(product.id, product.Name, product.bidderEmail, product.currentBid)
+          ProductsWon.wonProduct(product.id, product.Name, product.bidderEmail, product.currentBid)
         } else {
           Product.auctionEnded(product.id)
         }
@@ -212,17 +213,6 @@ class Product {
     return product;
   }
 
-
-  // increase a users bid count2
-  static async addToBidCount(productId) {
-    const result = await db.query(`UPDATE products 
-                      SET bid_count = bid_count + 1
-                      WHERE id = $1`,[productId]);
-    if (!result) throw new BadRequestError(
-          `Bid not added to count: ${productId}`);
-    // console.log("result from addtobidcount", result)
-    return result;
-  }
 
 
   static async addAuctionTime(productId, newDateTime) {
@@ -268,32 +258,70 @@ class Product {
     console.log("auctionEndedResult from ()", auctionEndedResult)
   }
 
-  static async wonProduct(productId, productName, userEmail, bidPrice ){
-    const productWonRes = await db.query(
-    `INSERT INTO products_won (product_id, user_email, bid_price)
-    VALUES ($1, $2, $3)
-    RETURNING product_id AS "productId", user_email AS "userEmail", bid_price AS "bidPrice"`, [productId, userEmail, bidPrice]);
+  static async getAuctionsEndingSoon() {
+    const endingSoonResult = await db.query(
+      `SELECT products.id,
+              products.name,
+              products.category,
+              products.sub_category AS "subCategory",
+              products.description,
+              products.condition,
+              products.rating,
+              products.num_of_ratings AS "numOfRatings",
+              products.image_url AS "imageUrl",
+              products.starting_bid AS "startingBid",
+              products.auction_end_dt AS "auctionEndDt",
+              products.bid_count AS "bidCount",
+              products.auction_ended AS "auctionEnded",
+              users.email AS "bidderEmail",
+              users.first_name AS "bidderFirstName",
+              users.last_name AS "bidderLastName",
+              users.username AS "bidderUsername",
+              highest_bids.bid_price AS "bidPrice"
+        FROM products
+        FULL OUTER JOIN highest_bids ON products.id = highest_bids.product_id
+        FULL OUTER JOIN users ON highest_bids.user_email = users.email
+        WHERE products.auction_ended = false
+        ORDER BY products.auction_end_dt
+        LIMIT 5`
+    )
+    console.log("endingSoonResult")
+    if (!endingSoonResult) throw new BadRequestError(`unable to grab latest highest bids`);
 
-    if (!productWonRes) throw new NotFoundError(`Winning Product not added to Products Won table`);
-
-    HighestBid.deleteBid(productId)
-    Product.auctionEnded(productId)
-    Notification.addNotification(userEmail, `Congrats! You won the auction for a ${productName}!`, productId)
-
-    console.log("productWonRes from addProductWon()", productWonRes)
-
-    return productWonRes;
-
+    return endingSoonResult.rows
   }
 
-  static async getRecentWinners() {
-    const recentWinnersResult = await db.query(
-      `SELECT * FROM products_won ORDER BY datetime DESC LIMIT 3`
+  static async getWhatsTrending() {
+    const endingSoonResult = await db.query(
+      `SELECT products.id,
+              products.name,
+              products.category,
+              products.sub_category AS "subCategory",
+              products.description,
+              products.condition,
+              products.rating,
+              products.num_of_ratings AS "numOfRatings",
+              products.image_url AS "imageUrl",
+              products.starting_bid AS "startingBid",
+              products.auction_end_dt AS "auctionEndDt",
+              products.bid_count AS "bidCount",
+              products.auction_ended AS "auctionEnded",
+              users.email AS "bidderEmail",
+              users.first_name AS "bidderFirstName",
+              users.last_name AS "bidderLastName",
+              users.username AS "bidderUsername",
+              highest_bids.bid_price AS "bidPrice"
+        FROM products
+        FULL OUTER JOIN highest_bids ON products.id = highest_bids.product_id
+        FULL OUTER JOIN users ON highest_bids.user_email = users.email
+        WHERE products.auction_ended = false
+        ORDER BY products.bid_count DESC
+        LIMIT 5`
     )
-    console.log("recentWinnersResult")
-    if (!recentWinnersResult) throw new BadRequestError(`unable to grab latest highest bids`);
+    console.log("endingSoonResult")
+    if (!endingSoonResult) throw new BadRequestError(`unable to grab latest highest bids`);
 
-    return recentWinnersResult.rows
+    return endingSoonResult.rows
   }
 }
 

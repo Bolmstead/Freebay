@@ -43,10 +43,20 @@ router.get("/recentWinners", async function (req, res, next) {
 
 });
 
-router.get("/recentBidders", async function (req, res, next) {
+router.get("/auctionsEndingSoon", async function (req, res, next) {
   try {
-    const bidders = await HighestBid.getBidsFeed();
-    return res.json( bidders );
+    const products = await Product.getAuctionsEndingSoon();
+    return res.json( products );
+  } catch (err) {
+    return next(err);
+  }
+
+});
+
+router.get("/getWhatsTrending", async function (req, res, next) {
+  try {
+    const products = await Product.getWhatsTrending();
+    return res.json( products );
   } catch (err) {
     return next(err);
   }

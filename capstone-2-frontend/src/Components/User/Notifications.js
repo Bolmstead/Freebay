@@ -11,6 +11,8 @@ import CardContent from '@material-ui/core/CardContent';
 import FolderIcon from '@material-ui/icons/Folder';
 import Context from "../Common/Context";
 import useStyles from './Stylings/styleNotifications.js'
+import Paper from '@material-ui/core/Paper';
+
 
 // Displays a feed of a user's viewed and unviewed notifications. 
 // If a user has not viewed a notification, the notification will be highlighted.
@@ -20,33 +22,33 @@ export default function Notifications(userProfile) {
   const classes = useStyles();
   const { currentUser } = useContext(Context);
 
-  const userProfileUsername = userProfile["userProfile"]["username"]
+  const profileUsername = userProfile["userProfile"]["username"]
 
-  console.log("userProfileUsername", userProfileUsername)
+  console.log("profileUsername", profileUsername)
 
-  if (userProfileUsername !== currentUser["username"]) {
+  if (!currentUser) {
+    return <div></div>
+  }
+
+  if (profileUsername !== currentUser["username"]) {
     return <div></div>
   }
 
   const { notifications } = currentUser
-
-  notifications.reverse()
 
   console.log("notifications descrucutred from currentUser in Notifications component", notifications)
 
 
 
   return (
-    <div className={classes.root}>
-      <Grid container justify="center" alignItems="center"   direction="row" spacing="2">
-        <Grid item xs={12}>
-        <Typography variant="h5" component="h2" align="center">
-            All Notifications
-          </Typography>
-        <Card>  
-            <CardContent style={{maxHeight: 150, overflow: 'auto'}}>
+    <div>
+    <Typography variant="h5" component="h2" align="center">
+    Notifications
+  </Typography>
+        <Paper className={classes.card} variant="outlined">  
+            <CardContent className={classes.cardContent}>
               <List >
-        { notifications.length
+        { notifications.length < 0
           ? 
           notifications.map( n => (
 
@@ -62,18 +64,15 @@ export default function Notifications(userProfile) {
               </ListItem>
               ))
           : 
-              <ListItem alignItems="flex-start">
-                <ListItemText secondary="You don't have any notifications"/>
-              </ListItem>
+          <Typography variant="h6" component="h2" align="center" color="textSecondary">
+              None yet!
+          </Typography>
         
         }
             </List>
 
             </CardContent>
-          </Card>
-
-        </Grid>
-      </Grid>
-    </div>
+          </Paper>
+          </div>
   );
 }

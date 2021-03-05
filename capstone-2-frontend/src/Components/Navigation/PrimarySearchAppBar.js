@@ -72,6 +72,10 @@ function PrimarySearchAppBar() {
     setNotificationsAnchorEl(event.currentTarget);
   };
 
+  const handleNotificationsMenuClose = () => {
+    setNotificationsAnchorEl(null);
+  };
+
   
 
   useEffect(function viewNotifications() {
@@ -97,16 +101,6 @@ function PrimarySearchAppBar() {
    }
     }
 
-
-
-  const handleNotificationsMenuClose = () => {
-    setNotificationsAnchorEl(null);
-  };
-
-
-
-
-
   const menuId = 'primary-search-account-menu';
   const renderAccountMenu = (
     <Menu
@@ -120,8 +114,10 @@ function PrimarySearchAppBar() {
       className={classes.link}
     >
       { currentUser 
-      ? <Link href={"/Profile/" + currentUser["username"]}><MenuItem onClick={handleProfileMenuClose} className={classes.link}>Profile</MenuItem></Link>
-      : <MenuItem onClick={handleProfileMenuClose} className={classes.link}>Profile</MenuItem>
+      ? 
+        <Link href={"/Profile/" + currentUser["username"]}><MenuItem onClick={handleProfileMenuClose} className={classes.link}>Profile</MenuItem></Link>
+      : 
+        <MenuItem onClick={handleProfileMenuClose} className={classes.link}>Profile</MenuItem>
       } 
       <Link className="m-2" onClick={logout} className={classes.link}><MenuItem onClick={handleProfileMenuClose}>Logout</MenuItem></Link>
     </Menu>

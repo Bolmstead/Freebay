@@ -2,9 +2,8 @@ import { Switch, Route  } from "react-router-dom";
 import React  from "react";
 
 import Home from "./Components/HomePage/Home.js";
-import Login from "./Components/auth/Login";
-import ProductCard from "./Components/Products/ProductCard";
-import Signup from "./Components/auth/Signup";
+import Login from "./Components/User/Login";
+import Signup from "./Components/User/Signup";
 import Profile from "./Components/User/Profile";
 
 import ProductList from "./Components/Products/ProductList";

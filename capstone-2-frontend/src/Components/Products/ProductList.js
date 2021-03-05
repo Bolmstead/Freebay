@@ -84,8 +84,8 @@ const ProductList = () => {
   if (!products) return <CircularProgress />;
 
   return (
-    <Container>
-      <Typography className={classes.listTitle} variant="h4" spacing={5}>
+    <Container><br/>
+      <Typography variant="h4" spacing={5}>
         {categoryTitle}
       </Typography>
       <br/>

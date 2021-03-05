@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 export const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    maxWidth: 752,
+    backGroundColor: "#F6F6F6",
   },
   demo: {
     backgroundColor: theme.palette.background.paper,
@@ -11,6 +11,16 @@ export const useStyles = makeStyles((theme) => ({
   title: {
     margin: theme.spacing(4, 0, 2),
   },
+  card: {
+    backgroundColor: "white",
+  },
+  cardContent: {
+    maxHeight: 150, 
+    overflow: 'auto'
+  },
+  feedGrid: {
+    verticalAlign: "top"
+  }
 }));
 
 export default useStyles

@@ -5,9 +5,8 @@ import FreebayAPI from '../../Api.js'
 import Context from "../Common/Context";
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import ExampleFeed from "./ExampleFeed";
-import BidsFeed from "./BidsFeed";
-import WinsFeed from "./WinsFeed";
+import UserBidsFeed from "../Feeds/UserBidsFeed";
+import UserWinsFeed from "../Feeds/UserWinsFeed";
 
 import Notifications from "./Notifications";
 import PropTypes from 'prop-types';
@@ -16,6 +15,7 @@ import useStyles from './Stylings/styleProfile.js'
 
 import {
   Grid,
+  Paper,
   Card,
   CardContent,
   Typography,
@@ -49,34 +49,38 @@ function Profile() {
   const {  firstName, lastName, email, balance, products_won, highest_bids, notifications } = userProfile
 
   return (
-    <Container>
-      <Grid container justify="center" alignItems="center"   direction="row">
-        <Grid item xs={12} md={6} ><br/>
-          <Card> 
-            <CardContent >
-              <Typography variant="h5" component="h2" align="center">
+    <Container >
+      <Grid container justify="center" alignItems="center"   direction="row" spacing={5}>
+        <Grid item xs={12} sm={9} md={6}><br/>
+          <Paper variant="outlined"> 
+            <CardContent className={classes.profileHeader}>
+              <Typography className = {classes.userName} variant="h5" component="h2" align="center">
               {username}
               </Typography>
               <Typography className={classes.pos} color="textSecondary" align="center">
                   {firstName} {lastName}
                 </Typography>
             </CardContent>
-          </Card>
+          </Paper>
         </Grid>
       </Grid>
-      <Grid container justify="center" alignItems="center"   direction="row">
-        <Grid item xs={12} md={10}><br/>
-          <Notifications userProfile={userProfile}/>
+      <Grid container justify="center" alignItems="center"   direction="row" spacing={3} className={classes.feedGrid}>
+        <Grid item xs={12} md={8}>
+            <Notifications userProfile={userProfile}/>
         </Grid>
-          <Grid container  justify="center" alignItems="center" direction="row">
-            <Grid item justify="center" alignItems="center" xs={6}><br/>
-              <WinsFeed userProfile={userProfile}/>
-            </Grid>
-            <Grid item justify="center" alignItems="center"  xs={6}><br/>
-              <BidsFeed userProfile={userProfile}/>
-            </Grid>
-          </Grid>
-          </Grid>
+        <Grid item xs={12} md={6} spacing={3} justify="center" alignItems="top" direction="row" className={classes.feedGrid}>
+        <Typography variant="h5" component="h2" align="center">
+              Products Won
+          </Typography>
+            <UserWinsFeed userProfile={userProfile}/>
+        </Grid>
+        <Grid item xs={12} md={6} spacing={3} justify="center" alignItems="top" direction="row" className={classes.feedGrid}>
+          <Typography variant="h5" component="h2" align="center">
+              Current Bids
+          </Typography>
+            <UserBidsFeed userProfile={userProfile}/>
+        </Grid>
+      </Grid>
 
         
       </Container>

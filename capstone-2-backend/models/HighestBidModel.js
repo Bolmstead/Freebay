@@ -25,6 +25,8 @@ class HighestBids {
     // console.log("newBid from updateBid method in HighestBids", newBid)
 
     const {bidderEmail, currentBid, currentBidderUsername} = product
+    const productName = product.name.substring(0, 50) + "..."
+
 
     // console.log("bidderEmail from updateBid method", bidderEmail)
     // console.log("currentBid from updateBid method", currentBid)
@@ -58,8 +60,7 @@ class HighestBids {
         console.log("user.email in addBid method", user.email)
 
         if( bidderEmail !== user.email) {
-          console.log("`You have been outbid by ${user.username}!`")
-          Notification.addNotification(bidderEmail, `You have been outbid by ${user.username}!`, product.id )
+          Notification.addNotification(bidderEmail, `Oh no! You have been outbid by ${user.username} for the ${productName}`, "outbid", product.id )
         } 
 
           // if( timeLeft < 60000) {
@@ -85,9 +86,9 @@ class HighestBids {
     console.log("newBid and user.email", newBid, user.email)
     console.log("product", product)
 
+    HighestBids.addToBidCount(product.id);
     User.decreaseBalance(newBid, user.email);
-    Product.addToBidCount(product.id);
-    Notification.addNotification(user.email, `You have placed a bid on ${product.name}!`, product.id )
+    Notification.addNotification(user.email, `You have placed a bid on ${productName}`, "bid", product.id)
   }
 
   static async deleteBid(id) {
@@ -105,6 +106,16 @@ class HighestBids {
     if (!addHighestBidder) throw new BadRequestError(`product not deleted!`);
   }
 
+  static async addToBidCount(productId) {
+      const result = await db.query(`UPDATE products 
+                        SET bid_count = (bid_count + 1)
+                        WHERE id = $1`,[productId]);
+      if (!result) throw new BadRequestError(
+            `Bid not added to count: ${productId}`);
+      // console.log("result from addtobidcount", result)
+      return result;
+    }
+
   static async getBidsFeed() {
     const bidsFeedRes = await db.query(
       `SELECT products.id,
@@ -114,17 +125,19 @@ class HighestBids {
               products.description,
               products.condition,
               products.rating,
-              products.num_of_ratings AS "numOfRatings",
               products.image_url AS "imageUrl",
-              products.starting_bid AS "startingBid",
               products.auction_end_dt AS "auctionEndDt",
               products.bid_count AS "bidCount",
               products.auction_ended AS "auctionEnded",
-              highest_bids.bid_price AS "bidPrice"
-          FROM highest_bids
-          FULL OUTER JOIN products ON highest_bids.product_id = products.id
-          ORDER BY highest_bids.datetime DESC
-          LIMIT 5`);
+              highest_bids.bid_price AS "bidPrice",
+              highest_bids.datetime,
+              users.username,
+              users.email
+        FROM highest_bids
+        FULL OUTER JOIN products ON highest_bids.product_id = products.id
+        FULL OUTER JOIN users ON highest_bids.user_email = users.email
+        WHERE products.auction_ended = false AND bid_price > 1
+        ORDER BY highest_bids.datetime DESC`);
 
     if (!bidsFeedRes) throw new BadRequestError(`Undable to getHighestBids in userModel.js`);
 
