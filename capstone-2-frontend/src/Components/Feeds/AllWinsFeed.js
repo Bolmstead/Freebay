@@ -42,14 +42,16 @@ export default function AllWinsFeed() {
         ? 
         allWins.map( p => (
           <div>
-            <Link href={"/Product/" + p.id}>
 
               <ListItem alignItems="flex-start">
+              <Link href={"/Profile/" + p.username}>
               <ListItemAvatar>
               <Avatar alt="Product Image" className={classes.large}>
                 B
               </Avatar>
               </ListItemAvatar>
+              </Link>
+              <Link href={"/Profile/" + p.username}>
             <ListItemText
               primary={p.username}
               secondary={
@@ -57,15 +59,16 @@ export default function AllWinsFeed() {
                   <Typography
                     variant="caption"
                     className={classes.inline}
-                    color="textPrimary"
+                    color="textSecondary"
                   >
                     {p.name}
                   </Typography>
                 </React.Fragment>
                 }
               />
+              </Link>
               </ListItem>
-            </Link>
+            
             <Divider variant="inset" component="li" />
           </div>
         ))

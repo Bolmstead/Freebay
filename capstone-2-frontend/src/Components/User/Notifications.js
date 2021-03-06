@@ -48,7 +48,7 @@ export default function Notifications(userProfile) {
         <Paper className={classes.card} variant="outlined">  
             <CardContent className={classes.cardContent}>
               <List >
-        { notifications.length < 0
+        { notifications.length > 0
           ? 
           notifications.map( n => (
 

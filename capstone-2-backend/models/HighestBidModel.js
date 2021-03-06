@@ -103,6 +103,7 @@ class HighestBids {
       `INSERT INTO highest_bids (product_id, user_email, bid_price)
       VALUES ($1, $2, $3)
       RETURNING product_id AS "productId", user_email AS "newBidderEmail", bid_price AS "bidPrice"`, [productId, userEmail, newBid]);
+      console.log("addHighestBidder",addHighestBidder)
     if (!addHighestBidder) throw new BadRequestError(`product not deleted!`);
   }
 

@@ -316,7 +316,7 @@ class Product {
         FULL OUTER JOIN users ON highest_bids.user_email = users.email
         WHERE products.auction_ended = false
         ORDER BY products.bid_count DESC
-        LIMIT 5`
+        LIMIT 3`
     )
     console.log("endingSoonResult")
     if (!endingSoonResult) throw new BadRequestError(`unable to grab latest highest bids`);

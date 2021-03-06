@@ -30,7 +30,7 @@ function Home() {
         </Grid> */}
       </Grid>
       <Grid  container spacing={3} direction="row" alignItems="flex-start">
-        <Grid item xs={12} md={4} lg={3} margin ={3}>
+        <Grid item xs={12} sm={10} md={4} lg={3} margin ={3}>
         <Typography component="h5" variant="h5">
           Recent auction winners
         </Typography>

@@ -16,7 +16,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import useStyles from './Stylings/styleWhatsTrendingFeed';
-import ProductCardMini from '../Products/ProductCardMini.js'
+import ProductCardMini from '../Products/ProductCardMini.js';
+import Grid from '@material-ui/core/Grid';
+
 
 // Feed of a user's highest bids. To be displayed for anyone viewing the page
 
@@ -41,15 +43,15 @@ export default function WhatsTrendingFeed() {
   console.log("trendingProducts", trendingProducts)
 
   return (
-    <List className={classes.root}>
-      { trendingProducts.length > 0
+    <Grid  container spacing={3} direction="row" justify="center" alignItems="flex-start">
+    { trendingProducts.length > 0
       ?trendingProducts.map( product => (
         <ProductCardMini product={product} />      ))
       :<ListItem alignItems="flex-start">
           <ListItemText secondary="Loading..."/>
         </ListItem>
       }
-    </List>
+    </Grid>
   )
 }
 

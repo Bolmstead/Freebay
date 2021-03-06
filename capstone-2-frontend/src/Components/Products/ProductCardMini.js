@@ -7,7 +7,9 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import useStyles from './Stylings/styleProductCardMini.js'
+import useStyles from './Stylings/styleProductCardMini.js';
+import Grid from '@material-ui/core/Grid';
+
 
 // Card of product image and some information regarding the product.
 // Will be rendered within the ProductList components.
@@ -54,6 +56,7 @@ function ProductCardMini({product}) {
   const countdownDisplay = `${countdown.days}d ${countdown.hours}h`
 
   return (
+    <Grid item xs={12} md={4} lg={3} margin ={3}>
     <Link href={"/product/" + id} color="inherit">
     <Card className={classes.root}>
       <CardActionArea>
@@ -80,11 +83,13 @@ function ProductCardMini({product}) {
 
           
           <Typography variant="body2" color="textSecondary" component="p">Current bid by {bidderUsername}</Typography>
+          <Typography variant="body2" color="textSecondary" component="p">{bidderUsername}</Typography>
 
         </CardContent>
       </CardActionArea>
     </Card>
   </Link>
+  </Grid>
   );
 }
 
