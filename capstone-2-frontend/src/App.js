@@ -22,6 +22,8 @@ function App() {
   const [products, setProducts] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [updateAppBar, setUpdateAppBar] = useState(false);
+  const [searchObject, setSearchObject] = useState(null)
+
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
   
   console.debug(
@@ -112,7 +114,7 @@ function App() {
 
   return (
     <div className={classes.appWrapper}>
-      <Context.Provider value={{ currentUser, setCurrentUser, signup, login, logout, products, getProduct, getProducts, setUpdateAppBar}}>
+      <Context.Provider value={{ currentUser, setCurrentUser, signup, login, logout, products, getProduct, getProducts, setUpdateAppBar, searchObject, setSearchObject}}>
 
         <BrowserRouter>
 

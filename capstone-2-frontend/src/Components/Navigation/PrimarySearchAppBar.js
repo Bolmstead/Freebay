@@ -38,7 +38,7 @@ function PrimarySearchAppBar() {
   const [accountAnchorEl, setaccountAnchorEl] = useState(null);
   const [notificationsAnchorEl, setNotificationsAnchorEl] = useState(null);
   const [redirect, setRedirect] = useState(false);
-  const { currentUser, logout} = useContext(Context);
+  const { currentUser, logout, } = useContext(Context);
 
   console.log("currentUser from PrimarySearchAppBar", currentUser)
 

@@ -10,6 +10,8 @@ import { useLocation } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useStyles from './Stylings/styleProductList.js'
 import {Typography} from '@material-ui/core/'
+import Context from "../Common/Context";
+
 
 
 function useQuery() {
