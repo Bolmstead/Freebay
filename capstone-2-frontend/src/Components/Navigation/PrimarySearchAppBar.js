@@ -8,6 +8,8 @@ import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Popover from '@material-ui/core/Popover';
+
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -17,6 +19,11 @@ import Context from "../Common/Context";
 import {Redirect, useHistory} from 'react-router-dom';
 import FreebayAPI from "../../Api.js"
 import useStyles from "./Stylings/stylePrimarySearchAppBar.js"
+import NotificationItem from "../User/NotificationItem"
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
+
+
 
 // Search Bar to allow user to search products.
 // If logged in, displays user's account balance, notifications 
@@ -38,16 +45,16 @@ function PrimarySearchAppBar() {
   const history = useHistory()
 
   let notifications;
-  let newNotifications;
+  let onlyNewNotifications;
 
   if (currentUser){
-    notifications = currentUser["notifications"];
+    notifications = currentUser.notifications;
     console.log("notifications from PrimarySearchAppBar", notifications)
-    newNotifications = notifications.filter( n => !n.wasViewed)
-    console.log("newNotifications from PrimarySearchAppBar", newNotifications)
+    onlyNewNotifications = notifications.filter( n => !n.wasViewed)
+
   }
 
-
+  const [newNotifications, setNewNotifications] = useState(onlyNewNotifications);
 
   function handleChange(evt) {
     setSearchTerm(evt.target.value);
@@ -57,6 +64,7 @@ function PrimarySearchAppBar() {
   // Handle functionality of the app bar
   const isAccountMenuOpen = Boolean(accountAnchorEl);
   const isNotificationsMenuOpen = Boolean(notificationsAnchorEl);
+  const accountMenuId = isAccountMenuOpen ? 'simple-popover' : undefined;
 
 
   const handleProfileMenuOpen = (event) => {
@@ -70,6 +78,7 @@ function PrimarySearchAppBar() {
   const handleNotificationsMenuOpen = (event) => {
     console.log("handleNotificationsMenuOpen")
     setNotificationsAnchorEl(event.currentTarget);
+    setNewNotifications(0)
   };
 
   const handleNotificationsMenuClose = () => {
@@ -92,20 +101,19 @@ function PrimarySearchAppBar() {
 
   // Handle the Input in the Search Bar
   function handleSubmit(evt) {
+    evt.preventDefault();
     console.log("searchTerm from handleSubmit", searchTerm)
     let newUrl = `/products?name=` + searchTerm
     console.log("newUrl from the handlesubmit in searchbar",newUrl)
-    setRedirect(true)
-    if(redirect){
-      return <Redirect to='products?name=tv'/>
+    history.push(newUrl)
    }
-    }
+    
 
   const menuId = 'primary-search-account-menu';
   const renderAccountMenu = (
-    <Menu
+    <Popover
       anchorEl={accountAnchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       id={menuId}
       keepMounted
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -115,46 +123,63 @@ function PrimarySearchAppBar() {
     >
       { currentUser 
       ? 
-        <Link href={"/Profile/" + currentUser["username"]}><MenuItem onClick={handleProfileMenuClose} className={classes.link}>Profile</MenuItem></Link>
+        <Link href={"/Profile/" + currentUser.username} color="inherit" style={{ textDecoration: 'none' }}><MenuItem onClick={handleProfileMenuClose} className={classes.link}>Profile</MenuItem></Link>
       : 
         <MenuItem onClick={handleProfileMenuClose} className={classes.link}>Profile</MenuItem>
       } 
-      <Link className="m-2" onClick={logout} className={classes.link}><MenuItem onClick={handleProfileMenuClose}>Logout</MenuItem></Link>
-    </Menu>
+      <Link className="m-2" onClick={logout} color="inherit" className={classes.link} style={{ textDecoration: 'none' }}><MenuItem onClick={handleProfileMenuClose}>Logout</MenuItem></Link>
+    </Popover>
   );
 
 
 
 
   const renderNotificationsMenu = (
-    
-    <Menu
+  
+    <Popover
       anchorEl={notificationsAnchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       id={menuId}
       keepMounted
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isNotificationsMenuOpen}
       onClose={handleNotificationsMenuClose}
     >
-    { notifications 
-    ?
-      ( newNotifications.length > 0
-      ?
-        newNotifications.map( n => (<MenuItem onClick={handleNotificationsMenuClose}>{n.text}</MenuItem>))
-      :
-      <MenuItem onClick={handleNotificationsMenuClose}>No new notifications</MenuItem>
-      )
-    :
-      <div></div>
+    { currentUser
+      ? ( onlyNewNotifications.length > 0
+        ?
+          onlyNewNotifications.map( n => (
+          <MenuItem onClick={handleNotificationsMenuClose}>
+            {( n.relatedProductId
+            ? <Link href={"/product/"+ n.relatedProductId} 
+                    color="inherit" 
+                    style={{ textDecoration: 'none' }}
+              >
+                <NotificationItem n={n} />
+              </Link>
+            : <Link href={"/profile"} 
+                    color="inherit" 
+                    style={{ textDecoration: 'none' }}
+              >
+                <NotificationItem n={n} />
+              </Link>
+            )}
+          </MenuItem>))
+        :
+        <MenuItem onClick={handleNotificationsMenuClose}>    
+No new notifications
+        </MenuItem>
+        )
+      : <div></div>
     }
-    </Menu>
+    </Popover>
   );
 
 
-  console.debug(
+  console.log(
     "PrimarySearchAppBar",
     "currentUser=", currentUser,
+    "onlyNewNotifications=", onlyNewNotifications,
   );
     
   return (
@@ -187,24 +212,16 @@ function PrimarySearchAppBar() {
           ?  <div>
 
                 <div className={classes.sectionDesktop}>
-                <Typography className={classes.balance}>{"$" + currentUser["balance"]}</Typography>
-                <IconButton aria-label="show notifications">
-                  {newNotifications.length > 0 
-                  ? <Badge badgeContent={newNotifications.length} color="secondary" >      
+                <Typography className={classes.balance}>{"$" + currentUser.balance}</Typography>
+                <IconButton aria-label="show notifications"
+                onClick={handleNotificationsMenuOpen}>
+                 <Badge badgeContent={newNotifications.length} color="secondary" >      
                       <NotificationsIcon 
                       edge="end"
                       aria-label="account of current user"
                       aria-controls={menuId}
-                      onClick={handleNotificationsMenuOpen}
                       aria-haspopup="true"/>
                     </Badge>
-                  : <NotificationsIcon 
-                    edge="end"
-                    aria-label="account of current user"
-                    aria-controls={menuId}
-                    onClick={handleNotificationsMenuOpen}
-                    aria-haspopup="true"/>}
-
                 </IconButton>
                 <IconButton
                   edge="end"

@@ -77,9 +77,6 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
 
-  link: {
-    textTransform: 'none'
-  }
 
 }));
 

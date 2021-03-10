@@ -60,7 +60,7 @@ class HighestBids {
         console.log("user.email in addBid method", user.email)
 
         if( bidderEmail !== user.email) {
-          Notification.addNotification(bidderEmail, `Oh no! You have been outbid by ${user.username} for the ${productName}`, "outbid", product.id )
+          Notification.addNotification(bidderEmail, `You have been outbid by ${user.username} for the ${productName}`, "outbid", product.id )
         } 
 
           // if( timeLeft < 60000) {

@@ -21,6 +21,7 @@ function App() {
   const [infoLoaded, setInfoLoaded] = useState(false);
   const [products, setProducts] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
+  const [updateAppBar, setUpdateAppBar] = useState(false);
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
   
   console.debug(
@@ -49,12 +50,13 @@ function App() {
         }
       }
       setInfoLoaded(true)
+      // setUpdateAppBar(false)
     }
 
     setInfoLoaded(false)
     getCurrentUser();
 
-  }, [token]);
+  }, [token, updateAppBar]);
 
   async function login(loginData) {
     try {
@@ -110,7 +112,7 @@ function App() {
 
   return (
     <div className={classes.appWrapper}>
-      <Context.Provider value={{ currentUser, setCurrentUser, signup, login, logout, products, getProduct, getProducts}}>
+      <Context.Provider value={{ currentUser, setCurrentUser, signup, login, logout, products, getProduct, getProducts, setUpdateAppBar}}>
 
         <BrowserRouter>
 

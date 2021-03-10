@@ -56,9 +56,9 @@ function ProductCardMini({product}) {
   const countdownDisplay = `${countdown.days}d ${countdown.hours}h`
 
   return (
-    <Grid item xs={12} md={4} lg={3} margin ={3}>
-    <Link href={"/product/" + id} color="inherit">
-    <Card className={classes.root}>
+    <Grid item xs={12} md={4} lg={3}>
+    <Link href={"/product/" + id} color="inherit" style={{ textDecoration: 'none' }}>
+    <Card className={classes.root} variant="outlined">
       <CardActionArea>
         <div className={classes.imageContainer}>
           <img
@@ -71,19 +71,24 @@ function ProductCardMini({product}) {
           <div>
 
       </div>
-
+      <Rating name="read-only" value={product["rating"]} size="small" readOnly display="inline"/>  
       <div>
         <Typography variant="h6" color="body2" component="p" display="inline"  className={classes.price}>
           ${bidDisplay}{'  '}
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p" display="inline" >
-        {bidCount} bids
+        {bidCount} 
+        { 
+          (product.bidCount == 1)
+          ? " bid" : " bids"
+        }
         </Typography>
       </div>
 
           
-          <Typography variant="body2" color="textSecondary" component="p">Current bid by {bidderUsername}</Typography>
+          <Typography variant="body2" color="textSecondary" component="p">Current bid by </Typography>
           <Typography variant="body2" color="textSecondary" component="p">{bidderUsername}</Typography>
+          
 
         </CardContent>
       </CardActionArea>

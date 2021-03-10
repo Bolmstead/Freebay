@@ -54,8 +54,8 @@ function ProductCard({product}) {
   const countdownDisplay = `${countdown.days}d ${countdown.hours}h`
 
   return (
-    <Link href={"/product/" + id} color="inherit">
-    <Card className={classes.root}>
+    <Link href={"/product/" + id} color="inherit" style={{ textDecoration: 'none' }}>
+    <Card className={classes.root} variant="outlined">
       <CardActionArea>
         <div className={classes.imageContainer}>
           <img

@@ -45,7 +45,7 @@ export default function Signup() {
     evt.preventDefault();
     let result = await signup(formData);
     if (result.success) {
-      history.push("/");
+      history.push("/welcome");
     } else {
       setFormErrors(result.errors);
     }
@@ -157,7 +157,8 @@ export default function Signup() {
             <Grid item>
               <Link href="/Login" variant="body2">
                 Already have an account? Sign in
-              </Link>
+              </Link><br/>
+
             </Grid>
           </Grid>
         </form>

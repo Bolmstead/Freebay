@@ -12,55 +12,49 @@ import FolderIcon from '@material-ui/icons/Folder';
 import Context from "../Common/Context";
 import useStyles from './Stylings/styleNotifications.js'
 import Paper from '@material-ui/core/Paper';
-import NotificationItem from './NotificationItem'
+
+
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied';
+import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
 
 
 // Displays a feed of a user's viewed and unviewed notifications. 
 // If a user has not viewed a notification, the notification will be highlighted.
 
 
-export default function Notifications(userProfile) {
+export default function NotificationItem(n) {
   const classes = useStyles();
   const { currentUser } = useContext(Context);
-
-  const profileUsername = userProfile.userProfile.username
-
-  console.log("profileUsername", profileUsername)
 
   if (!currentUser) {
     return <div></div>
   }
 
-  if (profileUsername !== currentUser.username) {
-    return <div></div>
+  let icon;
+
+  if (n.n.category === "bid") {
+    icon = <AttachMoneyIcon />
+  } else if (n.n.category === "outbid") {
+    icon = <SentimentDissatisfiedIcon />
+  } else if (n.n.category === "win") {
+    icon = <InsertEmoticonIcon />
+  } else if (n.n.category === "gift") {
+    icon = <CardGiftcardIcon />
   }
 
-  let { notifications } = currentUser
-
-  console.log("notifications descrucutred from currentUser in Notifications component", notifications)
-
-
-
+  console.log("n",n.n.category)
   return (
-    <div>
-    <Typography variant="h5" component="h2" align="center">
-    Notifications
-  </Typography>
-        <Paper className={classes.card} variant="outlined">  
-            <CardContent className={classes.cardContent}>
-              <List >
-        { notifications.length > 0
-          ? notifications.map( n => (
-              <NotificationItem n={n} />
-            ))
-          : <Typography variant="h6" component="h2" align="center" color="textSecondary">
-               None yet!
-            </Typography>  
-        }
-            </List>
-
-            </CardContent>
-          </Paper>
-          </div>
+    <ListItem dense="true">
+      <ListItemAvatar>
+        <Avatar>
+          {icon}
+        </Avatar>
+      </ListItemAvatar>
+      <ListItemText
+        primary={n.n.text}
+      />
+    </ListItem>
   );
 }

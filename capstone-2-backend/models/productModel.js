@@ -178,7 +178,7 @@ class Product {
             products.auction_ended AS "auctionEnded",
             highest_bids.user_email AS "bidderEmail",
             highest_bids.bid_price AS "currentBid",
-            users.username AS "currentBidderUsername"
+            users.username AS "bidderUsername"
     FROM products
     FULL OUTER JOIN highest_bids ON products.id = highest_bids.product_id
     FULL OUTER JOIN users ON highest_bids.user_email = users.email

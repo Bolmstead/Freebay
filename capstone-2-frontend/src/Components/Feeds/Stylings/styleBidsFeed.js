@@ -10,7 +10,8 @@ export const useStyles = makeStyles((theme) => ({
     display: 'inline',
   },
   product: {
-    textTransform: 'none'
+    textTransform: 'none',
+    color: 'black'
   },
   card: {
     backgroundColor: "white",

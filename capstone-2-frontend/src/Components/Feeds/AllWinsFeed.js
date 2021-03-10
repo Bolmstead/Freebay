@@ -44,7 +44,7 @@ export default function AllWinsFeed() {
           <div>
 
               <ListItem alignItems="flex-start">
-              <Link href={"/Profile/" + p.username}>
+              <Link href={"/Profile/" + p.username} style={{ textDecoration: 'none' }}>
               <ListItemAvatar>
               <Avatar alt="Product Image" className={classes.large}>
                 B

@@ -22,16 +22,20 @@ const ProductList = () => {
   const [nextPageQuery, setNextPageQuery] = useState(null);
   const [prevPageQuery, setPrevPageQuery] = useState(null);
 
+  let query = useQuery()
+  let searchQuery = Object.fromEntries(new URLSearchParams(query))
+  const [searchObject, setSearchObject] = useState(searchQuery)
+
 
   // grab the number of the page
-  let query = useQuery()
+
   // let subCategory = query.get("subCategory")
   // let page = query.get("page")
   // if (!page) {
   //   page = "1"
-  // }
+  // };
 
-  let searchObject = Object.fromEntries(new URLSearchParams(query));
+  console.log("searchObject",searchObject)
   let { page, subCategory} = searchObject
 
  //grab products
@@ -70,7 +74,7 @@ const ProductList = () => {
 
     }
     getProductsInCategory()
-  }, []);
+  }, [searchObject]);
 
 
   // Add "Clothing & Accessories to title if in fashion category"
@@ -85,7 +89,7 @@ const ProductList = () => {
 
   return (
     <Container><br/>
-      <Typography variant="h4" spacing={5}>
+      <Typography variant="h4" spacing={5} className={classes.listTitle}>
         {categoryTitle}
       </Typography>
       <br/>

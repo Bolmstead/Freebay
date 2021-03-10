@@ -25,15 +25,25 @@ export default function BidsFeed(userProfile) {
 
   console.log("highest_bids in UserBidsFeed", highest_bids )
 
+  function truncate(str, n){
+    if (str !== undefined) {
+    return (str.length > n) ? str.substr(0, n-1) + '...' : str;}
+  };
+
+  if (highest_bids) {
+    highest_bids.forEach( product=> product.name = truncate(product.name, 50))
+    console.log("highest_bids", highest_bids)
+  }
+
   return (
     <div className={classes.root}>
       <Paper className={classes.card} variant="outlined">
       <CardContent className={classes.cardContent}>
     <List className={classes.root}>
-        { highest_bids.length < 0 
+        { highest_bids.length > 0 
         ? 
         highest_bids.map( p => (  
-          <Link href={"/Product/" + p.id} className={classes.product}>
+          <Link href={"/Product/" + p.id} className={classes.product} style={{ textDecoration: 'none' }}>
             <ListItem alignItems="flex-start">
               <ListItemAvatar>
                 <Avatar alt="Product Image" src={p.imageUrl}
@@ -42,6 +52,7 @@ export default function BidsFeed(userProfile) {
             <ListItemText
               primary={p.name}
               className={classes.product}
+              color="textPrimary"
               secondary={
                 <React.Fragment>
                   <Typography

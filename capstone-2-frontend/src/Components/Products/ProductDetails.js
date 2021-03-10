@@ -42,7 +42,7 @@ function ProductDetails() {
 
   const history = useHistory()
   const {id} = useParams();
-  const { currentUser} = useContext(Context);
+  const { currentUser, setUpdateAppBar } = useContext(Context);
 
 
   useEffect(() => {
@@ -57,7 +57,7 @@ function ProductDetails() {
       }
       console.log("result", typeof(result.bidCount))
       setProduct(result);
-      getTimeLeft(result["auctionEndDt"])
+      getTimeLeft(result.auctionEndDt)
       setInfoLoaded(true)
 
     }
@@ -74,22 +74,33 @@ function ProductDetails() {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
+    if (!currentUser){
+      setFormErrors("Please login to place bid")
+      return
+    } 
+
     const balance = parseFloat(currentUser.balance)
     const bid = parseFloat(bidAmount)
     const currentBid = parseFloat(product.currentBid)
+    const startingBid = parseFloat(product.startingBid)
 
     console.log("bid", typeof(bid), bid)
     console.log("balance:", typeof(balance), balance)
     console.log("currentBid", typeof(product.currentBid), product.currentBid)
-    if (!currentUser){
-      setFormErrors("Please login to place bid")
+
+    if (isNaN(bid)){
+      setFormErrors("Please submit a real bid")
     } else if (bid > balance){
       setFormErrors("You do not have sufficient funds to place this bid")
     } else if (bid < currentBid){
       setFormErrors("Please submit bid higher than the current bid")
+    } else if (bid < startingBid){
+      setFormErrors("Please submit bid higher than the starting bid")
     } else{
       await FreebayAPI.addBid(id, bid)
-      history.push('/')
+
+      setUpdateAppBar(true)
+      history.push('/bidPlaced/' + product.id)
     }
   }
 
@@ -103,42 +114,42 @@ function ProductDetails() {
 
   return (
     <Container>
-<br/>
+    <br/>
 
 
-      <Grid container spacing={2} justifyContent="center" alignItems="center" >
+      <Grid container spacing={4} justifyContent="center" alignItems="center" >
         <Grid item  xs={12} md={6}>
-          <Card className={classes.imageContainer} variant="outlined">
+          <div className={classes.imageContainer}>
           <img
               className={classes.media}
-              src={product["imageUrl"]}
+              src={product.imageUrl}
             />
-            </Card>
+            </div>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Card className={classes.root}>
+          <Card className={classes.root} variant="outlined">
               <CardContent className={classes.content} justify="center">
                 <Typography variant="h5">
-                  {product["name"]}
+                  {product.name}
                 </Typography><br/>
                 <div className={classes.ratingContainer}>
-                <Rating name="read-only" value={product["rating"]} size="medium" readOnly display="inline"/>      
+                <Rating name="read-only" value={product.rating} size="medium" readOnly display="inline"/>      
                 <Typography variant="caption" display="inline" className="ratingNumber" color="textSecondary">
-                  {product["numOfRatings"]} ratings
+                  {product.numOfRatings} ratings
                 </Typography>
                 </div>
                 <br/>
 
                 <hr className={classes.hr}/><br/>
                 { 
-                product["currentBid"] 
+                product.currentBid 
                 ? <div>
                     <Typography variant="h4" className={classes.price} color="textPrimary" display="inline" >
                       ${product.bidDisplay}{' '}                 
                       <Typography variant="subtitle1" color="textSecondary" display="inline">
                         is the current bid by {' '} 
-                        <Link href={"/Profile/" + product.currentBidderUsername}>
-                          {product.currentBidderUsername}
+                        <Link href={"/Profile/" + product.bidderUsername}>
+                          {product.bidderUsername}
                         </Link>
                       </Typography>
                     </Typography>
@@ -171,7 +182,13 @@ function ProductDetails() {
                       </div>
                     : 
                       <div>
-                        <Typography display="inline" variant="subtitle1" color="textSecondary" component="p" fontWeight="fontWeightBold">
+                          <Countdown date={Date.now() + countdown} renderer={props => 
+                          <Typography  variant="subtitle1" color="textSecondary" component="p">
+                            {'  '}{"Time left: " + props.days + "d " + props.hours + "h " + props.minutes + "m " + props.seconds + "s"}
+                          </Typography>} 
+                        />
+
+                        <Typography  variant="subtitle1" color="textSecondary" component="p" fontWeight="fontWeightBold">
                         {product.bidCount}
                           { 
                           (product.bidCount == 1)
@@ -180,18 +197,13 @@ function ProductDetails() {
                         </Typography>
                         </div>
                     }
-                        <Countdown date={Date.now() + countdown} renderer={props => 
-                          <Typography display="inline" variant="subtitle1" color="textSecondary" component="p">
-                            {'  '}{"Time left: " + props.days + "d " + props.hours + "h " + props.minutes + "m " + props.seconds + "s"}
-                          </Typography>} 
-                        />
 
               </CardContent>
           </Card>
         </Grid>
 
         <Grid item  xs={12}>
-          <Card>
+          <Card variant="outlined">
               <CardContent className={classes.content}>
                 <Typography variant="h5">
                   Description
@@ -200,7 +212,7 @@ function ProductDetails() {
                 <hr className={classes.hr}/>
                 <br/>
                   <Typography variant="subtitle1" color="textSecondary">
-                  {product["description"]} 
+                  {product.description} 
                   </Typography>
 
               </CardContent>

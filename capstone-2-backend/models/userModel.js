@@ -95,7 +95,7 @@ class User {
     }
     const user = result.rows[0];
 
-    Notification.addNotification(user["email"], `Welcome to Freebay! As a welcome gift, we have deposited $100 Freebay bucks into your account!`, "welcome" )
+    Notification.addNotification(user["email"], `You have created a freeBay account! As a welcome gift, we have deposited $100 Freebay bucks into your account!`, "gift" )
     return user;
   }
 
@@ -182,7 +182,8 @@ class User {
               notifications.text,
               notifications.related_product_id AS "relatedProductId",
               notifications.was_viewed AS "wasViewed",
-              notifications.datetime
+              notifications.datetime,
+              notifications.category AS "category"
         FROM notifications
         WHERE notifications.user_email = $1
         ORDER BY notifications.datetime DESC`, [user.email]);

@@ -18,15 +18,19 @@ export default function UserWinsFeed(userProfile) {
 
   console.log("userProfile in WonOrBids Feed", userProfile )
 
-  const { productsWon } = userProfile["userProfile"]
+  const { productsWon } = userProfile.userProfile
 
   console.log("productsWon in WonOrBids Feed", productsWon )
 
-  let productsWonShortName
+  function truncate(str, n){
+    if (str !== undefined) {
+    return (str.length > n) ? str.substr(0, n-1) + '...' : str;}
+  };
 
-  if (productsWon) {
-    productsWonShortName = productsWon.forEach( p => (p.shortname = p.name.substring(0, 20)))
-    console.log(productsWonShortName,"productsWonShortName")
+
+   if (productsWon) {
+    productsWon.forEach( product=> product.name = truncate(product.name, 50))
+    console.log("productsWon", productsWon)
   }
   
   return (
@@ -34,13 +38,13 @@ export default function UserWinsFeed(userProfile) {
     <Paper className={classes.card} variant="outlined">
     <CardContent className={classes.cardContent}>
     <List className={classes.root}>
-      <h1>{userProfile["username"]}</h1>
+      <h1>{userProfile.username}</h1>
         { productsWon
         
         ? 
           
-        productsWonShortName.map( p => (  
-          <Link href={"/Product/" + p.id}>
+        productsWon.map( p => (  
+          <Link href={"/Product/" + p.id} style={{ textDecoration: 'none' }}>
 
             <ListItem alignItems="flex-start">
             <ListItemAvatar>

@@ -18,6 +18,8 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import useStyles from './Stylings/styleWhatsTrendingFeed';
 import ProductCardMini from '../Products/ProductCardMini.js';
 import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
+
 
 
 // Feed of a user's highest bids. To be displayed for anyone viewing the page
@@ -43,7 +45,7 @@ export default function WhatsTrendingFeed() {
   console.log("trendingProducts", trendingProducts)
 
   return (
-    <Grid  container spacing={3} direction="row" justify="center" alignItems="flex-start">
+    <Grid  container spacing={3} direction="row" justify="flex-start" align="left">
     { trendingProducts.length > 0
       ?trendingProducts.map( product => (
         <ProductCardMini product={product} />      ))

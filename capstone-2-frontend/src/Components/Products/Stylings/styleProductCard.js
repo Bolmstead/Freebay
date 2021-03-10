@@ -11,7 +11,8 @@ const useStyles = makeStyles({
     objectFit: "contain",
     display: "block",
     marginLeft: "auto",
-    marginRight: "auto" 
+    marginRight: "auto",
+    paddingTop: "8px"
   },
   ratingNumber: {
     top: 200

@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   feedTitle: {
-    fontWeight: "bold"
+    fontWeight: 600
   },
   carouselContainer: {
     

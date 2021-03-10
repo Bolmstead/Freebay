@@ -5,6 +5,10 @@ import Home from "./Components/HomePage/Home.js";
 import Login from "./Components/User/Login";
 import Signup from "./Components/User/Signup";
 import Profile from "./Components/User/Profile";
+import Welcome from "./Components/Common/WelcomePage";
+import BidConfirmation from "./Components/Common/BidConfirmation";
+
+
 
 import ProductList from "./Components/Products/ProductList";
 import ProductCategoryList from "./Components/Products/ProductCategoryList";
@@ -26,8 +30,14 @@ function Routes() {
             <Route exact path="/signup">
                 <Signup />
             </Route>
+            <Route exact path="/welcome">
+                <Welcome />
+            </Route>
             <Route exact path="/products" >
                 <ProductList />
+            </Route>
+            <Route exact path="/bidPlaced/:id" >
+                <BidConfirmation />
             </Route>
             <Route exact path="/product/:id">
                 <ProductDetails />
