@@ -1,7 +1,6 @@
 <p align="center">
 
-  <h3 align="center">freeBay! An eBay Website Clone</h3>
-  <h3 align="center">freeBay! An eBay Website Clone</h3>
+<h3 align="center">freeBay! An eBay Website Clone</h3>
 
 
   <p align="center">
