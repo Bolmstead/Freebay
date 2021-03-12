@@ -116,10 +116,7 @@ function App() {
 
   return (
     <div className={classes.appWrapper}>
-      <Context.Provider value={{ currentUser, setCurrentUser, signup, login, logout, products, getProduct, getProducts, setUpdateAppBar, searchObject, setSearchObject}}>
-
-        <BrowserRouter>
-
+        <Context.Provider value={{ currentUser, setCurrentUser, signup, login, logout, products, getProduct, getProducts, setUpdateAppBar, searchObject, setSearchObject}}>
         <Container>
         <PrimarySearchAppBar />
         <hr className={classes.hr}/>
@@ -128,10 +125,7 @@ function App() {
         <Container>
         <Routes/>
         </Container>
-        </BrowserRouter>
-
         </Context.Provider>
-
     </div>
   );
 }

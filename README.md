@@ -1,64 +1,60 @@
 <p align="center">
 
-<h3 align="center">freeBay! An eBay Website Clone</h3>
+  <h2 align="center">FreeBay!</h2>
 
 
   <p align="center">
-    A website to allow users/instructors to create, schedule, and signup for yoga classes in Boise, Idaho.
+    A website where fake products are bid on with fake money.
     <br />
-    <a href="https://yoga-website.herokuapp.com/">View Heroku Demo</a>
+    <!-- <a href="https://yoga-website.herokuapp.com/">View Heroku Demo</a> -->
   </p>
 </p>
 
-![Website_pic](static/images/yoga_homepage.png?raw=true "website")
+![Logo](public/images/logo.png?raw=true "logo")
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This project was created as the Capstone 1 project for the Springboard Software Engineering Course. It will hopefully be used  operate as a website for the Lunchtime Yoga for Business Professionals group in the future. A user can do the following on the website:
-* View the organization's information including pricing, instructor bios, contact methods, and social media links.
-* Create an account with an encrypted password using bcrypt.
-* Signup for available yoga classes using the website's interactive  calendar.
-* View enrolled yoga classes and cancel any class signup.
-* Edit current account information.
-* Receive automatic emails confirming class signup, signup cancellation, or account creation.
+The freeBay website is an eBay clone that allows users to search for and bid on fake products. After a user creates an account, they receive 100 freeBay bucks that can be used to bid on any products. Each product has a time limit for how long it is held in auction. The user with the highest bid on a product at the end of the auction time limit, "wins" the product. 
 
+Notifications, highest bids, and products a user has won can be viewed on their profile. All profiles are public, however notifications can only be seen by the owner. The most recent auction winners and trending products can be seen from the homepage. All product data was scraped from Amazon's Best Sellers web pages using Python.
 
-Instructors are also able to do all of the above and are authorized to:
-* Create/delete yoga classes.
-* View all users signed up for their yoga class.
-* View contact information of all users and instructors.
+* View
+
 
 ![Website_pic](static/images/dashboard.png?raw=true "website")
 
 ## Built With
 
-The coding languages, frameworks, source code, and API that I used to build this project:
-* Python
+The coding languages, frameworks, and libraries that I used to build this project:
+
+Frontend
 * Javascript
+* [React](https://reactjs.org/)
+* [Material-UI](https://material-ui.com/)
 * HTML
 * CSS
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
 * [Axios](https://www.npmjs.com/package/axios)
-* [Jinja](https://jinja.palletsprojects.com/en/2.11.x/)
-* [Flask](https://flask.palletsprojects.com/en/1.1.x/)
-* [Postgres](https://www.postgresql.org/)
-* [SQL Alchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/)
-* [Flask-Bcrypt](https://flask-bcrypt.readthedocs.io/en/latest/)
-* [WTForms](https://wtforms.readthedocs.io/en/2.3.x/)
-* [Font Awesome](https://fontawesome.com/)
-* [Simple Calendar](https://github.com/brospars/simple-calendar)
-* [SendGrid Email API](https://sendgrid.com/docs/api-reference/)
+
+Backend
+* [Node.js](https://nodejs.org/en/)
+* [Express.js](https://expressjs.com/)
+* [PostgreSQL](https://www.postgresql.org/)
+* [Node-PostgreSQL](https://node-postgres.com/)
+* [JSON Schema](https://json-schema.org/)
+* [bcrypt](https://www.npmjs.com/package/bcrypt)
+
 
 
 ## How to Run the Project
 
 To get a local copy up and running follow these steps:
 
-### Clone Repo
+....
 
-1. Clone the repo by clicking on the green "Code" button at the top of the github repo page or by entering the following in your terminal:
+<!-- ### Clone Repo
+
+1. Clone the repo by clicking on the green "Code" button at the top of the page or enter in the following in your terminal:
    ```sh
    git clone https://github.com/Bolmstead/Yoga.git
    ```
@@ -79,28 +75,19 @@ To get a local copy up and running follow these steps:
   ```sh
   createdb yoga
   ```
-6. Start a server in your projects directory and you are done!
+6. Start a server in your projects directory and you are done! -->
 
 
 ## Roadmap
 
-Possible features that I would like to integrate into the website are:
-* As requested by an instructor, an instructor could add any user to a class.
-* Payment system to allow a user to pay/prepay for classes on the website.
-* User having a class credits column that would deplete after they attend a class and can be refilled by an instructor if receive prepayments.
-* Google calendar API that would allow a user to save their class signup to their google calendar. Also could be used for instructors when they create a class.
-
-
-## Notes
-For the sake of the capstone code review, any user can sign up to be an instructor on the website. This allows anyone to view the instructor's functionality. If this website were to be implemented, instructors accounts would be created in a different way requiring approval.
-
-The source code for the calendar used on the website was pulled and maniputlated from [Simple Calendar](https://github.com/brospars/simple-calendar). Author of the Simple Calendar grants permission to any person to use, copy, modify, or publish the code. All documents regarding the Simple Calendar code are located in /static/calendar.
-
-Enjoy!
-
+Stretch goals for this project:
+* Search filter box for a list of searched products.
+* Users add their own products and ratings for products they've won.
+* Websocket chat feature.
 
 ## Contact
 
 Berkley Olmstead - olms2074@gmail.com - [Linkedin](https://www.linkedin.com/in/berkleyolmstead/)
 
-Project Link: [https://github.com/Bolmstead/Yoga](https://github.com/Bolmstead/Yoga)
+Project Links: [https://github.com/freebay-frontend](https://github.com/freebay-frontend)
+               [https://github.com/freebay-backend](https://github.com/freebay-backend)
