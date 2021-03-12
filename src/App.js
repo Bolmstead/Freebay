@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Redirect } from 'react-router-dom';
+import { BrowserRouter, Redirect, useHistory, withRouter } from 'react-router-dom';
 import jwt from "jsonwebtoken";
 import PrimarySearchAppBar from './Components/Navigation/PrimarySearchAppBar.js'
 import CategoriesBar from './Components/Navigation/CategoriesBar.js'
@@ -25,6 +25,9 @@ function App() {
   const [searchObject, setSearchObject] = useState(null)
 
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
+
+  const history = useHistory()
+
   
   console.debug(
     "App",
@@ -75,8 +78,7 @@ function App() {
   function logout() {
     setCurrentUser(null);
     setToken(null);
-    return <Redirect to="/" />
-
+    history.push('/')
   }
 
   async function signup(data) {
@@ -134,4 +136,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(App);

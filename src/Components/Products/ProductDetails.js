@@ -112,6 +112,7 @@ function ProductDetails() {
   if (!infoLoaded) return <LoadingSpinner />;
   console.log("countdown",countdown)
 
+  console.log("product in ProductDetails.js", product)
   return (
     <Container>
     <br/>
@@ -141,9 +142,13 @@ function ProductDetails() {
                 <br/>
 
                 <hr className={classes.hr}/><br/>
-                { 
+              { product.auctionEnded
+              ? 
+                <div></div>
+              : 
                 product.currentBid 
-                ? <div>
+                ?
+                  <div>
                     <Typography variant="h4" className={classes.price} color="textPrimary" display="inline" >
                       ${product.bidDisplay}{' '}                 
                       <Typography variant="subtitle1" color="textSecondary" display="inline">
@@ -153,35 +158,49 @@ function ProductDetails() {
                         </Link>
                       </Typography>
                     </Typography>
+                    <form className={classes.root} onSubmit={handleSubmit} noValidate autoComplete="off">
+                      <TextField id="outlined-basic" label="Bid" variant="outlined" size="small" onChange={handleChange}/>
+                      <span>{"  "}</span>       
+                      <Button size="medium" type="submit" variant="contained" color="Primary" className={classes.margin}>
+                        Place Bid
+                      </Button>
+                    </form>
                   </div>
-                : <div>
-                <Typography variant="h4" className={classes.price} color="textPrimary"  display="inline">
-                  ${product.bidDisplay}{' '}
-                  <Typography variant="subtitle1" color="textSecondary" display="inline">
-                     is the starting bid
-                  </Typography>
-                </Typography>
+                : 
+                  <div>
+                    <Typography variant="h4" className={classes.price} color="textPrimary"  display="inline">
+                      ${product.bidDisplay}{' '}
+                      <Typography variant="subtitle1" color="textSecondary" display="inline">
+                        is the starting bid
+                      </Typography>
+                    </Typography>
+                
+                    <form className={classes.root} onSubmit={handleSubmit} noValidate autoComplete="off">
 
-                  </div>
-                }
-
-                <form className={classes.root} onSubmit={handleSubmit} noValidate autoComplete="off">
-
-                  <TextField id="outlined-basic" label="Bid" variant="outlined" size="small" onChange={handleChange}/>
-                  <span>{"  "}</span>       
-                  <Button size="medium" type="submit" variant="contained" color="Primary" className={classes.margin}>
-                    Place Bid
-                  </Button>
-                </form>
-                <br/>
-
+                    <TextField id="outlined-basic" label="Bid" variant="outlined" size="small" onChange={handleChange}/>
+                    <span>{"  "}</span>       
+                    <Button size="medium" type="submit" variant="contained" color="Primary" className={classes.margin}>
+                      Place Bid
+                    </Button>
+                    </form>
+                </div>
+              }
                 {formErrors
                     ? 
                       <div>
+                        <br/>
                         <Alert severity="error" variant="filled">{formErrors}</Alert>
                       </div>
                     : 
-                      <div>
+                      product.auctionEnded
+                      ? 
+                        <div> 
+                          <Typography  variant="subtitle1" color="textSecondary" component="p" fontWeight="fontWeightBold" display="inline">
+                            Auction ended!
+                          </Typography>
+                        </div>
+                      :
+                        <div><br/>
                           <Countdown date={Date.now() + countdown} renderer={props => 
                           <Typography  variant="subtitle1" color="textSecondary" component="p">
                             {'  '}{"Time left: " + props.days + "d " + props.hours + "h " + props.minutes + "m " + props.seconds + "s"}

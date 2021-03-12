@@ -13,6 +13,8 @@ import Context from "../Common/Context";
 import useStyles from './Stylings/styleNotifications.js'
 import Paper from '@material-ui/core/Paper';
 import NotificationItem from './NotificationItem'
+import Link from '@material-ui/core/Link';
+
 
 
 // Displays a feed of a user's viewed and unviewed notifications. 
@@ -49,14 +51,19 @@ export default function Notifications(userProfile) {
         <Paper className={classes.card} variant="outlined">  
             <CardContent className={classes.cardContent}>
               <List >
-        { notifications.length > 0
-          ? notifications.map( n => (
-              <NotificationItem n={n} />
-            ))
-          : <Typography variant="h6" component="h2" align="center" color="textSecondary">
-               None yet!
-            </Typography>  
-        }
+              {( notifications.map( n => (
+                  n.relatedProductId
+                  ? <Link href={"/product/"+ n.relatedProductId} 
+                          color="inherit" 
+                          style={{ textDecoration: 'none' }}
+                    >
+                      <NotificationItem n={n} />
+                    </Link>
+                  : 
+                    <NotificationItem n={n} />
+                  ))
+                )
+              }
             </List>
 
             </CardContent>

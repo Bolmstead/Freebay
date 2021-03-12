@@ -29,11 +29,13 @@ export default function AllWinsFeed() {
         // p.initial = (p.name.substring(0,1))
       ))
       setAllWins(result)
-      console.log("result", result)
+      console.log("getRecentWins result", result)
 
     }
     getRecentWins();
   }, []);
+
+  console.log("allWins from AllWinsFeed", allWins)
 
 
   return (
@@ -51,9 +53,10 @@ export default function AllWinsFeed() {
               </Avatar>
               </ListItemAvatar>
               </Link>
-              <Link href={"/Profile/" + p.username}>
+              <Link href={"/Profile/" + p.username} style={{ textDecoration: 'none' }}>
             <ListItemText
               primary={p.username}
+              className={classes.listItem}
               secondary={
                 <React.Fragment>
                   <Typography

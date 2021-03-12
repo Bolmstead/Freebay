@@ -121,6 +121,14 @@ class FreebayAPI {
     console.log("res from getEndingSoon in API.js",res)
     return res;
   }
+
+  static async getUser(username) {
+    // console.log("madeit to getUser API method")
+    let res = await this.request(`users/${username}`);
+    console.log("madeit to getUser API method after this.request",res)
+
+    return res;
+  }
  
 }
 

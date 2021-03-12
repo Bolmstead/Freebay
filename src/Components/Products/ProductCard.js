@@ -16,7 +16,7 @@ function ProductCard({product}) {
   const classes = useStyles();
   console.log("product in productCard", product)
 
-  let {id, name, startingBid, imageUrl, rating, numOfRatings, auctionEndDt, bidderUsername, bidPrice} = product
+  let {id, name, startingBid, imageUrl, rating, numOfRatings, auctionEndDt, bidderUsername, bidPrice, currentBid} = product
   let bidDisplay;
 
   function truncate(str, n){
@@ -26,6 +26,8 @@ function ProductCard({product}) {
 
   if (bidPrice){
     bidDisplay = parseFloat(bidPrice).toFixed(2);
+  } else if(currentBid) {
+    bidDisplay = parseFloat(currentBid).toFixed(2);
   } else {
     bidDisplay = parseFloat(startingBid).toFixed(2);
   }

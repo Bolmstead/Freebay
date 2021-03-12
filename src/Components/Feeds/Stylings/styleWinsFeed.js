@@ -7,6 +7,10 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'none'
 
   },
+  listItem: {
+    color: 'black',
+    fontWeight: 'bold' 
+  },
   inline: {
     display: 'inline',
   },
