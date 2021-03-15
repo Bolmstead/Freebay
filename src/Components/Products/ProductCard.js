@@ -1,58 +1,52 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import useStyles from './Stylings/styleProductCard.js'
 
-// Card of product image and some information regarding the product.
-// Will be rendered within the ProductList components.
+
+// Card that displays its name, image, auction time left,
+// rating, and current bid price. Rendered within the ProductList component.
+// More detailed and bigger version of the ProductCardMini component.
 
 function ProductCard({product}) {
   const classes = useStyles();
-  console.log("product in productCard", product)
 
-  let {id, name, startingBid, imageUrl, rating, numOfRatings, auctionEndDt, bidderUsername, bidPrice, currentBid} = product
+  console.log("product in productcard", product)
+  
+  let {id, name, startingBid, imageUrl, rating, auctionEndDt, 
+      bidderUsername, bidPrice } = product
   let bidDisplay;
 
-  function truncate(str, n){
-    if (str !== undefined) {
-    return (str.length > n) ? str.substr(0, n-1) + '...' : str;}
-  };
-
+  // If the product has a bidPrice, display it on card, otherwise show starting bid.
+  // If either bidPrice or startingBid, set as a float type and show 2 decimal places
+  // to be displayed as price on a card. 
   if (bidPrice){
     bidDisplay = parseFloat(bidPrice).toFixed(2);
-  } else if(currentBid) {
-    bidDisplay = parseFloat(currentBid).toFixed(2);
   } else {
     bidDisplay = parseFloat(startingBid).toFixed(2);
   }
-  const shortName = truncate(name, 50)
 
-  const auctionEndObj = new Date(auctionEndDt)
+  // Set a shortened product name ending with "..." to a variable to be displayed on card
+  const shortName = name.substring(0,50) + "..."
 
+  // Function that subtracts current datetime object from the ending auction datetime parameter
+  // and returns an object with the days and hours remaining in the auction. 
   function getTimeRemaining(endtime){
     const total = Date.parse(endtime) - Date.parse(new Date());
-    const seconds = Math.floor( (total/1000) % 60 );
-    const minutes = Math.floor( (total/1000/60) % 60 );
     const hours = Math.floor( (total/(1000*60*60)) % 24 );
     const days = Math.floor( total/(1000*60*60*24) );
-  
-    return {
-      total,
-      days,
-      hours,
-      minutes,
-      seconds
-    };
+    return { days, hours };
   }
 
+  // Execute getTimeRemaining with the product's ending datetime object as a parameter
+  const auctionEndObj = new Date(auctionEndDt)
   const countdown = getTimeRemaining(auctionEndObj)
 
+  // Save the remaining days and hours of the auction into a string to be displayed on the card.
   const countdownDisplay = `${countdown.days}d ${countdown.hours}h`
 
   return (
@@ -60,20 +54,15 @@ function ProductCard({product}) {
     <Card className={classes.root} variant="outlined">
       <CardActionArea>
         <div className={classes.imageContainer}>
-          <img
-            className={classes.media}
-            src={imageUrl}
-            title={shortName}
-          />
+          <img className={classes.media} src={imageUrl} title={shortName} />
         </div>
         <CardContent style={{ minHeight: "120px"}}>
           <div>
-          <Typography gutterBottom variant="body2" component="p">
-            {shortName}
-          </Typography>
-          <Rating name="read-only" value={product["rating"]} size="small" readOnly display="inline"/>   
-
-      </div>
+            <Typography gutterBottom variant="body2" component="p">
+              {shortName}
+            </Typography>
+            <Rating name="read-only" value={rating} size="small" readOnly display="inline"/>   
+          </div>
           { bidderUsername
           ?
             <div>
@@ -93,10 +82,8 @@ function ProductCard({product}) {
                 Starting bid
               </Typography>
             </div>
-
           }
           <Typography variant="body2" color="textSecondary" component="p">{countdownDisplay}</Typography>
-
         </CardContent>
       </CardActionArea>
     </Card>

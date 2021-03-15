@@ -18,7 +18,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 
-// Feed of a user's highest bids. To be displayed for anyone viewing the page
+// Feed products auction ending soon
 
 export default function EndingSoonFeed() {
   const classes = useStyles();

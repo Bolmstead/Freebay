@@ -42,6 +42,7 @@ function Home() {
         <Typography component="h5" variant="h5" className={classes.feedTitle}>
           What's trending
         </Typography>
+        
           <WhatsTrendingFeed/>
         </Grid>
       </Grid>

@@ -10,7 +10,7 @@
   </p>
 </p>
 
-![Logo](public/images/logo.png?raw=true "logo")
+![logo](public/images/logo.png?raw=true "logo")
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -29,7 +29,7 @@ Notifications, highest bids, and products a user has won can be viewed on their 
 The coding languages, frameworks, and libraries that I used to build this project:
 
 Frontend
-* Javascript
+* [Javascript](https://www.javascript.com/)
 * [React](https://reactjs.org/)
 * [Material-UI](https://material-ui.com/)
 * HTML

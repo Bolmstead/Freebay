@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Redirect, useHistory, withRouter } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 import jwt from "jsonwebtoken";
 import PrimarySearchAppBar from './Components/Navigation/PrimarySearchAppBar.js'
 import CategoriesBar from './Components/Navigation/CategoriesBar.js'
@@ -11,10 +11,23 @@ import useLocalStorage from "./hooks/useLocalStorage";
 import LoadingSpinner from './Components/Common/LoadingSpinner.js';
 import useStyles from './Components/Common/Stylings/styleApp.js'
 
-
+// Key name for storing token in localStorage for "remember me" re-login
 export const TOKEN_STORAGE_ID = "freebay-token";
 
-// Renders entire Application
+/** FreeBay application.
+ *
+ * - infoLoaded: has data been pulled from API?
+ *   (manages spinner for "loading...")
+ *
+ * - currentUser: user obj from API. This becomes the canonical way to tell
+ *   if someone is logged in. This is passed around via context throughout app.
+ *
+ * - token: for logged in users, this is their authentication JWT.
+ *   Is required to be set for most API calls. This is initially read from
+ *   localStorage and synced to there via the useLocalStorage hook.
+ *
+ * App -> Routes
+ */
 
 function App() {
   const classes = useStyles();

@@ -12,79 +12,71 @@ import CardContent from '@material-ui/core/CardContent';
 import useStyles from './Stylings/styleWinsFeed.js'
 import FreebayAPI from '../../Api'
 import Divider from '@material-ui/core/Divider';
+import FeedItem from './FeedItem.js'
 
 
-// Feed of a user's highest bids. To be displayed for anyone viewing the page
+// Renders a list of products that have been won most recently. To be rendered on the Homepage
 
 export default function AllWinsFeed() {
   const classes = useStyles();
   const [allWins, setAllWins] = useState(null);
 
-
   useEffect(() => {
-    async function getRecentWins() {
-      const result = await FreebayAPI.getWinsFeed()
-      result.map( p => ( 
-        p.name = (p.name.substring(0, 50) + "...")
-        // p.initial = (p.name.substring(0,1))
-      ))
-      setAllWins(result)
-      console.log("getRecentWins result", result)
 
+    async function getRecentWins() {
+      // Grab the most recent winners from API
+      const result = await FreebayAPI.getWinsFeed()
+
+      // Map the result shortening the name of each 
+      // product to better fit in homepage
+      result.map( product => ( 
+        product.name = (product.name.substring(0, 60) + "...")
+      ))
+
+      setAllWins(result)
     }
     getRecentWins();
   }, []);
 
-  console.log("allWins from AllWinsFeed", allWins)
-
-
   return (
     <List className={classes.root}>
-        { allWins
-        ? 
-        allWins.map( p => (
+      { allWins
+      ? 
+        allWins.map( product => (
           <div>
-
-              <ListItem alignItems="flex-start">
-              <Link href={"/Profile/" + p.username} style={{ textDecoration: 'none' }}>
-              <ListItemAvatar>
-              <Avatar alt="Product Image" className={classes.large}>
-                B
-              </Avatar>
-              </ListItemAvatar>
+            <ListItem alignItems="flex-start">
+              <Link href={"/Profile/" + product.username} style={{ textDecoration: 'none' }}>
+                <ListItemAvatar>
+                <Avatar alt="Product Image" className={classes.large}>
+                  {product.username.charAt(0)}
+                </Avatar>
+                </ListItemAvatar>
               </Link>
-              <Link href={"/Profile/" + p.username} style={{ textDecoration: 'none' }}>
-            <ListItemText
-              primary={p.username}
-              className={classes.listItem}
-              secondary={
-                <React.Fragment>
-                  <Typography
-                    variant="caption"
-                    className={classes.inline}
-                    color="textSecondary"
-                  >
-                    {p.name}
-                  </Typography>
-                </React.Fragment>
-                }
-              />
+              <Link href={"/Profile/" + product.username} style={{ textDecoration: 'none' }}>
+                <ListItemText primary={product.username} className={classes.listItem}
+                  secondary={
+                    <React.Fragment>
+                      <Typography variant="caption" className={classes.inline}color="textSecondary">
+                        {product.name}
+                      </Typography>
+                    </React.Fragment>
+                    }
+                />
               </Link>
-              </ListItem>
-            
-            <Divider variant="inset" component="li" />
+            </ListItem>
+            {/* render a divider for each list item unless last in array */}
+            { (allWins.indexOf(product) === (allWins.length - 1))
+            ? <div></div>
+            : <Divider variant="inset" component="li" />
+            }
           </div>
         ))
-
-        :
-        
-          <ListItem alignItems="flex-start">
-            <ListItemText secondary="None yet!"/>
-          </ListItem>
-        }
-
+      :
+        <ListItem alignItems="flex-start">
+          <ListItemText secondary="None yet!"/>
+        </ListItem>
+      }
     </List>
-
   )}
 
 

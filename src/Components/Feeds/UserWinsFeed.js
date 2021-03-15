@@ -10,6 +10,8 @@ import Link from '@material-ui/core/Link';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import useStyles from './Stylings/styleWinsFeed.js'
+import FeedItem from './FeedItem.js'
+
 
 // Feed of a user's highest bids. To be displayed for anyone viewing the page
 
@@ -44,29 +46,7 @@ export default function UserWinsFeed(userProfile) {
         ? 
           
         productsWon.map( p => (  
-          <Link href={"/Product/" + p.id} style={{ textDecoration: 'none' }}>
-
-            <ListItem alignItems="flex-start">
-            <ListItemAvatar>
-              <Avatar alt="Product Image" src={p.imageUrl} 
-              className={classes.large}/>
-            </ListItemAvatar>
-          <ListItemText
-            primary={p.name}
-            secondary={
-              <React.Fragment>
-                <Typography
-                  variant="caption"
-                  className={classes.inline}
-                  color="textPrimary"
-                >
-                  ${p.bidPrice}
-                </Typography>
-              </React.Fragment>
-              }
-            />
-            </ListItem>
-          </Link>
+          <FeedItem p={p}/>
         ))
 
         :

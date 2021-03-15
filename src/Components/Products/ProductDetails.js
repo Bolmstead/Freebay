@@ -48,8 +48,8 @@ function ProductDetails() {
   useEffect(() => {
     async function getProduct(id) {
       const result = await FreebayAPI.getProduct(id)
-      if (result.currentBid){
-        let bidDisplay = parseFloat(result.currentBid).toFixed(2);
+      if (result.bidPrice){
+        let bidDisplay = parseFloat(result.bidPrice).toFixed(2);
         result.bidDisplay = bidDisplay;
       } else {
         let bidDisplay = parseFloat(result.startingBid).toFixed(2);
@@ -81,18 +81,18 @@ function ProductDetails() {
 
     const balance = parseFloat(currentUser.balance)
     const bid = parseFloat(bidAmount)
-    const currentBid = parseFloat(product.currentBid)
+    const bidPrice = parseFloat(product.bidPrice)
     const startingBid = parseFloat(product.startingBid)
 
     console.log("bid", typeof(bid), bid)
     console.log("balance:", typeof(balance), balance)
-    console.log("currentBid", typeof(product.currentBid), product.currentBid)
+    console.log("bidPrice", typeof(product.bidPrice), product.bidPrice)
 
     if (isNaN(bid)){
       setFormErrors("Please submit a real bid")
     } else if (bid > balance){
       setFormErrors("You do not have sufficient funds to place this bid")
-    } else if (bid < currentBid){
+    } else if (bid < bidPrice){
       setFormErrors("Please submit bid higher than the current bid")
     } else if (bid < startingBid){
       setFormErrors("Please submit bid higher than the starting bid")

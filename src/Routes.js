@@ -1,17 +1,13 @@
 import { Switch, Route  } from "react-router-dom";
 import React  from "react";
-
 import Home from "./Components/HomePage/Home.js";
 import Login from "./Components/User/Login";
 import Signup from "./Components/User/Signup";
 import Profile from "./Components/User/Profile";
 import Welcome from "./Components/Common/WelcomePage";
+import NotFound from "./Components/Common/NotFound";
 import BidConfirmation from "./Components/Common/BidConfirmation";
-
-
-
 import ProductList from "./Components/Products/ProductList";
-import ProductCategoryList from "./Components/Products/ProductCategoryList";
 import ProductDetails from "./Components/Products/ProductDetails";
 
 
@@ -46,7 +42,7 @@ function Routes() {
                 <Profile />
             </Route>
         
-            <Route><h1>Not Found!</h1></Route>
+            <Route><NotFound/></Route>
         </Switch>
     </div>
   );
