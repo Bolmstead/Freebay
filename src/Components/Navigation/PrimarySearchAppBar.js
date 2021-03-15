@@ -24,91 +24,100 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 
 
-
-// Search Bar to allow user to search products.
-// If logged in, displays user's account balance, notifications 
-// icon, and profile icon. When clicked on, the notifications icon 
-// will show user's unread notifications. If not logged in, shows 
-// login and signup links.
+/** Application bar located at the top of every page on site above the 
+ * CategoriesBar. If logged in, displays user's account balance, 
+ * notifications icon, and profile icon. If not logged in, shows login 
+ * and signup links. Contains a search bar for any user to search all 
+ * products.
+ *
+ * - searchTerm: The text a user types into the search bar that updates
+ *   as a user types into the search bar. This is the text used to call
+ *   and search the API for the desired products
+ * 
+ * - accountAnchorEl & notificationsAnchorEl: Sets anchor points
+ *   on the account/notifications button for the Material UI dropdown menu
+ *   to know where to dropdown from.
+ * 
+ * - newNotifications: holds the notifications that have not yet been seen.
+ *   Any new notifications held in this state will show as a number badge
+ *   on the notifications icon and will also render as a dropdown when  
+ *   icon is clicked. 
+ */
 
 
 function PrimarySearchAppBar() {
   const classes = useStyles();
   const [searchTerm, setSearchTerm] = useState("");
-  const [accountAnchorEl, setaccountAnchorEl] = useState(null);
+  const [accountAnchorEl, setAccountAnchorEl] = useState(null);
   const [notificationsAnchorEl, setNotificationsAnchorEl] = useState(null);
-  const [redirect, setRedirect] = useState(false);
   const { currentUser, logout, } = useContext(Context);
-
-  console.log("currentUser from PrimarySearchAppBar", currentUser)
 
   const history = useHistory()
 
-  let notifications;
-  let onlyNewNotifications;
+  let allNotifications;
+  let unviewedNotifications;
 
+  // If logged in, save theallNotifications that have not been 
+  // viewed to a variable and set that as the initial value for
+  // the newNotifications state
   if (currentUser){
-    notifications = currentUser.notifications;
-    console.log("notifications from PrimarySearchAppBar", notifications)
-    onlyNewNotifications = notifications.filter( n => !n.wasViewed)
-
+    allNotifications = currentUser.notifications;
+    unviewedNotifications = allNotifications.filter( n => !n.wasViewed)
   }
+  const [newNotifications, setNewNotifications] = useState(unviewedNotifications);
 
-  const [newNotifications, setNewNotifications] = useState(onlyNewNotifications);
-
+  // update searchTerm state as user types into search bar
   function handleChange(evt) {
     setSearchTerm(evt.target.value);
     console.log("searchTerm", searchTerm)
   }
 
-  // Handle functionality of the app bar
+  // Value of these variables determine whether the dropdown menu 
+  // should render
   const isAccountMenuOpen = Boolean(accountAnchorEl);
   const isNotificationsMenuOpen = Boolean(notificationsAnchorEl);
-  const accountMenuId = isAccountMenuOpen ? 'simple-popover' : undefined;
 
-
+  // Set the anchor element to the account icon when clicked to open.
+  // Then to set to null when clicked to close
   const handleProfileMenuOpen = (event) => {
-    setaccountAnchorEl(event.currentTarget);
+    setAccountAnchorEl(event.currentTarget);
   };
-
   const handleProfileMenuClose = () => {
-    setaccountAnchorEl(null);
+    setAccountAnchorEl(null);
   };
 
+  // Set the anchor element to the notifications icon when clicked 
+  // to open. Then to set to null when clicked to close.
+  // Also set the NewNotifications state to 0 to make red badge disappear
   const handleNotificationsMenuOpen = (event) => {
-    console.log("handleNotificationsMenuOpen")
     setNotificationsAnchorEl(event.currentTarget);
     setNewNotifications(0)
   };
-
   const handleNotificationsMenuClose = () => {
     setNotificationsAnchorEl(null);
   };
 
-  
-
+  // Once the newNotifications state has changed, the user has seen
+  // all of their notifications. Therefore call the API to set all of
+  // the user's was_viewed property in notifications to true.
   useEffect(function viewNotifications() {
     async function viewNotificationsApi() {
         try {
           await FreebayAPI.viewNotifications(currentUser.email);
         } catch (err) {
-          console.error("Error with FreebayAPI.viewNotifications()", err);
         }
       }
     viewNotificationsApi();
-  }, [notificationsAnchorEl]);
+  }, [newNotifications]);
 
-
-  // Handle the Input in the Search Bar
+  // When a user submits a search term in the search bar, go to new page
+  // with the desired search info
   function handleSubmit(evt) {
     evt.preventDefault();
-    console.log("searchTerm from handleSubmit", searchTerm)
     let newUrl = `/products?name=` + searchTerm
-    console.log("newUrl from the handlesubmit in searchbar",newUrl)
     history.push(newUrl)
    }
     
-
   const menuId = 'primary-search-account-menu';
   const renderAccountMenu = (
     <Popover
@@ -123,11 +132,21 @@ function PrimarySearchAppBar() {
     >
       { currentUser 
       ? 
-        <Link href={"/Profile/" + currentUser.username} color="inherit" style={{ textDecoration: 'none' }}><MenuItem onClick={handleProfileMenuClose} className={classes.link}>Profile</MenuItem></Link>
+        <Link href={"/Profile/" + currentUser.username} color="inherit" style={{ textDecoration: 'none' }}>
+          <MenuItem onClick={handleProfileMenuClose} className={classes.link}>
+            Profile
+          </MenuItem>
+        </Link>
       : 
-        <MenuItem onClick={handleProfileMenuClose} className={classes.link}>Profile</MenuItem>
+        <MenuItem onClick={handleProfileMenuClose} className={classes.link}>
+          Profile
+        </MenuItem>
       } 
-      <Link className="m-2" onClick={logout} color="inherit" className={classes.link} style={{ textDecoration: 'none' }}><MenuItem onClick={handleProfileMenuClose}>Logout</MenuItem></Link>
+      <Link className="m-2" onClick={logout} color="inherit" className={classes.link} style={{ textDecoration: 'none' }}>
+        <MenuItem onClick={handleProfileMenuClose}>
+          Logout
+        </MenuItem>
+      </Link>
     </Popover>
   );
 
@@ -146,9 +165,9 @@ function PrimarySearchAppBar() {
       onClose={handleNotificationsMenuClose}
     >
     { currentUser
-      ? ( onlyNewNotifications.length > 0
+      ? ( unviewedNotifications.length > 0
         ?
-          onlyNewNotifications.map( n => (
+          unviewedNotifications.map( n => (
           <MenuItem onClick={handleNotificationsMenuClose}>
             {( n.relatedProductId
             ? <Link href={"/product/"+ n.relatedProductId} 
@@ -167,7 +186,7 @@ function PrimarySearchAppBar() {
           </MenuItem>))
         :
         <MenuItem onClick={handleNotificationsMenuClose}>    
-No new notifications
+          No new notifications
         </MenuItem>
         )
       : <div></div>
@@ -179,7 +198,7 @@ No new notifications
   console.log(
     "PrimarySearchAppBar",
     "currentUser=", currentUser,
-    "onlyNewNotifications=", onlyNewNotifications,
+    "unviewedNotifications=", unviewedNotifications,
   );
     
   return (
@@ -190,29 +209,30 @@ No new notifications
             <img src="/images/logo.png" alt="logo" className={classes.logo}></img>
           </Link>
           <div className={classes.search}>
-          <form onSubmit={handleSubmit} >
-            <div className={classes.searchIcon}>
-              <button type="submit" className={classes.searchButton} >
-                <SearchIcon />
-              </button>
-            </div>
-            <InputBase
-              placeholder="Search for anything"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-              value={searchTerm}
-              onChange={handleChange}
-            />
-          </form>
+            <form onSubmit={handleSubmit} >
+              <div className={classes.searchIcon}>
+                <button type="submit" className={classes.searchButton} >
+                  <SearchIcon />
+                </button>
+              </div>
+              <InputBase
+                placeholder="Search for anything"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+                value={searchTerm}
+                onChange={handleChange}
+              />
+            </form>
           </div>
           {currentUser 
-          ?  <div>
-
-                <div className={classes.sectionDesktop}>
-                <Typography className={classes.balance}>{"$" + currentUser.balance}</Typography>
+          ?  
+            <div>
+              <div className={classes.sectionDesktop}>
+                <Typography className={classes.balance}>{"$" + currentUser.balance}
+                </Typography>
                 <IconButton aria-label="show notifications"
                 onClick={handleNotificationsMenuOpen}>
                  <Badge badgeContent={newNotifications.length} color="secondary" >      
@@ -234,14 +254,18 @@ No new notifications
                 </IconButton>
               </div>
             </div>
-          :  <div>
-                <Button color="default" href="/login" className={classes.button}>Login</Button>
-                <Button color="default" href="/signup" className={classes.button}>Signup</Button>
-             </div>
+          :  
+            <div>
+              <Button color="default" href="/login" className={classes.button}>
+                Login
+              </Button>
+              <Button color="default" href="/signup" className={classes.button}>
+                Signup
+              </Button>
+            </div>
           }
         </Toolbar>
       </AppBar>
-      
       {renderNotificationsMenu}
       {renderAccountMenu}
     </div>

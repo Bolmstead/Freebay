@@ -1,21 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
-import {useParams, Redirect, useHistory, withRouter, ReactDOM } from 'react-router-dom';
-import Alert from '@material-ui/lab/Alert';
+import {useParams} from 'react-router-dom';
 import Context from "./Context";
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 import useStyles from './Stylings/styleBidConfirmation'
-import Rating from '@material-ui/lab/Rating';
-import Box from '@material-ui/core/Box';
 import FreebayAPI from '../../Api.js'
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import Countdown from 'react-countdown';
 import ProductCard from '../Products/ProductCard.js'
 import {
   Grid,
   Typography
 } from '@material-ui/core/'
 
-// Renders a confirmation page to show users bid was successfully submitted
+// Renders a confirmation page showing a user's bid was successfully submitted
 
 export default function BidConfirmation() {
     const classes = useStyles();
@@ -27,12 +22,12 @@ export default function BidConfirmation() {
     useEffect(() => {
         async function getProduct(id) {
 
-          // Grab product information for product user just bidded on
+          // Grab information for product bidded on
           // from API using the product ID in URL
           const result = await FreebayAPI.getProduct(id)
 
           // Convert current bid (if bid placed) or starting bid (if no bid placed) 
-          // to float and display bid with 2 decimal places. Then add to result object.
+          // to float and display bid the proper price format. Then add to result object.
           if (result.bidPrice){
             let bidDisplay = parseFloat(result.bidPrice).toFixed(2);
             result.bidDisplay = bidDisplay;
@@ -41,7 +36,6 @@ export default function BidConfirmation() {
             result.bidDisplay = bidDisplay;
           }
           
-          // Save result to state
           setProduct(result);
           setInfoLoaded(true)
         }

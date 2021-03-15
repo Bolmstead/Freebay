@@ -1,23 +1,15 @@
 import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
 import HomePagePic from './HomePagePic'
-import FaqCard from './FaqCard'
 import Grid from '@material-ui/core/Grid';
 import AllWinsFeed from '../Feeds/AllWinsFeed.js'
 import WhatsTrendingFeed from '../Feeds/WhatsTrendingFeed.js'
 import Link from '@material-ui/core/Link';
-
-import Paper from '@material-ui/core/Paper';
-import ProductCardMini from '../Products/ProductCardMini'
-
-
-
-
 import useStyles from './Stylings/styleHome.js'
 import { Typography } from "@material-ui/core";
 
-/* Home page that will render a feed of users who have 
-recently won products, an image link and a link to a FAQ's page */
+/* Home page rendering a large picture link (HomePagePic), a feed of the most recent 
+auction winners (AllWinsFeed) and products with the most bids (WhatsTrendingFeed). 
+Also contains a link at bottom of page to get information on how to use site*/
 
 function Home() {
   const classes = useStyles();
@@ -27,22 +19,18 @@ function Home() {
         <Grid item xs={12} alignItems="center" justify="center">
           <HomePagePic />
         </Grid>
-        {/* <Grid item xs={12} sm={10} md={6}>
-          <FaqCard />
-        </Grid> */}
       </Grid>
       <Grid  container spacing={3} direction="row" alignItems="flex-start">
         <Grid item xs={12} sm={8} md={4}>
-        <Typography component="h5" variant="h5" className={classes.feedTitle}>
-          New auction winners
-        </Typography>
+          <Typography component="h5" variant="h5" className={classes.feedTitle}>
+            New auction winners
+          </Typography>
           <AllWinsFeed />
         </Grid>
         <Grid item xs={12} md={8}>
-        <Typography component="h5" variant="h5" className={classes.feedTitle}>
-          What's trending
-        </Typography>
-        
+          <Typography component="h5" variant="h5" className={classes.feedTitle}>
+            What's trending
+          </Typography>
           <WhatsTrendingFeed/>
         </Grid>
       </Grid>
@@ -53,7 +41,7 @@ function Home() {
               Questions? Click here
             </Typography>
           </Link>
-          </Grid>
+        </Grid>
       </Grid>
     </div>
   );

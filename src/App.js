@@ -7,9 +7,13 @@ import Routes from './Routes.js'
 import Container from '@material-ui/core/Container';
 import Context from "./Components/Common/Context.js";
 import FreebayAPI from './Api'
-import useLocalStorage from "./hooks/useLocalStorage";
-import LoadingSpinner from './Components/Common/LoadingSpinner.js';
+import useLocalStorage from "./hooks/useLocalStorageHook";
 import useStyles from './Components/Common/Stylings/styleApp.js'
+import Typography from '@material-ui/core/Typography';
+import {
+  Grid
+} from '@material-ui/core/'
+import LoadingText from './Components/Common/LoadingText'
 
 // Key name for storing token in localStorage for "remember me" re-login
 export const TOKEN_STORAGE_ID = "freebay-token";
@@ -17,14 +21,22 @@ export const TOKEN_STORAGE_ID = "freebay-token";
 /** FreeBay application.
  *
  * - infoLoaded: has data been pulled from API?
- *   (manages spinner for "loading...")
+ *   (if not, shows a "loading..." text)
  *
- * - currentUser: user obj from API. This becomes the canonical way to tell
+ * - currentUser: user obj from API. This becomes the way to tell
  *   if someone is logged in. This is passed around via context throughout app.
  *
  * - token: for logged in users, this is their authentication JWT.
  *   Is required to be set for most API calls. This is initially read from
  *   localStorage and synced to there via the useLocalStorage hook.
+ * 
+ * - updateAppBar: Boolean value that, when changed, the useEffect loadUserInfo() is triggered
+ *   which pulls the user's most current information held in the API. The currentUser state is
+ *   then changed which triggers a rerender of the App bar to show show the most 
+ *   current balance and the notifications icon
+ * 
+ * - searchObject: 
+ * 
  *
  * App -> Routes
  */
@@ -32,7 +44,6 @@ export const TOKEN_STORAGE_ID = "freebay-token";
 function App() {
   const classes = useStyles();
   const [infoLoaded, setInfoLoaded] = useState(false);
-  const [products, setProducts] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [updateAppBar, setUpdateAppBar] = useState(false);
   const [searchObject, setSearchObject] = useState(null)
@@ -49,6 +60,11 @@ function App() {
     "token=", token,
   );
 
+  // Load user info from API. Until a user is logged in and they have a token,
+  // this should not run. It only needs to re-run when a user logs out or 
+  // when a bid is placed (to update user info in App Bar), so
+  // the value of the token and updateAppBar are dependencies for this effect.
+
   useEffect(function loadUserInfo() {
     console.debug("App useEffect loadUserInfo", "token=", token);
 
@@ -56,86 +72,66 @@ function App() {
       if (token) {
         try {
           let { username } = jwt.decode(token);
-          console.log("FreebayAPI.token", FreebayAPI.token)
+          // put the token on the Api class so it can use it to call the API.
           FreebayAPI.token = token;
           let userResult = await FreebayAPI.getUser(username);
-          console.log("userResult",userResult)
           setCurrentUser(userResult);
-          console.log("currentUser", currentUser, "token", token)
         } catch (err) {
-          console.error("App loadUserInfo: problem loading", err);
           setCurrentUser(null);
         }
       }
       setInfoLoaded(true)
-      // setUpdateAppBar(false)
     }
 
+    // set infoLoaded to false while async getCurrentUser runs; once the
+    // data is fetched (or even if an error happens!), this will be set back
+    // to false to control the loading text.
     setInfoLoaded(false)
     getCurrentUser();
 
   }, [token, updateAppBar]);
 
+  // Handles site-wide login
   async function login(loginData) {
     try {
       let loginToken = await FreebayAPI.login(loginData);
-      console.log("currentUser", currentUser, "token", token)
       setToken(loginToken);
       return { success: true };
     } catch (errors) {
-      console.error("login failed", errors);
       return { success: false, errors };
     }
   }
 
+  // Handles site-wide login
   function logout() {
     setCurrentUser(null);
     setToken(null);
     history.push('/')
   }
 
+  // Handles site-wide signup
   async function signup(data) {
     try {
       let token = await FreebayAPI.signup(data);
       setToken(token);
       return { success: true };
     } catch (errors) {
-      console.error("signup failed", errors);
       return { success: false, errors };
     }
   }
 
-
-
-// Product Hooks
-  async function getProducts(query) {
-    let res = await FreebayAPI.getProducts(query);
-    setProducts(res);
-    console.log("products", products)
-  }
-
-  async function getProduct(id) {
-    let res = await FreebayAPI.getProduct(id);
-    setProducts(res);
-    console.log("products", products)
-  }
-
-
-  console.log("currentUser", currentUser)
-  console.log("token", token)
-
-  if (!infoLoaded) return <LoadingSpinner />;
+  if (!infoLoaded) return (
+    <LoadingText/>
+  )
 
 
   return (
     <div className={classes.appWrapper}>
-        <Context.Provider value={{ currentUser, setCurrentUser, signup, login, logout, products, getProduct, getProducts, setUpdateAppBar, searchObject, setSearchObject}}>
+        <Context.Provider value={{ currentUser, setCurrentUser, signup, login, logout, setUpdateAppBar, searchObject, setSearchObject}}>
         <Container>
         <PrimarySearchAppBar />
         <hr className={classes.hr}/>
         <CategoriesBar/>
-        </Container>
-        <Container>
         <Routes/>
         </Container>
         </Context.Provider>
