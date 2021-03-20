@@ -7,7 +7,8 @@ import Profile from "./Components/User/Profile";
 import Welcome from "./Components/Common/WelcomePage";
 import NotFound from "./Components/Common/NotFound";
 import BidConfirmation from "./Components/Common/BidConfirmation";
-import ProductList from "./Components/Products/ProductList";
+import ProductsCategoryList from "./Components/Products/ProductsCategoryList";
+import ProductsSearchResults from "./Components/Products/ProductsSearchResults";
 import ProductDetails from "./Components/Products/ProductDetails";
 
 
@@ -30,7 +31,10 @@ function Routes() {
                 <Welcome />
             </Route>
             <Route exact path="/products" >
-                <ProductList />
+                <ProductsCategoryList />
+            </Route>
+            <Route exact path="/products/searchResults" >
+                <ProductsSearchResults />
             </Route>
             <Route exact path="/bidPlaced/:id" >
                 <BidConfirmation />

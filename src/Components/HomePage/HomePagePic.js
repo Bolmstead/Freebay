@@ -38,11 +38,9 @@ function FreebayPic() {
                 component="p"
                 display="inline" 
               >
-              Get it here  <ArrowForwardIcon />
+                Get it here  <ArrowForwardIcon />
               </Typography >
             </FiCardContent>
-            <FiCardActions className={classes.fiCardContent}>
-            </FiCardActions>
           </FiCard>
         </Box>
       </Link>

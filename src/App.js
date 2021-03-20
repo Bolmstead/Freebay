@@ -46,6 +46,7 @@ function App() {
   const [infoLoaded, setInfoLoaded] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [updateAppBar, setUpdateAppBar] = useState(false);
+  const [products, setProducts] = useState([]);
   const [searchObject, setSearchObject] = useState(null)
 
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
@@ -127,7 +128,7 @@ function App() {
 
   return (
     <div className={classes.appWrapper}>
-        <Context.Provider value={{ currentUser, setCurrentUser, signup, login, logout, setUpdateAppBar, searchObject, setSearchObject}}>
+        <Context.Provider value={{ currentUser, setCurrentUser, signup, login, logout, setUpdateAppBar, searchObject, setSearchObject, products, setProducts}}>
         <Container>
         <PrimarySearchAppBar />
         <hr className={classes.hr}/>

@@ -7,7 +7,7 @@ import {useParams, Redirect, useHistory, withRouter, ReactDOM } from 'react-rout
 import FreebayAPI from '../../Api.js'
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
-import LoadingSpinner from '../Common/LoadingSpinner.js'
+import LoadingText from '../Common/LoadingText.js'
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
@@ -31,6 +31,16 @@ import {
 // Renders a countdown to the end of the auction along with an input
 // to allow the user to bid on the product.
 
+/** Displays all information of a product along with a form to
+ *  bid on product, if the auction time has not expired.
+ * 
+ *  - product: result of grabbing the desired product from API
+ * 
+ *  - countdown: holds the imported <Countdown/> component in state
+ * 
+ *  - bidAmount: state of entered bid into form. Updates while typing
+ * **/
+
 function ProductDetails() {
   const classes = useStyles();
   const [infoLoaded, setInfoLoaded] = useState(false);
@@ -44,10 +54,15 @@ function ProductDetails() {
   const {id} = useParams();
   const { currentUser, setUpdateAppBar } = useContext(Context);
 
-
+  // Grab the product from the API using product ID in the URL params
+  // and save to the product state.
   useEffect(() => {
     async function getProduct(id) {
       const result = await FreebayAPI.getProduct(id)
+
+      // If the product has a bid, convert to float type and set with 
+      // 2 decimal places (price format) and save to bidPrice variable. 
+      // If no bid, do the same with startingBid.
       if (result.bidPrice){
         let bidDisplay = parseFloat(result.bidPrice).toFixed(2);
         result.bidDisplay = bidDisplay;
@@ -55,8 +70,9 @@ function ProductDetails() {
         let bidDisplay = parseFloat(result.startingBid).toFixed(2);
         result.bidDisplay = bidDisplay;
       }
-      console.log("result", typeof(result.bidCount))
       setProduct(result);
+
+      // Call the function that creates the auction countdown timer 
       getTimeLeft(result.auctionEndDt)
       setInfoLoaded(true)
 
@@ -65,13 +81,16 @@ function ProductDetails() {
     getProduct(id)
   }, []);
 
-  // Create countdown timer
+  // Function creates the countdown timer by subtracting the current time
+  // from the product's auction end datetime object. Saves it to state.
   function getTimeLeft(dateTime){
     const auctionEndObj = new Date(dateTime)
     const totalTimeLeft = Date.parse(auctionEndObj) - Date.parse(new Date());
     setCountdown(totalTimeLeft);
     }
 
+  // Handles the form submit of the bid and renders the appropriate
+  // error, if any, by saving to state.
   async function handleSubmit(evt) {
     evt.preventDefault();
     if (!currentUser){
@@ -84,10 +103,6 @@ function ProductDetails() {
     const bidPrice = parseFloat(product.bidPrice)
     const startingBid = parseFloat(product.startingBid)
 
-    console.log("bid", typeof(bid), bid)
-    console.log("balance:", typeof(balance), balance)
-    console.log("bidPrice", typeof(product.bidPrice), product.bidPrice)
-
     if (isNaN(bid)){
       setFormErrors("Please submit a real bid")
     } else if (bid > balance){
@@ -99,25 +114,25 @@ function ProductDetails() {
     } else{
       await FreebayAPI.addBid(id, bid)
 
+      // Trigger a rerender of the CurrentUser by changing the
+      // UpdateAppBar state. This will correctly show the user's
+      // current balance amount and amount of notifications in the 
+      // <PrimarySearchAppBar/> component.
       setUpdateAppBar(true)
+      // Go to bid confirmation page
       history.push('/bidPlaced/' + product.id)
     }
   }
 
   function handleChange(evt) {
     setBidAmount(evt.target.value);
-    console.log("bidAmount", bidAmount)
   }
 
-  if (!infoLoaded) return <LoadingSpinner />;
-  console.log("countdown",countdown)
+  if (!infoLoaded) return <LoadingText />;
 
-  console.log("product in ProductDetails.js", product)
   return (
     <Container>
-    <br/>
-
-
+      <br/>
       <Grid container spacing={4} justifyContent="center" alignItems="center" >
         <Grid item  xs={12} md={6}>
           <div className={classes.imageContainer}>
@@ -134,14 +149,19 @@ function ProductDetails() {
                   {product.name}
                 </Typography><br/>
                 <div className={classes.ratingContainer}>
-                <Rating name="read-only" value={product.rating} size="medium" readOnly display="inline"/>      
-                <Typography variant="caption" display="inline" className="ratingNumber" color="textSecondary">
+                <Rating name="read-only" value={product.rating} size="medium" 
+                readOnly display="inline"/>      
+                <Typography variant="caption" display="inline" 
+                className="ratingNumber" color="textSecondary">
                   {product.numOfRatings} ratings
                 </Typography>
                 </div>
                 <br/>
 
                 <hr className={classes.hr}/><br/>
+              {/* If the product's auction has ended, render nothing.
+              Otherwise, render the currentBid and bidderUsername. If no bidder,
+              render the starting price of the product.*/}
               { product.auctionEnded
               ? 
                 <div></div>
@@ -149,42 +169,55 @@ function ProductDetails() {
                 product.currentBid 
                 ?
                   <div>
-                    <Typography variant="h4" className={classes.price} color="textPrimary" display="inline" >
+                    <Typography variant="h4" className={classes.price} 
+                    color="textPrimary" display="inline" >
                       ${product.bidDisplay}{' '}                 
-                      <Typography variant="subtitle1" color="textSecondary" display="inline">
+                      <Typography variant="subtitle1" color="textSecondary" 
+                      display="inline">
                         is the current bid by {' '} 
                         <Link href={"/Profile/" + product.bidderUsername}>
                           {product.bidderUsername}
                         </Link>
                       </Typography>
                     </Typography>
-                    <form className={classes.root} onSubmit={handleSubmit} noValidate autoComplete="off">
-                      <TextField id="outlined-basic" label="Bid" variant="outlined" size="small" onChange={handleChange}/>
+                    <form className={classes.root} onSubmit={handleSubmit} 
+                    noValidate autoComplete="off">
+                      <TextField id="outlined-basic" label="Bid" variant="outlined" 
+                      size="small" onChange={handleChange}/>
                       <span>{"  "}</span>       
-                      <Button size="medium" type="submit" variant="contained" color="Primary" className={classes.margin}>
+                      <Button size="medium" type="submit" variant="contained" 
+                      color="Primary" className={classes.margin}>
                         Place Bid
                       </Button>
                     </form>
                   </div>
                 : 
                   <div>
-                    <Typography variant="h4" className={classes.price} color="textPrimary"  display="inline">
+                    <Typography variant="h4" className={classes.price} 
+                    color="textPrimary"  display="inline">
                       ${product.bidDisplay}{' '}
-                      <Typography variant="subtitle1" color="textSecondary" display="inline">
+                      <Typography variant="subtitle1" color="textSecondary" 
+                      display="inline">
                         is the starting bid
                       </Typography>
                     </Typography>
                 
-                    <form className={classes.root} onSubmit={handleSubmit} noValidate autoComplete="off">
+                    <form className={classes.root} onSubmit={handleSubmit} 
+                    noValidate autoComplete="off">
 
-                    <TextField id="outlined-basic" label="Bid" variant="outlined" size="small" onChange={handleChange}/>
+                    <TextField id="outlined-basic" label="Bid" variant="outlined" 
+                    size="small" onChange={handleChange}/>
                     <span>{"  "}</span>       
-                    <Button size="medium" type="submit" variant="contained" color="Primary" className={classes.margin}>
+                    <Button size="medium" type="submit" variant="contained" 
+                    color="Primary" className={classes.margin}>
                       Place Bid
                     </Button>
                     </form>
                 </div>
               }
+              {/* Render errors input in the bid form, if any. If not,
+              render the countdown timer and number of bids. If auction has ended,
+              render Auction ended instead. */}
                 {formErrors
                     ? 
                       <div>
@@ -195,19 +228,24 @@ function ProductDetails() {
                       product.auctionEnded
                       ? 
                         <div> 
-                          <Typography  variant="subtitle1" color="textSecondary" component="p" fontWeight="fontWeightBold" display="inline">
+                          <Typography  variant="subtitle1" color="textSecondary" 
+                          component="p" fontWeight="fontWeightBold" display="inline">
                             Auction ended!
                           </Typography>
                         </div>
                       :
                         <div><br/>
                           <Countdown date={Date.now() + countdown} renderer={props => 
-                          <Typography  variant="subtitle1" color="textSecondary" component="p">
-                            {'  '}{"Time left: " + props.days + "d " + props.hours + "h " + props.minutes + "m " + props.seconds + "s"}
+                          <Typography  variant="subtitle1" color="textSecondary" 
+                          component="p">
+                            {'  '}{"Time left: " + props.days + "d " + 
+                            props.hours + "h " + props.minutes + "m " + 
+                            props.seconds + "s"}
                           </Typography>} 
                         />
 
-                        <Typography  variant="subtitle1" color="textSecondary" component="p" fontWeight="fontWeightBold">
+                        <Typography  variant="subtitle1" color="textSecondary" 
+                        component="p" fontWeight="fontWeightBold">
                         {product.bidCount}
                           { 
                           (product.bidCount == 1)

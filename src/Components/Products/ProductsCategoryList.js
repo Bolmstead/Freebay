@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import ProductCard from './ProductCard.js'
 import {
     Grid
@@ -18,38 +18,28 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-const ProductList = () => {
+const ProductCategoryList = () => {
   const classes = useStyles();
-  const [products, setProducts] = useState([]);
   const [nextPageQuery, setNextPageQuery] = useState(null);
   const [prevPageQuery, setPrevPageQuery] = useState(null);
+  const { products, setProducts, } = useContext(Context);
+
 
   let query = useQuery()
   let searchQuery = Object.fromEntries(new URLSearchParams(query))
   const [searchObject, setSearchObject] = useState(searchQuery)
 
-
-  // grab the number of the page
-
-  // let subCategory = query.get("subCategory")
-  // let page = query.get("page")
-  // if (!page) {
-  //   page = "1"
-  // };
-
-  console.log("searchObject",searchObject)
   let { page, subCategory} = searchObject
 
  //grab products
   useEffect(() => {
     async function getProductsInCategory() {
       let res = await FreebayAPI.getProducts(searchObject);
-      console.log("res from ProductList", res.products)
       let products = res.products
       let numOfProducts = res.count
+
       setProducts(products);
       
-      /////// PAGINATION /////////
       // Grab page number from the search query. If no page in query, set page to 1
       if (!page) {
         page = "1"
@@ -125,4 +115,4 @@ const ProductList = () => {
       )
 };
 
-export default ProductList;
+export default ProductCategoryList;

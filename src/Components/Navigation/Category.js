@@ -8,18 +8,23 @@ import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import useStyles from './Stylings/styleCategory.js';
 
-// A category of the CategoriesBar component.
-// shows a submenu of sub-categories when clicked.
 
-export default function MenuListComposition({category, subCategories}) {
+/** Material UI button that renders a drop down list of subCategories
+ *  links when clicked on. Each link sends user to a <ProductList> 
+ *  component displaying products of that subcategory.
+ * 
+ * - open: Boolean state that, when true, shows that the dropdown menu is open
+ *  */
+
+export default function Category({category, subCategories}) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
+  // Material UI functionality to render menu dropdown of subcategories
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -28,7 +33,6 @@ export default function MenuListComposition({category, subCategories}) {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-
     setOpen(false);
   };
 
@@ -45,7 +49,6 @@ export default function MenuListComposition({category, subCategories}) {
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
     }
-
     prevOpen.current = open;
   }, [open]);
 
@@ -58,7 +61,6 @@ export default function MenuListComposition({category, subCategories}) {
           aria-haspopup="true"
           onClick={handleToggle}
           style={{textTransform: "none", color: "#282828"}}
-          
         >
           {category}
         </Button>
@@ -66,14 +68,19 @@ export default function MenuListComposition({category, subCategories}) {
           {({ TransitionProps, placement }) => (
             <Grow
               {...TransitionProps}
-              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+              style={{transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom'}}
             >
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
-                  <MenuList style={{ minWidth: "200px" }}autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                  <MenuList style={{ minWidth: "200px" }}autoFocusItem={open} 
+                  id="menu-list-grow" onKeyDown={handleListKeyDown}>
                   {subCategories.map((item)=>{
-                      return <Link id={uuid()} href={"/products?subCategory=" + item} style={{ textDecoration: 'none' }}>
-                                <MenuItem style={{color: "#282828"}} id={uuid()} onClick={handleClose} >{item}</MenuItem>
+                      return <Link id={uuid()} href={"/products?subCategory=" + item} 
+                              style={{ textDecoration: 'none' }}>
+                                <MenuItem style={{color: "#282828"}} id={uuid()} 
+                                onClick={handleClose} >
+                                  {item}
+                                </MenuItem>
                              </Link>
                     })}
                   </MenuList>

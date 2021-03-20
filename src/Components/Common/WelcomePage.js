@@ -1,19 +1,10 @@
-import React, { useState, useContext } from "react";
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
+import React from "react";
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import { useHistory } from "react-router-dom";
-import Alert from '@material-ui/lab/Alert';
-import Context from "../Common/Context";
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 import useStyles from './Stylings/styleWelcomePage'
 
-// Renders page explaining how to use webiste. Renders after a user registers.
+// Renders page explaining how to use website. Renders after a user registers.
 // Can be accessed from link at bottom of home page.
 
 export default function Welcome() {
@@ -35,7 +26,12 @@ export default function Welcome() {
             </Typography>
                 <br/>
             <Typography component="h1" variant="body1" className={classes.bodyText}>
-                To find products, click from the categories above or use the search bar. All products are up for auction, so the user with the highest bid at the end of the time limit "wins" the product! After creating an account, you can find your highest bids, products you've won, and your notifications by clicking on the Profile button from the top right icon.
+                To find products, click from the categories above or use the search 
+                bar. All products are up for auction, so the user with the highest 
+                bid at the end of the time limit "wins" the product! After creating 
+                an account, you can find your highest bids, products you've won, 
+                and your notifications by clicking on the Profile button from the 
+                top right icon.
             </Typography>
                 <br/>
             <Typography component="h1" variant="body1" className={classes.bodyText}>

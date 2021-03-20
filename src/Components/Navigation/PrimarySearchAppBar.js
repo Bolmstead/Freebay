@@ -16,12 +16,10 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Context from "../Common/Context";
-import {Redirect, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import FreebayAPI from "../../Api.js"
 import useStyles from "./Stylings/stylePrimarySearchAppBar.js"
 import NotificationItem from "../User/NotificationItem"
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItem from '@material-ui/core/ListItem';
 
 
 /** Application bar located at the top of every page on site above the 
@@ -44,13 +42,12 @@ import ListItem from '@material-ui/core/ListItem';
  *   icon is clicked. 
  */
 
-
 function PrimarySearchAppBar() {
   const classes = useStyles();
   const [searchTerm, setSearchTerm] = useState("");
   const [accountAnchorEl, setAccountAnchorEl] = useState(null);
   const [notificationsAnchorEl, setNotificationsAnchorEl] = useState(null);
-  const { currentUser, logout, } = useContext(Context);
+  const { currentUser, logout, searchObject, setSearchObject, setProducts} = useContext(Context);
 
   const history = useHistory()
 
@@ -114,7 +111,8 @@ function PrimarySearchAppBar() {
   // with the desired search info
   function handleSubmit(evt) {
     evt.preventDefault();
-    let newUrl = `/products?name=` + searchTerm
+    let newUrl = `/products/searchResults?name=` + searchTerm
+    setProducts(null)
     history.push(newUrl)
    }
     
