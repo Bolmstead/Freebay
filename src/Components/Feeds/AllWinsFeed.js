@@ -6,12 +6,12 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import useStyles from './Stylings/styleWinsFeed.js'
+import useStyles from './Stylings/styleBidsOrWinsFeed.js'
 import FreebayAPI from '../../Api'
 import Divider from '@material-ui/core/Divider';
 
 
-/* Renders a list of products that most recently been won by any 
+/* Renders list of products that were most recently won by any 
 user. To be displayed on the home page */
 
 export default function AllWinsFeed() {

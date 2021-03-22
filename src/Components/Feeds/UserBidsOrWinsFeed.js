@@ -3,21 +3,23 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import CardContent from '@material-ui/core/CardContent';
-import useStyles from './Stylings/styleBidsFeed.js';
+import useStyles from './Stylings/styleBidsOrWinsFeed';
 import FeedItem from './FeedItem.js'
 
 
-/* Renders a list of <FeedItem/> components of products a user
-   has bidded on. To be displayed on every profile page */
+/* Renders a list of <FeedItem/> components of product information. 
+   Will either show a user's highest bids or products won.
+   To be displayed on every profile page */
 
-export default function BidsFeed(userProfile) {
+export default function BidsOrWinsFeed({products}) {
   const classes = useStyles();
-  const { highest_bids } = userProfile.userProfile
+  console.log("productsin BidsorWinsFeed", products)
 
-  // If a user has any bids, map the name of each bidded product 
-  // into a smaller name to fit within the component container
-  if (highest_bids) {
-    highest_bids.forEach( product=> product.name.substring(0, 50))
+
+  // map the name of each product 
+  // to a smaller name to fit within the component container
+  if (products) {
+    products.forEach( product=> product.name.substring(0, 50))
   }
 
   return (
@@ -25,9 +27,9 @@ export default function BidsFeed(userProfile) {
       <Paper className={classes.card} variant="outlined">
         <CardContent className={classes.cardContent}>
           <List className={classes.root}>
-            { highest_bids.length > 0 
+            { products.length > 0 
             ? 
-              highest_bids.map( p => (  
+              products.map( p => (  
                 <FeedItem p={p}/>
               ))
             :

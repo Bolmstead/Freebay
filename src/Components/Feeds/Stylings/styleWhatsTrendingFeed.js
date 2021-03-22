@@ -28,8 +28,12 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 8
   },
   feedTitle: {
-    fontWeight: 600
+    fontWeight: 600,
+    marginBottom: "10px"
   },
+  feedContainer: {
+    marginTop: 8
+  }
 }));
 
 export default useStyles

@@ -5,8 +5,7 @@ import FreebayAPI from '../../Api.js'
 import Context from "../Common/Context";
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import UserBidsFeed from "../Feeds/UserBidsFeed";
-import UserWinsFeed from "../Feeds/UserWinsFeed";
+import UserBidsOrWinsFeed from "../Feeds/UserBidsOrWinsFeed";
 
 import Notifications from "./Notifications";
 import PropTypes from 'prop-types';
@@ -72,13 +71,13 @@ function Profile() {
         <Typography variant="h5" component="h2" align="center">
               Products Won
           </Typography>
-            <UserWinsFeed userProfile={userProfile}/>
+            <UserBidsOrWinsFeed products={products_won}/>
         </Grid>
         <Grid item xs={12} md={6} spacing={3} justify="center" alignItems="top" direction="row" className={classes.feedGrid}>
           <Typography variant="h5" component="h2" align="center">
               Current Bids
           </Typography>
-            <UserBidsFeed userProfile={userProfile}/>
+            <UserBidsOrWinsFeed products={highest_bids}/>
         </Grid>
       </Grid>
 

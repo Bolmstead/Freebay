@@ -5,10 +5,11 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import useStyles from './Stylings/styleWinsFeed.js'
+import useStyles from './Stylings/styleBidsOrWinsFeed.js'
 
-// Renders a list item displaying the product's title and highest bid. 
-// To be rendered within the <UserBidsFeed/> and <UserWinsFeed/> components.
+
+// List item displaying product's title and its highest bid. 
+// Rendere within the <UserBidsFeed/> and <UserWinsFeed/> components.
 
 export default function FeedItem(product) {
     const classes = useStyles();

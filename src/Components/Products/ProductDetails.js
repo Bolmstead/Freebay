@@ -59,6 +59,7 @@ function ProductDetails() {
   useEffect(() => {
     async function getProduct(id) {
       const result = await FreebayAPI.getProduct(id)
+      console.log("result from ProductDetails.js", result)
 
       // If the product has a bid, convert to float type and set with 
       // 2 decimal places (price format) and save to bidPrice variable. 
@@ -166,7 +167,7 @@ function ProductDetails() {
               ? 
                 <div></div>
               : 
-                product.currentBid 
+                product.bidPrice 
                 ?
                   <div>
                     <Typography variant="h4" className={classes.price} 

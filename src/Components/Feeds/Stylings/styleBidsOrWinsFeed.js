@@ -1,17 +1,20 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     backgroundColor: "white",
     textTransform: 'none'
   },
+  listItem: {
+    color: 'black',
+    fontWeight: 'bold' 
+  },
   inline: {
     display: 'inline',
   },
   product: {
-    textTransform: 'none',
-    color: 'black'
+    textTransform: 'none'
   },
   card: {
     backgroundColor: "white",

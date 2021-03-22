@@ -10,7 +10,7 @@ import {
   Typography
 } from '@material-ui/core/'
 
-// Renders a confirmation page showing a user's bid was successfully submitted
+// Renders a page displaying that a user's bid was successfully submitted
 
 export default function BidConfirmation() {
     const classes = useStyles();

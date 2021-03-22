@@ -29,10 +29,10 @@ function WhatsTrendingFeed() {
 
 
   return (
-    <Container>
+    <Container className={classes.feedContainer}>
     { trendingProducts.length > 0
       ?
-      <Grid  container spacing={4} direction="row" justify="center" mt="10" >
+      <Grid  container spacing={4} direction="row" justify="center" >
 
           <ProductCardMini product={trendingProducts[0]} />
           <ProductCardMini product={trendingProducts[1]} />

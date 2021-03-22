@@ -1,4 +1,16 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
+})
 
 const useStyles = makeStyles((theme) => ({
   image: {
@@ -8,9 +20,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   feedTitle: {
-    fontWeight: 600
-  },
-  carouselContainer: {
+    fontWeight: 600,
     
   }
 }));

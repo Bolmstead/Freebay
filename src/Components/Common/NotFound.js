@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';import useStyles from './Stylings/styleWelcomePage'
 
-// Renders a 404 catch all if can't find a route
+// Renders a 404 catch all if can't find route
 
 export default function Welcome() {
     const classes = useStyles();

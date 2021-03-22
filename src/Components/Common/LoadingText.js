@@ -2,7 +2,7 @@ import React from "react";
 import { Grid } from '@material-ui/core/';
 import Typography from '@material-ui/core/Typography';
 
-/** Loading message used by components that fetch API data. */
+/** Loading message displayed by components when fetching API data. */
 
 const LoadingText = () => {
     return (
