@@ -22,6 +22,9 @@ const useStyles = makeStyles({
   },
   noUnderline: {
     textDecoration: 'none'
+  },
+  cardContent:{
+    minHeight: '100px'
   }
 });
 

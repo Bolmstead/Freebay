@@ -34,14 +34,14 @@ function ProductCardMini({product}) {
   const shortName = name.substring(0,50) + "..."
 
   return (
-    <Grid item xs={12} md={4} lg={3}>
+    <Grid item xs={6} sm={6} md={4} lg={3}>
       <Link href={"/product/" + id} color="inherit" style={{ textDecoration: 'none' }}>
         <Card className={classes.root} variant="outlined">
           <CardActionArea>
             <div className={classes.imageContainer}>
               <img className={classes.media} src={imageUrl} title={shortName} />
             </div>
-            <CardContent style={{ minHeight: "120px"}}>
+            <CardContent className={ classes.cardContent }>
               <Rating name="read-only" value={rating} size="small" readOnly display="inline"/>  
               <div>
                 <Typography variant="h6" color="body2" component="p" display="inline"  

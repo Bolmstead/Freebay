@@ -26,7 +26,10 @@ const useStyles = makeStyles((theme) => ({
   },
   listItemName: {
     fontSize: 8
-  }
+  },
+  feedTitle: {
+    fontWeight: 600
+  },
 }));
 
 export default useStyles

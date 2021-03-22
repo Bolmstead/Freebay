@@ -36,18 +36,15 @@ const ProductSearchList = () => {
 
 
 
- //grab products
+ // call API to grab products based on search results
   useEffect(() => {
     async function getProductsInCategory() {
-      console.log("searchQuery in searchResults useEffect",searchQuery)
       let res = await FreebayAPI.getProducts(searchQuery);
-      console.log("res from ProductSearchList", res.products)
       let products = res.products
-      let numOfProducts = res.count
+      let totalAmountOfProducts = res.count
       setProducts(products);
 
       
-      /////// PAGINATION /////////
       // Grab page number from the search query. If no page in query, set page to 1
       let { page } = searchQuery
       if (!page) {
@@ -57,9 +54,8 @@ const ProductSearchList = () => {
       
 
       // Create the url query string for the link to next page
-      if ((numOfProducts - (page*24) > 0)) {
+      if ((totalAmountOfProducts - (page*24) > 0)) {
         const nextPage = (page + 1).toString()
-        query.set("page", nextPage)
         setNextPageQuery(query.toString())
       } else {
         setNextPageQuery(null)

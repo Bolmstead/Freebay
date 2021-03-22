@@ -20,14 +20,14 @@ function Home() {
           <HomePagePic />
         </Grid>
       </Grid>
-      <Grid  container spacing={3} direction="row" alignItems="flex-start">
-        <Grid item xs={12} sm={8} md={4}>
+      <Grid  container spacing={3} direction="row" justify="center">
+        <Grid item xs={12} sm={8} md={4} lg={3}>
           <Typography component="h5" variant="h5" className={classes.feedTitle}>
             New auction winners
           </Typography>
           <AllWinsFeed />
         </Grid>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} sm={8} md={8} lg={9}>
           <Typography component="h5" variant="h5" className={classes.feedTitle}>
             What's trending
           </Typography>
