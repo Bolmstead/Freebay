@@ -4,13 +4,13 @@
 
 
   <p align="center">
-    A website where fake products are bid on with fake money.
+    A website where users bid on fake products with fake money.
     <br />
     <!-- <a href="https://yoga-website.herokuapp.com/">View Heroku Demo</a> -->
   </p>
 </p>
 
-![logo](public/images/logo.png?raw=true "logo")
+![logo](public/Images/"logo.png")
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -22,7 +22,7 @@ Notifications, highest bids, and products a user has won can be viewed on their 
 * View
 
 
-![Website_pic](static/images/dashboard.png?raw=true "website")
+![Website_pic](static/Images/kitten.png?raw=true)
 
 ## Built With
 

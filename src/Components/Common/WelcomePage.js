@@ -19,26 +19,19 @@ export default function Welcome() {
             <Typography component="h1" variant="h3">
                 Welcome to freeBay
             </Typography>
+
         </Grid>
         <Grid item xs={10} md={8}>
+                <br/>
             <Typography component="h1" variant="body1" 
             className={classes.bodyText}>
-                Where you can bid on fake products with fake money!
+                Click from the categories above or use the search 
+                bar to start fake bidding on fake products. All products have an auction time limit and the user with the highest bid at the end of the auction "wins" the product! To see your bids, notifications, and products you've won, click on profile from the top right icon.
             </Typography>
                 <br/>
             <Typography component="h1" variant="body1" 
             className={classes.bodyText}>
-                To find products, click from the categories above or use the search 
-                bar. All products are up for auction, so the user with the highest 
-                bid at the end of the time limit "wins" the product! After creating 
-                an account, you can find your highest bids, products you've won, 
-                and your notifications by clicking on the Profile button from the 
-                top right icon.
-            </Typography>
-                <br/>
-            <Typography component="h1" variant="body1" 
-            className={classes.bodyText}>
-                Enjoy!
+                Login on a new day for a reward! Thanks for playing!
             </Typography>
         </Grid>
     

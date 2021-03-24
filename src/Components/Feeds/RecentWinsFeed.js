@@ -52,7 +52,10 @@ export default function AllWinsFeed() {
               >
                 <ListItemAvatar>
                   <Avatar alt="Product Image" className={classes.large}>
-                    {product.username.charAt(0)}
+                    {product.username
+                    ? product.username.charAt(0)
+                    : "?"
+                    }
                   </Avatar>
                 </ListItemAvatar>
               </Link>

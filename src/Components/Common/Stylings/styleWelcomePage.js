@@ -4,6 +4,9 @@ const useStyles = makeStyles((theme) => ({
   smiley: {
     fontSize: 200,
     color: "#FFD066"
+  },
+  logo: {
+    width: "200px"
   }
 }));
 
