@@ -27,7 +27,8 @@ function ProductCategoriesBar() {
             >
             <Grid item >
               <Category category={"Electronics"} className= "flexItem"
-              subCategories = {["Cell Phones & Accessories", "Computers & Accessories", "Photo", "Smart Home"]}/>
+              subCategories = {["Cell Phones & Accessories", 
+              "Computers & Accessories", "Photo", "Smart Home"]}/>
             </Grid>
             <Grid item >
               <Category category={"Fashion"} className= "flexItem"
@@ -35,7 +36,8 @@ function ProductCategoriesBar() {
             </Grid>
             <Grid item >
               <Category category={"Home & Garden"} className= "flexItem"
-              subCategories = {["Appliances", "Household", "Home Improvement", "Kitchen & Dining"]}/>
+              subCategories = {["Appliances", "Household", 
+              "Home Improvement", "Kitchen & Dining"]}/>
             </Grid>
             <Grid item >
               <Category category={"Movies, TV, & Games"} className= "flexItem"
@@ -43,7 +45,8 @@ function ProductCategoriesBar() {
             </Grid>
             <Grid item >
               <Category category={"Misc."} className= "flexItem" 
-              subCategories = {["Arts & Crafts", "Automotive", "Grocery", "Pet Supplies", "Sports & Hobbies"]}/>
+              subCategories = {["Arts & Crafts", "Grocery", 
+              "Pet Supplies", "Sports & Hobbies"]}/>
             </Grid>
           </Grid>
           </Container>

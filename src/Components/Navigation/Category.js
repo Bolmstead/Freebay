@@ -64,19 +64,23 @@ export default function Category({category, subCategories}) {
         >
           {category}
         </Button>
-        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition >
+        <Popper open={open} anchorEl={anchorRef.current} 
+        role={undefined} transition >
           {({ TransitionProps, placement }) => (
             <Grow
               {...TransitionProps}
-              style={{transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom'}}
+              style={{transformOrigin: placement === 'bottom' 
+                      ? 'center top' : 'center bottom'}}
             >
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList style={{ minWidth: "200px" }}autoFocusItem={open} 
                   id="menu-list-grow" onKeyDown={handleListKeyDown}>
                   {subCategories.map((item)=>{
-                      return <Link id={uuid()} href={"/products?subCategory=" + item} 
-                              style={{ textDecoration: 'none' }}>
+                      return <Link id={uuid()} 
+                              href={"/products?subCategory=" + item} 
+                              style={{ textDecoration: 'none' }}
+                              >
                                 <MenuItem style={{color: "#282828"}} id={uuid()} 
                                 onClick={handleClose} >
                                   {item}

@@ -43,6 +43,8 @@ import {
 
 function ProductDetails() {
   const classes = useStyles();
+  const history = useHistory()
+
   const [infoLoaded, setInfoLoaded] = useState(false);
   const [product, setProduct] = useState(null);
   const [countdown, setCountdown] = useState([]);
@@ -50,7 +52,6 @@ function ProductDetails() {
   const [formErrors, setFormErrors] = useState(null);
 
 
-  const history = useHistory()
   const {id} = useParams();
   const { currentUser, setUpdateAppBar } = useContext(Context);
 
@@ -58,28 +59,33 @@ function ProductDetails() {
   // and save to the product state.
   useEffect(() => {
     async function getProduct(id) {
-      const result = await FreebayAPI.getProduct(id)
-      console.log("result from ProductDetails.js", result)
+      try {
+        const result = await FreebayAPI.getProduct(id)
+        // If the product has a bid, convert to float type and set with 
+        // 2 decimal places (price format) and save to bidPrice variable. 
+        // If no bid, do the same with startingBid.
+        if (result.bidPrice){
+          let bidDisplay = parseFloat(result.bidPrice).toFixed(2);
+          result.bidDisplay = bidDisplay;
+        } else {
+          let bidDisplay = parseFloat(result.startingBid).toFixed(2);
+          result.bidDisplay = bidDisplay;
+        }
+        setProduct(result);
+        console.log("result", result)
 
-      // If the product has a bid, convert to float type and set with 
-      // 2 decimal places (price format) and save to bidPrice variable. 
-      // If no bid, do the same with startingBid.
-      if (result.bidPrice){
-        let bidDisplay = parseFloat(result.bidPrice).toFixed(2);
-        result.bidDisplay = bidDisplay;
-      } else {
-        let bidDisplay = parseFloat(result.startingBid).toFixed(2);
-        result.bidDisplay = bidDisplay;
+
+        // Call the function that creates the auction countdown timer 
+        getTimeLeft(result.auctionEndDt)
+        setInfoLoaded(true)
+      } catch(err){
+        return  history.push("/notFound")
       }
-      setProduct(result);
-
-      // Call the function that creates the auction countdown timer 
-      getTimeLeft(result.auctionEndDt)
-      setInfoLoaded(true)
 
     }
     setInfoLoaded(false)
     getProduct(id)
+    console.log("currentUser", currentUser)
   }, []);
 
   // Function creates the countdown timer by subtracting the current time
@@ -106,6 +112,8 @@ function ProductDetails() {
 
     if (isNaN(bid)){
       setFormErrors("Please submit a real bid")
+    } else if (currentUser.email === product.bidderEmail){
+      setFormErrors("You have already placed a bid on this product")
     } else if (bid > balance){
       setFormErrors("You do not have sufficient funds to place this bid")
     } else if (bid < bidPrice){

@@ -47,7 +47,10 @@ function PrimarySearchAppBar() {
   const [searchTerm, setSearchTerm] = useState("");
   const [accountAnchorEl, setAccountAnchorEl] = useState(null);
   const [notificationsAnchorEl, setNotificationsAnchorEl] = useState(null);
-  const { currentUser, logout, searchObject, setSearchObject, setProducts} = useContext(Context);
+  const { currentUser, logout, searchObject, 
+          setSearchObject, setProducts} = useContext(Context);
+
+  console.log("currentUser", currentUser)
 
   const history = useHistory()
 
@@ -59,6 +62,7 @@ function PrimarySearchAppBar() {
   // the newNotifications state
   if (currentUser){
     allNotifications = currentUser.notifications;
+    console.log("allNotifications", allNotifications)
     unviewedNotifications = allNotifications.filter( n => !n.wasViewed)
   }
   const [newNotifications, setNewNotifications] = useState(unviewedNotifications);
@@ -111,7 +115,7 @@ function PrimarySearchAppBar() {
   // with the desired search info
   function handleSubmit(evt) {
     evt.preventDefault();
-    let newUrl = `/products/searchResults?name=` + searchTerm
+    let newUrl = `/products?name=` + searchTerm
     setProducts(null)
     history.push(newUrl)
    }
@@ -130,7 +134,8 @@ function PrimarySearchAppBar() {
     >
       { currentUser 
       ? 
-        <Link href={"/Profile/" + currentUser.username} color="inherit" style={{ textDecoration: 'none' }}>
+        <Link href={"/Profile/" + currentUser.username} 
+        color="inherit" style={{ textDecoration: 'none' }}>
           <MenuItem onClick={handleProfileMenuClose} className={classes.link}>
             Profile
           </MenuItem>
@@ -140,16 +145,14 @@ function PrimarySearchAppBar() {
           Profile
         </MenuItem>
       } 
-      <Link className="m-2" onClick={logout} color="inherit" className={classes.link} style={{ textDecoration: 'none' }}>
+      <Link className="m-2" onClick={logout} color="inherit" 
+      className={classes.link} style={{ textDecoration: 'none' }}>
         <MenuItem onClick={handleProfileMenuClose}>
           Logout
         </MenuItem>
       </Link>
     </Popover>
   );
-
-
-
 
   const renderNotificationsMenu = (
   
@@ -229,11 +232,13 @@ function PrimarySearchAppBar() {
           ?  
             <div>
               <div className={classes.sectionDesktop}>
-                <Typography className={classes.balance}>{"$" + currentUser.balance}
+                <Typography className={classes.balance}>
+                  {"$" + currentUser.balance}
                 </Typography>
                 <IconButton aria-label="show notifications"
                 onClick={handleNotificationsMenuOpen}>
-                 <Badge badgeContent={newNotifications.length} color="secondary" >      
+                 <Badge badgeContent={newNotifications.length} 
+                 color="secondary" >      
                       <NotificationsIcon 
                       edge="end"
                       aria-label="account of current user"

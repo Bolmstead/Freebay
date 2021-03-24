@@ -116,8 +116,8 @@ class FreebayAPI {
     return res;
   }
 
-  static async getWhatsTrending() {
-    let res = await this.request(`products/getWhatsTrending`);
+  static async recentBidders() {
+    let res = await this.request(`products/recentBidders`);
     console.log("res from getEndingSoon in API.js",res)
     return res;
   }

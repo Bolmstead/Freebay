@@ -10,7 +10,7 @@ import {
   Typography
 } from '@material-ui/core/'
 
-// Renders a page displaying that a user's bid was successfully submitted
+// Displays page explaining a user's bid was successfully submitted
 
 export default function BidConfirmation() {
     const classes = useStyles();
@@ -26,8 +26,10 @@ export default function BidConfirmation() {
           // from API using the product ID in URL
           const result = await FreebayAPI.getProduct(id)
 
-          // Convert current bid (if bid placed) or starting bid (if no bid placed) 
-          // to float and display bid the proper price format. Then add to result object.
+          // Convert current bid (if bid placed) or starting bid 
+          // (if no bid placed) 
+          // to float and display bid the proper price format. 
+          // Then add to result object.
           if (result.bidPrice){
             let bidDisplay = parseFloat(result.bidPrice).toFixed(2);
             result.bidDisplay = bidDisplay;

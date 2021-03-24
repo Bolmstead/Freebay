@@ -57,7 +57,6 @@ export default function Signup() {
     setFormData(data => ({ ...data, [name]: value }));
   }
 
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -158,7 +157,6 @@ export default function Signup() {
               <Link href="/Login" variant="body2">
                 Already have an account? Sign in
               </Link><br/>
-
             </Grid>
           </Grid>
         </form>

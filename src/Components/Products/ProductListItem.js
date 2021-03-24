@@ -12,7 +12,7 @@ import Link from '@material-ui/core/Link';
 
 
 import CardContent from '@material-ui/core/CardContent';
-import useStyles from './Stylings/styleBidsFeed.js'
+import useStyles from './Stylings/styleProductListItem.js'
 
 // Feed of a user's highest bids. To be displayed for anyone viewing the page
 

@@ -6,6 +6,10 @@ import Context from "../Common/Context";
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import UserBidsOrWinsFeed from "../Feeds/UserBidsOrWinsFeed";
+import LoadingText from "../Common/LoadingText"
+import Alert from "../Common/Alert"
+import { Redirect } from "react-router-dom";
+import {useHistory} from 'react-router-dom';
 
 import Notifications from "./Notifications";
 import PropTypes from 'prop-types';
@@ -29,23 +33,31 @@ import {
 
 function Profile() {
   const classes = useStyles();
+  const history = useHistory()
+
   const [userProfile, setUserProfile] = useState(null);
   const {username} = useParams();
   const { currentUser } = useContext(Context);
 
   useEffect(() => {
     async function getUserProfile(username) {
+      try {
         let userObject = await FreebayAPI.getUser(username);
         console.log("username from params in Profile component", username)
         setUserProfile(userObject);
+      } catch(err){
+        return  history.push("/notFound")
+      }
+
     }
     getUserProfile(username);
     console.log("userProfile,", userProfile)
   }, []);
 
-  if (!userProfile) return <CircularProgress />;
 
-  const {  firstName, lastName, email, balance, products_won, highest_bids, notifications } = userProfile
+  if (!userProfile) return <LoadingText />;
+
+  const {  firstName, lastName, products_won, highest_bids } = userProfile
 
   return (
     <Container >
@@ -64,7 +76,7 @@ function Profile() {
         </Grid>
       </Grid>
       <Grid container justify="center" alignItems="center"   direction="row" spacing={3} className={classes.feedGrid}>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={7}>
             <Notifications userProfile={userProfile}/>
         </Grid>
         <Grid item xs={12} md={6} spacing={3} justify="center" alignItems="top" direction="row" className={classes.feedGrid}>

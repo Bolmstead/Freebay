@@ -21,8 +21,10 @@ function ProductCard({product}) {
       bidderUsername, bidPrice } = product
   let bidDisplay;
 
-  // If the product has a bidPrice, display it on card, otherwise show starting bid.
-  // If either bidPrice or startingBid, set as a float type and show 2 decimal places
+  // If the product has a bidPrice, display it on card, 
+  // otherwise show starting bid.
+  // If either bidPrice or startingBid, set as a float 
+  // type and show 2 decimal places
   // to be displayed as price on a card. 
   if (bidPrice){
     bidDisplay = parseFloat(bidPrice).toFixed(2);
@@ -30,10 +32,12 @@ function ProductCard({product}) {
     bidDisplay = parseFloat(startingBid).toFixed(2);
   }
 
-  // Set a shortened product name ending with "..." to a variable to be displayed on card
+  // Set a shortened product name ending with "..." to a variable 
+  // to be displayed on card
   const shortName = name.substring(0,50) + "..."
 
-  // Function that subtracts current datetime object from the ending auction datetime parameter
+  // Function that subtracts current datetime object from the 
+  // ending auction datetime parameter
   // and returns an object with the days and hours remaining in the auction. 
   function getTimeRemaining(endtime){
     const total = Date.parse(endtime) - Date.parse(new Date());
@@ -42,15 +46,18 @@ function ProductCard({product}) {
     return { days, hours };
   }
 
-  // Execute getTimeRemaining with the product's ending datetime object as a parameter
+  // Execute getTimeRemaining with the product's ending 
+  // datetime object as a parameter
   const auctionEndObj = new Date(auctionEndDt)
   const countdown = getTimeRemaining(auctionEndObj)
 
-  // Save the remaining days and hours of the auction into a string to be displayed on the card.
+  // Save the remaining days and hours of the auction 
+  // into a string to be displayed on the card.
   const countdownDisplay = `${countdown.days}d ${countdown.hours}h`
 
   return (
-    <Link href={"/product/" + id} color="inherit" style={{ textDecoration: 'none' }}>
+    <Link href={"/product/" + id} color="inherit" 
+    style={{ textDecoration: 'none' }}>
     <Card className={classes.root} variant="outlined">
       <CardActionArea>
         <div className={classes.imageContainer}>
@@ -61,29 +68,37 @@ function ProductCard({product}) {
             <Typography gutterBottom variant="body2" component="p">
               {shortName}
             </Typography>
-            <Rating name="read-only" value={rating} size="small" readOnly display="inline"/>   
+            <Rating name="read-only" value={rating} 
+            size="small" readOnly display="inline"/>   
           </div>
           { bidderUsername
           ?
             <div>
-              <Typography variant="h6" color="body2" component="p" display="inline"  className={classes.price}>
+              <Typography variant="h6" color="body2" component="p"
+               display="inline"  className={classes.price}>
                 ${bidDisplay}{'  '}
               </Typography>
-              <Typography variant="body2" color="textSecondary" component="p" display="inline" >
+              <Typography variant="body2" color="textSecondary" 
+              component="p" display="inline" >
                 bid by {bidderUsername}
               </Typography>
             </div>
           :
             <div>
-              <Typography variant="h6" color="body2" component="p" display="inline" fontWeight="fontWeightBold" className={classes.price}>
+              <Typography variant="h6" color="body2" component="p"
+               display="inline" fontWeight="fontWeightBold" 
+               className={classes.price}>
                 ${bidDisplay}{'  '}
               </Typography>
-              <Typography variant="body2" color="textSecondary" display="inline" component="p">
+              <Typography variant="body2" color="textSecondary" 
+              display="inline" component="p">
                 Starting bid
               </Typography>
             </div>
           }
-          <Typography variant="body2" color="textSecondary" component="p">{countdownDisplay}</Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {countdownDisplay}
+          </Typography>
         </CardContent>
       </CardActionArea>
     </Card>

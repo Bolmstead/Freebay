@@ -30,8 +30,9 @@ export const TOKEN_STORAGE_ID = "freebay-token";
  *   Is required to be set for most API calls. This is initially read from
  *   localStorage and synced to there via the useLocalStorage hook.
  * 
- * - updateAppBar: Boolean value that, when changed, the useEffect loadUserInfo() is triggered
- *   which pulls the user's most current information held in the API. The currentUser state is
+ * - updateAppBar: Boolean value that, when changed, the useEffect 
+ *   loadUserInfo() is triggered which pulls the user's most current 
+ *   information held in the API. The currentUser state is
  *   then changed which triggers a rerender of the App bar to show show the most 
  *   current balance and the notifications icon
  * 
@@ -128,14 +129,14 @@ function App() {
 
   return (
     <div className={classes.appWrapper}>
-        <Context.Provider value={{ currentUser, setCurrentUser, signup, login, logout, setUpdateAppBar, searchObject, setSearchObject, products, setProducts}}>
+      <Context.Provider value={{ currentUser, setCurrentUser, signup, login, logout, setUpdateAppBar, searchObject, setSearchObject, products, setProducts}}>
         <Container>
-        <PrimarySearchAppBar />
-        <hr className={classes.hr}/>
-        <CategoriesBar/>
-        <Routes/>
+          <PrimarySearchAppBar />
+          <hr className={classes.hr}/>
+          <CategoriesBar/>
+          <Routes/>
         </Container>
-        </Context.Provider>
+      </Context.Provider>
     </div>
   );
 }

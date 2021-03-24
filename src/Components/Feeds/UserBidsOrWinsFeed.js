@@ -13,14 +13,16 @@ import FeedItem from './FeedItem.js'
 
 export default function BidsOrWinsFeed({products}) {
   const classes = useStyles();
-  console.log("productsin BidsorWinsFeed", products)
-
 
   // map the name of each product 
   // to a smaller name to fit within the component container
   if (products) {
-    products.forEach( product=> product.name.substring(0, 50))
+    products.map( product => ( 
+      product.name = (product.name.substring(0, 80) + "...")
+    ));    
+    console.log("products",products)
   }
+
 
   return (
     <div className={classes.root}>
@@ -33,7 +35,8 @@ export default function BidsOrWinsFeed({products}) {
                 <FeedItem p={p}/>
               ))
             :
-              <Typography variant="h6" component="h2" align="center" color="textSecondary">
+              <Typography variant="h6" component="h2" 
+              align="center" color="textSecondary">
                 <br></br>None yet!
               </Typography>
             }

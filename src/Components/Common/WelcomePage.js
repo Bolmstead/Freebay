@@ -20,12 +20,14 @@ export default function Welcome() {
                 Welcome to freeBay
             </Typography>
         </Grid>
-        <Grid item xs={10} md={6}>
-            <Typography component="h1" variant="body1" className={classes.bodyText}>
-                The website that lets you bid on fake products with fake money!
+        <Grid item xs={10} md={8}>
+            <Typography component="h1" variant="body1" 
+            className={classes.bodyText}>
+                Where you can bid on fake products with fake money!
             </Typography>
                 <br/>
-            <Typography component="h1" variant="body1" className={classes.bodyText}>
+            <Typography component="h1" variant="body1" 
+            className={classes.bodyText}>
                 To find products, click from the categories above or use the search 
                 bar. All products are up for auction, so the user with the highest 
                 bid at the end of the time limit "wins" the product! After creating 
@@ -34,7 +36,8 @@ export default function Welcome() {
                 top right icon.
             </Typography>
                 <br/>
-            <Typography component="h1" variant="body1" className={classes.bodyText}>
+            <Typography component="h1" variant="body1" 
+            className={classes.bodyText}>
                 Enjoy!
             </Typography>
         </Grid>
