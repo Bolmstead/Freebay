@@ -21,22 +21,19 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-The freeBay website is an eBay clone that allows users to search for and bid on fake products. Once a user creates an account, they receive $100 freeBay bucks to bid on any products. They can also receive $100 each time they login on a separate day.
+FreeBay is an eBay clone that allows users to search for and bid on fake products. Each product has an auction time limit and the highest bid at the end of the limit, "wins" the product. A user will receive a notification based on activity within the app such as, winning a product, being outbid, or receiving a daily reward. A user's notifications, highest bids, and products won can all be viewed on their profile. Any user can view any profile, however notifications can only be seen by the owner.
 <br><br/>
-
-  <p align="center">
-    <img src="public/Images/Productpage.png?raw=true" >
-  </p>
-<br><br/>
-
-Each product has an auction time limit and the highest bid at the end of the limit, "wins" the product. A user will receive a notification based on activity within the app such as, winning a product, being outbid, or receiving a daily reward. Notifications, a user's highest bids, and products a user has won can all be viewed on their profile. Any user can view any profile, however notifications can only be seen by the owner.
-<br/>
-
   <p align="center">
     <img src="public/Images/Profile.png?raw=true" >
   </p>
+Once a user creates an account, they receive $100 freeBay bucks to bid on any products. They can also receive $100 each time they login on a separate day. On a product's detail page, a user can see all of the products information along with an auction countdown timer and the current bidder.
+<br><br/>
+  <p align="center">
+    <img src="public/Images/Productpage.png?raw=true" >
+  </p>
 
 Each product's condition, rating, number of ratings, and auction end time are generated randomly, however all other product data in freeBay was scraped from a variety of Amazon's Best Sellers web pages using Python. The products are then pulled and manipulated to the frontend website by calling the [backend API](https://github.com/freebay-backend). 
+<br><br/>
 
   <p align="center">
     <img src="public/Images/ProductListPage.png?raw=true" >
