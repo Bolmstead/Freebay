@@ -20,6 +20,7 @@ import {useHistory} from 'react-router-dom';
 import FreebayAPI from "../../Api.js"
 import useStyles from "./Stylings/stylePrimarySearchAppBar.js"
 import NotificationItem from "../User/NotificationItem"
+import { TramRounded } from "@material-ui/icons";
 
 
 /** Application bar located at the top of every page on site above the 
@@ -47,10 +48,8 @@ function PrimarySearchAppBar() {
   const [searchTerm, setSearchTerm] = useState("");
   const [accountAnchorEl, setAccountAnchorEl] = useState(null);
   const [notificationsAnchorEl, setNotificationsAnchorEl] = useState(null);
-  const { currentUser, logout, searchObject, 
-          setSearchObject, setProducts} = useContext(Context);
-
-  console.log("currentUser", currentUser)
+  const [viewedNotifications, setViewedNotifications] = useState(false);
+  const { currentUser, logout, setProducts} = useContext(Context);
 
   const history = useHistory()
 
@@ -62,7 +61,6 @@ function PrimarySearchAppBar() {
   // the newNotifications state
   if (currentUser){
     allNotifications = currentUser.notifications;
-    console.log("allNotifications", allNotifications)
     unviewedNotifications = allNotifications.filter( n => !n.wasViewed)
   }
   const [newNotifications, setNewNotifications] = useState(unviewedNotifications);
@@ -70,7 +68,6 @@ function PrimarySearchAppBar() {
   // update searchTerm state as user types into search bar
   function handleChange(evt) {
     setSearchTerm(evt.target.value);
-    console.log("searchTerm", searchTerm)
   }
 
   // Value of these variables determine whether the dropdown menu 
@@ -92,24 +89,25 @@ function PrimarySearchAppBar() {
   // Also set the NewNotifications state to 0 to make red badge disappear
   const handleNotificationsMenuOpen = (event) => {
     setNotificationsAnchorEl(event.currentTarget);
+    viewNotificationsApi()
     setNewNotifications(0)
   };
   const handleNotificationsMenuClose = () => {
     setNotificationsAnchorEl(null);
   };
 
+  async function viewNotificationsApi() {
+    try {
+      await FreebayAPI.viewNotifications(currentUser.email);
+      console.log("viewNotifications API call")
+    } catch (err) {
+    }
+  }
+
   // Once the newNotifications state has changed, the user has seen
   // all of their notifications. Therefore call the API to set all of
   // the user's was_viewed property in notifications to true.
-  useEffect(function viewNotifications() {
-    async function viewNotificationsApi() {
-        try {
-          await FreebayAPI.viewNotifications(currentUser.email);
-        } catch (err) {
-        }
-      }
-    viewNotificationsApi();
-  }, [newNotifications]);
+
 
   // When a user submits a search term in the search bar, go to new page
   // with the desired search info
