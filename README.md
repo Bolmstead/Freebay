@@ -25,13 +25,12 @@ The freeBay website is an eBay clone that allows users to search for and bid on 
 <br><br/>
 
   <p align="center">
-  Product Details Page
     <img src="public/Images/Productpage.png?raw=true" >
   </p>
 <br><br/>
 
 Notifications, highest bids, and products a user has won can be viewed on their profile. All profiles are public, however notifications can only be seen by the owner. The most recent auction winners and trending products can be seen from the homepage. All product data was scraped from Amazon's Best Sellers web pages using Python.
-<br><br/>
+<br/>
 
   <p align="center">
     <img src="public/Images/ProductListPage.png?raw=true" >
@@ -66,30 +65,46 @@ To get a local copy up and running follow these steps:
 
 ....
 
-<!-- ### Clone Repo
+### Clone Repos
 
-1. Clone the repo by clicking on the green "Code" button at the top of the page or enter in the following in your terminal:
+1. Clone the frontend repo by clicking Download Zip from the green Code button at the top of the page or enter the following in the desired directory in your terminal:
    ```sh
-   git clone https://github.com/Bolmstead/Yoga.git
+   git clone https://github.com/Bolmstead/freebay-frontend.git
    ```
-2. (optional but recommended) Create a [virtual environment](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/) in the same directory of the cloned, unzipped code.
+2. Clone the backend repo to a separate directory by going to [https://github.com/freebay-backend](https://github.com/freebay-backend). From there, click Download Zip again from the green Code button at the top of the page or enter the following in a separate directory in your terminal:
+   ```sh
+   git clone https://github.com/Bolmstead/freebay-backend.git
+   ```
 
 ### Library Installations
 
-3. Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the requirements.txt.
+3. After cloning each repo (and unzipping if downloaded), install the libraries in each frontend and backend repo.
 
-  ```sh
-  pip install -r requirements.txt
-  ```
+    ```sh
+    npm install
+    ```
 
 ### Postgres Installation
 
 4. Install [Postgres](https://www.postgresql.org/).
-5. Create a database named "yoga" in your terminal.
-  ```sh
-  createdb yoga
-  ```
-6. Start a server in your projects directory and you are done! -->
+5. Create a database named "freebay" in your terminal in the backend directory.
+    ```sh
+    createdb freebay
+    ```
+
+### Seed Products to Database 
+
+6. Run the following command in your terminal in the backend directory to create the database tables.
+    ```sh
+    psql -d freebay -f freebay-schema.sql
+    ```
+
+7. Open an API client of your choice. If you don't have one, you can download and use [Insomnia](https://insomnia.rest/download). Once opened, run a GET request for the following URL to seed all the products to the database:
+    ```sh
+    http://127.0.0.1:3001/products/SEEDALLPRODUCTS
+    ```
+
+8. Start servers in both frontend and backend directories and you are done!
 
 
 ## Roadmap
@@ -103,5 +118,5 @@ Stretch goals for this project:
 
 Berkley Olmstead - olms2074@gmail.com - [Linkedin](https://www.linkedin.com/in/berkleyolmstead/)
 
-Project Links: [https://github.com/freebay-frontend](https://github.com/freebay-frontend)
+Project Links: [https://github.com/freebay-frontend](https://github.com/freebay-frontend) <br/>
                [https://github.com/freebay-backend](https://github.com/freebay-backend)
