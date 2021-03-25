@@ -33,15 +33,30 @@ function RecentBiddersFeed() {
     { recentProductsBiddedOn.length > 0
       ?
       <Grid  container spacing={4} direction="row" justify="center" >
-
+        { recentProductsBiddedOn[0] 
+        ?
           <ProductCardMini product={recentProductsBiddedOn[0]} />
+        : <div></div>
+        }
+        { recentProductsBiddedOn[1] 
+        ?
           <ProductCardMini product={recentProductsBiddedOn[1]} />
+        : <div></div>
+        }
+        { recentProductsBiddedOn[2] 
+        ?
           <Hidden smDown>
             <ProductCardMini product={recentProductsBiddedOn[2]} />
           </Hidden>
-          <Hidden mdDown>
+        : <div></div>
+        }
+        { recentProductsBiddedOn[3] 
+        ?
+          <Hidden smDown>
             <ProductCardMini product={recentProductsBiddedOn[3]} />
           </Hidden>
+        : <div></div>
+        }
       </Grid>
       :
       <Grid  container spacing={8} direction="row" justify="flex-start" mt="10" >

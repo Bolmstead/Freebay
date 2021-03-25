@@ -52,11 +52,14 @@ const ProductsList = () => {
         page = "1"
       }
       page = parseInt(page)
+
+      console.log("page", page)
       
 
       // Create the url query string for the link to next page
       if ((totalAmountOfProducts - (page*24) > 0)) {
         const nextPage = (page + 1).toString()
+        searchQuery.page = nextPage
         setNextPageQuery(query.toString())
       } else {
         setNextPageQuery(null)
@@ -79,6 +82,10 @@ const ProductsList = () => {
     }
     getProductsInCategory()
   }, []);
+
+  console.log("nextPageQuery", nextPageQuery)
+  console.log("prevPageQuery", prevPageQuery)
+
 
   if (!products) return <LoadingText />;
   

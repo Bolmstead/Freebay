@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import List from '@material-ui/core/List';
+import Grid from '@material-ui/core/Grid';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -42,7 +43,7 @@ export default function AllWinsFeed() {
 
   return (
     <List className={classes.root}>
-      { allWins
+      { allWins[0]
       ? 
         allWins.map( product => (
           <div>
@@ -84,9 +85,18 @@ export default function AllWinsFeed() {
           </div>
         ))
       :
-        <ListItem alignItems="flex-start">
-          <ListItemText secondary="None yet!"/>
-        </ListItem>
+      <Grid
+      container
+      direction="column"
+      alignItems="center"
+      justify="center"
+      >
+          <Grid item xs={12}>
+              <Typography variant="h6" color="textSecondary" gutterBottom>
+                  None yet!
+              </Typography>  
+          </Grid>   
+      </Grid>
       }
     </List>
   )}

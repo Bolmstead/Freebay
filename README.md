@@ -1,28 +1,38 @@
 <p align="center">
 
-  <h2 align="center">FreeBay!</h2>
-
-
-  <p align="center">
-    A website where users bid on fake products with fake money.
-    <br />
-    <!-- <a href="https://yoga-website.herokuapp.com/">View Heroku Demo</a> -->
-  </p>
+<p align="center">
+<img src="public/Images/logo.png?raw=true" width=300 >
 </p>
 
-![logo](public/Images/"logo.png")
+  <p align="center">
+    A website where users bid on fake products with fake money!
+    <br />
+  </p>
+
+  <p align="center">
+    <img src="public/Images/Homepage.png?raw=true" >
+  </p>
+
+</p>
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
 The freeBay website is an eBay clone that allows users to search for and bid on fake products. After a user creates an account, they receive 100 freeBay bucks that can be used to bid on any products. Each product has a time limit for how long it is held in auction. The user with the highest bid on a product at the end of the auction time limit, "wins" the product. 
 
+  <p align="center">
+    <img src="public/Images/ProductPage.png?raw=true" >
+  </p>
+
 Notifications, highest bids, and products a user has won can be viewed on their profile. All profiles are public, however notifications can only be seen by the owner. The most recent auction winners and trending products can be seen from the homepage. All product data was scraped from Amazon's Best Sellers web pages using Python.
+
+  <p align="center">
+    <img src="public/Images/ProductListPage.png?raw=true" >
+  </p>
 
 * View
 
 
-![Website_pic](static/Images/kitten.png?raw=true)
 
 ## Built With
 
