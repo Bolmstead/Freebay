@@ -21,7 +21,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-The freeBay website is an eBay clone that allows users to search for and bid on fake products. After a user creates an account, they receive 100 freeBay bucks that can be used to bid on any products. Each product has a time limit for how long it is held in auction. The user with the highest bid on a product at the end of the auction time limit, "wins" the product. 
+The freeBay website is an eBay clone that allows users to search for and bid on fake products. Once a user creates an account, they receive $100 freeBay bucks to bid on any products. They can also receive $100 each time they login on a separate day.
 <br><br/>
 
   <p align="center">
@@ -29,13 +29,18 @@ The freeBay website is an eBay clone that allows users to search for and bid on 
   </p>
 <br><br/>
 
-Notifications, highest bids, and products a user has won can be viewed on their profile. All profiles are public, however notifications can only be seen by the owner. The most recent auction winners and trending products can be seen from the homepage. All product data was scraped from Amazon's Best Sellers web pages using Python.
+Each product has an auction time limit and the highest bid at the end of the limit, "wins" the product. A user will receive a notification based on activity within the app such as, winning a product, being outbid, or receiving a daily reward. Notifications, a user's highest bids, and products a user has won can all be viewed on their profile. Any user can view any profile, however notifications can only be seen by the owner.
 <br/>
+
+  <p align="center">
+    <img src="public/Images/Profile.png?raw=true" >
+  </p>
+
+Each product's condition, rating, number of ratings, and auction end time are generated randomly, however all other product data in freeBay was scraped from a variety of Amazon's Best Sellers web pages using Python. The products are then pulled and manipulated to the frontend website by calling the [backend API](https://github.com/freebay-backend). 
 
   <p align="center">
     <img src="public/Images/ProductListPage.png?raw=true" >
   </p>
-
 
 ## Built With
 
