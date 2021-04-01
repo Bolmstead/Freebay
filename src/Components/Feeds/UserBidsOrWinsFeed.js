@@ -14,15 +14,6 @@ import FeedItem from './FeedItem.js'
 export default function BidsOrWinsFeed({products}) {
   const classes = useStyles();
 
-  // map the name of each product 
-  // to a smaller name to fit within the component container
-  if (products) {
-    products.map( product => ( 
-      product.name = (product.name.substring(0, 80) + "...")
-    ));    
-    console.log("products",products)
-  }
-
 
   return (
     <div className={classes.root}>

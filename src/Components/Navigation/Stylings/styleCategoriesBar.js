@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
+
 export const useStyles = makeStyles((theme) => ({
   center: {
     alignItems: 'center',
@@ -45,12 +46,13 @@ export const useStyles = makeStyles((theme) => ({
   },
   sectionDesktop: {
     display: 'none',
+    backgroundColor: "#FFFFFF",
+    border: 1,
     [theme.breakpoints.up('md')]: {
       display: 'flex',
     },
   },
   sectionMobile: {
-    display: 'flex',
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
@@ -59,7 +61,20 @@ export const useStyles = makeStyles((theme) => ({
     flex: 1,
     textTransform: 'none',
     },
-
-}));
+  accordion: {
+    border: '1px solid rgba(0, 0, 0, .125)',
+    boxShadow: 'none',
+    '&:not(:last-child)': {
+      borderBottom: 0,
+    },
+    '&:before': {
+      display: 'none',
+    },
+    '&$expanded': {
+      margin: 'auto',
+    },
+  },
+  expanded: {},
+}))
 
 export default  useStyles;

@@ -14,8 +14,6 @@ import useStyles from './Stylings/styleProductCard.js'
 
 function ProductCard({product}) {
   const classes = useStyles();
-
-  console.log("product in productcard", product)
   
   let {id, name, startingBid, imageUrl, rating, auctionEndDt, 
       bidderUsername, bidPrice } = product

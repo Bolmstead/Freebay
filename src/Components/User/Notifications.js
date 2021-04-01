@@ -42,7 +42,6 @@ export default function Notifications(userProfile) {
   console.log("notifications descrucutred from currentUser in Notifications component", notifications)
 
 
-
   return (
     <div>
     <Typography variant="h5" component="h2" align="center">

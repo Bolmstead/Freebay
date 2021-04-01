@@ -11,9 +11,7 @@ import useStyles from './Stylings/styleProductList.js'
 import {Typography} from '@material-ui/core/'
 import Context from "../Common/Context";
 import LoadingText from "../Common/LoadingText";
-import {Redirect, useHistory} from 'react-router-dom';
-
-
+import {Redirect, useHistory, Link} from 'react-router-dom';
 
 
 
@@ -21,29 +19,27 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-const ProductsList = () => {
+const ProductsList = ({location}) => {
   const classes = useStyles();
   const [nextPageQuery, setNextPageQuery] = useState(null);
   const [prevPageQuery, setPrevPageQuery] = useState(null);
   const [pageTitle, setPageTitle] = useState(null)
   const { products, setProducts } = useContext(Context);
   const history = useHistory()
-  console.log("history in ProductSearchList", history)
 
 
   let query = useQuery()
   let searchQuery = Object.fromEntries(new URLSearchParams(query))
-  console.log("searchQuery",searchQuery)
-
-
 
  // call API to grab products based on search results
   useEffect(() => {
     async function getProductsInCategory() {
       let res = await FreebayAPI.getProducts(searchQuery);
-      let products = res.products
+      
+      let productsResult = res.products
       let totalAmountOfProducts = res.count
-      setProducts(products);
+
+      setProducts(productsResult);
 
       
       // Grab page number from the search query. If no page in query, set page to 1
@@ -53,14 +49,13 @@ const ProductsList = () => {
       }
       page = parseInt(page)
 
-      console.log("page", page)
       
 
       // Create the url query string for the link to next page
       if ((totalAmountOfProducts - (page*24) > 0)) {
         const nextPage = (page + 1).toString()
-        searchQuery.page = nextPage
-        setNextPageQuery(query.toString())
+        searchQuery["page"] = nextPage
+        setNextPageQuery(searchQuery.toString())
       } else {
         setNextPageQuery(null)
       }
@@ -74,20 +69,13 @@ const ProductsList = () => {
         setPrevPageQuery(null)
       }
 
-      if (searchQuery.name){
-        setPageTitle("Search Results for " + searchQuery.name)
-      } else {
-        setPageTitle((products[0].subCategory) + " Products")
-      }
     }
     getProductsInCategory()
+    // setPageTitle(products[0].subCategory)
   }, []);
 
-  console.log("nextPageQuery", nextPageQuery)
-  console.log("prevPageQuery", prevPageQuery)
-
-
   if (!products) return <LoadingText />;
+  
   
 
   return (

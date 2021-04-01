@@ -10,10 +10,14 @@ import Container from '@material-ui/core/Container';
 import useStyles from './Stylings/styleRecentBidsFeed.js';
 import Hidden from '@material-ui/core/Hidden';
 import withWidth from '@material-ui/core/withWidth';
+import { createMuiTheme } from '@material-ui/core/styles';
+
+
 
 
 /* Renders a list of <ProductCardMini/> components of products with
    the most recent bids. To be displayed on the Home page */
+   
 
 function RecentBiddersFeed() {
   const [recentProductsBiddedOn, setRecentProductsBiddedOn] = useState([]);
@@ -52,7 +56,7 @@ function RecentBiddersFeed() {
         }
         { recentProductsBiddedOn[3] 
         ?
-          <Hidden smDown>
+          <Hidden mdDown>
             <ProductCardMini product={recentProductsBiddedOn[3]} />
           </Hidden>
         : <div></div>

@@ -28,6 +28,7 @@ export default function NotificationItem(n) {
   const classes = useStyles();
   const { currentUser } = useContext(Context);
 
+
   if (!currentUser) {
     return <div></div>
   }

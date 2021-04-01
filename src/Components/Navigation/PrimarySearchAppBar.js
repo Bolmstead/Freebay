@@ -48,7 +48,6 @@ function PrimarySearchAppBar() {
   const [searchTerm, setSearchTerm] = useState("");
   const [accountAnchorEl, setAccountAnchorEl] = useState(null);
   const [notificationsAnchorEl, setNotificationsAnchorEl] = useState(null);
-  const [viewedNotifications, setViewedNotifications] = useState(false);
   const { currentUser, logout, setProducts} = useContext(Context);
 
   const history = useHistory()
@@ -61,7 +60,8 @@ function PrimarySearchAppBar() {
   // the newNotifications state
   if (currentUser){
     allNotifications = currentUser.notifications;
-    unviewedNotifications = allNotifications.filter( n => !n.wasViewed)
+    unviewedNotifications = allNotifications.filter( n => !n.wasViewed).map(n => n.text = (n.text.substring(0, 50) + "..."))
+    console.log("unviewedNotifications",unviewedNotifications)
   }
   const [newNotifications, setNewNotifications] = useState(unviewedNotifications);
 
