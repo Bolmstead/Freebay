@@ -11,7 +11,7 @@ import FeedItem from './FeedItem.js'
    Will either show a user's highest bids or products won.
    To be displayed on every profile page */
 
-export default function BidsOrWinsFeed({products}) {
+export default function UserBidsOrWinsFeed({products}) {
   const classes = useStyles();
 
 

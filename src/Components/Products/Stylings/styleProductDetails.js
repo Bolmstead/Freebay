@@ -43,7 +43,10 @@ const useStyles = makeStyles({
     top: 0,
     display: "inline",
     color: "gray"
-    }
+    },
+  redText: {
+    color: "#FF0000"
+  }
 });
 
 export default useStyles;

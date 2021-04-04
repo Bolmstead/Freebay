@@ -30,28 +30,44 @@ function ProductCard({product}) {
     bidDisplay = parseFloat(startingBid).toFixed(2);
   }
 
-  // Set a shortened product name ending with "..." to a variable 
-  // to be displayed on card
-  const shortName = name.substring(0,50) + "..."
-
+  // Set a shortened product name ending with "..." to a 
+  // variable to be displayed on card
+  if (name.length > 52){
+    name = name.substring(0,50) + "..."
+  }
   // Function that subtracts current datetime object from the 
   // ending auction datetime parameter
   // and returns an object with the days and hours remaining in the auction. 
   function getTimeRemaining(endtime){
     const total = Date.parse(endtime) - Date.parse(new Date());
-    const hours = Math.floor( (total/(1000*60*60)) % 24 );
     const days = Math.floor( total/(1000*60*60*24) );
-    return { days, hours };
+    const hours = Math.floor( (total/(1000*60*60)) % 24 );
+    const minutes = Math.floor( (total/1000/60) % 60 );
+
+    return { days, hours, minutes };
   }
 
   // Execute getTimeRemaining with the product's ending 
   // datetime object as a parameter
   const auctionEndObj = new Date(auctionEndDt)
   const countdown = getTimeRemaining(auctionEndObj)
+  console.log("countdown", countdown)
 
   // Save the remaining days and hours of the auction 
   // into a string to be displayed on the card.
-  const countdownDisplay = `${countdown.days}d ${countdown.hours}h`
+  let countdownDisplay;
+  let onlyMinutesLeft;
+  
+  if (countdown.days < 1) {
+    if (countdown.hours < 1) {
+      countdownDisplay = `Only ${countdown.minutes} minutes left!`;
+      onlyMinutesLeft = true;
+    } else {
+      countdownDisplay = `${countdown.hours}h ${countdown.minutes}m`
+    }
+  } else {
+    countdownDisplay = `${countdown.days}d ${countdown.hours}h ${countdown.minutes}m`
+  } 
 
   return (
     <Link href={"/product/" + id} color="inherit" 
@@ -59,12 +75,12 @@ function ProductCard({product}) {
     <Card className={classes.root} variant="outlined">
       <CardActionArea>
         <div className={classes.imageContainer}>
-          <img className={classes.media} src={imageUrl} title={shortName} />
+          <img className={classes.media} src={imageUrl} title={name} />
         </div>
         <CardContent style={{ minHeight: "120px"}}>
           <div>
             <Typography gutterBottom variant="body2" component="p">
-              {shortName}
+              {name}
             </Typography>
             <Rating name="read-only" value={rating} 
             size="small" readOnly display="inline"/>   
@@ -94,9 +110,16 @@ function ProductCard({product}) {
               </Typography>
             </div>
           }
-          <Typography variant="body2" color="textSecondary" component="p">
-            {countdownDisplay}
-          </Typography>
+          { (onlyMinutesLeft)
+          ?
+            <Typography variant="body2" className = {classes.redText}component="p">
+              {countdownDisplay}
+            </Typography>
+          :
+            <Typography variant="body2" color="textSecondary" component="p">
+              {countdownDisplay}
+            </Typography>
+          }
         </CardContent>
       </CardActionArea>
     </Card>

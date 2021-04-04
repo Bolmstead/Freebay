@@ -23,7 +23,6 @@ class FreebayAPI {
     try {
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err) {
-      console.error("API Error:", err.response);
       let message = err.response.data.error.message;
       throw Array.isArray(message) ? message : [message];
     }
@@ -85,7 +84,7 @@ class FreebayAPI {
   /** Get recent bids */
 
   static async getRecentBids(numOfProducts) {
-    let res = await this.request(`bids/recent/${numOfProducts}`, res);
+    let res = await this.request(`bids/recent/${numOfProducts}`);
     // console.log("res from api.js addBid method", res)
     return res;
   }
@@ -94,13 +93,13 @@ class FreebayAPI {
 
   static async addBid(productId, bidAmount) {
     let data={}
-    let res = await this.request(`products/${productId}/placeBid/${bidAmount}`, data, "post");
+    let res = await this.request(`bids/${productId}/placeBid/${bidAmount}`, data, "post");
     // console.log("res from api.js addBid method", res)
     return res;
   }
 
   static async getRecentWins(numOfProducts) {
-    let res = await this.request(`products/recent/${numOfProducts}`);
+    let res = await this.request(`products-won/recent/${numOfProducts}`);
     console.log("res in api.js getRecentWins()",res)
     return res;
   }

@@ -24,8 +24,8 @@ import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
 // If a user has not viewed a notification, the notification will be highlighted.
 
 
-export default function NotificationItem(n) {
-  const classes = useStyles();
+export default function NotificationItem({n}) {
+  console.log("n",n)
   const { currentUser } = useContext(Context);
 
 
@@ -35,17 +35,20 @@ export default function NotificationItem(n) {
 
   let icon;
 
-  if (n.n.category === "bid") {
+  if (n.category === "bid") {
     icon = <AttachMoneyIcon />
-  } else if (n.n.category === "outbid") {
+  } else if (n.category === "outbid") {
     icon = <SentimentDissatisfiedIcon />
-  } else if (n.n.category === "win") {
+  } else if (n.category === "win") {
     icon = <InsertEmoticonIcon />
-  } else if (n.n.category === "gift") {
+  } else if (n.category === "gift") {
     icon = <CardGiftcardIcon />
   }
 
-  console.log("n",n.n.category)
+  if (n.text.length > 60) {
+    n.text = n.text.substring(0, 60) + "..."
+  }
+
   return (
     <ListItem dense="true">
       <ListItemAvatar>
@@ -54,7 +57,7 @@ export default function NotificationItem(n) {
         </Avatar>
       </ListItemAvatar>
       <ListItemText
-        primary={n.n.text}
+        primary={n.text}
       />
     </ListItem>
   );

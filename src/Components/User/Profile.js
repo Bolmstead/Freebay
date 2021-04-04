@@ -43,7 +43,7 @@ function Profile() {
     async function getUserProfile(username) {
       try {
         let userObject = await FreebayAPI.getUser(username);
-        console.log("username from params in Profile component", username)
+        console.log("userObject Profile component", userObject)
         setUserProfile(userObject);
       } catch(err){
         return  history.push("/notFound")
@@ -57,7 +57,9 @@ function Profile() {
 
   if (!userProfile) return <LoadingText />;
 
-  const {  firstName, lastName, products_won, highest_bids } = userProfile
+  console.log("userProfile", userProfile)
+
+  const {  firstName, lastName, productsWon, bids } = userProfile
 
   return (
     <Container >
@@ -83,13 +85,13 @@ function Profile() {
         <Typography variant="h5" component="h2" align="center">
               Products Won
           </Typography>
-            <UserBidsOrWinsFeed products={products_won}/>
+            <UserBidsOrWinsFeed products={productsWon}/>
         </Grid>
         <Grid item xs={12} md={6} spacing={3} justify="center" alignItems="top" direction="row" className={classes.feedGrid}>
           <Typography variant="h5" component="h2" align="center">
               Current Bids
           </Typography>
-            <UserBidsOrWinsFeed products={highest_bids}/>
+            <UserBidsOrWinsFeed products={bids}/>
         </Grid>
       </Grid>
 

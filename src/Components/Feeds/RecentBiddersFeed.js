@@ -13,8 +13,6 @@ import withWidth from '@material-ui/core/withWidth';
 import { createMuiTheme } from '@material-ui/core/styles';
 
 
-
-
 /* Renders a list of <ProductCardMini/> components of products with
    the most recent bids. To be displayed on the Home page */
    
@@ -25,7 +23,8 @@ function RecentBiddersFeed() {
 
   useEffect(() => {
     const handleGetRecentBidders = async () => {
-      const result = await FreebayAPI.recentBidders()
+      let numOfBids = 3
+      const result = await FreebayAPI.getRecentBids(numOfBids)
       setRecentProductsBiddedOn(result);
     }
     handleGetRecentBidders();

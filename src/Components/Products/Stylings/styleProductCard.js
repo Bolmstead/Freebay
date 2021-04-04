@@ -19,6 +19,9 @@ const useStyles = makeStyles({
   },
   price: {
     fontWeight: "bold"
+  },
+  redText: {
+    color: "#FF0000"
   }
 });
 

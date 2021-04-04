@@ -61,6 +61,7 @@ function ProductDetails() {
     async function getProduct(id) {
       try {
         const result = await FreebayAPI.getProduct(id)
+        console.log("result from getProduct(id)", result)
         // If the product has a bid, convert to float type and set with 
         // 2 decimal places (price format) and save to bidPrice variable. 
         // If no bid, do the same with startingBid.
@@ -99,38 +100,42 @@ function ProductDetails() {
   // Handles the form submit of the bid and renders the appropriate
   // error, if any, by saving to state.
   async function handleSubmit(evt) {
-    evt.preventDefault();
-    if (!currentUser){
-      setFormErrors("Please login to place bid")
-      return
-    } 
+      evt.preventDefault();
+      try{
+        if (!currentUser){
+          setFormErrors("Please login to place bid")
+          return
+        } 
 
-    const balance = parseFloat(currentUser.balance)
-    const bid = parseFloat(bidAmount)
-    const bidPrice = parseFloat(product.bidPrice)
-    const startingBid = parseFloat(product.startingBid)
+        const balance = parseFloat(currentUser.balance)
+        const bid = parseFloat(bidAmount)
+        const bidPrice = parseFloat(product.bidPrice)
+        const startingBid = parseFloat(product.startingBid)
 
-    if (isNaN(bid)){
-      setFormErrors("Please submit a real bid")
-    } else if (currentUser.email === product.bidderEmail){
-      setFormErrors("You have already placed a bid on this product")
-    } else if (bid > balance){
-      setFormErrors("You do not have sufficient funds to place this bid")
-    } else if (bid < bidPrice){
-      setFormErrors("Please submit bid higher than the current bid")
-    } else if (bid < startingBid){
-      setFormErrors("Please submit bid higher than the starting bid")
-    } else{
-      await FreebayAPI.addBid(id, bid)
+        if (isNaN(bid)){
+          setFormErrors("Please submit a real bid")
+        } else if (currentUser.email === product.bidderEmail){
+          setFormErrors("You have already placed a bid on this product")
+        } else if (bid > balance){
+          setFormErrors("You do not have sufficient funds to place this bid")
+        } else if (bid < bidPrice){
+          setFormErrors("Please submit bid higher than the current bid")
+        } else if (bid < startingBid){
+          setFormErrors("Please submit bid higher than the starting bid")
+        } else{
+          await FreebayAPI.addBid(id, bid)
 
-      // Trigger a rerender of the CurrentUser by changing the
-      // UpdateAppBar state. This will correctly show the user's
-      // current balance amount and amount of notifications in the 
-      // <PrimarySearchAppBar/> component.
-      setUpdateAppBar(true)
-      // Go to bid confirmation page
-      history.push('/bidPlaced/' + product.id)
-    }
+          // Trigger a rerender of the CurrentUser by changing the
+          // UpdateAppBar state. This will correctly show the user's
+          // current balance amount and amount of notifications in the 
+          // <PrimarySearchAppBar/> component.
+          setUpdateAppBar(true)
+          // Go to bid confirmation page
+          history.push('/bidPlaced/' + product.id)
+        }
+      } catch(err){
+        return  history.push("/notFound")
+      }
   }
 
   function handleChange(evt) {
@@ -237,8 +242,8 @@ function ProductDetails() {
                       product.auctionEnded
                       ? 
                         <div> 
-                          <Typography  variant="subtitle1" color="textSecondary" 
-                          component="p" fontWeight="fontWeightBold" display="inline">
+                          <Typography  variant="subtitle1"  
+                          component="p" fontWeight="fontWeightBold" display="inline" className={classes.redText}>
                             Auction ended!
                           </Typography>
                         </div>

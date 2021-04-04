@@ -60,8 +60,10 @@ function PrimarySearchAppBar() {
   // the newNotifications state
   if (currentUser){
     allNotifications = currentUser.notifications;
-    unviewedNotifications = allNotifications.filter( n => !n.wasViewed).map(n => n.text = (n.text.substring(0, 50) + "..."))
+    unviewedNotifications = allNotifications.filter( n => !n.wasViewed)
     console.log("unviewedNotifications",unviewedNotifications)
+    console.log("allNotifications",allNotifications)
+
   }
   const [newNotifications, setNewNotifications] = useState(unviewedNotifications);
 

@@ -16,21 +16,25 @@ import LoadingText from '../Common/LoadingText'
 /* Renders list of products that were most recently won by any 
 user. To be displayed on the home page */
 
-export default function AllWinsFeed() {
+export default function RecentWinsFeed() {
   const classes = useStyles();
   const [allWins, setAllWins] = useState(null);
 
   useEffect(() => {
     async function getRecentWins() {
 
+      const numOfRecentWins = 4
+
       // Grab the most recent winners from API
-      const result = await FreebayAPI.getWinsFeed()
+      const result = await FreebayAPI.getRecentWins(numOfRecentWins)
 
       // Map the result shortening the name of each 
       // product to better fit in homepage
       result.map( product => ( 
         product.name = (product.name.substring(0, 70) + "...")
       ))
+
+      console.log("result in recentWinsFeed", result)
 
       setAllWins(result)
     }

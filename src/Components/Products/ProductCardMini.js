@@ -19,7 +19,7 @@ function ProductCardMini({product}) {
   console.log("product in ProductCardMini", product)
 
   let {id, name, startingBid, imageUrl, rating,
-      bidderUsername, bidPrice, bidCount} = product
+      username, bidPrice, bidCount} = product
   let bidDisplay;
 
   // If the product has a bidPrice, display it on card, otherwise 
@@ -31,10 +31,6 @@ function ProductCardMini({product}) {
     bidDisplay = parseFloat(startingBid).toFixed(2);
   }
 
-  // Set a shortened product name ending with "..." to a 
-  // variable to be displayed on card
-  const shortName = name.substring(0,50) + "..."
-
   return (
     <Grid item xs={6} sm={6} md={4} lg={3}>
       <Link href={"/product/" + id} 
@@ -44,7 +40,7 @@ function ProductCardMini({product}) {
         <Card className={classes.root} variant="outlined">
           <CardActionArea>
             <div className={classes.imageContainer}>
-              <img className={classes.media} src={imageUrl} title={shortName} />
+              <img className={classes.media} src={imageUrl} title={name} />
             </div>
             <CardContent className={ classes.cardContent }>
               <Rating name="read-only" value={rating} size="small" 
@@ -72,7 +68,7 @@ function ProductCardMini({product}) {
                 Current bid by 
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
-                {bidderUsername}
+                {username}
               </Typography>
             </CardContent>
           </CardActionArea>
