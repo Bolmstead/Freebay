@@ -35,7 +35,6 @@ class FreebayAPI {
 
   static async getProduct(id) {
     let res = await this.request(`products/${id}`);
-    // console.log("res",res)
     return res.product;
   }
 
@@ -83,12 +82,26 @@ class FreebayAPI {
     return res;
   }
 
+  /** Get recent bids */
+
+  static async getRecentBids(numOfProducts) {
+    let res = await this.request(`bids/recent/${numOfProducts}`, res);
+    // console.log("res from api.js addBid method", res)
+    return res;
+  }
+
   /** Post new Bid */
 
   static async addBid(productId, bidAmount) {
     let data={}
-    let res = await this.request(`products/${productId}/bid/${bidAmount}`, data, "post");
+    let res = await this.request(`products/${productId}/placeBid/${bidAmount}`, data, "post");
     // console.log("res from api.js addBid method", res)
+    return res;
+  }
+
+  static async getRecentWins(numOfProducts) {
+    let res = await this.request(`products/recent/${numOfProducts}`);
+    console.log("res in api.js getRecentWins()",res)
     return res;
   }
 
@@ -96,37 +109,9 @@ class FreebayAPI {
 
   static async viewNotifications(email) {
     let data = {}
-    console.log("made it to viewNotificatinos Api.js", data)
-    let res = await this.request(`users/view_notifications/${email}`, data, "post");
+    let res = await this.request(`notifications/view/${email}`, data, "post");
     console.log("res from viewNotifications Api.js", res)
-
     // console.log("res from api.js addBid method", res)
-    return res;
-  }
-
-  static async getProductsEndingSoon() {
-    let res = await this.request(`products/auctionsEndingSoon`);
-    console.log("res from getEndingSoon in API.js",res)
-    return res;
-  }
-
-  static async getWinsFeed() {
-    let res = await this.request(`products/recentWinners`);
-    console.log("res in api.js getWinsFeed()",res)
-    return res;
-  }
-
-  static async recentBidders() {
-    let res = await this.request(`products/recentBidders`);
-    console.log("res from getEndingSoon in API.js",res)
-    return res;
-  }
-
-  static async getUser(username) {
-    // console.log("madeit to getUser API method")
-    let res = await this.request(`users/${username}`);
-    console.log("madeit to getUser API method after this.request",res)
-
     return res;
   }
  
