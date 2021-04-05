@@ -92,8 +92,8 @@ export default function RecentWinsFeed() {
       <Grid
       container
       direction="column"
-      alignItems="center"
-      justify="center"
+      alignItems="flex-start"
+      justify="flex-start"
       >
           <Grid item xs={12}>
               <Typography variant="h6" color="textSecondary" gutterBottom>

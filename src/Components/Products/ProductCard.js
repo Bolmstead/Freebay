@@ -51,7 +51,6 @@ function ProductCard({product}) {
   // datetime object as a parameter
   const auctionEndObj = new Date(auctionEndDt)
   const countdown = getTimeRemaining(auctionEndObj)
-  console.log("countdown", countdown)
 
   // Save the remaining days and hours of the auction 
   // into a string to be displayed on the card.

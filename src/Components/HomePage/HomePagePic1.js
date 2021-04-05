@@ -30,7 +30,7 @@ function HomePagePic1() {
               />
             <FiCardContent className={classes.fiCardContent}>
               <Typography variant="h4" className={classes.header}>
-                Want to get back in shape?
+                New Goals. Cheap Gear.
               </Typography>
               <Typography
                 variant="body1"
@@ -38,7 +38,7 @@ function HomePagePic1() {
                 component="p"
                 display="inline" 
               >
-                Bid for cheap gear here <ArrowForwardIcon />
+                Bid for home workout equipment here <ArrowForwardIcon />
               </Typography >
             </FiCardContent>
           </FiCard>

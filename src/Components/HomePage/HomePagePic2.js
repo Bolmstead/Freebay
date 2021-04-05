@@ -30,7 +30,7 @@ function HomePagePic2() {
               />
             <FiCardContent className={classes.fiCardContent}>
               <Typography variant="h4" className={classes.header}>
-                All the best tech. For less.
+                The Best Tech. For Less.
               </Typography>
               <Typography
                 variant="body1"
@@ -38,7 +38,7 @@ function HomePagePic2() {
                 component="p"
                 display="inline" 
               >
-                Get it here  <ArrowForwardIcon />
+                Get the newest gadgets here  <ArrowForwardIcon />
               </Typography >
             </FiCardContent>
           </FiCard>

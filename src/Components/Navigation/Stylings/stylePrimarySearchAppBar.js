@@ -76,6 +76,14 @@ export const useStyles = makeStyles((theme) => ({
   sectionDesktop: {
     display: 'flex',
   },
+  profileAvatar: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+  },
+  notificationsIcon: {
+    width: theme.spacing(4),
+    height: theme.spacing(3),
+  }
 
 
 }));

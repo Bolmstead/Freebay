@@ -4,13 +4,15 @@ import {useParams} from 'react-router-dom';
 import FreebayAPI from '../../Api.js'
 import Context from "../Common/Context";
 import Container from '@material-ui/core/Container';
+import Avatar from '@material-ui/core/Avatar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import UserBidsOrWinsFeed from "../Feeds/UserBidsOrWinsFeed";
 import LoadingText from "../Common/LoadingText"
 import Alert from "../Common/Alert"
 import { Redirect } from "react-router-dom";
 import {useHistory} from 'react-router-dom';
-
+import CardMedia from '@material-ui/core/CardMedia';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import Notifications from "./Notifications";
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
@@ -59,14 +61,19 @@ function Profile() {
 
   console.log("userProfile", userProfile)
 
-  const {  firstName, lastName, productsWon, bids } = userProfile
+  const {  firstName, lastName, productsWon, bids, imageUrl } = userProfile
 
   return (
-    <Container >
-      <Grid container justify="center" alignItems="center"   direction="row" spacing={5}>
-        <Grid item xs={12} sm={9} md={6}><br/>
-          <Paper variant="outlined"> 
-            <CardContent className={classes.profileHeader}>
+    <Container ><br/>
+
+          <Paper elevation={3} className={classes.profileContainer}> 
+          <div className={classes.imageAndName}>
+
+            <Avatar alt="Profile Image" src={imageUrl} className={classes.profileAvatar}/>
+
+          
+            <CardContent>
+              
               <Typography className = {classes.userName} variant="h5" component="h2" align="center">
               {username}
               </Typography>
@@ -74,9 +81,9 @@ function Profile() {
                   {firstName} {lastName}
                 </Typography>
             </CardContent>
+            </div>
           </Paper>
-        </Grid>
-      </Grid>
+    <br/>
       <Grid container justify="center" alignItems="center"   direction="row" spacing={3} className={classes.feedGrid}>
         <Grid item xs={12} md={7}>
             <Notifications userProfile={userProfile}/>

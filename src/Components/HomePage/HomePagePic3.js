@@ -33,7 +33,7 @@ function HomePagePic3() {
               />
             <FiCardContent className={classes.fiCardContent}>
               <Typography variant="h4" className={classes.header}>
-              Need cat food for Mittens?
+              Running Low on Kitty Litter?
               </Typography>
               <Typography
                 variant="body1"

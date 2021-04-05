@@ -33,40 +33,55 @@ function RecentBiddersFeed() {
 
   return (
     <Container className={classes.feedContainer}>
-    { recentProductsBiddedOn.length > 0
+    { recentProductsBiddedOn
       ?
-      <Grid  container spacing={4} direction="row" justify="center" >
-        { recentProductsBiddedOn[0] 
+        recentProductsBiddedOn.length < 1
         ?
-          <ProductCardMini product={recentProductsBiddedOn[0]} />
-        : <div></div>
-        }
-        { recentProductsBiddedOn[1] 
-        ?
-          <ProductCardMini product={recentProductsBiddedOn[1]} />
-        : <div></div>
-        }
-        { recentProductsBiddedOn[2] 
-        ?
-          <Hidden smDown>
-            <ProductCardMini product={recentProductsBiddedOn[2]} />
-          </Hidden>
-        : <div></div>
-        }
-        { recentProductsBiddedOn[3] 
-        ?
-          <Hidden mdDown>
-            <ProductCardMini product={recentProductsBiddedOn[3]} />
-          </Hidden>
-        : <div></div>
-        }
-      </Grid>
-      :
-      <Grid  container spacing={8} direction="row" justify="flex-start" mt="10" >
-        <ListItem alignItems="flex-start">
-            <ListItemText secondary="Loading..."/>
-        </ListItem>
-      </Grid>
+        <Grid
+        container
+        direction="column"
+        alignItems="flex-start"
+        justify="center"
+        >
+            <Grid item xs={12}>
+                <Typography variant="h6" color="textSecondary" gutterBottom>
+                    None yet!
+                </Typography>  
+            </Grid>   
+        </Grid>
+        :
+        <Grid  container spacing={4} direction="row" justify="center" >
+          { recentProductsBiddedOn[0] 
+          ?
+            <ProductCardMini product={recentProductsBiddedOn[0]} />
+          : <div></div>
+          }
+          { recentProductsBiddedOn[1] 
+          ?
+            <ProductCardMini product={recentProductsBiddedOn[1]} />
+          : <div></div>
+          }
+          { recentProductsBiddedOn[2] 
+          ?
+            <Hidden smDown>
+              <ProductCardMini product={recentProductsBiddedOn[2]} />
+            </Hidden>
+          : <div></div>
+          }
+          { recentProductsBiddedOn[3] 
+          ?
+            <Hidden mdDown>
+              <ProductCardMini product={recentProductsBiddedOn[3]} />
+            </Hidden>
+          : <div></div>
+          }
+        </Grid>
+    :
+    <Grid  container spacing={8} direction="row" justify="flex-start" mt="10" >
+      <ListItem alignItems="flex-start">
+          <ListItemText secondary="Loading..."/>
+      </ListItem>
+    </Grid>
 
       }
     </Container>

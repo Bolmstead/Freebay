@@ -29,21 +29,24 @@ const ProductsList = ({location}) => {
 
 
   let query = useQuery()
-  let searchQuery = Object.fromEntries(new URLSearchParams(query))
+  let searchQueryObject = Object.fromEntries(new URLSearchParams(query))
+  let nextPageSearchQueryObject = searchQueryObject
+  let prevPageSearchQueryObject = searchQueryObject
+
 
  // call API to grab products based on search results
   useEffect(() => {
     async function getProductsInCategory() {
-      let res = await FreebayAPI.getProducts(searchQuery);
+      let res = await FreebayAPI.getProducts(searchQueryObject);
       
       let productsResult = res.products
-      let totalAmountOfProducts = res.count
+      let numOfProductsInAuction = res.numOfProductsInAuction
 
       setProducts(productsResult);
 
       
       // Grab page number from the search query. If no page in query, set page to 1
-      let { page } = searchQuery
+      let { page } = searchQueryObject
       if (!page) {
         page = "1"
       }
@@ -52,10 +55,15 @@ const ProductsList = ({location}) => {
       
 
       // Create the url query string for the link to next page
-      if ((totalAmountOfProducts - (page*24) > 0)) {
+      if ((numOfProductsInAuction - (page*24) > 0)) {
         const nextPage = (page + 1).toString()
-        searchQuery["page"] = nextPage
-        setNextPageQuery(searchQuery.toString())
+        nextPageSearchQueryObject["page"] = nextPage
+        console.log("nextPageSearchQueryObject",nextPageSearchQueryObject)
+
+        let nextSearchQueryString = new URLSearchParams(nextPageSearchQueryObject).toString()
+        console.log("nextSearchQueryString",nextSearchQueryString)
+        setNextPageQuery(nextSearchQueryString)
+
       } else {
         setNextPageQuery(null)
       }
@@ -63,11 +71,16 @@ const ProductsList = ({location}) => {
       // If not on first page, create url query string for the link to previous page
       if (page > 1) {
         let prevPage = (page - 1).toString()
-        query.set("page", prevPage)
-        setPrevPageQuery(query.toString())
+        prevPageSearchQueryObject["page"] = prevPage
+        let prevSearchQueryString = new URLSearchParams(prevPageSearchQueryObject).toString()
+        console.log("prevSearchQueryString",prevSearchQueryString)   
+        setPrevPageQuery(prevSearchQueryString)
       } else {
         setPrevPageQuery(null)
       }
+
+      console.log("prevPageQuery", prevPageQuery)
+      console.log("nextPageQuery", nextPageQuery)
 
     }
     getProductsInCategory()
@@ -81,10 +94,10 @@ const ProductsList = ({location}) => {
   return (
     <Container><br/>
     {
-      searchQuery.name
+      searchQueryObject.name
       ?
         <Typography variant="h4" spacing={5} className={classes.listTitle}>
-          Search Results for "{searchQuery.name}"
+          Search Results for "{searchQueryObject.name}"
         </Typography>
       :
         <Typography variant="h4" spacing={5} className={classes.listTitle}>

@@ -97,6 +97,7 @@ function App() {
   async function login(loginData) {
     try {
       let loginToken = await FreebayAPI.login(loginData);
+      console.log("loginToken",loginToken)
       setToken(loginToken);
       return { success: true };
     } catch (errors) {

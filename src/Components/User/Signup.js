@@ -26,6 +26,7 @@ export default function Signup() {
     firstName: "",
     lastName: "",
     email: "",
+    imageUrl: ""
   });
   const [formErrors, setFormErrors] = useState([]);
 
@@ -128,6 +129,19 @@ export default function Signup() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="imageUrl"
+                label="Image URL (optional)"
+                type="imageUrl"
+                id="imageUrl"
+                autoComplete="current-imageUrl"
                 onChange={handleChange}
               />
             </Grid>

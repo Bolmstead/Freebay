@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Avatar from '@material-ui/core/Avatar';
+
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
@@ -61,6 +63,7 @@ function PrimarySearchAppBar() {
   if (currentUser){
     allNotifications = currentUser.notifications;
     unviewedNotifications = allNotifications.filter( n => !n.wasViewed)
+    
     console.log("unviewedNotifications",unviewedNotifications)
     console.log("allNotifications",allNotifications)
 
@@ -175,13 +178,13 @@ function PrimarySearchAppBar() {
                     color="inherit" 
                     style={{ textDecoration: 'none' }}
               >
-                <NotificationItem n={n} />
+                <NotificationItem n={n} shortened={true}/>
               </Link>
             : <Link href={"/profile"} 
                     color="inherit" 
                     style={{ textDecoration: 'none' }}
               >
-                <NotificationItem n={n} />
+                <NotificationItem n={n} shortened={true} />
               </Link>
             )}
           </MenuItem>))
@@ -236,14 +239,24 @@ function PrimarySearchAppBar() {
                   {"$" + currentUser.balance}
                 </Typography>
                 <IconButton aria-label="show notifications"
-                onClick={handleNotificationsMenuOpen}>
+                onClick={handleNotificationsMenuOpen} >
                  <Badge badgeContent={newNotifications.length} 
-                 color="secondary" >      
+                 color="secondary" > 
+                    { currentUser.imageUrl
+                    ?
                       <NotificationsIcon 
                       edge="end"
                       aria-label="account of current user"
                       aria-controls={menuId}
-                      aria-haspopup="true"/>
+                      aria-haspopup="true"
+                      className={classes.notificationsIcon}/>
+                    :
+                      <NotificationsIcon 
+                      edge="end"
+                      aria-label="account of current user"
+                      aria-controls={menuId}
+                      aria-haspopup="true" />
+                    }
                     </Badge>
                 </IconButton>
                 <IconButton
@@ -253,7 +266,12 @@ function PrimarySearchAppBar() {
                   onClick={handleProfileMenuOpen}
                   aria-haspopup="true"
                 >
-                  <AccountCircle />
+                { currentUser.imageUrl
+                ?
+                  <Avatar alt="Avatar" className = {classes.profileAvatar}src={currentUser.imageUrl} />
+                :
+                  <AccountCircle/>                
+                }
                 </IconButton>
               </div>
             </div>

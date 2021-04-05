@@ -26,12 +26,12 @@ export default function Welcome() {
             <Typography component="h1" variant="body1" 
             className={classes.bodyText}>
                 Click from the categories above or use the search 
-                bar to start fake bidding on fake products. All products have an auction time limit and the user with the highest bid at the end of the auction "wins" the product! To see your bids, notifications, and products you've won, click on profile from the top right icon.
+                bar to start fake bidding on fake products. Each product has an auction time limit and the user with the highest bid at the end of the auction, "wins" the product! To see your active bids, notifications, and products you've won, click on profile from the top right icon.
             </Typography>
                 <br/>
             <Typography component="h1" variant="body1" 
             className={classes.bodyText}>
-                Login on a new day for a reward! Thanks for playing!
+                Log in on a new day and you'll get a surprise! Thanks for playing!
             </Typography>
         </Grid>
     

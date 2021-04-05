@@ -1,13 +1,6 @@
 import { makeStyles} from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
-  profileContainer: {
-    backgroundColor: "#F6F6F6"
-  },
-  profileHeader: {
-    backgroundColor: "#F6F6F6",
-    height: "50px"
-  },
+const useStyles = makeStyles((theme) => ({
   userName: {
     fontWeight: "bold"
   },
@@ -39,7 +32,33 @@ const useStyles = makeStyles({
     flexGrow: 1,
     backgroundColor: 'white',
   },
-});
+  profileImage: {
+    maxWidth: 200,
+    margin: "auto",
+    borderRadius: "50%"
+  },
+  profileContainer: {
+    width: 300,
+    height: 300,
+    margin: "auto",
+    backgroundColor: "#F6F6F6",
+    position: "relative"
+  },
+  profileAvatar:{
+      width: theme.spacing(20),
+      height: theme.spacing(20),
+      margin: "auto",
+      boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
+  },
+  imageAndName:{
+    position: "absolute",
+    top: 30,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    margin: "auto"
+  }
+}))
 
 export default useStyles;
 

@@ -34,7 +34,7 @@ import {
 /** Displays all information of a product along with a form to
  *  bid on product, if the auction time has not expired.
  * 
- *  - product: result of grabbing the desired product from API
+ *  - product: productResult of grabbing the desired product from API
  * 
  *  - countdown: holds the imported <Countdown/> component in state
  * 
@@ -61,23 +61,25 @@ function ProductDetails() {
     async function getProduct(id) {
       try {
         const result = await FreebayAPI.getProduct(id)
-        console.log("result from getProduct(id)", result)
+        const { productResult, numOfBids } = result
+        console.log("productResult from getProduct(id)", productResult)     
+        console.log("numOfBids from getProduct(id)", numOfBids)      
+
         // If the product has a bid, convert to float type and set with 
         // 2 decimal places (price format) and save to bidPrice variable. 
         // If no bid, do the same with startingBid.
-        if (result.bidPrice){
-          let bidDisplay = parseFloat(result.bidPrice).toFixed(2);
-          result.bidDisplay = bidDisplay;
+        if (productResult.bidId){
+          let bidDisplay = parseFloat(productResult.bidPrice).toFixed(2);
+          productResult.bidDisplay = bidDisplay;
         } else {
-          let bidDisplay = parseFloat(result.startingBid).toFixed(2);
-          result.bidDisplay = bidDisplay;
+          let bidDisplay = parseFloat(productResult.startingBid).toFixed(2);
+          productResult.bidDisplay = bidDisplay;
         }
-        setProduct(result);
-        console.log("result", result)
+        setProduct(productResult);
 
 
         // Call the function that creates the auction countdown timer 
-        getTimeLeft(result.auctionEndDt)
+        getTimeLeft(productResult.auctionEndDt)
         setInfoLoaded(true)
       } catch(err){
         return  history.push("/notFound")
@@ -260,9 +262,9 @@ function ProductDetails() {
 
                         <Typography  variant="subtitle1" color="textSecondary" 
                         component="p" fontWeight="fontWeightBold">
-                        {product.bidCount}
+                        {product.numOfBids}
                           { 
-                          (product.bidCount == 1)
+                          (product.numOfBids == 1)
                           ? " bid" : " bids"
                           }
                         </Typography>

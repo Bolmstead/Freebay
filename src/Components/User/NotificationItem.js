@@ -24,8 +24,10 @@ import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
 // If a user has not viewed a notification, the notification will be highlighted.
 
 
-export default function NotificationItem({n}) {
+export default function NotificationItem({n, shortened}) {
   console.log("n",n)
+  console.log("shortened",shortened)
+
   const { currentUser } = useContext(Context);
 
 
@@ -45,7 +47,7 @@ export default function NotificationItem({n}) {
     icon = <CardGiftcardIcon />
   }
 
-  if (n.text.length > 60) {
+  if ((shortened) && (n.text.length > 60)) {
     n.text = n.text.substring(0, 60) + "..."
   }
 
