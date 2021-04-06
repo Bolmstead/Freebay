@@ -7,7 +7,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import useStyles from './Stylings/styleBidsOrWinsFeed.js'
+import useStyles from './Stylings/styleRecentWinsFeed.js'
 import FreebayAPI from '../../Api'
 import Divider from '@material-ui/core/Divider';
 import LoadingText from '../Common/LoadingText'
@@ -16,7 +16,7 @@ import LoadingText from '../Common/LoadingText'
 /* Renders list of products that were most recently won by any 
 user. To be displayed on the home page */
 
-export default function RecentWinsFeed() {
+export default function RecentWinsFeed(haveBidsBeenChecked) {
   const classes = useStyles();
   const [allWins, setAllWins] = useState(null);
 
@@ -27,6 +27,7 @@ export default function RecentWinsFeed() {
 
       // Grab the most recent winners from API
       const result = await FreebayAPI.getRecentWins(numOfRecentWins)
+      console.log("results in getRecentWins", result)
 
       // Map the result shortening the name of each 
       // product to better fit in homepage
@@ -39,7 +40,7 @@ export default function RecentWinsFeed() {
       setAllWins(result)
     }
     getRecentWins();
-  }, []);
+  }, [haveBidsBeenChecked]);
 
   if (!allWins){
     return <LoadingText />
@@ -56,12 +57,14 @@ export default function RecentWinsFeed() {
               style={{ textDecoration: 'none' }}
               >
                 <ListItemAvatar>
-                  <Avatar alt="Product Image" className={classes.large}>
-                    {product.username
-                    ? product.username.charAt(0)
-                    : "?"
+                {product.userImageUrl
+                    ?
+                      <Avatar alt="Product Image" className={classes.large} src={product.userImageUrl}>
+                      </Avatar>
+                    :
+                     <Avatar alt="Product Image" className={classes.large}>
+                     </Avatar>
                     }
-                  </Avatar>
                 </ListItemAvatar>
               </Link>
               <Link href={"/Profile/" + product.username} 

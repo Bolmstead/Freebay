@@ -17,7 +17,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
    the most recent bids. To be displayed on the Home page */
    
 
-function RecentBiddersFeed() {
+function RecentBiddersFeed(haveBidsBeenChecked) {
   const [recentProductsBiddedOn, setRecentProductsBiddedOn] = useState([]);
   const classes = useStyles();
 
@@ -28,7 +28,7 @@ function RecentBiddersFeed() {
       setRecentProductsBiddedOn(result);
     }
     handleGetRecentBidders();
-  }, []);
+  }, [haveBidsBeenChecked]);
 
 
   return (

@@ -6,6 +6,7 @@ import CategoriesBar from './Components/Navigation/CategoriesBar.js'
 import Routes from './Routes.js'
 import Container from '@material-ui/core/Container';
 import Context from "./Components/Common/Context.js";
+import Footer from "./Components/Common/Footer.js";
 import FreebayAPI from './Api'
 import useLocalStorage from "./hooks/useLocalStorageHook";
 import useStyles from './Components/Common/Stylings/styleApp.js'
@@ -136,6 +137,7 @@ function App() {
           <hr className={classes.hr}/>
           <CategoriesBar/>
           <Routes/>
+          <Footer/>
         </Container>
       </Context.Provider>
     </div>

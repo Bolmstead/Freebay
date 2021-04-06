@@ -43,13 +43,13 @@ export default function Notifications(userProfile) {
 
 
   return (
-    <div>
-    <Typography variant="h5" component="h2" align="center">
+        <Paper elevation={3} className={classes.card} >  
+
+            <CardContent className={classes.cardContent}>
+            <Typography className={classes.feedTitle} variant="h5" component="h2" align="center">
     Notifications
   </Typography>
-        <Paper className={classes.card} variant="outlined">  
-            <CardContent className={classes.cardContent}>
-              <List >
+              <List className={classes.itemList} >
               {( notifications.map( n => (
                   n.relatedProductId
                   ? <Link href={"/product/"+ n.relatedProductId} 
@@ -67,6 +67,5 @@ export default function Notifications(userProfile) {
 
             </CardContent>
           </Paper>
-          </div>
   );
 }

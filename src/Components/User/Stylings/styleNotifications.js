@@ -12,14 +12,21 @@ export const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(4, 0, 2),
   },
   card: {
-    backgroundColor: "white",
+    backgroundColor: "#F6F6F6",
+  },
+  itemList:{
+    backgroundColor: "#F6F6F6",
+    maxHeight: 290, 
+    minHeight: 200, 
+    overflow: 'auto'
   },
   cardContent: {
-    maxHeight: 150, 
-    overflow: 'auto'
   },
   feedGrid: {
     verticalAlign: "top"
+  },
+  feedTitle: {
+    fontWeight: "bold"
   }
 }));
 

@@ -60,10 +60,9 @@ function ProductDetails() {
   useEffect(() => {
     async function getProduct(id) {
       try {
-        const result = await FreebayAPI.getProduct(id)
-        const { productResult, numOfBids } = result
+        const productResult = await FreebayAPI.getProduct(id)
         console.log("productResult from getProduct(id)", productResult)     
-        console.log("numOfBids from getProduct(id)", numOfBids)      
+        console.log("numOfBids from getProduct(id)", productResult.numOfBids)      
 
         // If the product has a bid, convert to float type and set with 
         // 2 decimal places (price format) and save to bidPrice variable. 
@@ -82,7 +81,7 @@ function ProductDetails() {
         getTimeLeft(productResult.auctionEndDt)
         setInfoLoaded(true)
       } catch(err){
-        return  history.push("/notFound")
+        return console.log(err)
       }
 
     }
@@ -136,7 +135,7 @@ function ProductDetails() {
           history.push('/bidPlaced/' + product.id)
         }
       } catch(err){
-        return  history.push("/notFound")
+        console.log(err)
       }
   }
 
@@ -251,6 +250,14 @@ function ProductDetails() {
                         </div>
                       :
                         <div><br/>
+                          <Typography  variant="subtitle1" color="textSecondary" 
+                          component="p" fontWeight="fontWeightBold">
+                          {product.numOfBids}
+                            { 
+                            (product.numOfBids == 1)
+                            ? " bid" : " bids"
+                            }
+                          </Typography>
                           <Countdown date={Date.now() + countdown} renderer={props => 
                           <Typography  variant="subtitle1" color="textSecondary" 
                           component="p">
@@ -260,14 +267,7 @@ function ProductDetails() {
                           </Typography>} 
                         />
 
-                        <Typography  variant="subtitle1" color="textSecondary" 
-                        component="p" fontWeight="fontWeightBold">
-                        {product.numOfBids}
-                          { 
-                          (product.numOfBids == 1)
-                          ? " bid" : " bids"
-                          }
-                        </Typography>
+
                         </div>
                     }
 

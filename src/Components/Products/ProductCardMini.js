@@ -19,7 +19,7 @@ function ProductCardMini({product}) {
   console.log("product in ProductCardMini", product)
 
   let {id, name, startingBid, imageUrl, rating,
-      username, bidPrice, bidCount} = product
+      username, bidPrice} = product
   let bidDisplay;
 
   // If the product has a bidPrice, display it on card, otherwise 
@@ -57,11 +57,6 @@ function ProductCardMini({product}) {
                 color="textSecondary" component="p" 
                 display="inline" 
                 >
-                  {bidCount} 
-                  { 
-                    (bidCount == 1)
-                    ? " bid" : " bids"
-                  }
                 </Typography>
               </div>
               <Typography variant="body2" color="textSecondary" component="p">

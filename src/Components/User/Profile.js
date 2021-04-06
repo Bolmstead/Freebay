@@ -64,12 +64,16 @@ function Profile() {
   const {  firstName, lastName, productsWon, bids, imageUrl } = userProfile
 
   return (
-    <Container ><br/>
+    <Container >
+    <br/>
+      <Grid container justify="center" alignItems="center"   direction="row" spacing={3} className={classes.feedGrid}>
 
-          <Paper elevation={3} className={classes.profileContainer}> 
+      <Grid item xs={12} md={4}>
+
+      <Paper elevation={3} className={classes.profileContainer}> 
           <div className={classes.imageAndName}>
 
-            <Avatar alt="Profile Image" src={imageUrl} className={classes.profileAvatar}/>
+            <Avatar alt="Profile Image" src={imageUrl} className={classes.profileAvatar}/><br/>
 
           
             <CardContent>
@@ -83,22 +87,17 @@ function Profile() {
             </CardContent>
             </div>
           </Paper>
-    <br/>
-      <Grid container justify="center" alignItems="center"   direction="row" spacing={3} className={classes.feedGrid}>
+          </Grid>
+
+
         <Grid item xs={12} md={7}>
             <Notifications userProfile={userProfile}/>
         </Grid>
         <Grid item xs={12} md={6} spacing={3} justify="center" alignItems="top" direction="row" className={classes.feedGrid}>
-        <Typography variant="h5" component="h2" align="center">
-              Products Won
-          </Typography>
-            <UserBidsOrWinsFeed products={productsWon}/>
+            <UserBidsOrWinsFeed products={productsWon} title={"Products Won"}/>
         </Grid>
         <Grid item xs={12} md={6} spacing={3} justify="center" alignItems="top" direction="row" className={classes.feedGrid}>
-          <Typography variant="h5" component="h2" align="center">
-              Current Bids
-          </Typography>
-            <UserBidsOrWinsFeed products={bids}/>
+            <UserBidsOrWinsFeed products={bids} title={"Highest Bids"}/>
         </Grid>
       </Grid>
 

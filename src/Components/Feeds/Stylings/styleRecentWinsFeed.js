@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    backgroundColor: "white",
     textTransform: 'none'
   },
   listItem: {
@@ -17,17 +16,20 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'none'
   },
   card: {
-    backgroundColor: "white",
   },
   large: {
     width: "50px",
     height: "50px",
   },
-  cardContent: {
+  itemList:{
     maxHeight: 150, 
     overflow: 'auto',
-    minHeight: 150
+    minHeight: 150,
+    textTransform: 'none'
   },
+  feedTitle: {
+    fontWeight: "bold"
+  }
 }));
 
 export default useStyles

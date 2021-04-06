@@ -34,7 +34,8 @@ class FreebayAPI {
 
   static async getProduct(id) {
     let res = await this.request(`products/${id}`);
-    return res.product;
+    console.log("res from getProduct Api.js", res)
+    return res.productResult;
   }
 
   /** Get details on all products. */
@@ -78,6 +79,15 @@ class FreebayAPI {
     let res = await this.request(`users/${username}`);
     console.log("madeit to getUser API method after this.request",res)
 
+    return res;
+  }
+
+  /** Check all bids if an auction has ended. If so, the
+   *  product will be added to the products_won table */
+
+  static async checkAllBids() {
+    let res = await this.request(`bids/check-all-bids-for-ended-auctions`);
+    console.log("res from api.js addBid method", res)
     return res;
   }
 

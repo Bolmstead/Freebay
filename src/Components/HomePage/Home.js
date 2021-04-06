@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import FreebayAPI from '../../Api';
+
 import HomePagePic3 from './HomePagePic3';
 import HomePagePic2 from './HomePagePic2';
 import HomePagePic1 from './HomePagePic1';
@@ -17,9 +19,20 @@ Also contains a link at bottom of page to get information on how to use site*/
 
 function Home() {
   const classes = useStyles();
+  const [haveBidsBeenChecked, setHaveBidsBeenChecked] = useState(false);
+
 
   let randomIndex = Math.floor(Math.random() * 3)
   let homepagePics = [<HomePagePic1 />, <HomePagePic2 />, <HomePagePic3 />]
+
+  useEffect(() => {
+    const checkAllBidsForAuctionsEnded = async () => {
+      await FreebayAPI.checkAllBids()
+      setHaveBidsBeenChecked(true);
+    }
+    checkAllBidsForAuctionsEnded();
+  }, []);
+
   return (
     <div>
       <Grid  container spacing={3} direction="row" 
@@ -33,22 +46,13 @@ function Home() {
           <Typography component="h5" variant="h5" className={classes.feedTitle}>
             New Auction Winners!
           </Typography>
-          <RecentWinsFeed />
+          <RecentWinsFeed haveBidsBeenChecked={haveBidsBeenChecked}/>
         </Grid>
         <Grid item xs={12} sm={10} md={8} lg={9}>
           <Typography component="h5" variant="h5" className={classes.feedTitle}>
             Recent Bids Placed
           </Typography>
-          <RecentBiddersFeed/>
-        </Grid>
-      </Grid>
-      <Grid container spacing={5} justify="center" align="center">
-        <Grid item xs={12} margin={5} alignItems="center" justify="center">
-          <Link href={"/Welcome/"} >
-            <Typography variant="body2" color="textSecondary" component="p">
-              Questions? Click here
-            </Typography>
-          </Link>
+          <RecentBiddersFeed haveBidsBeenChecked={haveBidsBeenChecked}/>
         </Grid>
       </Grid>
     </div>
