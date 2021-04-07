@@ -23,9 +23,9 @@ function HomePagePic({imgHref, titleText, subText, linkRoute}) {
             <FiCard className={classes.card}>
               <FiCardMedia 
                 media="picture"
-                alt="Check out our Tech!"
+                alt={titleText}
                 image={imgHref}
-                title="Check out our Tech!"
+                title={titleText}
               />
             <FiCardContent className={classes.fiCardContent}>
               <Typography variant="h4" className={classes.header}>

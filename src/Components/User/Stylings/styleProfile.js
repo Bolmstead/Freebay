@@ -10,7 +10,10 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 2,
     border: 1,
   },
-
+  smiley: {
+    fontSize: 200,
+    color: "#FFD066"
+  },
   cover: {
     width: 151,
   },
@@ -43,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
     margin: "auto",
     backgroundColor: "#F6F6F6",
     position: "relative"
+  },
+  errorText: {
+    color: "grey"
   },
   profileAvatar:{
       width: theme.spacing(17),

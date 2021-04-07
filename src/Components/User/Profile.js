@@ -18,6 +18,8 @@ import ProfileImageCard from "./ProfileImageCard";
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import useStyles from './Stylings/styleProfile.js'
+import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
+
 
 import {
   Grid,
@@ -58,7 +60,25 @@ function Profile() {
   }, []);
 
 
-  if (!userProfile) return <LoadingText />;
+  if (!userProfile) return (<LoadingText />);
+  if (!currentUser) return (    
+  <Grid container spacing={2} justify="center" align="center"><br/><br/><br/>
+    <Grid xs={12} item><br/><br/><br/>
+    <SentimentVeryDissatisfiedIcon className={classes.smiley}
+    color="disabled" 
+    />
+    </Grid>
+    <Grid item xs={10} md={6}>
+        <Typography component="h1" variant="body1" 
+        className={classes.errorText}
+        >
+           Please login to view this profile
+        </Typography><br/>
+    </Grid>
+
+  </Grid>);
+
+
 
   console.log("userProfile", userProfile)
 
@@ -68,23 +88,25 @@ function Profile() {
     <Container >
     <br/>
       <Grid container justify="center" alignItems="center"   direction="row" spacing={3} className={classes.feedGrid}>
-      { (currentUser.username === userProfile.username)
-      ?
-        <Grid item xs={12} md={4}>
-          <ProfileImageCard userProfile={userProfile}/>
-        </Grid>
-      :
-        <Grid item xs={12}>
-          <ProfileImageCard userProfile={userProfile}/>
-        </Grid>
-      }
-      { (currentUser.username === userProfile.username)
-      ?
-        <Grid item xs={12} md={7}>
-          <Notifications/>
-        </Grid>
-      : <div></div>
-      }
+
+          { (currentUser.username === userProfile.username)
+          ?
+            <Grid item xs={12} md={4}>
+              <ProfileImageCard userProfile={userProfile}/>
+            </Grid>
+          :
+            <Grid item xs={12}>
+              <ProfileImageCard userProfile={userProfile}/>
+            </Grid>
+          }
+          { (currentUser.username === userProfile.username)
+          ?
+            <Grid item xs={12} md={7}>
+              <Notifications/>
+            </Grid>
+          : <div></div>
+          }
+
         <Grid item xs={12} md={6} spacing={3} justify="center" alignItems="top" direction="row" className={classes.feedGrid}>
             <UserBidsOrWinsFeed products={productsWon} title={"Products Won"}/>
         </Grid>

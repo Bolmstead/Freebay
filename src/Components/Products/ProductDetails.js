@@ -132,7 +132,7 @@ function ProductDetails() {
           // <PrimarySearchAppBar/> component.
           setUpdateAppBar(true)
           // Go to bid confirmation page
-          history.push('/bidPlaced/' + product.id)
+          history.push('/bidPlaced')
         }
       } catch(err){
         console.log(err)

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import FreebayAPI from '../../Api';
 
-import HomePagePic from './HomePagePic';
-
+import homePagePics from './HomePagePicOptions'
 import Grid from '@material-ui/core/Grid';
 import RecentWinsFeed from '../Feeds/RecentWinsFeed.js'
 import RecentBiddersFeed from '../Feeds/RecentBiddersFeed.js'
@@ -18,16 +17,6 @@ function Home() {
   const classes = useStyles();
   const [haveBidsBeenChecked, setHaveBidsBeenChecked] = useState(false);
 
-  const homePagePic1 = <HomePagePic linkRoute={"/products?subCategory=Pet+Supplies"} titleText={"New Goals. Cheap Gear."} subText={"Bid for home workout equipment here "} imgHref={"/Images/workout.jpg"}/>
-
-  const homePagePic2 = <HomePagePic linkRoute={"/products?subCategory=Sports+and+Hobbies"} titleText={"The Best Tech. For Less."} subText={"Get the newest gadgets here" } imgHref={"/Images/electronics.jpg"}/>
-
-  const homePagePic3 = <HomePagePic linkRoute={"/products?subCategory=Pet+Supplies"} titleText={"Running Low on Kitty Litter?"} subText={"Hurry and grab it now!"} imgHref={"/Images/kitten.jpg"}/>
-  
-
-  let randomIndex = Math.floor(Math.random() * 3)
-  let homePagePics = [homePagePic1, homePagePic2, homePagePic3]
-
   useEffect(() => {
     const checkAllBidsForAuctionsEnded = async () => {
       await FreebayAPI.checkAllBids()
@@ -35,6 +24,9 @@ function Home() {
     }
     checkAllBidsForAuctionsEnded();
   }, []);
+
+  let randomIndex = Math.floor(Math.random() * 3)
+  console.log("homePagePics", homePagePics)
 
   return (
     <div>

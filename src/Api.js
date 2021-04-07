@@ -118,7 +118,7 @@ class FreebayAPI {
 
   static async viewNotifications(email) {
     let data = {}
-    let res = await this.request(`notifications/view/${email}`, data, "post");
+    let res = await this.request(`notifications/view`, data, "post");
     console.log("res from viewNotifications Api.js", res)
     // console.log("res from api.js addBid method", res)
     return res;

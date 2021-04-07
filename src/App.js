@@ -9,11 +9,8 @@ import Context from "./Components/Common/Context.js";
 import Footer from "./Components/Common/Footer.js";
 import FreebayAPI from './Api'
 import useLocalStorage from "./hooks/useLocalStorageHook";
-import useStyles from './Components/Common/Stylings/styleApp.js'
-import Typography from '@material-ui/core/Typography';
-import {
-  Grid
-} from '@material-ui/core/'
+import useStyles from './styleApp.js'
+
 import LoadingText from './Components/Common/LoadingText'
 
 // Key name for storing token in localStorage for "remember me" re-login

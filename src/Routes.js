@@ -32,7 +32,7 @@ function Routes() {
             <Route exact path="/products" >
                 <ProductsList />
             </Route>
-            <Route exact path="/bidPlaced/:id" >
+            <Route exact path="/bidPlaced" >
                 <BidConfirmation />
             </Route>
             <Route exact path="/product/:id">
