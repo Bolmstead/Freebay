@@ -21,51 +21,33 @@ import Link from '@material-ui/core/Link';
 // If a user has not viewed a notification, the notification will be highlighted.
 
 
-export default function Notifications(userProfile) {
+export default function Notifications() {
   const classes = useStyles();
   const { currentUser } = useContext(Context);
-
-  const profileUsername = userProfile.userProfile.username
-
-  console.log("profileUsername", profileUsername)
-
-  if (!currentUser) {
-    return <div></div>
-  }
-
-  if (profileUsername !== currentUser.username) {
-    return <div></div>
-  }
-
   let { notifications } = currentUser
 
-  console.log("notifications descrucutred from currentUser in Notifications component", notifications)
-
-
   return (
-        <Paper elevation={3} className={classes.card} >  
-
-            <CardContent className={classes.cardContent}>
-            <Typography className={classes.feedTitle} variant="h5" component="h2" align="center">
-    Notifications
-  </Typography>
-              <List className={classes.itemList} >
-              {( notifications.map( n => (
-                  n.relatedProductId
-                  ? <Link href={"/product/"+ n.relatedProductId} 
-                          color="inherit" 
-                          style={{ textDecoration: 'none' }}
-                    >
-                      <NotificationItem n={n} />
-                    </Link>
-                  : 
-                    <NotificationItem n={n} />
-                  ))
-                )
-              }
-            </List>
-
-            </CardContent>
-          </Paper>
+    <Paper elevation={3} className={classes.card} >  
+      <CardContent className={classes.cardContent}>
+        <Typography className={classes.feedTitle} variant="h5" component="h2" align="center">
+          Notifications
+        </Typography>
+        <List className={classes.itemList} >
+          {( notifications.map( n => (
+              n.relatedProductId
+              ? <Link href={"/product/"+ n.relatedProductId} 
+                      color="inherit" 
+                      style={{ textDecoration: 'none' }}
+                >
+                  <NotificationItem n={n} />
+                </Link>
+              : 
+                <NotificationItem n={n} />
+              ))
+            )
+          }
+        </List>
+      </CardContent>
+    </Paper>
   );
 }

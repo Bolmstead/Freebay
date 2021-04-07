@@ -7,19 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import useStyles from './Stylings/styleCategoriesBar';
 import { withStyles } from '@material-ui/core/styles';
-import { fade, makeStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
 import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
@@ -35,13 +23,13 @@ import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
   accordion: {
     border: '1px solid rgba(0, 0, 0, .125)',
     boxShadow: 'none',
-    '&:not(:last-child)': {
+    'and:not(:last-child)': {
       borderBottom: 0,
     },
-    '&:before': {
+    'and:before': {
       display: 'none',
     },
-    '&$expanded': {
+    'and$expanded': {
       margin: 'auto',
     },
   },
@@ -54,12 +42,12 @@ const AccordionSummary = withStyles({
     borderBottom: '1px solid rgba(0, 0, 0, .125)',
     marginBottom: -1,
     minHeight: 56,
-    '&$expanded': {
+    'and$expanded': {
       minHeight: 56,
     },
   },
   content: {
-    '&$expanded': {
+    'and$expanded': {
       margin: '12px 0',
     },
   },
@@ -75,21 +63,13 @@ const AccordionDetails = withStyles((theme) => ({
 
 function ProductCategoriesBar() {
   const classes = useStyles();
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [expanded, setExpanded] = React.useState(false);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
 
   const renderMenu = (
     <AppBar position="static" className={classes.sectionDesktop} elevation={0}>
@@ -103,26 +83,26 @@ function ProductCategoriesBar() {
             >
             <Grid item >
               <Category category={"Electronics"} className= "flexItem"
-              subCategories = {["Cell Phones & Accessories", 
-              "Computers & Accessories", "Photo", "Smart Home"]}/>
+              subCategories = {["Cell Phones and Accessories", 
+              "Computers and Accessories", "Photo", "Smart Home"]}/>
             </Grid>
             <Grid item >
               <Category category={"Fashion"} className= "flexItem"
-              subCategories = {["Women", "Men", "Boys", "Girls", "Baby"]}/>
+              subCategories = {["Womens", "Mens", "Boys", "Girls", "Baby"]}/>
             </Grid>
             <Grid item >
               <Category category={"Home & Garden"} className= "flexItem"
-              subCategories = {["Appliances", "Household", 
-              "Home Improvement", "Kitchen & Dining"]}/>
+              subCategories = {["Appliances", "Health and Household", 
+              "Home Improvement", "Kitchen and Dining"]}/>
             </Grid>
             <Grid item >
               <Category category={"Movies, TV, & Games"} className= "flexItem"
-              subCategories = {["Movies & TV", "Toys & Games", "Video Games"]}/>
+              subCategories = {["Movies and TV", "Toys and Games", "Video Games"]}/>
             </Grid>
             <Grid item >
               <Category category={"Misc."} className= "flexItem" 
-              subCategories = {["Arts & Crafts", "Grocery", 
-              "Pet Supplies", "Sports & Hobbies"]}/>
+              subCategories = {["Arts and Crafts", "Grocery", 
+              "Pet Supplies", "Sports and Fitness"]}/>
             </Grid>
           </Grid>
         </Container>
@@ -139,8 +119,8 @@ function ProductCategoriesBar() {
         </AccordionSummary>
         <AccordionDetails>
         <MobileCategory
-            subCategories = {["Cell Phones & Accessories", 
-            "Computers & Accessories", "Photo", "Smart Home"]}/>
+            subCategories = {["Cell Phones and Accessories", 
+            "Computers and Accessories", "Photo", "Smart Home"]}/>
         </AccordionDetails>
       </Accordion>
       <Accordion square expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
@@ -159,7 +139,7 @@ function ProductCategoriesBar() {
         <AccordionDetails>
         <MobileCategory
               subCategories = {["Appliances", "Household", 
-              "Home Improvement", "Kitchen & Dining"]}/>
+              "Home Improvement", "Kitchen and Dining"]}/>
         </AccordionDetails>
       </Accordion>
       <Accordion square expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
@@ -168,7 +148,7 @@ function ProductCategoriesBar() {
         </AccordionSummary>
         <AccordionDetails>
         <MobileCategory
-              subCategories = {["Movies & TV", "Toys & Games", "Video Games"]}/>
+              subCategories = {["Movies and TV", "Toys and Games", "Video Games"]}/>
         </AccordionDetails>
       </Accordion>
       <Accordion square expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
@@ -177,8 +157,8 @@ function ProductCategoriesBar() {
         </AccordionSummary>
         <AccordionDetails>
         <MobileCategory
-              subCategories = {["Arts & Crafts", "Grocery", 
-              "Pet Supplies", "Sports & Hobbies"]}/>
+              subCategories = {["Arts and Crafts", "Grocery", 
+              "Pet Supplies", "Sports and Hobbies"]}/>
         </AccordionDetails>
       </Accordion>
       <br></br>

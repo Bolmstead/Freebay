@@ -23,7 +23,7 @@ export default function RecentWinsFeed(haveBidsBeenChecked) {
   useEffect(() => {
     async function getRecentWins() {
 
-      const numOfRecentWins = 4
+      const numOfRecentWins = 3
 
       // Grab the most recent winners from API
       const result = await FreebayAPI.getRecentWins(numOfRecentWins)

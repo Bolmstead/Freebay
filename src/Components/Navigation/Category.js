@@ -24,6 +24,8 @@ export default function Category({category, subCategories}) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
+  console.log("subCategories", subCategories)
+
   // Material UI functionality to render menu dropdown of subcategories
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -78,7 +80,7 @@ export default function Category({category, subCategories}) {
                   id="menu-list-grow" onKeyDown={handleListKeyDown}>
                   {subCategories.map((item)=>{
                       return <Link id={uuid()} 
-                              href={"/products?subCategory=" + item} 
+                              href={"/products?subCategory=" + (item.split(' ').join('+'))} 
                               style={{ textDecoration: 'none' }}
                               >
                                 <MenuItem style={{color: "#282828"}} id={uuid()} 

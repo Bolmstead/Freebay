@@ -23,7 +23,7 @@ function RecentBiddersFeed(haveBidsBeenChecked) {
 
   useEffect(() => {
     const handleGetRecentBidders = async () => {
-      let numOfBids = 3
+      let numOfBids = 4
       const result = await FreebayAPI.getRecentBids(numOfBids)
       setRecentProductsBiddedOn(result);
     }

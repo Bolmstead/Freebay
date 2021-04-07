@@ -14,6 +14,7 @@ import {useHistory} from 'react-router-dom';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Notifications from "./Notifications";
+import ProfileImageCard from "./ProfileImageCard";
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import useStyles from './Stylings/styleProfile.js'
@@ -67,32 +68,23 @@ function Profile() {
     <Container >
     <br/>
       <Grid container justify="center" alignItems="center"   direction="row" spacing={3} className={classes.feedGrid}>
-
-      <Grid item xs={12} md={4}>
-
-      <Paper elevation={3} className={classes.profileContainer}> 
-          <div className={classes.imageAndName}>
-
-            <Avatar alt="Profile Image" src={imageUrl} className={classes.profileAvatar}/><br/>
-
-          
-            <CardContent>
-              
-              <Typography className = {classes.userName} variant="h5" component="h2" align="center">
-              {username}
-              </Typography>
-              <Typography className={classes.pos} color="textSecondary" align="center">
-                  {firstName} {lastName}
-                </Typography>
-            </CardContent>
-            </div>
-          </Paper>
-          </Grid>
-
-
-        <Grid item xs={12} md={7}>
-            <Notifications userProfile={userProfile}/>
+      { (currentUser.username === userProfile.username)
+      ?
+        <Grid item xs={12} md={4}>
+          <ProfileImageCard userProfile={userProfile}/>
         </Grid>
+      :
+        <Grid item xs={12}>
+          <ProfileImageCard userProfile={userProfile}/>
+        </Grid>
+      }
+      { (currentUser.username === userProfile.username)
+      ?
+        <Grid item xs={12} md={7}>
+          <Notifications/>
+        </Grid>
+      : <div></div>
+      }
         <Grid item xs={12} md={6} spacing={3} justify="center" alignItems="top" direction="row" className={classes.feedGrid}>
             <UserBidsOrWinsFeed products={productsWon} title={"Products Won"}/>
         </Grid>

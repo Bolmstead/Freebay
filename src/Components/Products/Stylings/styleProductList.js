@@ -6,9 +6,8 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2)
     },
     button: {
-      margin: theme.spacing(1),
-      textTransform: 'none'
-
+      textTransform: 'none',
+      marginTop: "20px"
     },
     extendedIcon: {
       marginRight: theme.spacing(1),

@@ -5,7 +5,6 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import {
     useStyles,
     FiCard,
-    FiCardActions,
     FiCardContent,
     FiCardMedia
   } from "./Stylings/styleHomepagePic";
@@ -14,23 +13,23 @@ import Link from '@material-ui/core/Link';
 // Picture to show on the homepage below CategoriesBar
 // Serves as a link to send users to a certain part of the freeBay website
 
-function HomePagePic1() {
+function HomePagePic({imgHref, titleText, subText, linkRoute}) {
   const classes = useStyles();
   return (
       <div>
         <Link style={{textDecoration: 'none'}} 
-              href={"/products?subCategory=Sports%20&%20Hobbies"}>
+              href={linkRoute}>
           <Box my={0}>
             <FiCard className={classes.card}>
               <FiCardMedia 
                 media="picture"
                 alt="Check out our Tech!"
-                image="/Images/workout.jpg"
+                image={imgHref}
                 title="Check out our Tech!"
               />
             <FiCardContent className={classes.fiCardContent}>
               <Typography variant="h4" className={classes.header}>
-                New Goals. Cheap Gear.
+                {titleText}
               </Typography>
               <Typography
                 variant="body1"
@@ -38,7 +37,7 @@ function HomePagePic1() {
                 component="p"
                 display="inline" 
               >
-                Bid for home workout equipment here <ArrowForwardIcon />
+                {subText} <ArrowForwardIcon />
               </Typography >
             </FiCardContent>
           </FiCard>
@@ -48,4 +47,4 @@ function HomePagePic1() {
   );
 }
 
-export default HomePagePic1;
+export default HomePagePic;

@@ -21,7 +21,9 @@ const useStyles = makeStyles((theme) => ({
   },
   feedTitle: {
     fontWeight: 600,
-    
+  },
+  feedContainer:{
+    marginBottom: "0px"
   }
 }));
 

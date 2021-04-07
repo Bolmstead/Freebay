@@ -29,7 +29,11 @@ const ProductsList = ({location}) => {
 
 
   let query = useQuery()
+  let queryString = window.location.search
+  console.log("queryString", queryString)
   let searchQueryObject = Object.fromEntries(new URLSearchParams(query))
+  console.log("searchQueryObject", searchQueryObject)
+
   let nextPageSearchQueryObject = searchQueryObject
   let prevPageSearchQueryObject = searchQueryObject
 
@@ -83,8 +87,20 @@ const ProductsList = ({location}) => {
       console.log("nextPageQuery", nextPageQuery)
 
     }
+    
+    let subCategory;
+    
+    if (Object.keys(searchQueryObject)[0] === "subCategory") {
+      subCategory = searchQueryObject.subCategory
+      let fashionSubCategories = ["Mens", "Womens", "Girls", "Boys", "Baby"]
+      if (fashionSubCategories.indexOf(subCategory) !== -1) {
+        setPageTitle(subCategory + " Fashion")
+      } else{
+        setPageTitle(subCategory)
+      }
+    }
     getProductsInCategory()
-    // setPageTitle(products[0].subCategory)
+
   }, []);
 
   if (!products) return <LoadingText />;
@@ -94,14 +110,14 @@ const ProductsList = ({location}) => {
   return (
     <Container><br/>
     {
-      searchQueryObject.name
+      searchQueryObject.subCategory
       ?
         <Typography variant="h4" spacing={5} className={classes.listTitle}>
-          Search Results for "{searchQueryObject.name}"
+          Products in {pageTitle} 
         </Typography>
       :
         <Typography variant="h4" spacing={5} className={classes.listTitle}>
-          {pageTitle}
+          Search Results for "{searchQueryObject.name}"
         </Typography>
     }
       <br/>
