@@ -1,4 +1,3 @@
-import React, { useState, useContext, useEffect } from "react";
 import { fade, makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
@@ -12,7 +11,8 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex"
   },
   logo: {
-    width: "150px"
+    maxWidth: "150px",
+    minWidth: "80px"
   },
   grow: {
     flexGrow: 1,

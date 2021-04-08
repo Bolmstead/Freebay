@@ -24,8 +24,6 @@ export default function Category({category, subCategories}) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
-  console.log("subCategories", subCategories)
-
   // Material UI functionality to render menu dropdown of subcategories
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);

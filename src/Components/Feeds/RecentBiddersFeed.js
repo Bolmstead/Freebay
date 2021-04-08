@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from 'prop-types';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import FreebayAPI from '../../Api';
@@ -10,22 +9,22 @@ import Container from '@material-ui/core/Container';
 import useStyles from './Stylings/styleRecentBidsFeed.js';
 import Hidden from '@material-ui/core/Hidden';
 import withWidth from '@material-ui/core/withWidth';
-import { createMuiTheme } from '@material-ui/core/styles';
 
 
-/* Renders a list of <ProductCardMini/> components of products with
-   the most recent bids. To be displayed on the Home page */
-   
+/* Renders a list of <ProductCardMini/> components showing products with
+   most recent bids. To be displayed on the Home page */
 
 function RecentBiddersFeed(haveBidsBeenChecked) {
-  const [recentProductsBiddedOn, setRecentProductsBiddedOn] = useState([]);
+  const [recentlyBiddedProducts, setRecentlyBiddedProducts] = useState([]);
   const classes = useStyles();
+
+  // Number of products to be displayed in feed
+  let numOfBids = 4
 
   useEffect(() => {
     const handleGetRecentBidders = async () => {
-      let numOfBids = 4
       const result = await FreebayAPI.getRecentBids(numOfBids)
-      setRecentProductsBiddedOn(result);
+      setRecentlyBiddedProducts(result);
     }
     handleGetRecentBidders();
   }, [haveBidsBeenChecked]);
@@ -33,9 +32,9 @@ function RecentBiddersFeed(haveBidsBeenChecked) {
 
   return (
     <Container className={classes.feedContainer}>
-    { recentProductsBiddedOn
+    { recentlyBiddedProducts
       ?
-        recentProductsBiddedOn.length < 1
+        recentlyBiddedProducts.length < 1
         ?
         <Grid
         container
@@ -51,27 +50,27 @@ function RecentBiddersFeed(haveBidsBeenChecked) {
         </Grid>
         :
         <Grid  container spacing={4} direction="row" justify="center" >
-          { recentProductsBiddedOn[0] 
+          { recentlyBiddedProducts[0] 
           ?
-            <ProductCardMini product={recentProductsBiddedOn[0]} />
+            <ProductCardMini product={recentlyBiddedProducts[0]} />
           : <div></div>
           }
-          { recentProductsBiddedOn[1] 
+          { recentlyBiddedProducts[1] 
           ?
-            <ProductCardMini product={recentProductsBiddedOn[1]} />
+            <ProductCardMini product={recentlyBiddedProducts[1]} />
           : <div></div>
           }
-          { recentProductsBiddedOn[2] 
+          { recentlyBiddedProducts[2] 
           ?
             <Hidden smDown>
-              <ProductCardMini product={recentProductsBiddedOn[2]} />
+              <ProductCardMini product={recentlyBiddedProducts[2]} />
             </Hidden>
           : <div></div>
           }
-          { recentProductsBiddedOn[3] 
+          { recentlyBiddedProducts[3] 
           ?
             <Hidden mdDown>
-              <ProductCardMini product={recentProductsBiddedOn[3]} />
+              <ProductCardMini product={recentlyBiddedProducts[3]} />
             </Hidden>
           : <div></div>
           }
@@ -87,10 +86,6 @@ function RecentBiddersFeed(haveBidsBeenChecked) {
     </Container>
   )
 }
-
-RecentBiddersFeed.propTypes = {
-  width: PropTypes.oneOf(['lg', 'md', 'sm', 'xl', 'xs']).isRequired,
-};
 
 export default withWidth()(RecentBiddersFeed)
 

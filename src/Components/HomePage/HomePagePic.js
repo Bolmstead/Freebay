@@ -10,8 +10,8 @@ import {
   } from "./Stylings/styleHomepagePic";
 import Link from '@material-ui/core/Link';
 
-// Picture to show on the homepage below CategoriesBar
-// Serves as a link to send users to a certain part of the freeBay website
+// Picture on homepage. Serves as link to send users to
+// certain part of the website
 
 function HomePagePic({imgHref, titleText, subText, linkRoute}) {
   const classes = useStyles();

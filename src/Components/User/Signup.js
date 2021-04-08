@@ -5,20 +5,20 @@ import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from "react-router-dom";
 import Alert from '@material-ui/lab/Alert';
-import Context from "../Common/Context";
+import Context from "../../Context";
 import useStyles from "./Stylings/styleSignup"
 
-// Renders a Signin form to create an account. User is redirected 
-// to the home page once an account has been created.
+
+// Renders a Register form to create an account. User is redirected 
+// to a welcome page once a form has been submitted.
 
 export default function Signup() {
   const classes = useStyles();
   const history = useHistory();
-  const { signup, logout } = useContext(Context);
+  const { signup } = useContext(Context);
 
   const [formData, setFormData] = useState({
     username: "",
@@ -39,7 +39,7 @@ export default function Signup() {
 
   /** Handle form submit:
    *
-   * Calls login func prop and, if successful, redirect to /companies.
+   * Calls login func prop and, if successful, redirect to /welcome.
    */
 
   async function handleSubmit(evt) {

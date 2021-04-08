@@ -1,30 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
-import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Rating from '@material-ui/lab/Rating';
-import Box from '@material-ui/core/Box';
-import {useParams, Redirect, useHistory, withRouter, ReactDOM } from 'react-router-dom';
+import {useParams, useHistory, withRouter, ReactDOM } from 'react-router-dom';
 import FreebayAPI from '../../Api.js'
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import LoadingText from '../Common/LoadingText.js'
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import Countdown from 'react-countdown';
 import useStyles from './Stylings/styleProductDetails.js'
-import Context from "../Common/Context";
+import Context from "../../Context";
 import Alert from '@material-ui/lab/Alert';
-
-
-import {
-  Grid,
-  Card,
-  CardContent,
-  CardMedia,
-  Typography
-} from '@material-ui/core/'
-
+import { Grid, Card, CardContent, Typography} from '@material-ui/core/'
 
 
 // Component that displays all information of a product.
@@ -44,25 +31,18 @@ import {
 function ProductDetails() {
   const classes = useStyles();
   const history = useHistory()
-
   const [infoLoaded, setInfoLoaded] = useState(false);
   const [product, setProduct] = useState(null);
   const [countdown, setCountdown] = useState([]);
   const [bidAmount, setBidAmount] = useState(null);
   const [formErrors, setFormErrors] = useState(null);
-
-
   const {id} = useParams();
   const { currentUser, setUpdateAppBar } = useContext(Context);
 
-  // Grab the product from the API using product ID in the URL params
-  // and save to the product state.
   useEffect(() => {
     async function getProduct(id) {
       try {
-        const productResult = await FreebayAPI.getProduct(id)
-        console.log("productResult from getProduct(id)", productResult)     
-        console.log("numOfBids from getProduct(id)", productResult.numOfBids)      
+        const productResult = await FreebayAPI.getProduct(id)  
 
         // If the product has a bid, convert to float type and set with 
         // 2 decimal places (price format) and save to bidPrice variable. 
@@ -76,7 +56,6 @@ function ProductDetails() {
         }
         setProduct(productResult);
 
-
         // Call the function that creates the auction countdown timer 
         getTimeLeft(productResult.auctionEndDt)
         setInfoLoaded(true)
@@ -87,7 +66,6 @@ function ProductDetails() {
     }
     setInfoLoaded(false)
     getProduct(id)
-    console.log("currentUser", currentUser)
   }, []);
 
   // Function creates the countdown timer by subtracting the current time
@@ -129,11 +107,10 @@ function ProductDetails() {
           // current balance amount and amount of notifications in the 
           // <PrimarySearchAppBar/> component.
           setUpdateAppBar(true)
-          // Go to bid confirmation page
           history.push('/bidPlaced')
         }
       } catch(err){
-        console.log(err)
+        return console.log(err)
       }
   }
 

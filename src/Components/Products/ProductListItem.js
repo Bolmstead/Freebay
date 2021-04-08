@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -7,23 +6,17 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import Card from '@material-ui/core/Card';
 import Link from '@material-ui/core/Link';
-
-
 import CardContent from '@material-ui/core/CardContent';
 import useStyles from './Stylings/styleProductListItem.js'
+
 
 // Feed of a user's highest bids. To be displayed for anyone viewing the page
 
 export default function ProductListItem(userProfile) {
   const classes = useStyles();
 
-  console.log("userProfile in UserBidsFeed", userProfile )
-
   const { highest_bids } = userProfile["userProfile"]
-
-  console.log("highest_bids in UserBidsFeed", highest_bids )
 
   return (
     <div className={classes.root}>

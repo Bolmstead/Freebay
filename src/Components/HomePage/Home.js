@@ -1,23 +1,28 @@
 import React, { useState, useEffect } from "react";
 import FreebayAPI from '../../Api';
-
-import homePagePics from './HomePagePicOptions'
 import Grid from '@material-ui/core/Grid';
 import RecentWinsFeed from '../Feeds/RecentWinsFeed.js'
 import RecentBiddersFeed from '../Feeds/RecentBiddersFeed.js'
-import Link from '@material-ui/core/Link';
 import useStyles from './Stylings/styleHome.js'
 import { Typography } from "@material-ui/core";
+import HomePagePic from "./HomePagePic"
 
-/* Home page rendering a large picture link (HomePagePic), a feed of the most recent 
-auction winners (RecentWinsFeed) and products with the most bids (RecentBiddersFeed). 
-Also contains a link at bottom of page to get information on how to use site*/
+/* Home page rendering the following:
+   - large picture link <HomePagePic/>
+   - feed of most recent auction winners <RecentWinsFeed/>
+   - products with the most bids <RecentBiddersFeed/> */
 
 function Home() {
   const classes = useStyles();
+
+  // If state is true, then all bids have been checked if their auction
+  // has ended. The useEffect hooks in the <RecentWinsFeed/> and 
+  // <RecentBiddersFeed/> will execute once  state has changed
   const [haveBidsBeenChecked, setHaveBidsBeenChecked] = useState(false);
 
   useEffect(() => {
+    // Check all bids if their auction has ended. If so, code will add
+    // product to the user's products won
     const checkAllBidsForAuctionsEnded = async () => {
       await FreebayAPI.checkAllBids()
       setHaveBidsBeenChecked(true);
@@ -25,8 +30,25 @@ function Home() {
     checkAllBidsForAuctionsEnded();
   }, []);
 
+  // Randomly pick one of the below HomePagePic components to be displayed on the homepage
+  const homePagePic1 = 
+    <HomePagePic linkRoute={"/products?subCategory=Pet+Supplies"} 
+    titleText={"New Goals. Cheap Gear."} subText={"Bid for home workout equipment here "} 
+    imgHref={"/Images/workout.jpg"}/>
+
+  const homePagePic2 = 
+    <HomePagePic linkRoute={"/products?subCategory=Sports+and+Hobbies"} 
+    titleText={"The Best Tech. For Less."} subText={"Get the newest gadgets here" } 
+    imgHref={"/Images/electronics.jpg"}/>
+  
+  const homePagePic3 = 
+    <HomePagePic linkRoute={"/products?subCategory=Pet+Supplies"} 
+    titleText={"Running Low on Kitty Litter?"} subText={"Hurry and grab it now!"} 
+    imgHref={"/Images/kitten.jpg"}/>
+  
+  let homePagePics = [homePagePic1, homePagePic2, homePagePic3]
   let randomIndex = Math.floor(Math.random() * 3)
-  console.log("homePagePics", homePagePics)
+
 
   return (
     <div>

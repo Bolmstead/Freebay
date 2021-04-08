@@ -14,9 +14,9 @@ import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 
 
 /** Application bar located at the top of every page on site below the
- *  PrimarySearchAppBar. Displays <Category> components of all possible 
- *  product categories. When a category is clickend a menue dropdown 
- *  renders of subcategory links renders. 
+ *  PrimarySearchAppBar. Displays <Category> button components of all possible 
+ *  product categories. When a category is clickend a menu dropdown 
+ *  renders of subcategory links is displayed. 
  */
 
  const Accordion = withStyles({
@@ -68,8 +68,6 @@ function ProductCategoriesBar() {
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
-
-
 
   const renderMenu = (
     <AppBar position="static" className={classes.sectionDesktop} elevation={0}>
@@ -162,7 +160,6 @@ function ProductCategoriesBar() {
         </AccordionDetails>
       </Accordion>
       <br></br>
-      
     </div>
   )
 

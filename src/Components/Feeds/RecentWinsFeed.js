@@ -18,16 +18,15 @@ user. To be displayed on the home page */
 
 export default function RecentWinsFeed(haveBidsBeenChecked) {
   const classes = useStyles();
-  const [allWins, setAllWins] = useState(null);
+  const [recentWins, setRecentWins] = useState(null);
+  //Number of products
+  const numOfRecentWins = 3
 
   useEffect(() => {
     async function getRecentWins() {
 
-      const numOfRecentWins = 3
-
       // Grab the most recent winners from API
       const result = await FreebayAPI.getRecentWins(numOfRecentWins)
-      console.log("results in getRecentWins", result)
 
       // Map the result shortening the name of each 
       // product to better fit in homepage
@@ -35,22 +34,20 @@ export default function RecentWinsFeed(haveBidsBeenChecked) {
         product.name = (product.name.substring(0, 70) + "...")
       ))
 
-      console.log("result in recentWinsFeed", result)
-
-      setAllWins(result)
+      setRecentWins(result)
     }
     getRecentWins();
   }, [haveBidsBeenChecked]);
 
-  if (!allWins){
+  if (!recentWins){
     return <LoadingText />
   }
 
   return (
     <List className={classes.root}>
-      { allWins[0]
+      { recentWins[0]
       ? 
-        allWins.map( product => (
+        recentWins.map( product => (
           <div>
             <ListItem alignItems="flex-start">
               <Link href={"/Profile/" + product.username} 
@@ -85,7 +82,7 @@ export default function RecentWinsFeed(haveBidsBeenChecked) {
               </Link>
             </ListItem>
             {/* render a divider for each list item unless it is last in array */}
-            { (allWins.indexOf(product) === (allWins.length - 1))
+            { (recentWins.indexOf(product) === (recentWins.length - 1))
             ? <div></div>
             : <Divider variant="inset" component="li" />
             }

@@ -4,8 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 import useStyles from './Stylings/styleWelcomePage'
 
+
 // Page explaining how to use website. Renders after a user registers.
-// Can be accessed from link at bottom of home page.
 
 export default function Welcome() {
     const classes = useStyles();

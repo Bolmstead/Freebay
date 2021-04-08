@@ -16,8 +16,6 @@ import Grid from '@material-ui/core/Grid';
 
 function ProductCardMini({product}) {
   const classes = useStyles();
-  console.log("product in ProductCardMini", product)
-
   let {id, name, startingBid, imageUrl, rating,
       username, bidPrice} = product
   let bidDisplay;

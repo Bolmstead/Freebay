@@ -3,20 +3,24 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import useStyles from './Stylings/styleFeedItem.js'
 
 
-// List item displaying product's title and its highest bid. 
+// List item displaying product's title 
 // Renders within the <UserBidsFeed/> and <UserWinsFeed/> components.
 
 export default function FeedItem(product) {
     const classes = useStyles();
     let {p} = product
 
-    // set text of the item to smaller string
-    let shortName = (p.name.substring(0, 80) + "...")
+    // if product name is larger than a certain length, create a substring 
+    // of the text and save to productName variable. Will be used for the 
+    // product's title.
+    let productName
+    if (p.name.length > 78){
+        productName = (p.name.substring(0, 80) + "...")
+    }
 
     return (
     <Link href={"/Product/" + p.id} className={classes.product} 
@@ -26,7 +30,7 @@ export default function FeedItem(product) {
                 <Avatar alt="Product Image" src={p.imageUrl}
                 className={classes.large} />
             </ListItemAvatar>
-        <ListItemText primary={shortName} className={classes.product} color="textPrimary"/>
+        <ListItemText primary={productName} className={classes.product} color="textPrimary"/>
         </ListItem>
     </Link>
     )}

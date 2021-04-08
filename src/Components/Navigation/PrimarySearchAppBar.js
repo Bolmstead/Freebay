@@ -1,48 +1,42 @@
-import React, { useState, useContext, useEffect } from "react";
-import { fade, makeStyles } from '@material-ui/core/styles';
+import React, { useState, useContext } from "react";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Avatar from '@material-ui/core/Avatar';
-
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
 import Popover from '@material-ui/core/Popover';
-
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
-import Context from "../Common/Context";
 import {useHistory} from 'react-router-dom';
 import FreebayAPI from "../../Api.js"
 import useStyles from "./Stylings/stylePrimarySearchAppBar.js"
 import NotificationItem from "../User/NotificationItem"
-import { TramRounded } from "@material-ui/icons";
+import Context from "../../Context"
 
 
 /** Application bar located at the top of every page on site above the 
  * CategoriesBar. If logged in, displays user's account balance, 
  * notifications icon, and profile icon. If not logged in, shows login 
- * and signup links. Contains a search bar for any user to search all 
+ * and signup links. Contains a search bar for a user to search all 
  * products.
  *
- * - searchTerm: The text a user types into the search bar that updates
- *   as a user types into the search bar. This is the text used to call
- *   and search the API for the desired products
+ * - searchTerm: The text a user types into the search bar. updates
+ *   as user types. The searchTerm will be used to call the API to
+ *   search all products
  * 
  * - accountAnchorEl & notificationsAnchorEl: Sets anchor points
  *   on the account/notifications button for the Material UI dropdown menu
  *   to know where to dropdown from.
  * 
- * - newNotifications: holds the notifications that have not yet been seen.
- *   Any new notifications held in this state will show as a number badge
- *   on the notifications icon and will also render as a dropdown when  
- *   icon is clicked. 
+ * - newNotifications: holds the notifications that have not yet been 
+ *   seen by the user. Number of new notifications held in this state 
+ *   will show as a number badge on the notifications icon if any.
  */
 
 function PrimarySearchAppBar() {
@@ -57,15 +51,12 @@ function PrimarySearchAppBar() {
   let allNotifications;
   let unviewedNotifications;
 
-  // If logged in, save theallNotifications that have not been 
+  // If logged in, save allNotifications that have not been 
   // viewed to a variable and set that as the initial value for
   // the newNotifications state
   if (currentUser){
     allNotifications = currentUser.notifications;
     unviewedNotifications = allNotifications.filter( n => !n.wasViewed)
-    
-    console.log("unviewedNotifications",unviewedNotifications)
-    console.log("allNotifications",allNotifications)
 
   }
   const [newNotifications, setNewNotifications] = useState(unviewedNotifications);
@@ -101,18 +92,13 @@ function PrimarySearchAppBar() {
     setNotificationsAnchorEl(null);
   };
 
+  // will set all of a user's notifications to viewed
   async function viewNotificationsApi() {
     try {
       await FreebayAPI.viewNotifications(currentUser.email);
-      console.log("viewNotifications API call")
     } catch (err) {
     }
   }
-
-  // Once the newNotifications state has changed, the user has seen
-  // all of their notifications. Therefore call the API to set all of
-  // the user's was_viewed property in notifications to true.
-
 
   // When a user submits a search term in the search bar, go to new page
   // with the desired search info
@@ -158,7 +144,6 @@ function PrimarySearchAppBar() {
   );
 
   const renderNotificationsMenu = (
-  
     <Popover
       anchorEl={notificationsAnchorEl}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
@@ -196,13 +181,6 @@ function PrimarySearchAppBar() {
       : <div></div>
     }
     </Popover>
-  );
-
-
-  console.log(
-    "PrimarySearchAppBar",
-    "currentUser=", currentUser,
-    "unviewedNotifications=", unviewedNotifications,
   );
     
   return (

@@ -1,5 +1,6 @@
 import React from "react";
 
+
 /** Presentational component for showing bootstrap-style alerts. **/
 
 function Alert({ type = "danger", messages = [] }) {

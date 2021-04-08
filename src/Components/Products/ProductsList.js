@@ -1,25 +1,26 @@
 import React, { useState, useContext, useEffect } from "react";
 import ProductCard from './ProductCard.js'
-import {
-    Grid
-  } from '@material-ui/core/'
+import { Grid } from '@material-ui/core/'
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import FreebayAPI from '../../Api.js'
 import { useLocation } from 'react-router-dom';
 import useStyles from './Stylings/styleProductList.js'
 import {Typography} from '@material-ui/core/'
-import Context from "../Common/Context";
+import Context from "../../Context";
 import LoadingText from "../Common/LoadingText";
-import {Redirect, useHistory, Link} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+
+// Shows a list of <ProductCards/> that are available for auction
+// Title of page changes based on whether the user searched for a term
+// or clicked on a category from the categories bar
+//
+// - nextPageQuery & prevPageQuery: queries added to the url of the
+//   next/previous page of products. 
 
 
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
-
-const ProductsList = ({location}) => {
+const ProductsList = () => {
   const classes = useStyles();
   const [nextPageQuery, setNextPageQuery] = useState(null);
   const [prevPageQuery, setPrevPageQuery] = useState(null);
@@ -27,12 +28,12 @@ const ProductsList = ({location}) => {
   const { products, setProducts } = useContext(Context);
   const history = useHistory()
 
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
 
   let query = useQuery()
-  let queryString = window.location.search
-  console.log("queryString", queryString)
   let searchQueryObject = Object.fromEntries(new URLSearchParams(query))
-  console.log("searchQueryObject", searchQueryObject)
 
   let nextPageSearchQueryObject = searchQueryObject
   let prevPageSearchQueryObject = searchQueryObject
@@ -42,13 +43,11 @@ const ProductsList = ({location}) => {
   useEffect(() => {
     async function getProductsInCategory() {
       let res = await FreebayAPI.getProducts(searchQueryObject);
-      
       let productsResult = res.products
       let numOfProductsInAuction = res.numOfProductsInAuction
 
       setProducts(productsResult);
 
-      
       // Grab page number from the search query. If no page in query, set page to 1
       let { page } = searchQueryObject
       if (!page) {
@@ -56,16 +55,12 @@ const ProductsList = ({location}) => {
       }
       page = parseInt(page)
 
-      
-
       // Create the url query string for the link to next page
       if ((numOfProductsInAuction - (page*24) > 0)) {
         const nextPage = (page + 1).toString()
         nextPageSearchQueryObject["page"] = nextPage
-        console.log("nextPageSearchQueryObject",nextPageSearchQueryObject)
 
         let nextSearchQueryString = new URLSearchParams(nextPageSearchQueryObject).toString()
-        console.log("nextSearchQueryString",nextSearchQueryString)
         setNextPageQuery(nextSearchQueryString)
 
       } else {
@@ -77,19 +72,15 @@ const ProductsList = ({location}) => {
         let prevPage = (page - 1).toString()
         prevPageSearchQueryObject["page"] = prevPage
         let prevSearchQueryString = new URLSearchParams(prevPageSearchQueryObject).toString()
-        console.log("prevSearchQueryString",prevSearchQueryString)   
         setPrevPageQuery(prevSearchQueryString)
       } else {
         setPrevPageQuery(null)
       }
-
-      console.log("prevPageQuery", prevPageQuery)
-      console.log("nextPageQuery", nextPageQuery)
-
     }
     
+    // if subCategory was included in the queryString, set the page title to that subcategory
+    // if the subCategory was within the Fashion category, add Fasion to end of title
     let subCategory;
-    
     if (Object.keys(searchQueryObject)[0] === "subCategory") {
       subCategory = searchQueryObject.subCategory
       let fashionSubCategories = ["Mens", "Womens", "Girls", "Boys", "Baby"]
@@ -104,7 +95,6 @@ const ProductsList = ({location}) => {
   }, []);
 
   if (!products) return <LoadingText />;
-  
   
 
   return (
@@ -147,7 +137,6 @@ const ProductsList = ({location}) => {
             {"Next page >"}
           </Button>
         }
-
       </Grid>
       </Container>
       )

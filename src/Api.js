@@ -34,22 +34,16 @@ class FreebayAPI {
 
   static async getProduct(id) {
     let res = await this.request(`products/${id}`);
-    console.log("res from getProduct Api.js", res)
     return res.productResult;
   }
 
   /** Get details on all products. */
 
   static async getProducts(searchObject) {
-    console.log("searchObject from Api.js getProducts", searchObject)
     const queryString = Object.keys(searchObject).map(key => key + '=' + searchObject[key]).join('&');
 
-    // console.log("queryString from Api.js getProducts", queryString)
-
     let url = `products/?` + queryString
-    // console.log("url", url)
     let res = await this.request(url);
-    // console.log("res from getProducts,", res)
 
     return res;
   }
@@ -58,7 +52,6 @@ class FreebayAPI {
 
   static async login(data) {
     let res = await this.request(`auth/token`, data, "post");
-    // console.log("res from api.js login method", res)
 
     return res.token;
   }
@@ -67,7 +60,6 @@ class FreebayAPI {
 
   static async signup(data) {
     let res = await this.request(`auth/register`, data, "post");
-    // console.log("res from api.js signup method", res)
 
     return res.token;
   }
@@ -75,10 +67,7 @@ class FreebayAPI {
   /** Get current user information. */
   
   static async getUser(username) {
-    // console.log("madeit to getUser API method")
     let res = await this.request(`users/${username}`);
-    console.log("madeit to getUser API method after this.request",res)
-
     return res;
   }
 
@@ -87,7 +76,6 @@ class FreebayAPI {
 
   static async checkAllBids() {
     let res = await this.request(`bids/check-all-bids-for-ended-auctions`);
-    console.log("res from api.js addBid method", res)
     return res;
   }
 
@@ -95,7 +83,6 @@ class FreebayAPI {
 
   static async getRecentBids(numOfProducts) {
     let res = await this.request(`bids/recent/${numOfProducts}`);
-    // console.log("res from api.js addBid method", res)
     return res;
   }
 
@@ -104,13 +91,13 @@ class FreebayAPI {
   static async addBid(productId, bidAmount) {
     let data={}
     let res = await this.request(`bids/${productId}/placeBid/${bidAmount}`, data, "post");
-    // console.log("res from api.js addBid method", res)
     return res;
   }
 
+  /** Get recent bids */
+
   static async getRecentWins(numOfProducts) {
     let res = await this.request(`products-won/recent/${numOfProducts}`);
-    console.log("res in api.js getRecentWins()",res)
     return res;
   }
 
@@ -119,8 +106,6 @@ class FreebayAPI {
   static async viewNotifications(email) {
     let data = {}
     let res = await this.request(`notifications/view`, data, "post");
-    console.log("res from viewNotifications Api.js", res)
-    // console.log("res from api.js addBid method", res)
     return res;
   }
  

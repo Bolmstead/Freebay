@@ -9,12 +9,11 @@ import FeedItem from './FeedItem.js'
 
 /* Renders a list of <FeedItem/> components of product information. 
    Will either show a user's highest bids or products won.
-   To be displayed on every profile page */
+   To be displayed on every user's profile page */
 
 export default function UserBidsOrWinsFeed({...props}) {
   const classes = useStyles();
   const {products, title} = props
-
 
   return (
       <Paper elevation={3} className={classes.card} >

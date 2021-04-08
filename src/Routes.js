@@ -6,7 +6,7 @@ import Signup from "./Components/User/Signup";
 import Profile from "./Components/User/Profile";
 import Welcome from "./Components/Common/WelcomePage";
 import NotFound from "./Components/Common/NotFound";
-import BidConfirmation from "./Components/Common/BidConfirmation";
+import BidConfirmation from "./Components/Products/BidConfirmation";
 import ProductsList from "./Components/Products/ProductsList";
 import ProductDetails from "./Components/Products/ProductDetails";
 
