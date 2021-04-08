@@ -33,6 +33,8 @@ export default function Welcome() {
             className={classes.bodyText}>
                 Log in on a new day and you'll get a surprise! Thanks for playing!
             </Typography>
+            <br/><br/><br/>
+
         </Grid>
     
     </Grid>

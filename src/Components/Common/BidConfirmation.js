@@ -20,13 +20,27 @@ export default function BidConfirmation() {
         <Grid container spacing={2} justify="center" align="center"><br/>
         <br/>
         <br/>
+        <br/>
+        <br/>
             <Grid xs={12} item>
+              <br/>
+              <br/>
+              <br/>              <br/>
+              <br/>
               <br/>
             <EmojiEmotionsIcon className={classes.smiley} color="disabled" />
                 <Typography component="h3" variant="h5">
                     Congrats {currentUser.firstName}, you're now the high bidder!
                 </Typography>
-                 <br/>
+                 <br/>              <br/>
+              <br/>
+              <br/>              <br/>
+              <br/>
+              <br/>              <br/>
+              <br/>
+              <br/>              <br/>
+              <br/>
+              <br/>
             </Grid>
         </Grid>
     );
