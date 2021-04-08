@@ -32,17 +32,17 @@ function Home() {
 
   // Randomly pick one of the below HomePagePic components to be displayed on the homepage
   const homePagePic1 = 
-    <HomePagePic linkRoute={"/products?subCategory=Sports+and+Hobbies"} 
+    <HomePagePic linkRoute={"/products?subCategory=Sports+and+Fitness"} 
     titleText={"New Goals. Cheap Gear."} subText={"Bid for home workout equipment here "} 
     imgHref={"/Images/workout.jpg"}/>
 
   const homePagePic2 = 
-    <HomePagePic linkRoute={"/products?subCategory=Pet+Supplies"} 
+    <HomePagePic linkRoute={"/products?subCategory=Computers+and+Accessories"} 
     titleText={"The Best Tech. For Less."} subText={"Get the newest gadgets here" } 
     imgHref={"/Images/electronics.jpg"}/>
   
   const homePagePic3 = 
-    <HomePagePic linkRoute={"/products?subCategory=Computers+and+Accessories"} 
+    <HomePagePic linkRoute={"/products?subCategory=Pet+Supplies"} 
     titleText={"Running Low on Kitty Litter?"} subText={"Hurry and grab it now!"} 
     imgHref={"/Images/kitten.jpg"}/>
   
