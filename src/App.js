@@ -9,7 +9,7 @@ import Context from "./Context.js";
 import Footer from "./Components/Common/Footer.js";
 import FreebayAPI from './Api'
 import useLocalStorage from "./hooks/useLocalStorageHook";
-import useStyles from './styleApp.js'
+import useStyles from './Stylings/styleApp.js'
 import LoadingText from './Components/Common/LoadingText'
 
 // Key name for storing token in localStorage for "remember me" re-login

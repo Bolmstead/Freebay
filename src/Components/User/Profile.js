@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext, useStyles, useHistory } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import {useParams} from 'react-router-dom';
 import FreebayAPI from '../../Api.js'
 import Context from "../../Context";
@@ -8,6 +9,7 @@ import UserBidsOrWinsFeed from "../Feeds/UserBidsOrWinsFeed";
 import LoadingText from "../Common/LoadingText"
 import Notifications from "./Notifications";
 import ProfileImageCard from "./ProfileImageCard";
+import useStyles from "./Stylings/styleProfile"
 
 // A users profile. Notifications feed will only be shown 
 // if it is the logged in user's profile.
