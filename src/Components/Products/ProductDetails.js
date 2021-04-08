@@ -115,8 +115,6 @@ function ProductDetails() {
 
         if (isNaN(bid)){
           setFormErrors("Please submit a real bid")
-        } else if (currentUser.email === product.bidderEmail){
-          setFormErrors("You have already placed a bid on this product")
         } else if (bid > balance){
           setFormErrors("You do not have sufficient funds to place this bid")
         } else if (bid < bidPrice){
