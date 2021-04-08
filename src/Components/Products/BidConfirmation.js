@@ -12,9 +12,9 @@ export default function BidConfirmation() {
     const { currentUser } = useContext(Context);
 
     return (
-      <div className={classes.confirmContainer}>
+      <div className={classes.confirmContainer}><br/><br/><br/><br/>
         <Grid container spacing={2} justify="center" align="center"><br/>
-            <Grid xs={12} item>
+            <Grid xs={12} item><br/><br/><br/><br/>
             <EmojiEmotionsIcon className={classes.smiley} color="disabled" />
                 <Typography component="h3" variant="h5">
                     Congrats {currentUser.firstName}, you're now the high bidder!

@@ -18,9 +18,11 @@ import { useHistory } from 'react-router-dom';
 // - nextPageQuery & prevPageQuery: queries added to the url of the
 //   next/previous page of products. 
 
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
-
-const ProductsList = () => {
+const ProductsList = ({location}) => {
   const classes = useStyles();
   const [nextPageQuery, setNextPageQuery] = useState(null);
   const [prevPageQuery, setPrevPageQuery] = useState(null);
@@ -28,21 +30,16 @@ const ProductsList = () => {
   const { products, setProducts } = useContext(Context);
   const history = useHistory()
 
-  function useQuery() {
-    return new URLSearchParams(useLocation().search);
-  }
-
   let query = useQuery()
   let searchQueryObject = Object.fromEntries(new URLSearchParams(query))
-
   let nextPageSearchQueryObject = searchQueryObject
   let prevPageSearchQueryObject = searchQueryObject
-
 
  // call API to grab products based on search results
   useEffect(() => {
     async function getProductsInCategory() {
       let res = await FreebayAPI.getProducts(searchQueryObject);
+      console.log("res", res)
       let productsResult = res.products
       let numOfProductsInAuction = res.numOfProductsInAuction
 

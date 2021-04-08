@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#FFD066"
   },
   confirmContainer:{
-    height: "100vh"
+    height: "80vh"
   }
 }));
 
