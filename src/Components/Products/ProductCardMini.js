@@ -30,7 +30,8 @@ function ProductCardMini({product}) {
   }
 
   return (
-    <Grid item xs={6} sm={6} md={4} lg={3}>
+    <Grid item xs={12} sm={6} md={4} lg={3}>
+      <Grid container direction="row" justify="center" alignItems="center">
       <Link href={"/product/" + id} 
             color="inherit" 
             style={{ textDecoration: 'none' }}
@@ -67,6 +68,7 @@ function ProductCardMini({product}) {
           </CardActionArea>
         </Card>
       </Link>
+      </Grid>
     </Grid>
   );
 }

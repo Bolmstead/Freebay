@@ -125,12 +125,10 @@ function ProductDetails() {
       <br/>
       <Grid container spacing={4} justifyContent="center" alignItems="center" >
         <Grid item  xs={12} md={6}>
-          <div className={classes.imageContainer}>
           <img
               className={classes.media}
               src={product.imageUrl}
             />
-            </div>
         </Grid>
         <Grid item xs={12} md={6}>
           <Card className={classes.root} variant="outlined">

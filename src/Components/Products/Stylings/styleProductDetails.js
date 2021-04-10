@@ -8,8 +8,8 @@ const useStyles = makeStyles({
     margin: 'auto'
   },
   media: {
-    height: 400,
-    width: 400,
+    maxHeight: 400,
+    maxWidth: "100%",
     objectFit: "contain",
     display: "block",
     marginLeft: "auto",

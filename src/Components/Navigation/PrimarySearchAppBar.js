@@ -8,6 +8,7 @@ import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Popover from '@material-ui/core/Popover';
+import Hidden from '@material-ui/core/Hidden';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -185,11 +186,23 @@ function PrimarySearchAppBar() {
     
   return (
     <div className={classes.grow}>
+      <Hidden smUp>
+        <AppBar position="static" style= {{background: "#FFFFFF"}} elevation={0} className={classes.mobileLogoBar}>
+          <Toolbar className= "flex">  
+            <Link href="/" >
+              <img src="/images/logo.png" alt="logo" className={classes.logo}></img>
+            </Link>
+          </Toolbar>
+       </AppBar>
+      </Hidden>
+
       <AppBar position="static" style= {{background: "#FFFFFF"}} elevation={0}>
         <Toolbar className= "flex">  
-          <Link href="/">
+        <Hidden only="xs">
+          <Link href="/" >
             <img src="/images/logo.png" alt="logo" className={classes.logo}></img>
           </Link>
+        </Hidden>
           <div className={classes.search}>
             <form onSubmit={handleSubmit} >
               <div className={classes.searchIcon}>

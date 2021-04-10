@@ -22,17 +22,10 @@ function Footer() {
           component="p" align="center" className={classes.footerText}>
             Developed by Berkley Olmstead 
           </Typography>
-          <Typography variant="body1" color="textSecondary" 
-          component="p" align="center" className={classes.footerText}>
-            |
-          </Typography>
         </div>
         <Link href="https://github.com/Bolmstead/freebay-frontend" >
           <GitHubIcon className={classes.icon}/>
         </Link>
-        <a href="mailto:olms2074@gmail.com" >
-          <EmailIcon className={classes.icon}/>
-        </a>
         <Link href="https://www.linkedin.com/in/berkleyolmstead/" >
           <LinkedInIcon className={classes.icon}/>
         </Link>

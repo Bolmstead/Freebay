@@ -12,7 +12,10 @@ export const useStyles = makeStyles((theme) => ({
   },
   logo: {
     maxWidth: "150px",
-    minWidth: "80px"
+    minWidth: "80px",
+  },
+  mobileLogoBar: {
+    alignItems: 'center',
   },
   grow: {
     flexGrow: 1,

@@ -11,14 +11,12 @@ export const useStyles = makeStyles(() => ({
     padding: 0,
   },
   footerText: {
-    display: 'inline',
     margin: "10px"
   },
   footerTextContainer: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center", 
-    display: 'inline',
+    alignItems: "center"
   },
   footerContainer: {
     display: "flex",

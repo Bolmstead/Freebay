@@ -49,7 +49,8 @@ function RecentBiddersFeed(haveBidsBeenChecked) {
             </Grid>   
         </Grid>
         :
-        <Grid  container spacing={4} direction="row" justify="center" >
+        <Grid  container spacing={4} direction="row" justify="center" alignItems="center"
+        >
           { recentlyBiddedProducts[0] 
           ?
             <ProductCardMini product={recentlyBiddedProducts[0]} />
@@ -57,19 +58,21 @@ function RecentBiddersFeed(haveBidsBeenChecked) {
           }
           { recentlyBiddedProducts[1] 
           ?
-            <ProductCardMini product={recentlyBiddedProducts[1]} />
+            <Hidden only={['sm' ]}>
+              <ProductCardMini product={recentlyBiddedProducts[1]} />
+            </Hidden>
           : <div></div>
           }
           { recentlyBiddedProducts[2] 
           ?
-            <Hidden smDown>
+            <Hidden only={['sm', 'md']}>
               <ProductCardMini product={recentlyBiddedProducts[2]} />
             </Hidden>
           : <div></div>
           }
           { recentlyBiddedProducts[3] 
           ?
-            <Hidden mdDown>
+            <Hidden only={['sm', 'md']}>
               <ProductCardMini product={recentlyBiddedProducts[3]} />
             </Hidden>
           : <div></div>
