@@ -268,10 +268,10 @@ function PrimarySearchAppBar() {
             </div>
           :  
             <div>
-              <Button color="default" href="/login" className={classes.button}>
+              <Button color="default" href="/login#hello" className={classes.button}>
                 Login
               </Button>
-              <Button color="default" href="/signup" className={classes.button}>
+              <Button color="default" href="/signup#hello" className={classes.button}>
                 Signup
               </Button>
             </div>

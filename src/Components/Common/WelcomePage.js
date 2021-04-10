@@ -16,7 +16,7 @@ export default function Welcome() {
         <Grid xs={12} item>
             <br/><br/><br/>
         <EmojiEmotionsIcon className={classes.smiley} color="disabled" />
-            <Typography component="h1" variant="h3">
+            <Typography component="h1" variant="h3" id="notify">
                 Welcome to freeBay
             </Typography>
 

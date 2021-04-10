@@ -34,8 +34,8 @@ export default function NotificationItem({n, shortened}) {
     icon = <CardGiftcardIcon />
   }
 
-  if ((shortened) && (n.text.length > 50)) {
-    n.text = n.text.substring(0, 47) + "..."
+  if ((shortened) && (n.text.length > 45)) {
+    n.text = n.text.substring(0, 42) + "..."
   }
 
   return (
