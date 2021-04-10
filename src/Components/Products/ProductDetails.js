@@ -162,7 +162,7 @@ function ProductDetails() {
                       ${product.bidDisplay}{' '}                 
                       <Typography variant="subtitle1" color="textSecondary" 
                       display="inline">
-                        is the current bid by {' '} 
+                        is the highest bid by {' '} 
                         <Link href={"/Profile/" + product.bidderUsername}>
                           {product.bidderUsername}
                         </Link>

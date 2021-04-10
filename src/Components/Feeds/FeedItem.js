@@ -20,12 +20,14 @@ export default function FeedItem(product) {
     let productName
     if (p.name.length > 78){
         productName = (p.name.substring(0, 80) + "...")
+    } else {
+        productName = p.name
     }
 
     return (
     <Link href={"/Product/" + p.id} className={classes.product} 
     style={{ textDecoration: 'none' }}>
-        <ListItem alignItems="flex-start" className={classes.listItem}>
+        <ListItem alignItems="center" className={classes.listItem}>
             <ListItemAvatar>
                 <Avatar alt="Product Image" src={p.imageUrl}
                 className={classes.large} />

@@ -38,13 +38,13 @@ function Home() {
 
   const homePagePic2 = 
     <HomePagePic linkRoute={"/products?subCategory=Computers+and+Accessories"} 
-    titleText={"The Best Tech. For Less."} subText={"Get the newest gadgets here" } 
+    titleText={"The Best Tech. For Less."} subText={"Get the newest gadgets here " } 
     imgHref={"/Images/electronics.jpg"}/>
   
   const homePagePic3 = 
-    <HomePagePic linkRoute={"/products?subCategory=Pet+Supplies"} 
-    titleText={"Running Low on Kitty Litter?"} subText={"Hurry and grab it now!"} 
-    imgHref={"/Images/kitten.jpg"}/>
+    <HomePagePic linkRoute={"/products?subCategory=Kitchen+and+Dining"} 
+    titleText={"Tired of Half-Baked Recipes?"} subText={"Cook up some tasty meals with these "} 
+    imgHref={"/Images/cooking.jpg"}/>
   
   let homePagePics = [homePagePic1, homePagePic2, homePagePic3]
   let randomIndex = Math.floor(Math.random() * 3)

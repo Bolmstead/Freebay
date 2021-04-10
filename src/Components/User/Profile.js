@@ -43,6 +43,8 @@ function Profile() {
   return (
     <Container >
     <br/>
+    {currentUser
+    ?
       <Grid container justify="center" alignItems="center"   
       direction="row" spacing={3} className={classes.feedGrid}>
 
@@ -73,6 +75,22 @@ function Profile() {
             <UserBidsOrWinsFeed products={bids} title={"Highest Bids"}/>
         </Grid>
       </Grid>
+    :
+      <Grid container justify="center" alignItems="center"   
+      direction="row" spacing={3} className={classes.feedGrid}>
+        <Grid item xs={12}>
+          <ProfileImageCard userProfile={userProfile}/>
+        </Grid>
+        <Grid item xs={12} md={6} spacing={3} justify="center" 
+        alignItems="top" direction="row" className={classes.feedGrid}>
+            <UserBidsOrWinsFeed products={productsWon} title={"Products Won"}/>
+        </Grid>
+        <Grid item xs={12} md={6} spacing={3} justify="center" 
+        alignItems="top" direction="row" className={classes.feedGrid}>
+            <UserBidsOrWinsFeed products={bids} title={"Highest Bids"}/>
+        </Grid>
+      </Grid>
+    }
       </Container>
   );
 }

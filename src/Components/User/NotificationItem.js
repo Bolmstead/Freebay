@@ -8,6 +8,7 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
+import Hidden from '@material-ui/core/Hidden';
 
 
 // Displays a feed of a user's viewed and unviewed notifications. 
@@ -33,17 +34,19 @@ export default function NotificationItem({n, shortened}) {
     icon = <CardGiftcardIcon />
   }
 
-  if ((shortened) && (n.text.length > 60)) {
-    n.text = n.text.substring(0, 60) + "..."
+  if ((shortened) && (n.text.length > 50)) {
+    n.text = n.text.substring(0, 47) + "..."
   }
 
   return (
     <ListItem dense="true">
-      <ListItemAvatar>
-        <Avatar>
-          {icon}
-        </Avatar>
-      </ListItemAvatar>
+      <Hidden Hidden only={['xs']}>
+        <ListItemAvatar>
+          <Avatar>
+            {icon}
+          </Avatar>
+        </ListItemAvatar>
+      </Hidden>
       <ListItemText
         primary={n.text}
       />

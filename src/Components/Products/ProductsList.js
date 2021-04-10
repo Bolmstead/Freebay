@@ -27,10 +27,10 @@ const ProductsList = ({location}) => {
   const [nextPageQuery, setNextPageQuery] = useState(null);
   const [prevPageQuery, setPrevPageQuery] = useState(null);
   const [pageTitle, setPageTitle] = useState(null)
-  const { products, setProducts } = useContext(Context);
+  const { products, setProducts, updateProductsList, setUpdateProductsList } = useContext(Context);
   const history = useHistory()
 
-  let query = useQuery()
+  let query = new URLSearchParams(useLocation().search)
   let searchQueryObject = Object.fromEntries(new URLSearchParams(query))
   let nextPageSearchQueryObject = searchQueryObject
   let prevPageSearchQueryObject = searchQueryObject
@@ -38,6 +38,7 @@ const ProductsList = ({location}) => {
  // call API to grab products based on search results
   useEffect(() => {
     async function getProductsInCategory() {
+      console.log("searchQueryObject", searchQueryObject)
       let res = await FreebayAPI.getProducts(searchQueryObject);
       console.log("res", res)
       let productsResult = res.products
@@ -88,8 +89,9 @@ const ProductsList = ({location}) => {
       }
     }
     getProductsInCategory()
+    setUpdateProductsList(false)
 
-  }, []);
+  }, [updateProductsList]);
 
   if (!products) return <LoadingText />;
   

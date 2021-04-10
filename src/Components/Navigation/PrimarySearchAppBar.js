@@ -45,7 +45,7 @@ function PrimarySearchAppBar() {
   const [searchTerm, setSearchTerm] = useState("");
   const [accountAnchorEl, setAccountAnchorEl] = useState(null);
   const [notificationsAnchorEl, setNotificationsAnchorEl] = useState(null);
-  const { currentUser, logout, setProducts} = useContext(Context);
+  const { currentUser, logout, setProducts, updateProductsList, setUpdateProductsList} = useContext(Context);
 
   const history = useHistory()
 
@@ -105,8 +105,8 @@ function PrimarySearchAppBar() {
   // with the desired search info
   function handleSubmit(evt) {
     evt.preventDefault();
-    let newUrl = `/products?name=` + searchTerm
-    setProducts(null)
+    let newUrl = (`/products?name=` + searchTerm)
+    setUpdateProductsList(true);
     history.push(newUrl)
    }
     

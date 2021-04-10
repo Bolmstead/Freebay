@@ -43,6 +43,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [updateAppBar, setUpdateAppBar] = useState(false);
   const [products, setProducts] = useState([]);
+  const [updateProductsList, setUpdateProductsList] = useState(false);
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
   const history = useHistory()
 
@@ -120,7 +121,7 @@ function App() {
   return (
     <div className={classes.appWrapper}>
       <Context.Provider value={{ currentUser, setCurrentUser, signup, 
-        login, logout, setUpdateAppBar, products, setProducts}}>
+        login, logout, setUpdateAppBar, products, setProducts, updateProductsList, setUpdateProductsList}}>
         <Container>
           <PrimarySearchAppBar />
           <hr className={classes.hr}/>
