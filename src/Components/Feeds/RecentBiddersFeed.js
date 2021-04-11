@@ -58,21 +58,20 @@ function RecentBiddersFeed(haveBidsBeenChecked) {
           }
           { recentlyBiddedProducts[1] 
           ?
-            <Hidden only={['sm' ]}>
+
               <ProductCardMini product={recentlyBiddedProducts[1]} />
-            </Hidden>
           : <div></div>
           }
           { recentlyBiddedProducts[2] 
           ?
-            <Hidden only={['sm', 'md']}>
+            <Hidden only={['md']}>
               <ProductCardMini product={recentlyBiddedProducts[2]} />
             </Hidden>
           : <div></div>
           }
           { recentlyBiddedProducts[3] 
           ?
-            <Hidden only={['sm', 'md']}>
+            <Hidden only={['md']}>
               <ProductCardMini product={recentlyBiddedProducts[3]} />
             </Hidden>
           : <div></div>
