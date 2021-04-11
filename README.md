@@ -1,4 +1,4 @@
-<p align="center">    <br />
+<br />
 
 
 <p align="center">
@@ -7,14 +7,14 @@
 
   <p align="center">
     A website where users bid on fake products with fake money!
-    <br />    <br />
-
+    <br /> 
+       <br />
   </p>
-
+  
   <p align="center">
     <img src="public/Images/Homepage.png?raw=true" width=800>
   </p>
-</p>    <br />
+   <br />
 
 ## About The Project
 
@@ -116,5 +116,6 @@ Stretch goals for this project:
 Berkley Olmstead - olms2074@gmail.com - [Linkedin](https://www.linkedin.com/in/berkleyolmstead/)
 
 Project Links: <br/>
+[Live Site](https://freebay.netlify.app/)<br/>
 [https://github.com/freebay-frontend](https://github.com/freebay-frontend) <br/>
                [https://github.com/freebay-backend](https://github.com/freebay-backend)
