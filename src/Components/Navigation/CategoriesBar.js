@@ -117,8 +117,8 @@ function ProductCategoriesBar() {
         </AccordionSummary>
         <AccordionDetails>
         <MobileCategory
-            subCategories = {["Cell Phones and Accessories", 
-            "Computers and Accessories", "Photo", "Smart Home"]}/>
+              subCategories = {["Cell Phones and Accessories", 
+              "Computers and Accessories", "Photo", "Smart Home"]}/>
         </AccordionDetails>
       </Accordion>
       <Accordion square expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
@@ -127,7 +127,7 @@ function ProductCategoriesBar() {
         </AccordionSummary>
         <AccordionDetails>
         <MobileCategory
-              subCategories = {["Women", "Men", "Boys", "Girls", "Baby"]}/>
+              subCategories = {["Womens", "Mens", "Boys", "Girls", "Baby"]}/>
         </AccordionDetails>
       </Accordion>
       <Accordion square expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
@@ -136,7 +136,7 @@ function ProductCategoriesBar() {
         </AccordionSummary>
         <AccordionDetails>
         <MobileCategory
-              subCategories = {["Appliances", "Household", 
+              subCategories = {["Appliances", "Health and Household", 
               "Home Improvement", "Kitchen and Dining"]}/>
         </AccordionDetails>
       </Accordion>
@@ -156,7 +156,7 @@ function ProductCategoriesBar() {
         <AccordionDetails>
         <MobileCategory
               subCategories = {["Arts and Crafts", "Grocery", 
-              "Pet Supplies", "Sports and Hobbies"]}/>
+              "Pet Supplies", "Sports and Fitness"]}/>
         </AccordionDetails>
       </Accordion>
       <br></br>
