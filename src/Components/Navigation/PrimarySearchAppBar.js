@@ -17,7 +17,7 @@ import Link from '@material-ui/core/Link';
 import {useHistory} from 'react-router-dom';
 import FreebayAPI from "../../Api.js"
 import useStyles from "./Stylings/stylePrimarySearchAppBar.js"
-import NotificationItem from "../User/NotificationItem"
+import NotificationAppBarItem from "../User/NotificationAppBarItem"
 import Context from "../../Context"
 
 
@@ -164,13 +164,13 @@ function PrimarySearchAppBar() {
                     color="inherit" 
                     style={{ textDecoration: 'none' }}
               >
-                <NotificationItem n={n} shortened={true}/>
+                <NotificationAppBarItem n={n} shortened={true}/>
               </Link>
             : <Link href={"/profile"} 
                     color="inherit" 
                     style={{ textDecoration: 'none' }}
               >
-                <NotificationItem n={n} shortened={true} />
+                <NotificationAppBarItem n={n} shortened={true} />
               </Link>
             )}
           </MenuItem>))

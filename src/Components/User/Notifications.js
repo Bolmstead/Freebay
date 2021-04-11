@@ -5,7 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Context from "../../Context";
 import useStyles from './Stylings/styleNotifications.js'
 import Paper from '@material-ui/core/Paper';
-import NotificationItem from './NotificationItem'
+import NotificationFeedItem from './NotificationFeedItem'
 import Link from '@material-ui/core/Link';
 
 
@@ -29,10 +29,10 @@ export default function Notifications() {
                       color="inherit" 
                       style={{ textDecoration: 'none' }}
                 >
-                  <NotificationItem n={n} />
+                  <NotificationFeedItem n={n} />
                 </Link>
               : 
-                <NotificationItem n={n} />
+                <NotificationFeedItem n={n} />
               ))
             )
           }
