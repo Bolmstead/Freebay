@@ -91,17 +91,12 @@ To get a local copy up and running follow these steps:
 
 ### Seed Products to Database 
 
-6. Run the following command in your terminal in the backend directory to create the database tables.
+6. Run the following command in your terminal in the backend directory to create the database tables and seed products to database.
     ```sh
-    psql -d freebay -f freebay-schema.sql
+    psql -d freebay -f SeedTablesAndProducts.sql
     ```
 
-7. Open an API client of your choice. If you don't have one, you can download and use [Insomnia](https://insomnia.rest/download). Once opened, run a GET request for the following URL to seed all the products to the database:
-    ```sh
-    http://127.0.0.1:3001/products/SEEDALLPRODUCTS
-    ```
-
-8. Start servers in both frontend and backend directories and you are done!
+7. Start servers in both frontend and backend directories and you are done!
 
 
 ## Roadmap
