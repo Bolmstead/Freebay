@@ -2,19 +2,23 @@
 
 
 <p align="center">
-<img src="public/Images/logo.png?raw=true" width=300 >
+  <img src="public/Images/logo.png?raw=true" width=300 >
 </p>
 
-  <p align="center">
-    A website where users bid on fake products with fake money!
-    <br /> 
-       <br />
-  </p>
-  
-  <p align="center">
-    <img src="public/Images/Homepage.png?raw=true" width=800>
-  </p>
-   <br />
+<p align="center">
+  A website where users bid on fake products with fake money!
+  <br /> 
+      <a href="https://github.com/Bolmstead/freebay-frontend">View Live App</a>
+  <br />
+  <br />
+
+
+</p>
+
+<p align="center">
+  <img src="public/Images/Homepage.png?raw=true" width=800>
+</p>
+  <br />
 
 ## About The Project
 
