@@ -99,7 +99,7 @@ def get_product_info(url):
             print("description_raw",description_raw)
 
         except:
-            description_raw = "This is a really cool product"
+            description_raw = "This is a great product!"
 
     description = re.sub(r'''[^A-Za-z.!? "'-]''', '', description_raw)
     
@@ -131,6 +131,6 @@ def get_product_info(url):
 for link in url_list:
     get_product_info(link)
 
-print("PRODUCT LIST CREATED################################", product_list)
+print("PRODUCT LIST CREATED********", product_list)
 
 
