@@ -8,7 +8,7 @@
 <p align="center">
   A website where users bid on fake products with fake money!
   <br /> 
-      <a href="https://github.com/Bolmstead/freebay-frontend">View Live App</a>
+      <a href="https://freebay.netlify.app/">View Live App</a>
   <br />
   <br />
 
