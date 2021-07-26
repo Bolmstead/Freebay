@@ -40,9 +40,7 @@ const ProductsList = ({location}) => {
  // call API to grab products based on search results
   useEffect(() => {
     async function getProductsInCategory() {
-      console.log("searchQueryObject", searchQueryObject)
       let res = await FreebayAPI.getProducts(searchQueryObject);
-      console.log("res", res)
       let productsResult = res.products
       let numOfProductsInAuction = res.numOfProductsInAuction
 
