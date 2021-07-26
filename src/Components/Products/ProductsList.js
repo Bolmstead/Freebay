@@ -10,6 +10,8 @@ import {Typography} from '@material-ui/core/'
 import Context from "../../Context";
 import LoadingText from "../Common/LoadingText";
 import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 // Shows a list of <ProductCards/> that are available for auction
 // Title of page changes based on whether the user searched for a term
