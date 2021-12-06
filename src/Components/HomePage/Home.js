@@ -54,7 +54,7 @@ function Home() {
     <div>
       <Grid  container spacing={3} direction="row" 
       justify="center" alignItems="flex-start">
-        <Grid item xs={12} alignItems="center" justify="center">
+        <Grid item xs={12} justify="center">
           {homePagePics[randomIndex]}
         </Grid>
       </Grid>

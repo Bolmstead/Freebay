@@ -10,7 +10,6 @@ import Link from '@material-ui/core/Link';
 import useStyles from './Stylings/styleRecentWinsFeed.js'
 import FreebayAPI from '../../Api'
 import Divider from '@material-ui/core/Divider';
-import LoadingText from '../Common/LoadingText'
 
 
 /* Renders list of products that were most recently won by any 
@@ -40,7 +39,7 @@ export default function RecentWinsFeed(haveBidsBeenChecked) {
   }, [haveBidsBeenChecked]);
 
   if (!recentWins){
-    return <LoadingText />
+    return null
   }
 
   return (

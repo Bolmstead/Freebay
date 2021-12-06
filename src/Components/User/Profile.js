@@ -23,6 +23,7 @@ function Profile() {
   const {currentUser} = useContext(Context);
 
   useEffect(() => {
+
     async function getUserProfile(username) {
       try {
         let userObject = await FreebayAPI.getUser(username);

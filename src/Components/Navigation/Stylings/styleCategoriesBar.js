@@ -14,7 +14,9 @@ export const useStyles = makeStyles((theme) => ({
     maxWidth: '30px', 
     maxHeight: '30px', 
     minWidth: '30px', 
-    minHeight: '30px'
+    minHeight: '30px',
+    marginRight: theme.spacing(2),
+    textTransform: 'none',
   },
   root: {
     display: 'flex',
@@ -26,10 +28,6 @@ export const useStyles = makeStyles((theme) => ({
   },
   grow: {
     flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    textTransform: 'none',
   },
   inputRoot: {
     color: 'black',

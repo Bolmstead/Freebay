@@ -23,8 +23,7 @@ class FreebayAPI {
     try {
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err) {
-      let message = err.response.data.error.message;
-      throw Array.isArray(message) ? message : [message];
+      throw err;
     }
   }
 

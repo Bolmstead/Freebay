@@ -46,7 +46,7 @@ function ProductCardMini({product}) {
               readOnly display="inline"
               />  
               <div>
-                <Typography variant="h6" color="body2" 
+                <Typography variant="h6"
                 component="p" display="inline"  
                 className={classes.price}
                 >

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Button from '@material-ui/core/Button';
 import Rating from '@material-ui/lab/Rating';
-import {useParams, useHistory, withRouter, ReactDOM } from 'react-router-dom';
+import {useParams, useHistory, withRouter } from 'react-router-dom';
 import FreebayAPI from '../../Api.js'
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';

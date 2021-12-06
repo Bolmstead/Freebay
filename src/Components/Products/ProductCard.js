@@ -86,7 +86,7 @@ function ProductCard({product}) {
           { bidderUsername
           ?
             <div>
-              <Typography variant="h6" color="body2" component="p"
+              <Typography variant="h6" component="p"
                display="inline"  className={classes.price}>
                 ${bidDisplay}{'  '}
               </Typography>

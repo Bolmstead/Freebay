@@ -119,15 +119,15 @@ function App() {
   )
 
   return (
-    <div className={classes.appWrapper}>
+    <div className={classes.app}>
       <Context.Provider value={{ currentUser, setCurrentUser, signup, 
         login, logout, setUpdateAppBar, products, setProducts, updateProductsList, setUpdateProductsList}}>
-        <Container>
+        <Container className={classes.appWrapper}>
           <PrimarySearchAppBar />
           <hr className={classes.hr}/>
           <CategoriesBar/>
           <Routes/>
-          <Footer/>
+          <Footer className={classes.footer}/>
         </Container>
       </Context.Provider>
     </div>

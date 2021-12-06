@@ -45,7 +45,7 @@ function PrimarySearchAppBar() {
   const [searchTerm, setSearchTerm] = useState("");
   const [accountAnchorEl, setAccountAnchorEl] = useState(null);
   const [notificationsAnchorEl, setNotificationsAnchorEl] = useState(null);
-  const { currentUser, logout, setProducts, updateProductsList, setUpdateProductsList} = useContext(Context);
+  const { currentUser, logout, setUpdateProductsList} = useContext(Context);
 
   const history = useHistory()
 
@@ -166,7 +166,7 @@ function PrimarySearchAppBar() {
               >
                 <NotificationAppBarItem n={n} shortened={true}/>
               </Link>
-            : <Link href={"/profile"} 
+            : <Link href={`/profile/${currentUser.username}`} 
                     color="inherit" 
                     style={{ textDecoration: 'none' }}
               >

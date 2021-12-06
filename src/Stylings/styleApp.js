@@ -1,6 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(() => ({
+  app: {
+    backgroundColor: "#FFFFFF",
+  },
   hr: {
     height:'1px', 
     borderWidth:0, 
@@ -14,8 +17,9 @@ export const useStyles = makeStyles(() => ({
   },
   appWrapper:{
     backgroundColor: "#FFFFFF",
-    height: "100vh"
-  }
+    minHeight: "100vh",
+    position: "relative",
+  },
 }));
 
 export default useStyles

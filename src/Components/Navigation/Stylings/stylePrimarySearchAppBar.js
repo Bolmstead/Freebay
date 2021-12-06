@@ -1,4 +1,4 @@
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { alpha, makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
   balance: {
@@ -27,9 +27,9 @@ export const useStyles = makeStyles((theme) => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.black, 0.07),
+    backgroundColor: alpha(theme.palette.common.black, 0.07),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.black, 0.12),
+      backgroundColor: alpha(theme.palette.common.black, 0.12),
     },
     marginRight: theme.spacing(2),
     marginLeft: theme.spacing(2),

@@ -9,8 +9,6 @@ import useStyles from './Stylings/styleProductList.js'
 import {Typography} from '@material-ui/core/'
 import Context from "../../Context";
 import LoadingText from "../Common/LoadingText";
-import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 
 
 // Shows a list of <ProductCards/> that are available for auction
@@ -30,16 +28,16 @@ const ProductsList = ({location}) => {
   const [prevPageQuery, setPrevPageQuery] = useState(null);
   const [pageTitle, setPageTitle] = useState(null)
   const { products, setProducts, updateProductsList, setUpdateProductsList } = useContext(Context);
-  const history = useHistory()
 
   let query = new URLSearchParams(useLocation().search)
   let searchQueryObject = Object.fromEntries(new URLSearchParams(query))
-  let nextPageSearchQueryObject = searchQueryObject
-  let prevPageSearchQueryObject = searchQueryObject
+
 
  // call API to grab products based on search results
   useEffect(() => {
     async function getProductsInCategory() {
+      let nextPageSearchQueryObject = searchQueryObject
+      let prevPageSearchQueryObject = searchQueryObject
       let res = await FreebayAPI.getProducts(searchQueryObject);
       let productsResult = res.products
       let numOfProductsInAuction = res.numOfProductsInAuction

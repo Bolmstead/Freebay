@@ -39,7 +39,7 @@ export default function NotificationAppBarItem({n, shortened}) {
   }
 
   return (
-    <ListItem dense="true">
+    <ListItem>
       <Hidden Hidden only={['xs']}>
         <ListItemAvatar>
           <Avatar>
