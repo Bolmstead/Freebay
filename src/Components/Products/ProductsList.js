@@ -18,11 +18,8 @@ import LoadingText from "../Common/LoadingText";
 // - nextPageQuery & prevPageQuery: queries added to the url of the
 //   next/previous page of products. 
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
 
-const ProductsList = ({location}) => {
+const ProductsList = () => {
   const classes = useStyles();
   const [nextPageQuery, setNextPageQuery] = useState(null);
   const [prevPageQuery, setPrevPageQuery] = useState(null);

@@ -25,7 +25,21 @@ const useStyles = makeStyles({
   },
   cardContent:{
     minHeight: '100px'
-  }
+  },
+
+  loadingCard: {
+    width: 200,
+    height: 300,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  loadingCardContent:{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+
+  },
 });
 
 export default useStyles;

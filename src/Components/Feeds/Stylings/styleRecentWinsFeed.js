@@ -29,6 +29,12 @@ const useStyles = makeStyles((theme) => ({
   },
   feedTitle: {
     fontWeight: "bold"
+  },
+  loadingSpinner: {
+    height: 300,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
   }
 }));
 
