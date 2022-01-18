@@ -6,6 +6,7 @@ import Container from "@material-ui/core/Container";
 import useStyles from "./Stylings/styleRecentBidsFeed.js";
 import Hidden from "@material-ui/core/Hidden";
 import withWidth from "@material-ui/core/withWidth";
+import { Typography } from "@material-ui/core";
 
 /* Renders a list of <ProductCardMini/> components showing products with
    most recent bids. To be displayed on the Home page */
@@ -43,13 +44,23 @@ function RecentBiddersFeed(haveBidsBeenChecked) {
           <Hidden only={["md"]}>
             <ProductCardMini product={null} loading={true} />
           </Hidden>
+          <Grid
+            item
+            xs={12}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+            }}
+          >
+            <Typography style={{ color: "#808080" }}>
+              Just one second, Heroku is sleeping :)
+            </Typography>
+          </Grid>
         </Grid>
       ) : (
-        <Grid
-          container
-          spacing={4}
-          direction="row"
-        >
+        <Grid container spacing={4} direction="row">
           {recentlyBiddedProducts[0] ? (
             <ProductCardMini product={recentlyBiddedProducts[0]} />
           ) : (
