@@ -17,7 +17,7 @@ export const useStyles = makeStyles(() => ({
   },
   appWrapper:{
     backgroundColor: "#FFFFFF",
-    minHeight: "100vh",
+    minHeight: "96vh",
     position: "relative",
   },
 }));
