@@ -40,9 +40,8 @@ export default function ProductListItem(userProfile) {
                         <React.Fragment>
                           <Typography
                             variant="caption"
-                            className={classes.inline}
+                            className={classes.inlineProduct}
                             color="textPrimary"
-                            className={classes.product}
                           >
                             ${p.bidPrice}
                           </Typography>

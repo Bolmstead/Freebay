@@ -7,14 +7,13 @@ import useStyles from "./Stylings/styleUserBidsOrWinsFeed";
 import FeedItem from "./FeedItem.js";
 import ReactLoading from "react-loading";
 
-
 /* Renders a list of <FeedItem/> components of product information. 
    Will either show a user's highest bids or products won.
    To be displayed on every user's profile page */
 
 export default function UserBidsOrWinsFeed({ ...props }) {
   const classes = useStyles();
-  const { products, title } = props;
+  const { products, title, loading } = props;
 
   return (
     <Paper elevation={3} className={classes.card}>
@@ -28,15 +27,14 @@ export default function UserBidsOrWinsFeed({ ...props }) {
           {title}
         </Typography>
         <List className={classes.itemList}>
-          {products.length > 0 ? (
-            products.map((p) => <FeedItem p={p} />)
-          ) : (
+          {loading ? (
             <ReactLoading
               type={"spinningBubbles"}
               color={"#BDBDBD"}
               height={100}
             />
-          )}
+          ) : null}
+          {products.length > 0 ? products.map((p) => <FeedItem p={p} />) : null}
         </List>
       </CardContent>
     </Paper>

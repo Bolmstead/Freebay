@@ -1,20 +1,20 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    width: "100%",
     backgroundColor: "white",
-    textTransform: 'none'
+    textTransform: "none",
   },
   listItem: {
-    color: 'black',
-    fontWeight: 'bold' 
+    color: "black",
+    fontWeight: "bold",
   },
   inline: {
-    display: 'inline',
+    display: "inline",
   },
   product: {
-    textTransform: 'none'
+    textTransform: "none",
   },
   card: {
     backgroundColor: "white",
@@ -24,10 +24,14 @@ const useStyles = makeStyles((theme) => ({
     height: "50px",
   },
   cardContent: {
-    maxHeight: 150, 
-    overflow: 'auto',
-    minHeight: 150
+    maxHeight: 150,
+    overflow: "auto",
+    minHeight: 150,
+  },
+  inlineProduct: {
+    display: "inline",
+    textTransform: "none",
   },
 }));
 
-export default useStyles
+export default useStyles;
