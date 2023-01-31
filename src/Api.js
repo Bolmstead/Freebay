@@ -5,10 +5,14 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 /** API Class.
  *
  * Static class tying together methods used to get/send to to the API. *
+ *
+ *
+ *
  */
 
 class FreebayAPI {
   // the token for with the API will be stored here.
+  /// asdf
   static token;
 
   static async request(endpoint, data = {}, method = "get") {
@@ -16,13 +20,12 @@ class FreebayAPI {
 
     const url = `${BASE_URL}/${endpoint}`;
     const headers = { Authorization: `Bearer ${FreebayAPI.token}` };
-    const params = (method === "get")
-        ? data
-        : {};
+    const params = method === "get" ? data : {};
 
     try {
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err) {
+      console.log("🚀 ~ file: Api.js:26 ~ FreebayAPI ~ request ~ err", err);
       throw err;
     }
   }
@@ -39,9 +42,11 @@ class FreebayAPI {
   /** Get details on all products. */
 
   static async getProducts(searchObject) {
-    const queryString = Object.keys(searchObject).map(key => key + '=' + searchObject[key]).join('&');
+    const queryString = Object.keys(searchObject)
+      .map((key) => key + "=" + searchObject[key])
+      .join("&");
 
-    let url = `products/?` + queryString
+    let url = `products/?` + queryString;
     let res = await this.request(url);
 
     return res;
@@ -64,7 +69,7 @@ class FreebayAPI {
   }
 
   /** Get current user information. */
-  
+
   static async getUser(username) {
     let res = await this.request(`users/${username}`);
     return res;
@@ -88,8 +93,12 @@ class FreebayAPI {
   /** Post new Bid */
 
   static async addBid(productId, bidAmount) {
-    let data={}
-    let res = await this.request(`bids/${productId}/placeBid/${bidAmount}`, data, "post");
+    let data = {};
+    let res = await this.request(
+      `bids/${productId}/placeBid/${bidAmount}`,
+      data,
+      "post"
+    );
     return res;
   }
 
@@ -103,11 +112,10 @@ class FreebayAPI {
   /** Post method for when a user views a notification */
 
   static async viewNotifications(email) {
-    let data = {}
+    let data = {};
     let res = await this.request(`notifications/view`, data, "post");
     return res;
   }
- 
 }
 
 export default FreebayAPI;

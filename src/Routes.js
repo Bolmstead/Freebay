@@ -1,5 +1,5 @@
-import { Switch, Route  } from "react-router-dom";
-import React  from "react";
+import { Switch, Route } from "react-router-dom";
+import React from "react";
 import Home from "./Components/HomePage/Home.js";
 import Login from "./Components/User/Login";
 import Signup from "./Components/User/Signup";
@@ -10,40 +10,41 @@ import BidConfirmation from "./Components/Products/BidConfirmation";
 import ProductsList from "./Components/Products/ProductsList";
 import ProductDetails from "./Components/Products/ProductDetails";
 
-
 /** All routes of website along with a catch all route to display a not found route */
 
 function Routes() {
   return (
     <div>
-        <Switch>
-            <Route exact path="/">
-                <Home />
-            </Route>
-            <Route exact path="/login">
-                <Login />
-            </Route>
-            <Route exact path="/signup">
-                <Signup />
-            </Route>
-            <Route exact path="/welcome">
-                <Welcome />
-            </Route>
-            <Route exact path="/products" >
-                <ProductsList />
-            </Route>
-            <Route exact path="/bidPlaced" >
-                <BidConfirmation />
-            </Route>
-            <Route exact path="/product/:id">
-                <ProductDetails />
-            </Route>
-            <Route exact path="/profile/:username">
-                <Profile />
-            </Route>
-        
-            <Route><NotFound/></Route>
-        </Switch>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route exact path="/login">
+          <Login />
+        </Route>
+        <Route exact path="/signup">
+          <Signup />
+        </Route>
+        <Route exact path="/welcome">
+          <Welcome />
+        </Route>
+        <Route exact path="/products">
+          <ProductsList />
+        </Route>
+        <Route exact path="/bidPlaced">
+          <BidConfirmation />
+        </Route>
+        <Route exact path="/product/:id">
+          <ProductDetails />
+        </Route>
+        <Route exact path="/profile/:username">
+          <Profile />
+        </Route>
+
+        <Route>
+          <NotFound />
+        </Route>
+      </Switch>
     </div>
   );
 }

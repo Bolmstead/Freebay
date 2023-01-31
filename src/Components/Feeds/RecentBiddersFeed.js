@@ -21,6 +21,7 @@ function RecentBiddersFeed(haveBidsBeenChecked) {
 
     const handleGetRecentBidders = async () => {
       const result = await FreebayAPI.getRecentBids(numOfBids);
+      console.log("🚀 ~ file: RecentBiddersFeed.js:24 ~ handleGetRecentBidders ~ result", result)
       setRecentlyBiddedProducts(result);
     };
     handleGetRecentBidders();
