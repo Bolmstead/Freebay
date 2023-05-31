@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import FreebayAPI from "../../Api";
-import ProductCardMini from "../Products/ProductCardMini.js";
-import Grid from "@material-ui/core/Grid";
+import { Typography } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
-import useStyles from "./Stylings/styleRecentBidsFeed.js";
+import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
 import withWidth from "@material-ui/core/withWidth";
-import { Typography } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import FreebayAPI from "../../Api";
+import ProductCardMini from "../Products/ProductCardMini.js";
+import useStyles from "./Stylings/styleRecentBidsFeed.js";
 
 /* Renders a list of <ProductCardMini/> components showing products with
    most recent bids. To be displayed on the Home page */
@@ -21,7 +21,10 @@ function RecentBiddersFeed(haveBidsBeenChecked) {
 
     const handleGetRecentBidders = async () => {
       const result = await FreebayAPI.getRecentBids(numOfBids);
-      console.log("🚀 ~ file: RecentBiddersFeed.js:24 ~ handleGetRecentBidders ~ result", result)
+      console.log(
+        "🚀 ~ file: RecentBiddersFeed.js:24 ~ handleGetRecentBidders ~ result",
+        result
+      );
       setRecentlyBiddedProducts(result);
     };
     handleGetRecentBidders();
@@ -56,7 +59,9 @@ function RecentBiddersFeed(haveBidsBeenChecked) {
             }}
           >
             <Typography style={{ color: "#808080" }}>
-              Just one second, Heroku is sleeping :)
+              Due to recent Heroku and Node-Postgres updates, the Freebay site
+              is currently down. <br /> Thank you for your patience, the site
+              will be operating here soon within a few days :)
             </Typography>
           </Grid>
         </Grid>
