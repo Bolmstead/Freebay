@@ -58,10 +58,14 @@ function RecentBiddersFeed(haveBidsBeenChecked) {
               textAlign: "center",
             }}
           >
-            <Typography style={{ color: "#808080" }}>
+            {/* <Typography style={{ color: "#808080" }}>
               Due to recent Heroku and Node-Postgres updates, the Freebay site
               is currently down. <br /> Thank you for your patience, the site
               will be operating here soon within a few days :)
+            </Typography> */}
+            <Typography style={{ color: "#808080" }}>
+              Due to Heroku constraints, products may take some time to
+              load :)
             </Typography>
           </Grid>
         </Grid>
