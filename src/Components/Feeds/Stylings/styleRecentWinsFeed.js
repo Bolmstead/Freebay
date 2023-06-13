@@ -1,41 +1,41 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
-    textTransform: 'none'
+    width: "100%",
+    textTransform: "none",
   },
   listItem: {
-    color: 'black',
-    fontWeight: 'bold' 
+    color: "black",
+    fontWeight: "bold",
   },
   inline: {
-    display: 'inline',
+    display: "inline",
   },
   product: {
-    textTransform: 'none'
+    textTransform: "none",
   },
-  card: {
-  },
+  card: {},
   large: {
     width: "50px",
     height: "50px",
   },
-  itemList:{
-    maxHeight: 150, 
-    overflow: 'auto',
+  itemList: {
+    maxHeight: 150,
+    overflow: "auto",
     minHeight: 150,
-    textTransform: 'none'
+    textTransform: "none",
   },
   feedTitle: {
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   loadingSpinner: {
     height: 300,
+    width: "100%",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 }));
 
-export default useStyles
+export default useStyles;

@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import List from "@material-ui/core/List";
-import Grid from "@material-ui/core/Grid";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
-import useStyles from "./Stylings/styleRecentWinsFeed.js";
-import FreebayAPI from "../../Api";
 import Divider from "@material-ui/core/Divider";
+import Grid from "@material-ui/core/Grid";
+import Link from "@material-ui/core/Link";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemText from "@material-ui/core/ListItemText";
+import Typography from "@material-ui/core/Typography";
+import React, { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
+import FreebayAPI from "../../Api";
+import useStyles from "./Stylings/styleRecentWinsFeed.js";
 
 /* Renders list of products that were most recently won by any 
 user. To be displayed on the home page */
@@ -18,6 +18,8 @@ user. To be displayed on the home page */
 export default function RecentWinsFeed(haveBidsBeenChecked) {
   const classes = useStyles();
   const [recentWins, setRecentWins] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   //Number of products
   const numOfRecentWins = 3;
 
@@ -33,16 +35,50 @@ export default function RecentWinsFeed(haveBidsBeenChecked) {
       );
 
       setRecentWins(result);
+      setLoading(false);
     }
     getRecentWins();
   }, [haveBidsBeenChecked]);
 
-  if (!recentWins) {
+  if (loading) {
     return (
-      <List className={classes.loadingSpinner}>
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <ReactLoading type={"spinningBubbles"} color={"#BDBDBD"} height={100} />{" "}
-      </List>
+      </div>
     );
+  }
+
+  if (!loading && recentWins) {
+    if (recentWins.length === 0) {
+      return (
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {" "}
+          <Typography
+            variant="h6"
+            component="h6"
+            align="center"
+            style={{ color: "gray", marginTop: "40px" }}
+          >
+            No winners yet
+          </Typography>
+          <br />
+        </div>
+      );
+    }
   }
 
   return (

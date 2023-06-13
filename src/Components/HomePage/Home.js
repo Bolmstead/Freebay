@@ -19,6 +19,8 @@ function Home() {
   // has ended. The useEffect hooks in the <RecentWinsFeed/> and 
   // <RecentBiddersFeed/> will execute once  state has changed
   const [haveBidsBeenChecked, setHaveBidsBeenChecked] = useState(false);
+  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     // Check all bids if their auction has ended. If so, code will add
