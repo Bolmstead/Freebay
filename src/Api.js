@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3003";
 
 /** API Class.
  *
@@ -114,6 +114,18 @@ class FreebayAPI {
   static async viewNotifications(email) {
     let data = {};
     let res = await this.request(`notifications/view`, data, "post");
+    return res;
+  }
+
+  /** Get details on a product by id. */
+
+  static async seedProducts() {
+    let res = await this.request(`products/seed`);
+
+    console.log(
+      "🚀 ~ file: Api.js:125 ~ FreebayAPI ~ seedProducts ~ res:",
+      res
+    );
     return res;
   }
 }

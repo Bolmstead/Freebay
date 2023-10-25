@@ -1,14 +1,15 @@
-import { Switch, Route } from "react-router-dom";
 import React from "react";
-import Home from "./Components/HomePage/Home.js";
-import Login from "./Components/User/Login";
-import Signup from "./Components/User/Signup";
-import Profile from "./Components/User/Profile";
-import Welcome from "./Components/Common/WelcomePage";
+import { Route, Switch } from "react-router-dom";
 import NotFound from "./Components/Common/NotFound";
+import Welcome from "./Components/Common/WelcomePage";
+import Home from "./Components/HomePage/Home.js";
 import BidConfirmation from "./Components/Products/BidConfirmation";
-import ProductsList from "./Components/Products/ProductsList";
 import ProductDetails from "./Components/Products/ProductDetails";
+import ProductsList from "./Components/Products/ProductsList";
+import Seed from "./Components/Products/Seed";
+import Login from "./Components/User/Login";
+import Profile from "./Components/User/Profile";
+import Signup from "./Components/User/Signup";
 
 /** All routes of website along with a catch all route to display a not found route */
 
@@ -33,6 +34,9 @@ function Routes() {
         </Route>
         <Route exact path="/bidPlaced">
           <BidConfirmation />
+        </Route>
+        <Route exact path="/Seed">
+          <Seed />
         </Route>
         <Route exact path="/product/:id">
           <ProductDetails />
