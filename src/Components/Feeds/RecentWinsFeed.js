@@ -7,6 +7,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import React, { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
 import FreebayAPI from "../../Api";
@@ -99,7 +100,10 @@ export default function RecentWinsFeed(haveBidsBeenChecked) {
                       product.userImageUrl ||
                       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
                     }
-                  ></Avatar>
+                  >
+                    {" "}
+                    <AccountCircleIcon />
+                  </Avatar>
                 </ListItemAvatar>
               </Link>
               <Link

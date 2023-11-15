@@ -1,9 +1,10 @@
-import React from "react";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Link from "@material-ui/core/Link";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemText from "@material-ui/core/ListItemText";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import React from "react";
 import useStyles from "./Stylings/styleFeedItem.js";
 
 // List item displaying product's title
@@ -36,7 +37,7 @@ export default function FeedItem(product) {
             src={p.imageUrl}
             className={classes.large}
           >
-            
+            <AccountCircleIcon />
           </Avatar>
         </ListItemAvatar>
         <ListItemText
