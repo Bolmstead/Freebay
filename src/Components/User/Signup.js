@@ -1,18 +1,17 @@
-import React, { useState, useContext } from "react";
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
+import React, { useState, useContext, useEffect } from "react";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
 import { useHistory } from "react-router-dom";
-import Alert from '@material-ui/lab/Alert';
+import Alert from "@material-ui/lab/Alert";
 import Context from "../../Context";
-import useStyles from "./Stylings/styleSignup"
+import useStyles from "./Stylings/styleSignup";
 
-
-// Renders a Register form to create an account. User is redirected 
+// Renders a Register form to create an account. User is redirected
 // to a welcome page once a form has been submitted.
 
 export default function Signup() {
@@ -26,36 +25,60 @@ export default function Signup() {
     firstName: "",
     lastName: "",
     email: "",
-    imageUrl: ""
+    imageUrl: "",
   });
   const [formErrors, setFormErrors] = useState([]);
+  const [disableBtn, setDisableBtn] = useState(true);
 
   console.debug(
-      "Signup",
-      "signup=", typeof signup,
-      "formData=", formData,
-      "formErrors=", formErrors,
+    "Signup",
+    "signup=",
+    typeof signup,
+    "formData=",
+    formData,
+    "formErrors=",
+    formErrors
   );
-
-  /** Handle form submit:
-   *
-   * Calls login func prop and, if successful, redirect to /welcome.
-   */
 
   async function handleSubmit(evt) {
     evt.preventDefault();
     let result = await signup(formData);
+    console.log("🚀 ~ handleSubmit ~ result:", result);
     if (result.success) {
       history.push("/welcome");
     } else {
-      setFormErrors(result.errors);
+      setFormErrors(result.errors.response.data.error);
     }
   }
 
   /** Update form data field */
   function handleChange(evt) {
     const { name, value } = evt.target;
-    setFormData(data => ({ ...data, [name]: value }));
+    let tempFormData = { ...formData, [name]: value };
+    setFormData((data) => ({ ...data, [name]: value }));
+
+    console.log(
+      "asdfffff:: ",
+      tempFormData.password.length < 8 ||
+        tempFormData.imageUrl.length > 499 ||
+        tempFormData.email.length < 8 ||
+        tempFormData.firstName !== "" ||
+        tempFormData.lastName !== "" ||
+        tempFormData.username !== ""
+    );
+
+    if (
+      tempFormData.firstName.length < 4 ||
+      tempFormData.lastName.length < 4 ||
+      tempFormData.password.length < 8 ||
+      tempFormData.imageUrl.length > 499 ||
+      tempFormData.email.length < 8 ||
+      tempFormData.firstName === "" ||
+      tempFormData.lastName === "" ||
+      tempFormData.username === ""
+    ) {
+      setDisableBtn(true);
+    } else setDisableBtn(false);
   }
 
   return (
@@ -65,8 +88,9 @@ export default function Signup() {
       <div className={classes.paper}>
         <Typography component="h1" variant="h4">
           Hello
-        </Typography><br></br>
-        <span style={{display: 'inline-block'}}>
+        </Typography>
+        <br></br>
+        <span style={{ display: "inline-block" }}>
           Create a freeBay account
         </span>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
@@ -147,16 +171,14 @@ export default function Signup() {
               />
             </Grid>
           </Grid>
-          {formErrors.length
-                    ? 
-                    <div>
-                      <br/>
-                      <Alert variant="filled" severity="error">
-                        {formErrors}
-                      </Alert>
-                    </div>
-                    : null
-                }
+          {formErrors.length > 0 && (
+            <div>
+              <br />
+              <Alert variant="filled" severity="error">
+                {formErrors}
+              </Alert>
+            </div>
+          )}
           <Button
             type="submit"
             fullWidth
@@ -164,19 +186,20 @@ export default function Signup() {
             color="primary"
             className={classes.submit}
             onSubmit={handleSubmit}
+            disabled={disableBtn}
           >
             Sign Up
           </Button>
-          <Grid container justify="flex-end">
+          <Grid container>
             <Grid item>
               <Link href="/Login" variant="body2">
                 Already have an account? Sign in
-              </Link><br/>
+              </Link>
+              <br />
             </Grid>
           </Grid>
         </form>
       </div>
-
     </Container>
   );
 }
