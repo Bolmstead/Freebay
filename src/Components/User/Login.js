@@ -1,25 +1,23 @@
 import React, { useState, useContext } from "react";
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
 import { useHistory } from "react-router-dom";
 import Context from "../../Context";
 import useStyles from "./Stylings/styleLogin";
-import Alert from '@material-ui/lab/Alert';
-
+import Alert from "@material-ui/lab/Alert";
 
 // Renders a login form. User is redirected to home page once logged in
 
-export default function Login( ) {
+export default function Login() {
   const classes = useStyles();
   const history = useHistory();
   const { login } = useContext(Context);
 
-  
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -27,10 +25,13 @@ export default function Login( ) {
   const [formErrors, setFormErrors] = useState([]);
 
   console.debug(
-      "LoginForm",
-      "login=", typeof login,
-      "formData=", formData,
-      "formErrors", formErrors,
+    "LoginForm",
+    "login=",
+    typeof login,
+    "formData=",
+    formData,
+    "formErrors",
+    formErrors
   );
 
   /** Handle form submit:
@@ -51,7 +52,7 @@ export default function Login( ) {
   /** Update form data field */
   function handleChange(evt) {
     const { name, value } = evt.target;
-    setFormData(l => ({ ...l, [name]: value }));
+    setFormData((l) => ({ ...l, [name]: value }));
   }
 
   return (
@@ -61,10 +62,9 @@ export default function Login( ) {
       <div className={classes.paper}>
         <Typography component="h1" variant="h4" id="hello">
           Hello
-        </Typography><br></br>
-        <span style={{display: 'inline-block'}}>
-          Log in to freeBay
-        </span>
+        </Typography>
+        <br></br>
+        <span style={{ display: "inline-block" }}>Log in to freeBay</span>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -93,16 +93,14 @@ export default function Login( ) {
               />
             </Grid>
           </Grid>
-          {formErrors.length
-                    ? 
-                    <div>
-                      <br/>
-                      <Alert variant="filled" severity="error">
-                        {formErrors}
-                      </Alert>
-                    </div>
-                    : null
-                }
+          {formErrors.length ? (
+            <div>
+              <br />
+              <Alert variant="filled" severity="error">
+                {formErrors}
+              </Alert>
+            </div>
+          ) : null}
           <Button
             type="submit"
             fullWidth
