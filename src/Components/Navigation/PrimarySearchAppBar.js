@@ -10,9 +10,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Popover from "@material-ui/core/Popover";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import SearchIcon from "@material-ui/icons/Search";
+// import AccountCircle from "@material-ui/icons/AccountCircle";
+// import NotificationsIcon from "@material-ui/icons/Notifications";
+// import SearchIcon from "@material-ui/icons/Search";
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import FreebayAPI from "../../Api.js";
@@ -239,7 +239,7 @@ function PrimarySearchAppBar() {
             <form onSubmit={handleSubmit}>
               <div className={classes.searchIcon}>
                 <button type="submit" className={classes.searchButton}>
-                  <SearchIcon />
+                  Search
                 </button>
               </div>
               <InputBase
@@ -268,7 +268,7 @@ function PrimarySearchAppBar() {
                     badgeContent={newNotifications.length}
                     color="secondary"
                   >
-                    {currentUser.imageUrl ? (
+                    {/* {currentUser.imageUrl ? (
                       <NotificationsIcon
                         edge="end"
                         aria-label="account of current user"
@@ -283,7 +283,7 @@ function PrimarySearchAppBar() {
                         aria-controls={menuId}
                         aria-haspopup="true"
                       />
-                    )}
+                    )} */}
                   </Badge>
                 </IconButton>
                 <IconButton
@@ -300,7 +300,7 @@ function PrimarySearchAppBar() {
                       src={currentUser.imageUrl}
                     />
                   ) : (
-                    <AccountCircle />
+                    "asdf"
                   )}
                 </IconButton>
               </div>

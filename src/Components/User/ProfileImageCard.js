@@ -1,6 +1,6 @@
 import { CardContent, Paper, Typography } from "@material-ui/core/";
 import Avatar from "@material-ui/core/Avatar";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import React from "react";
 import LoadingText from "../Common/LoadingText";
 import useStyles from "./Stylings/styleProfile.js";
@@ -25,7 +25,7 @@ function ProfileImageCard({ userProfile }) {
           className={classes.profileAvatar}
         >
           {" "}
-          <AccountCircleIcon />
+          {/* <AccountCircleIcon /> */}
         </Avatar>
         <br />
         <CardContent>

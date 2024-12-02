@@ -1,8 +1,8 @@
 import React from "react";
-import {Card } from "@material-ui/core";
+import { Card } from "@material-ui/core";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
-import Rating from "@material-ui/lab/Rating";
+// import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import useStyles from "./Stylings/styleProductCardMini.js";
@@ -60,13 +60,13 @@ function ProductCardMini({ product, loading }) {
                 <img className={classes.media} src={imageUrl} title={name} />
               </div>
               <CardContent className={classes.cardContent}>
-                <Rating
+                {/* <Rating
                   name="read-only"
                   value={rating}
                   size="small"
                   readOnly
                   display="inline"
-                />
+                /> */}
                 <div>
                   <Typography
                     variant="h6"

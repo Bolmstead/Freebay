@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, withRouter } from "react-router-dom";
 import jwt from "jsonwebtoken";
-// import PrimarySearchAppBar from "./Components/Navigation/PrimarySearchAppBar.js";
-// import CategoriesBar from "./Components/Navigation/CategoriesBar.js";
-// import Routes from "./Routes.js";
+import PrimarySearchAppBar from "./Components/Navigation/PrimarySearchAppBar.js";
+import CategoriesBar from "./Components/Navigation/CategoriesBar.js";
+import Routes from "./Routes.js";
 import Container from "@material-ui/core/Container";
 import Context from "./Context.js";
 import Footer from "./Components/Common/Footer.js";
@@ -138,11 +138,11 @@ function App() {
         }}
       >
         <Container className={classes.appWrapper}>
-          {/* <PrimarySearchAppBar />
+          <PrimarySearchAppBar />
           <hr className={classes.hr} />
           <CategoriesBar />
           <Routes />
-          <Footer className={classes.footer} /> */}
+          <Footer className={classes.footer} />
         </Container>
       </Context.Provider>
     </div>

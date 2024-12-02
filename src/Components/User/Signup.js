@@ -7,7 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { useHistory } from "react-router-dom";
-import Alert from "@material-ui/lab/Alert";
+// import Alert from "@material-ui/lab/Alert";
 import Context from "../../Context";
 import useStyles from "./Stylings/styleSignup";
 
@@ -174,9 +174,7 @@ export default function Signup() {
           {formErrors.length > 0 && (
             <div>
               <br />
-              <Alert variant="filled" severity="error">
-                {formErrors}
-              </Alert>
+              <div>{formErrors}</div>
             </div>
           )}
           <Button

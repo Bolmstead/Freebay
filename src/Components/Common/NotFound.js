@@ -1,7 +1,7 @@
 import React from "react";
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
+// import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 import useStyles from './Stylings/styleWelcomePage'
 
 
@@ -15,9 +15,9 @@ export default function Welcome() {
         <br/><br/><br/>
         <Grid xs={12} item>
         <br/><br/><br/>
-        <SentimentVeryDissatisfiedIcon className={classes.smiley}
+        {/* <SentimentVeryDissatisfiedIcon className={classes.smiley}
          color="disabled" 
-         />
+         /> */}
             <Typography component="h1" variant="h3">
                 404
             </Typography>

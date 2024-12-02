@@ -9,7 +9,7 @@ import Container from "@material-ui/core/Container";
 import { useHistory } from "react-router-dom";
 import Context from "../../Context";
 import useStyles from "./Stylings/styleLogin";
-import Alert from "@material-ui/lab/Alert";
+// import Alert from "@material-ui/lab/Alert";
 
 // Renders a login form. User is redirected to home page once logged in
 
@@ -96,9 +96,7 @@ export default function Login() {
           {formErrors.length ? (
             <div>
               <br />
-              <Alert variant="filled" severity="error">
-                {formErrors}
-              </Alert>
+              <div>{formErrors}</div>
             </div>
           ) : null}
           <Button
