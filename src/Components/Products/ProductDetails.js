@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Button from "@material-ui/core/Button";
-// import Rating from "@material-ui/lab/Rating";
+import Rating from "@material-ui/lab/Rating";
 import { useParams, useHistory, withRouter } from "react-router-dom";
 import FreebayAPI from "../../Api.js";
 import Container from "@material-ui/core/Container";
@@ -10,7 +10,7 @@ import Link from "@material-ui/core/Link";
 import Countdown from "react-countdown";
 import useStyles from "./Stylings/styleProductDetails.js";
 import Context from "../../Context";
-// import Alert from "@material-ui/lab/Alert";
+import Alert from "@material-ui/lab/Alert";
 import { Grid, Card, CardContent, Typography } from "@material-ui/core/";
 
 // Component that displays all information of a product.
@@ -131,13 +131,13 @@ function ProductDetails() {
               <Typography variant="h5">{product.name}</Typography>
               <br />
               <div className={classes.ratingContainer}>
-                {/* <Rating
+                <Rating
                   name="read-only"
                   value={product.rating}
                   size="medium"
                   readOnly
                   display="inline"
-                /> */}
+                />
                 <Typography
                   variant="caption"
                   display="inline"
@@ -251,7 +251,9 @@ function ProductDetails() {
               {formErrors ? (
                 <div>
                   <br />
-                  <div>{formErrors}</div>
+                  <Alert severity="error" variant="filled">
+                    {formErrors}
+                  </Alert>
                 </div>
               ) : product.auctionEnded ? (
                 <div>
