@@ -123,7 +123,6 @@ export default function RecentWinsFeed(haveBidsBeenChecked) {
                 />
               </Link>
             </ListItem>
-            {/* render a divider for each list item unless it is last in array */}
             {recentWins.indexOf(product) === recentWins.length - 1 ? (
               <div></div>
             ) : (

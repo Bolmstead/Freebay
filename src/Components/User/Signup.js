@@ -43,13 +43,15 @@ export default function Signup() {
   async function handleSubmit(evt) {
     evt.preventDefault();
     let result = await signup(formData);
-    console.log("🚀 ~ handleSubmit ~ result:", result);
     if (result.success) {
       history.push("/welcome");
     } else {
-      setFormErrors(result.errors.response.data.error);
+      setFormErrors(result.errors.response.data.error.message[0]);
     }
   }
+  useEffect(() => {
+    console.log("formErrors:: ", formErrors);
+  }, [formErrors]);
 
   /** Update form data field */
   function handleChange(evt) {

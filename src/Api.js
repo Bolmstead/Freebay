@@ -4,7 +4,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3003";
 console.log("🚀 ~ BASE_URL:", BASE_URL);
 
 /** API Class.
- *  
+ *
  * Static class tying together methods used to get/send to to the API. *
  *
  *
@@ -66,6 +66,7 @@ class FreebayAPI {
   static async signup(data) {
     let res = await this.request(`auth/register`, data, "post");
 
+    console.log("🚀 ~ FreebayAPI ~ signup ~ res:", res);
     return res.token;
   }
 

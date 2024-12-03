@@ -42,10 +42,11 @@ export default function Login() {
   async function handleSubmit(evt) {
     evt.preventDefault();
     let result = await login(formData);
+    console.log("🚀 ~ handleSubmit ~ result:", result);
     if (result.success) {
       history.push("/");
     } else {
-      setFormErrors(result.errors);
+      setFormErrors(result.errors.response.data.error.message);
     }
   }
 
