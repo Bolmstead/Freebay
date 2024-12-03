@@ -37,7 +37,6 @@ export const TOKEN_STORAGE_ID = "freebay-token";
  */
 
 function App() {
-  console.log("asdfasdf");
   const classes = useStyles();
   const [infoLoaded, setInfoLoaded] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
