@@ -26,12 +26,15 @@ function Footer() {
           >
             Developed by Berkley Olmstead
           </Typography>
-        </div>
-        <Link href="https://github.com/Bolmstead/freebay-frontend">
-          <img className={classes.icon} src={"/Images/github.png"} />
+        </div>{" "}
+        <Link href="www.berkleyolmstead.com">
+          <img className={classes.icon} src={"/Images/websiteicon.png"} />
         </Link>
         <Link href="https://www.linkedin.com/in/berkleyolmstead/">
           <img className={classes.icon} src={"/Images/linkedin.png"} />
+        </Link>
+        <Link href="https://github.com/Bolmstead/freebay-frontend">
+          <img className={classes.icon} src={"/Images/github.png"} />
         </Link>
       </div>
     </Container>
