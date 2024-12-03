@@ -15,18 +15,25 @@ function ProfileImageCard({ userProfile }) {
   if (!userProfile) return <LoadingText />;
 
   const { firstName, lastName, username, imageUrl } = userProfile;
+  console.log("🚀 ~ ProfileImageCard ~ imageUrl:", imageUrl);
 
   return (
     <Paper elevation={3} className={classes.profileContainer}>
       <div className={classes.imageAndName}>
-        <Avatar
-          alt="Profile Image"
-          src={imageUrl}
-          className={classes.profileAvatar}
-        >
-          {" "}
-          {/* <AccountCircleIcon /> */}
-        </Avatar>
+        {imageUrl ? (
+          <Avatar
+            alt="Profile Image"
+            src={"👤"}
+            className={classes.profileAvatar}
+          ></Avatar>
+        ) : (
+          <Avatar
+            alt="Profile Image"
+            src={imageUrl}
+            className={classes.profileAvatar}
+          ></Avatar>
+        )}
+
         <br />
         <CardContent>
           <Typography

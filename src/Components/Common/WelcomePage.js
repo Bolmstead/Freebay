@@ -18,9 +18,9 @@ export default function Welcome() {
         <br />
         <br />
         <br />
-        {/* <EmojiEmotionsIcon className={classes.smiley} color="disabled" /> */}
+        <div className={classes.smiley}>😁</div>
         <Typography component="h1" variant="h3" id="notify">
-          Welcome to freeBay
+          Welcome to freeBay!
         </Typography>
       </Grid>
       <Grid item xs={10} md={8}>

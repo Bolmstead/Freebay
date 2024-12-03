@@ -239,7 +239,7 @@ function PrimarySearchAppBar() {
             <form onSubmit={handleSubmit}>
               <div className={classes.searchIcon}>
                 <button type="submit" className={classes.searchButton}>
-                  Search
+                  🔍
                 </button>
               </div>
               <InputBase
@@ -268,22 +268,7 @@ function PrimarySearchAppBar() {
                     badgeContent={newNotifications.length}
                     color="secondary"
                   >
-                    {/* {currentUser.imageUrl ? (
-                      <NotificationsIcon
-                        edge="end"
-                        aria-label="account of current user"
-                        aria-controls={menuId}
-                        aria-haspopup="true"
-                        className={classes.notificationsIcon}
-                      />
-                    ) : (
-                      <NotificationsIcon
-                        edge="end"
-                        aria-label="account of current user"
-                        aria-controls={menuId}
-                        aria-haspopup="true"
-                      />
-                    )} */}
+                    🔔
                   </Badge>
                 </IconButton>
                 <IconButton
@@ -300,7 +285,7 @@ function PrimarySearchAppBar() {
                       src={currentUser.imageUrl}
                     />
                   ) : (
-                    "asdf"
+                    "👤"
                   )}
                 </IconButton>
               </div>

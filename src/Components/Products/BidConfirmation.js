@@ -23,7 +23,7 @@ export default function BidConfirmation() {
           <br />
           <br />
           <br />
-          {/* <EmojiEmotionsIcon className={classes.smiley} color="disabled" /> */}
+          <div className={classes.smiley}>😁</div>
           <Typography component="h3" variant="h5">
             Congrats {currentUser.firstName}, you're now the high bidder!
           </Typography>
