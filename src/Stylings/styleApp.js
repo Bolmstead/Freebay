@@ -1,25 +1,25 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles(() => ({
   app: {
     backgroundColor: "#FFFFFF",
   },
   hr: {
-    height:'1px', 
-    borderWidth:0, 
-    color:'lightgrey', 
-    backgroundColor: '#e6e6e6', 
-    margin:0, 
+    height: "1px",
+    borderWidth: 0,
+    color: "lightgrey",
+    backgroundColor: "#e6e6e6",
+    margin: 0,
     padding: 0,
   },
-  grey:{
-    backgroundColor: "#e6e6e6"
+  grey: {
+    backgroundColor: "#e6e6e6",
   },
-  appWrapper:{
+  appWrapper: {
     backgroundColor: "#FFFFFF",
-    minHeight: "96vh",
+    minHeight: "98vh",
     position: "relative",
   },
 }));
 
-export default useStyles
+export default useStyles;

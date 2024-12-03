@@ -2,6 +2,8 @@ import React from "react";
 import useStyles from "./Stylings/styleFooter";
 import { Typography } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
+import Container from "@material-ui/core/Container";
+
 // import LinkedInIcon from "@material-ui/icons/LinkedIn";
 // import GitHubIcon from "@material-ui/icons/GitHub";
 
@@ -12,8 +14,7 @@ function Footer() {
   const classes = useStyles();
 
   return (
-    <div className={classes.footer}>
-      <hr className={classes.hr} />
+    <Container className={classes.footer}>
       <div className={classes.footerContainer}>
         <div className={classes.footerTextContainer}>
           <Typography
@@ -26,14 +27,14 @@ function Footer() {
             Developed by Berkley Olmstead
           </Typography>
         </div>
-        {/* <Link href="https://github.com/Bolmstead/freebay-frontend">
-          <GitHubIcon className={classes.icon} />
+        <Link href="https://github.com/Bolmstead/freebay-frontend">
+          <img className={classes.icon} src={"/Images/github.png"} />
         </Link>
         <Link href="https://www.linkedin.com/in/berkleyolmstead/">
-          <LinkedInIcon className={classes.icon} />
-        </Link> */}
+          <img className={classes.icon} src={"/Images/linkedin.png"} />
+        </Link>
       </div>
-    </div>
+    </Container>
   );
 }
 

@@ -307,7 +307,7 @@ function ProductDetails() {
         </Grid>
 
         <Grid item xs={12}>
-          <Card variant="outlined">
+          <Card style={{ border: "none" }} variant="outlined">
             <CardContent className={classes.content}>
               <Typography variant="h5">Description</Typography>
               <br />
@@ -315,7 +315,9 @@ function ProductDetails() {
               <hr className={classes.hr} />
               <br />
               <Typography variant="subtitle1" color="textSecondary">
-                {product.description}
+                {product.description.length > 700
+                  ? product.description.substring(0, 700) + "..."
+                  : product.description}
               </Typography>
             </CardContent>
           </Card>

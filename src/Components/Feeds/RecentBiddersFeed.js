@@ -21,10 +21,7 @@ function RecentBiddersFeed(haveBidsBeenChecked) {
 
     const handleGetRecentBidders = async () => {
       const result = await FreebayAPI.getRecentBids(numOfBids);
-      console.log(
-        "🚀 ~ file: RecentBiddersFeed.js:24 ~ handleGetRecentBidders ~ result",
-        result
-      );
+
       setRecentlyBiddedProducts(result);
     };
     handleGetRecentBidders();
@@ -64,8 +61,7 @@ function RecentBiddersFeed(haveBidsBeenChecked) {
               will be operating here soon within a few days :)
             </Typography> */}
             <Typography style={{ color: "#808080" }}>
-              Due to Heroku constraints, products may take some time to
-              load :)
+              Due to Heroku constraints, products may take some time to load :)
             </Typography>
           </Grid>
         </Grid>

@@ -87,6 +87,7 @@ export default function RecentWinsFeed(haveBidsBeenChecked) {
       {recentWins[0] ? (
         recentWins.map((product) => (
           <div>
+            {console.log(product)}
             <ListItem alignItems="flex-start">
               <Link
                 href={"/Profile/" + product.username}
@@ -96,7 +97,11 @@ export default function RecentWinsFeed(haveBidsBeenChecked) {
                   <Avatar
                     alt="Product Image"
                     className={classes.large}
-                    src={product.userImageUrl || "👤"}
+                    src={
+                      product.userImageUrl === ""
+                        ? "https://i.pinimg.com/474x/2a/bd/8b/2abd8bb2736468d7199cbf68bd2061a0.jpg"
+                        : product.userImageUrl
+                    }
                   >
                     {" "}
                   </Avatar>

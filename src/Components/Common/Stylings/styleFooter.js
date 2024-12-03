@@ -1,15 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles(() => ({
-  hr: {
-    height: "1px",
-    borderWidth: 0,
-    color: "lightgrey",
-    backgroundColor: "#e6e6e6",
-    marginTop: "20px",
-    marginBottom: "0px",
-    padding: 0,
-  },
+
   footerText: {
     margin: "10px",
   },
@@ -20,12 +12,13 @@ export const useStyles = makeStyles(() => ({
   },
   footerContainer: {
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "center",
     alignItems: "center",
   },
   icon: {
     color: "grey",
     margin: "10px",
+    width: "22px",
   },
 
   pageContainer: {
@@ -40,7 +33,6 @@ export const useStyles = makeStyles(() => ({
   footer: {
     position: "absolute",
     bottom: 0,
-    width: "100%",
     height: "2.5rem",
   },
 }));
