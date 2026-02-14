@@ -1,10 +1,10 @@
-import { makeStyles } from '@material-ui/core/styles';
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import withStyles from "@material-ui/core/styles/withStyles";
+import { makeStyles } from "@mui/styles";
+import Card from "@mui/material/Card";
+import CardActionArea from "@mui/material/CardActionArea";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import { styled } from "@mui/material/styles";
 
 export const useStyles = makeStyles((theme) => ({
   header: {
@@ -14,7 +14,7 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: "flex-end",
     margin: "10px",
     color: "white",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   headerSecondary: {
     display: "flex",
@@ -33,51 +33,40 @@ export const useStyles = makeStyles((theme) => ({
   img: {
     padding: 0,
     margin: 0,
-    height: "auto"
+    height: "auto",
   },
   card: {
     padding: 0,
     margin: 0,
     height: "250px",
-  }
+  },
 }));
 
-export const FiCard = withStyles({
-  root: {
-    position: "relative"
-  }
-})(Card);
+export const FiCard = styled(Card)({
+  position: "relative",
+});
 
-export const FiCardActionArea = withStyles({
-  root: {
-    position: "relative"
-  }
-})(CardActionArea);
+export const FiCardActionArea = styled(CardActionArea)({
+  position: "relative",
+});
 
-export const FiCardActions = withStyles({
-  root: {
-    position: "relative"
-  }
-})(CardActions);
+export const FiCardActions = styled(CardActions)({
+  position: "relative",
+});
 
-export const FiCardContent = withStyles({
-  root: {
-    position: "relative",
-    backgroundColor: "transparent"
-  }
-})(CardContent);
+export const FiCardContent = styled(CardContent)({
+  position: "relative",
+  backgroundColor: "transparent",
+});
 
-export const FiCardMedia = withStyles({
-  root: {
-    position: "absolute",
-    top: 0,
-    right: 0,
-    height: "100%",
-    width: "100%",
-    boxShadow: "0 3000px rgba(0, 0, 0, 0.3) inset"
-    
-  }
-})(CardMedia);
+export const FiCardMedia = styled(CardMedia)({
+  position: "absolute",
+  top: 0,
+  right: 0,
+  height: "100%",
+  width: "100%",
+  boxShadow: "0 3000px rgba(0, 0, 0, 0.3) inset",
+});
 
 // --- Exports --- //
 export default {
@@ -85,6 +74,5 @@ export default {
   FiCardActionArea,
   FiCardActions,
   FiCardContent,
-  FiCardMedia
+  FiCardMedia,
 };
-

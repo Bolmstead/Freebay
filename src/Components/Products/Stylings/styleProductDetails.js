@@ -1,11 +1,10 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
-
   imageContainer: {
-    height: '400px',
-    width: '400px',
-    margin: 'auto'
+    height: "400px",
+    width: "400px",
+    margin: "auto",
   },
   media: {
     maxHeight: 400,
@@ -13,11 +12,11 @@ const useStyles = makeStyles({
     objectFit: "contain",
     display: "block",
     marginLeft: "auto",
-    marginRight: "auto"
+    marginRight: "auto",
   },
   root: {
     maxWidth: 500,
-    margin: "auto"
+    margin: "auto",
   },
   cover: {
     width: 151,
@@ -26,28 +25,27 @@ const useStyles = makeStyles({
     fontWeight: "bold",
   },
   hr: {
-    height:'1px', 
-    borderWidth:0, 
-    color:'lightgrey', 
-    backgroundColor: '#e6e6e6', 
-    margin:0, 
-    padding: 0
+    height: "1px",
+    borderWidth: 0,
+    color: "lightgrey",
+    backgroundColor: "#e6e6e6",
+    margin: 0,
+    padding: 0,
   },
   ratingContainer: {
     display: "table",
     alignItems: "center",
-    position: "relative"
+    position: "relative",
   },
   ratingNumber: {
     position: "absolute",
     top: 0,
     display: "inline",
-    color: "gray"
-    },
+    color: "gray",
+  },
   redText: {
-    color: "#FF0000"
-  }
+    color: "#FF0000",
+  },
 });
 
 export default useStyles;
-

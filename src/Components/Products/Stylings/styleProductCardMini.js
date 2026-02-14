@@ -1,8 +1,8 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
   root: {
-    width: 200
+    width: 200,
   },
   media: {
     height: 175,
@@ -14,17 +14,17 @@ const useStyles = makeStyles({
     paddingTop: "5px",
   },
   ratingNumber: {
-    top: 200
+    top: 200,
   },
   price: {
     fontWeight: "bold",
-    textDecoration: 'none'
+    textDecoration: "none",
   },
   noUnderline: {
-    textDecoration: 'none'
+    textDecoration: "none",
   },
-  cardContent:{
-    minHeight: '100px'
+  cardContent: {
+    minHeight: "100px",
   },
 
   loadingCard: {
@@ -32,13 +32,12 @@ const useStyles = makeStyles({
     height: 300,
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
-  loadingCardContent:{
+  loadingCardContent: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
-
+    justifyContent: "center",
   },
 });
 

@@ -1,21 +1,21 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        padding: theme.spacing(2)
-    },
-    button: {
-      textTransform: 'none',
-      marginTop: "20px",
-      marginBottom: "40px"
-    },
-    extendedIcon: {
-      marginRight: theme.spacing(1),
-    },
-    listTitle: {
-      fontWeight: 600
-    }
-}))
+  root: {
+    flexGrow: 1,
+    padding: theme.spacing(2),
+  },
+  button: {
+    textTransform: "none",
+    marginTop: "20px",
+    marginBottom: "40px",
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
+  },
+  listTitle: {
+    fontWeight: 600,
+  },
+}));
 
 export default useStyles;

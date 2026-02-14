@@ -1,9 +1,9 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 250,
-    minWidth: 250
+    minWidth: 250,
   },
   media: {
     height: 200,
@@ -12,17 +12,17 @@ const useStyles = makeStyles({
     display: "block",
     marginLeft: "auto",
     marginRight: "auto",
-    paddingTop: "8px"
+    paddingTop: "8px",
   },
   ratingNumber: {
-    top: 200
+    top: 200,
   },
   price: {
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   redText: {
-    color: "#FF0000"
-  }
+    color: "#FF0000",
+  },
 });
 
 export default useStyles;

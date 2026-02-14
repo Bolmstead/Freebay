@@ -1,134 +1,131 @@
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3003";
+const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3003";
 
-/** API Class.
- *
- * Static class tying together methods used to get/send to to the API. *
- *
- *
- *
- */
+const api = axios.create({
+  baseURL: BASE_URL,
+});
 
-class FreebayAPI {
-  // the token for with the API will be stored here.
-  /// asdf
-  static token;
+// Request interceptor — attach auth token to every request
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("freebay-token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
-  static async request(endpoint, data = {}, method = "get") {
-    console.debug("API Call:", endpoint, data, method);
+// Response interceptor — normalize errors into user-friendly messages
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response) {
+      const { status, data } = error.response;
+      const message = data?.error?.message || data?.message || "Something went wrong.";
 
-    const url = `${BASE_URL}/${endpoint}`;
-    const headers = { Authorization: `Bearer ${FreebayAPI.token}` };
-    const params = method === "get" ? data : {};
-
-    try {
-      return (await axios({ url, method, data, params, headers })).data;
-    } catch (err) {
-      console.log("🚀 ~ file: Api.js:26 ~ FreebayAPI ~ request ~ err", err);
-      throw err;
+      if (status === 401) {
+        return Promise.reject(new Error("Please log in to continue."));
+      }
+      if (status === 404) {
+        return Promise.reject(new Error("The requested resource was not found."));
+      }
+      return Promise.reject(new Error(message));
     }
-  }
 
-  // Individual API routes
+    if (error.request) {
+      return Promise.reject(new Error("Unable to reach the server. Please check your connection."));
+    }
 
-  /** Get details on a product by id. */
+    return Promise.reject(error);
+  },
+);
 
-  static async getProduct(id) {
-    let res = await this.request(`products/${id}`);
-    return res.productResult;
-  }
+/** Make a request to the API. */
 
-  /** Get details on all products. */
+async function request(endpoint, data = {}, method = "get") {
+  const params = method === "get" ? data : {};
 
-  static async getProducts(searchObject) {
-    const queryString = Object.keys(searchObject)
-      .map((key) => key + "=" + searchObject[key])
-      .join("&");
-
-    let url = `products/?` + queryString;
-    let res = await this.request(url);
-
-    return res;
-  }
-
-  /** Login for site. */
-
-  static async login(data) {
-    let res = await this.request(`auth/token`, data, "post");
-
-    return res.token;
-  }
-
-  /** Signup for site. */
-
-  static async signup(data) {
-    let res = await this.request(`auth/register`, data, "post");
-
-    console.log("🚀 ~ FreebayAPI ~ signup ~ res:", res);
-    return res.token;
-  }
-
-  /** Get current user information. */
-
-  static async getUser(username) {
-    let res = await this.request(`users/${username}`);
-    return res;
-  }
-
-  /** Check all bids if an auction has ended. If so, the
-   *  product will be added to the products_won table */
-
-  static async checkAllBids() {
-    let res = await this.request(`bids/check-all-bids-for-ended-auctions`);
-    return res;
-  }
-
-  /** Get recent bids */
-
-  static async getRecentBids(numOfProducts) {
-    let res = await this.request(`bids/recent/${numOfProducts}`);
-    return res;
-  }
-
-  /** Post new Bid */
-
-  static async addBid(productId, bidAmount) {
-    let data = {};
-    let res = await this.request(
-      `bids/${productId}/placeBid/${bidAmount}`,
-      data,
-      "post"
-    );
-    return res;
-  }
-
-  /** Get recent bids */
-
-  static async getRecentWins(numOfProducts) {
-    let res = await this.request(`products-won/recent/${numOfProducts}`);
-    return res;
-  }
-
-  /** Post method for when a user views a notification */
-
-  static async viewNotifications(email) {
-    let data = {};
-    let res = await this.request(`notifications/view`, data, "post");
-    return res;
-  }
-
-  /** Get details on a product by id. */
-
-  static async seedProducts() {
-    let res = await this.request(`products/seed`);
-
-    console.log(
-      "🚀 ~ file: Api.js:125 ~ FreebayAPI ~ seedProducts ~ res:",
-      res
-    );
-    return res;
-  }
+  const res = await api({ url: endpoint, method, data, params });
+  return res.data;
 }
 
-export default FreebayAPI;
+/** Get details on a product by id. */
+
+export async function getProduct(id) {
+  const res = await request(`products/${id}`);
+  return res.productResult;
+}
+
+/** Get details on all products. */
+
+export async function getProducts(searchObject) {
+  const queryString = Object.keys(searchObject)
+    .map((key) => `${key}=${searchObject[key]}`)
+    .join("&");
+
+  const res = await request(`products/?${queryString}`);
+  return res;
+}
+
+/** Login for site. */
+
+export async function login(data) {
+  const res = await request("auth/token", data, "post");
+  return res.token;
+}
+
+/** Signup for site. */
+
+export async function signup(data) {
+  const res = await request("auth/register", data, "post");
+  return res.token;
+}
+
+/** Get current user information. */
+
+export async function getUser(username) {
+  const res = await request(`users/${username}`);
+  return res;
+}
+
+/** Check all bids if an auction has ended. */
+
+export async function checkAllBids() {
+  const res = await request("bids/check-all-bids-for-ended-auctions");
+  return res;
+}
+
+/** Get recent bids. */
+
+export async function getRecentBids(numOfProducts) {
+  const res = await request(`bids/recent/${numOfProducts}`);
+  return res;
+}
+
+/** Post new bid. */
+
+export async function addBid(productId, bidAmount) {
+  const res = await request(`bids/${productId}/placeBid/${bidAmount}`, {}, "post");
+  return res;
+}
+
+/** Get recent wins. */
+
+export async function getRecentWins(numOfProducts) {
+  const res = await request(`products-won/recent/${numOfProducts}`);
+  return res;
+}
+
+/** Post method for when a user views a notification. */
+
+export async function viewNotifications() {
+  const res = await request("notifications/view", {}, "post");
+  return res;
+}
+
+/** Seed products. */
+
+export async function seedProducts() {
+  const res = await request("products/seed");
+  return res;
+}

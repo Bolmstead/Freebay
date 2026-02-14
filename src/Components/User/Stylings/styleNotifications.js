@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@mui/styles";
 
 export const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,20 +14,19 @@ export const useStyles = makeStyles((theme) => ({
   card: {
     backgroundColor: "#F6F6F6",
   },
-  itemList:{
+  itemList: {
     backgroundColor: "#F6F6F6",
-    maxHeight: 290, 
-    minHeight: 200, 
-    overflow: 'auto'
+    maxHeight: 290,
+    minHeight: 200,
+    overflow: "auto",
   },
-  cardContent: {
-  },
+  cardContent: {},
   feedGrid: {
-    verticalAlign: "top"
+    verticalAlign: "top",
   },
   feedTitle: {
-    fontWeight: "bold"
-  }
+    fontWeight: "bold",
+  },
 }));
 
-export default useStyles
+export default useStyles;

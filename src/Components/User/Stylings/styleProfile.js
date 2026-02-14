@@ -1,8 +1,8 @@
-import { makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
   userName: {
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   media: {
     height: 300,
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
   smiley: {
     fontSize: 200,
-    color: "#FFD066"
+    color: "#FFD066",
   },
   cover: {
     width: 151,
@@ -21,9 +21,9 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 275,
   },
   bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
+    display: "inline-block",
+    margin: "0 2px",
+    transform: "scale(0.8)",
   },
   title: {
     fontSize: 14,
@@ -33,43 +33,42 @@ const useStyles = makeStyles((theme) => ({
   },
   tabPanel: {
     flexGrow: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   profileImage: {
     maxWidth: 200,
     margin: "auto",
-    borderRadius: "50%"
+    borderRadius: "50%",
   },
   profileContainer: {
     width: 270,
     height: 320,
     margin: "auto",
     backgroundColor: "#F6F6F6",
-    position: "relative"
+    position: "relative",
   },
   errorText: {
-    color: "grey"
+    color: "grey",
   },
-  profileAvatar:{
-      width: theme.spacing(17),
-      height: theme.spacing(17),
-      margin: "auto",
-      boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
+  profileAvatar: {
+    width: theme.spacing(17),
+    height: theme.spacing(17),
+    margin: "auto",
+    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
   },
-  imageAndName:{
+  imageAndName: {
     position: "absolute",
     top: 50,
     left: 0,
     right: 0,
     bottom: 0,
-    margin: "auto"
+    margin: "auto",
   },
   feedContainer: {
     margin: "auto",
     backgroundColor: "#F6F6F6",
-    position: "relative"
+    position: "relative",
   },
-}))
+}));
 
 export default useStyles;
-

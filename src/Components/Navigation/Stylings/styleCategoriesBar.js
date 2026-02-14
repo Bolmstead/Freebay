@@ -1,78 +1,77 @@
-import { makeStyles } from '@material-ui/core/styles';
-
+import { makeStyles } from "@mui/styles";
 
 export const useStyles = makeStyles((theme) => ({
   center: {
-    alignItems: 'center',
-    display: 'flex'
+    alignItems: "center",
+    display: "flex",
   },
   appBar: {
     backgroundColor: "#FFFFFF",
     border: 1,
   },
   menuButton: {
-    maxWidth: '30px', 
-    maxHeight: '30px', 
-    minWidth: '30px', 
-    minHeight: '30px',
+    maxWidth: "30px",
+    maxHeight: "30px",
+    minWidth: "30px",
+    minHeight: "30px",
     marginRight: theme.spacing(2),
-    textTransform: 'none',
+    textTransform: "none",
   },
   root: {
-    display: 'flex',
-    minHeight: '40px'
+    display: "flex",
+    minHeight: "40px",
   },
   paper: {
     marginRight: theme.spacing(2),
-    textTransform: 'none',
+    textTransform: "none",
   },
   grow: {
     flexGrow: 1,
   },
   inputRoot: {
-    color: 'black',
+    color: "black",
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
     },
   },
   sectionDesktop: {
-    display: 'none',
+    display: "none",
     backgroundColor: "#FFFFFF",
     border: 1,
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
+    [theme.breakpoints.up("md")]: {
+      display: "flex",
     },
   },
   sectionMobile: {
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
+    [theme.breakpoints.up("md")]: {
+      display: "none",
     },
   },
   flexItem: {
     flex: 1,
-    textTransform: 'none',
-    },
+    textTransform: "none",
+  },
   accordion: {
-    border: '1px solid rgba(0, 0, 0, .125)',
-    boxShadow: 'none',
-    '&:not(:last-child)': {
+    border: "1px solid rgba(0, 0, 0, .125)",
+    boxShadow: "none",
+    "&:not(:last-child)": {
       borderBottom: 0,
     },
-    '&:before': {
-      display: 'none',
+    "&:before": {
+      display: "none",
     },
-    '&$expanded': {
-      margin: 'auto',
+    "&$expanded": {
+      margin: "auto",
     },
   },
   expanded: {},
-}))
+}));
 
-export default  useStyles;
+export default useStyles;

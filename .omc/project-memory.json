@@ -1,0 +1,159 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1771101290242,
+  "projectRoot": "/Users/berkleyolmstead/Repos/Freebay/Freebay-FE",
+  "techStack": {
+    "languages": [
+      {
+        "name": "JavaScript/TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "package.json"
+        ]
+      }
+    ],
+    "frameworks": [
+      {
+        "name": "react",
+        "version": "18.2.0",
+        "category": "frontend"
+      },
+      {
+        "name": "react-dom",
+        "version": "18.2.0",
+        "category": "frontend"
+      },
+      {
+        "name": "vite",
+        "version": "5.0.0",
+        "category": "build"
+      }
+    ],
+    "packageManager": "npm",
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": "npm run build",
+    "testCommand": null,
+    "lintCommand": "npm run lint",
+    "devCommand": "npm run start",
+    "scripts": {
+      "start": "vite",
+      "build": "vite build",
+      "preview": "vite preview",
+      "lint": "eslint src/",
+      "format": "prettier --write \"src/**/*.{js,jsx}\" --ignore-path ../.prettierignore"
+    }
+  },
+  "conventions": {
+    "namingStyle": "camelCase",
+    "importStyle": "ES modules",
+    "testPattern": null,
+    "fileOrganization": "type-based"
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "public",
+      "src"
+    ],
+    "gitBranches": {
+      "defaultBranch": "master",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "build": {
+      "path": "build",
+      "purpose": "Build output",
+      "fileCount": 3,
+      "lastAccessed": 1771101290231,
+      "keyFiles": [
+        "index.html",
+        "manifest.json",
+        "robots.txt"
+      ]
+    },
+    "public": {
+      "path": "public",
+      "purpose": "Public files",
+      "fileCount": 3,
+      "lastAccessed": 1771101290231,
+      "keyFiles": [
+        "index.html",
+        "manifest.json",
+        "robots.txt"
+      ]
+    },
+    "src": {
+      "path": "src",
+      "purpose": "Source code",
+      "fileCount": 7,
+      "lastAccessed": 1771101290233,
+      "keyFiles": [
+        "Api.js",
+        "App.js",
+        "Context.js",
+        "Routes.js",
+        "index.js"
+      ]
+    },
+    "web_scraping_docs": {
+      "path": "web_scraping_docs",
+      "purpose": null,
+      "fileCount": 3,
+      "lastAccessed": 1771101290234,
+      "keyFiles": [
+        "amazon_scraper.py",
+        "pyvenv.cfg",
+        "requirements.txt"
+      ]
+    },
+    "build/assets": {
+      "path": "build/assets",
+      "purpose": "Static assets",
+      "fileCount": 1,
+      "lastAccessed": 1771101290234,
+      "keyFiles": [
+        "index-BOuJ_n7B.js"
+      ]
+    },
+    "src/Components": {
+      "path": "src/Components",
+      "purpose": "UI components",
+      "fileCount": 0,
+      "lastAccessed": 1771101290235,
+      "keyFiles": []
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "src",
+      "accessCount": 5,
+      "lastAccessed": 1771101470331,
+      "type": "directory"
+    },
+    {
+      "path": "src/App.jsx",
+      "accessCount": 3,
+      "lastAccessed": 1771101481601,
+      "type": "file"
+    },
+    {
+      "path": "vite.config.js",
+      "accessCount": 2,
+      "lastAccessed": 1771101306077,
+      "type": "file"
+    },
+    {
+      "path": "index.html",
+      "accessCount": 2,
+      "lastAccessed": 1771101393631,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}
